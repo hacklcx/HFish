@@ -1,0 +1,216 @@
+{{template "header"}}
+<style>
+    .card-box {
+        padding: 0px;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 0rem;
+    }
+
+    #tableList .td {
+        vertical-align: middle;
+    }
+
+    thead {
+        background: #f5f5f5;
+    }
+
+    .project {
+        font-weight: bold;
+        padding-left: 5px;
+    }
+
+    .fa-trash-o {
+        color: #f00;
+        cursor: pointer;
+    }
+
+    .info {
+        color: #039cfd;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .label {
+        line-height: 11px;
+    }
+
+    .lb_ssh {
+        background-color: #434556;
+    }
+
+    .lb_redis {
+        background-color: #e44242;
+    }
+
+    .lb_mysql {
+        background-color: #cabd23;
+    }
+
+    .pre {
+        background: #2c2c31;
+        color: #4fe21b;
+        padding: 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 0px;
+        margin-bottom: -14px;
+    }
+
+    .modal-content {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+    .modal-header {
+        padding: 10px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .modal-header .close {
+        margin-top: 0px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        {{/*<div class="btn-group pull-right m-t-15">*/}}
+            {{/*<a type="button" class="btn btn-custom" href="#">导出 <span class="m-l-5"><i*/}}
+                    {{/*class="zmdi zmdi-alarm-plus"></i></span>*/}}
+            {{/*</a>*/}}
+        {{/*</div>*/}}
+        <h4 class="page-title">上钩列表</h4>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card-box table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="10%">项目</th>
+                    <th width="10%">来源 IP</th>
+                    <th width="10%">信息</th>
+                    <th width="10%">上钩时间</th>
+                    <th width="1%">操作</th>
+                </tr>
+                </thead>
+                <tbody id="tableList"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h6 class="modal-title" id="myModalLabel">上钩信息</h6>
+            </div>
+            <div class="modal-body">
+                <pre class="pre"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer" }}
+<script>
+    function show(id) {
+        $.ajax({
+            type: "GET",
+            url: "/get/fish/info",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    var data = e.data;
+                    var str = data[0].info.replace(/&&/g, "<br>");
+                    console.log(str);
+                    $(".pre").html(str);
+                } else {
+                }
+            },
+            error: function (e) {
+            }
+        });
+
+        $('#myModal').modal('show')
+    }
+
+    function del(id) {
+        $.ajax({
+            type: "POST",
+            url: "/post/fish/del",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    window.location.href = "/fish";
+                } else {
+                    swal("删除失败", e.msg, 'error');
+                }
+            },
+            error: function (e) {
+                swal("删除失败", "请 Github 提交 Issues", 'error');
+            }
+        });
+    }
+
+    function init() {
+        $.ajax({
+            type: "GET",
+            url: "/get/fish/list",
+            dataType: "json",
+            success: function (e) {
+                if (e.code == 200) {
+                    var data = e.data;
+                    var _h = '';
+
+                    for (var i = 0; i < data.length; i++) {
+                        _h += '<tr>';
+                        _h += '    <td class="td">';
+                        if (data[i].type == "WEB") {
+                            _h += '       <span class="label label-primary">WEB</span> ';
+                        } else if (data[i].type == "SSH") {
+                            _h += '       <span class="label lb_ssh">SSH</span> ';
+                        } else if (data[i].type == "REDIS") {
+                            _h += '       <span class="label lb_redis">REDIS</span> ';
+                        } else if (data[i].type == "MYSQL") {
+                            _h += '       <span class="label lb_mysql">MYSQL</span> ';
+                        }
+
+                        _h += '       <span class="project">' + data[i].project_name + '</span>';
+                        _h += '    </td>';
+                        _h += '    <td class="td">' + data[i].ip + '</td>';
+                        _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
+                        _h += '    <td class="td">' + data[i].create_time + '</td>';
+                        _h += '    <td class="td" style="text-align: center;">';
+                        _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
+                        _h += '    </td>';
+                        _h += '</tr>';
+                    }
+
+                    $("#tableList").html(_h);
+                } else {
+
+                }
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+
+    init();
+</script>

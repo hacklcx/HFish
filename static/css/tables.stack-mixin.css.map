@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,0BAA0B",
+"sources": ["../plugins/tablesaw/src/tables.stack-mixin.scss"],
+"names": [],
+"file": "tables.stack-mixin.css"
+}

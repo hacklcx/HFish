@@ -1,0 +1,118 @@
+{{template "header"}}
+<style>
+    .card-box {
+        padding: 0px;
+    }
+
+    .pdbox {
+        padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 25px;
+        padding-bottom: 30px;
+    }
+
+    thead {
+        background: #f2f2f3;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    .title {
+        border-left: 2px solid #0097ff;
+        padding-left: 10px;
+    }
+
+    .img {
+        position: absolute;
+        right: 167px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        top: 50px;
+        font-family: serif;
+    }
+
+    .xyimg {
+        width: 120px;
+    }
+
+</style>
+<div class="row">
+    <!-- Page-Title -->
+    <div class="col-sm-12">
+        <h4 class="page-title">邮件群发</h4>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card-box pdbox">
+            <div class="img">
+                <img src="/static/images/xy.png" class="xyimg">
+                <p>人不努力，和咸鱼有什么区别？</p>
+            </div>
+            <div class="col-md-6">
+                <h4 class="header-title m-t-0 m-b-30 title">基本信息</h4>
+                <div class="form-group row">
+                    <label for="taskName" class="col-sm-3 form-control-label"><span class="text-danger">*</span>
+                        邮件标题：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="title" placeholder="请输入邮件标题">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="taskExplain" class="col-sm-3 form-control-label"><span class="text-danger">*</span>
+                        发件人：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="from" placeholder="请输入发件人">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="taskExplain" class="col-sm-3 form-control-label"><span class="text-danger">*</span>
+                        收件人：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="emails" placeholder="请输入收件人 例:xxx@gmail.com,xxx@outlook.com">
+                    </div>
+                </div>
+                <hr>
+                <h4 class="header-title m-t-0 m-b-30 title">邮件模板</h4>
+
+            </div>
+            <textarea style="width: 100%;margin-top: 20px;height: 200px;" id="content"></textarea>
+            <button type="button" class="btn btn-primary waves-effect waves-light"
+                    style="width: 100%;margin-top: 20px;" onclick="sendMailToUsers()">发送邮件
+            </button>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+{{template "footer" }}
+<script>
+    var sendMailToUsers=function () {
+        var title = $("#title").val();
+        var from = $("#from").val();
+        var emails= $("#emails").val();
+        var content=$("#content").val();
+            $.ajax({
+            type: "POST",
+            url: "/post/mail/sendEmail",
+            dataType: "json",
+            data: {
+                title,
+               from,
+                emails,
+                content
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    swal("success", "发送成功!", "success");
+                } else {
+                    swal("发送失败", e.msg, 'error');
+                }
+            },
+            error: function (e) {
+                swal("发送失败", "请 Github 提交 Issues", 'error');
+        }
+            })
+    }
+</script>
