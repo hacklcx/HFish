@@ -12,8 +12,8 @@
 
 # 地址
 
-- Github: https://github.com/hacklcs/HFish
-- Download: https://github.com/hacklcs/HFish/releases
+- Github: https://github.com/hacklcx/HFish
+- Download: https://github.com/hacklcx/HFish/releases
 
 # 快速部署
 
