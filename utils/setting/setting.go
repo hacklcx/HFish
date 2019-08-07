@@ -149,7 +149,7 @@ func Help() {
 	fmt.Println("")
 	fmt.Println(color.Yellow(" + [ ABOUT ]----------------------------------------------------------- +"))
 	fmt.Println("")
-	fmt.Println(color.Green("   - Github:"), color.White("https://github.com/hacklcs/HFish"), color.Green(" - Team:"), color.White("https://hack.lc"))
+	fmt.Println(color.Green("   - Github:"), color.White("https://github.com/hacklcx/HFish"), color.Green(" - Team:"), color.White("https://hack.lc"))
 	fmt.Println("")
 	fmt.Println(color.Yellow(" + [ ARGUMENTS ]------------------------------------------------------- +"))
 	fmt.Println("")
