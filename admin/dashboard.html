@@ -1,0 +1,344 @@
+{{template "header"}}
+<style>
+    .title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .openx {
+        background: #3dd209;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        display: -webkit-inline-box;
+        margin-right: 10px;
+    }
+
+    .closex {
+        background: #dc0e0e;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        display: -webkit-inline-box;
+        margin-right: 10px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="btn-group pull-right m-t-15">
+            <a type="button" class="btn btn-custom" href="https://github.com/hacklcs/HFish/blob/master/README.md"
+               target="_blank">查看帮助 <span class="m-l-5"><i
+                    class="zmdi zmdi-help-outline"></i></span>
+            </a>
+        </div>
+        <h4 class="page-title">仪表盘</h4>
+    </div>
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card-box tilebox-two">
+            <i class="icon-rocket pull-xs-right text-muted"></i>
+            <h6 class="text-success text-uppercase m-b-15 m-t-10">WEB上钩数</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.webSum}}</span></h2>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card-box tilebox-two">
+            <i class="icon-chart pull-xs-right text-muted"></i>
+            <h6 class="text-primary text-uppercase m-b-15 m-t-10">SSH上钩数</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.sshSum}}</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card-box tilebox-two">
+            <i class="icon-layers pull-xs-right text-muted"></i>
+            <h6 class="text-pink text-uppercase m-b-15 m-t-10">Redis上钩数</h6>
+            <h2 class="m-b-10" data-plugin="counterup">{{.redisSum}}</h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card-box tilebox-two">
+            <i class="icon-paypal pull-xs-right text-muted"></i>
+            <h6 class="text-info text-uppercase m-b-15 m-t-10">Mysql上钩数</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.mysqlSum}}</span></h2>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="card-box" style="height: 340px;">
+            <p class="title">服务状态</p>
+            <p><span class="openx"></span>ADMIN</p>
+
+        {{if eq .apiStatus "1"}}
+            <p><span class="openx"></span>API</p>
+        {{else}}
+            <p><span class="closex"></span>API</p>
+        {{end}}
+
+        {{if eq .webStatus "1"}}
+            <p><span class="openx"></span>WEB</p>
+        {{else}}
+            <p><span class="closex"></span>WEB</p>
+        {{end}}
+
+        {{if eq .sshStatus "1"}}
+            <p><span class="openx"></span>SSH</p>
+        {{else}}
+            <p><span class="closex"></span>SSH</p>
+        {{end}}
+
+        {{if eq .redisStatus "1"}}
+            <p><span class="openx"></span>REDIS</p>
+        {{else}}
+            <p><span class="closex"></span>REDIS</p>
+        {{end}}
+
+        {{if eq .mysqlStatus "1"}}
+            <p><span class="openx"></span>MYSQL</p>
+        {{else}}
+            <p><span class="closex"></span>MYSQL</p>
+        {{end}}
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="card-box">
+            <div id="myChart" style="width:100%;height:300px;"></div>
+        </div>
+    </div>
+</div>
+{{template "footer" }}
+<script src="/static/libs/echarts/echarts.js"></script>
+<script>
+
+    var webData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
+    var sshData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
+    var redisData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
+    var mysqlData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
+    var myChart = echarts.init(document.getElementById('myChart'));
+
+    $.ajax({
+        type: "GET",
+        url: "/get/dashboard/data",
+        dataType: "json",
+        success: function (e) {
+            if (e.code == 200) {
+                var d = e.data;
+
+                for (var item in d.mysql) {
+                    mysqlData[parseInt(item)] = d.mysql[item];
+                }
+
+                for (var item in d.redis) {
+                    redisData[parseInt(item)] = d.redis[item];
+                }
+
+                for (var item in d.ssh) {
+                    sshData[parseInt(item)] = d.ssh[item];
+                }
+
+                for (var item in d.web) {
+                    webData[parseInt(item)] = d.web[item];
+                }
+
+                var option = {
+                    title: {
+                        text: '今日数据'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                backgroundColor: '#6a7985'
+                            }
+                        }
+                    },
+                    legend: {
+                        data: ['WEB', 'SSH', 'REDIS', 'MYSQL']
+                    },
+                    grid: {
+                        left: '0%',
+                        right: '0%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: [
+                                '00',
+                                '01',
+                                '02',
+                                '03',
+                                '04',
+                                '05',
+                                '06',
+                                '07',
+                                '08',
+                                '09',
+                                '10',
+                                '12',
+                                '13',
+                                '14',
+                                '15',
+                                '16',
+                                '17',
+                                '18',
+                                '19',
+                                '20',
+                                '21',
+                                '22',
+                                '23'
+                            ]
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: 'WEB',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: webData
+                        },
+                        {
+                            name: 'SSH',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: sshData
+                        },
+                        {
+                            name: 'REDIS',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: redisData
+                        },
+                        {
+                            name: 'MYSQL',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: mysqlData
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+            }
+        }
+    });
+
+
+</script>
