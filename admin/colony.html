@@ -1,0 +1,109 @@
+{{template "header"}}
+<style>
+    .card-box {
+        padding: 0px;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 0rem;
+    }
+
+    #tableList .td {
+        vertical-align: middle;
+    }
+
+    thead {
+        background: #f5f5f5;
+    }
+
+    .project {
+        font-weight: bold;
+        padding-left: 5px;
+    }
+
+    .fa-trash-o {
+        color: #f00;
+        cursor: pointer;
+    }
+
+    .info {
+        color: #039cfd;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .label {
+        line-height: 11px;
+    }
+
+    .lb_ssh {
+        background-color: #434556;
+    }
+
+    .lb_redis {
+        background-color: #e44242;
+    }
+
+    .lb_mysql {
+        background-color: #cabd23;
+    }
+
+    .pre {
+        background: #2c2c31;
+        color: #4fe21b;
+        padding: 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 0px;
+        margin-bottom: -14px;
+    }
+
+    .modal-content {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+    .modal-header {
+        padding: 10px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .modal-header .close {
+        margin-top: 0px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">分布式集群</h4>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card-box table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="10%">项目</th>
+                    <th width="10%">来源 IP</th>
+                    <th width="10%">信息</th>
+                    <th width="10%">上钩时间</th>
+                    <th width="1%">操作</th>
+                </tr>
+                </thead>
+                <tbody id="tableList">
+                <tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{template "footer" }}
+<script>
+
+</script>

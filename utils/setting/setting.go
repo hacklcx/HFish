@@ -33,14 +33,48 @@ func RunWeb(template string, static string, url string) http.Handler {
 	return r
 }
 
+func RunDark(template string, static string, url string) http.Handler {
+	r := gin.New()
+	r.Use(gin.Recovery())
+
+	// 引入html资源
+	r.LoadHTMLGlob("web/" + template + "/*")
+
+	// 引入静态资源
+	r.Static("/static", "./web/"+static)
+
+	r.GET(url, func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{})
+	})
+
+	return r
+}
+
 func RunAdmin() http.Handler {
 	gin.DisableConsoleColor()
+
 	f, _ := os.Create("./logs/hfish.log")
 	gin.DefaultWriter = io.MultiWriter(f)
+
 	// 引入gin
 	r := gin.Default()
 
+	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+		return fmt.Sprintf("[HFish] %s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
+			param.ClientIP,
+			param.TimeStamp.Format("2006-01-02 15:04:05"),
+			param.Method,
+			param.Path,
+			param.Request.Proto,
+			param.StatusCode,
+			param.Latency,
+			param.Request.UserAgent(),
+			param.ErrorMessage,
+		)
+	}))
+
 	r.Use(gin.Recovery())
+
 	// 引入html资源
 	r.LoadHTMLGlob("admin/*")
 
@@ -113,11 +147,33 @@ func Run() {
 
 	//=========================//
 
+	// 启动 暗网 钓鱼
+	darkStatus := conf.Get("dark_net", "status")
+
+	// 判断 暗网 Web 钓鱼 是否开启
+	if darkStatus == "1" {
+		darkAddr := conf.Get("dark_net", "addr")
+		darkTemplate := conf.Get("dark_net", "template")
+		darkStatic := conf.Get("dark_net", "static")
+		darkUrl := conf.Get("dark_net", "url")
+
+		serverDark := &http.Server{
+			Addr:         darkAddr,
+			Handler:      RunWeb(darkTemplate, darkStatic, darkUrl),
+			ReadTimeout:  5 * time.Second,
+			WriteTimeout: 10 * time.Second,
+		}
+
+		go serverDark.ListenAndServe()
+	}
+
+	//=========================//
+
 	// 启动 admin 管理后台
-	adminbAddr := conf.Get("admin", "addr")
+	adminAddr := conf.Get("admin", "addr")
 
 	serverAdmin := &http.Server{
-		Addr:         adminbAddr,
+		Addr:         adminAddr,
 		Handler:      RunAdmin(),
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,

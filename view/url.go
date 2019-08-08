@@ -5,6 +5,7 @@ import (
 	"HFish/view/dashboard"
 	"HFish/view/fish"
 	"HFish/view/mail"
+	"HFish/view/colony"
 	"HFish/view/setting"
 	"github.com/gin-gonic/gin"
 	"HFish/view/login"
@@ -45,6 +46,9 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/get/fish/list", login.Jump, fish.GetFishList)
 	r.GET("/get/fish/info", login.Jump, fish.GetFishInfo)
 	r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
+
+	// 分布式集群
+	r.GET("/colony", login.Jump, colony.Html)
 
 	// 邮件群发
 	r.GET("/mail", login.Jump, mail.Html)

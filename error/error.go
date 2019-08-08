@@ -7,8 +7,8 @@ import (
 
 func Check(e error, tips string) {
 	if e != nil {
-		panic(e)
 		fmt.Println(tips)
+		panic(e)
 	}
 }
 

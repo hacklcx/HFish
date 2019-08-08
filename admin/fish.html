@@ -77,16 +77,47 @@
     .modal-header .close {
         margin-top: 0px;
     }
+
+    .sos {
+        margin-bottom: 10px;
+        height: 100px;
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
-        {{/*<div class="btn-group pull-right m-t-15">*/}}
-            {{/*<a type="button" class="btn btn-custom" href="#">导出 <span class="m-l-5"><i*/}}
-                    {{/*class="zmdi zmdi-alarm-plus"></i></span>*/}}
-            {{/*</a>*/}}
-        {{/*</div>*/}}
+    {{/*<div class="btn-group pull-right m-t-15">*/}}
+    {{/*<a type="button" class="btn btn-custom" href="#">导出 <span class="m-l-5"><i*/}}
+    {{/*class="zmdi zmdi-alarm-plus"></i></span>*/}}
+    {{/*</a>*/}}
+    {{/*</div>*/}}
         <h4 class="page-title">上钩列表</h4>
     </div>
+
+    <div class="sos">
+        <div class="col-sm-2">
+            <select class="form-control" id="exampleSelect1" style="height: 34px;">
+                <option>请选择类型</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa  fa-search"></i></span>
+                <input type="text" class="form-control" id="so_text"
+                       placeholder="请输入搜索内容">
+            </div><!-- input-group -->
+        </div>
+    </div>
+
 
     <div class="col-sm-12">
         <div class="card-box table-responsive">
@@ -167,11 +198,15 @@
         });
     }
 
-    function init() {
+    function init(page) {
         $.ajax({
             type: "GET",
             url: "/get/fish/list",
             dataType: "json",
+            data: {
+                "page": page,
+                "pageSize": 10
+            },
             success: function (e) {
                 if (e.code == 200) {
                     var data = e.data;
@@ -201,6 +236,10 @@
                         _h += '</tr>';
                     }
 
+                    if (_h == "") {
+                        _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>'
+                    }
+
                     $("#tableList").html(_h);
                 } else {
 
@@ -212,5 +251,5 @@
     }
 
 
-    init();
+    init(10);
 </script>

@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"HFish/utils/try"
 	"HFish/core/report"
+	"HFish/utils/log"
 )
 
 var kvData map[string]string
@@ -26,6 +27,7 @@ func Start(addr string) {
 		}
 		arr := strings.Split(conn.RemoteAddr().String(), ":")
 		id := report.ReportRedis(arr[0], conn.RemoteAddr().String()+" 已经连接")
+		log.Pr("Redis", arr[0], "已经连接")
 
 		go handleConnection(conn, id)
 	}

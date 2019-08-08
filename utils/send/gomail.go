@@ -1,11 +1,9 @@
 package send
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
 	"gopkg.in/gomail.v2"
 	"strconv"
-	"time"
+	"HFish/utils/log"
 )
 
 func SendMail(mailTo []string, subject string, body string, config []string) error {
@@ -22,9 +20,9 @@ func SendMail(mailTo []string, subject string, body string, config []string) err
 	err := d.DialAndSend(m)
 
 	if err != nil {
-		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 发送邮件通知失败 ", err)
+		log.Pr("HFish", "127.0.0.1", "发送邮件通知失败", err)
 	} else {
-		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 发送邮件通知成功")
+		log.Pr("HFish", "127.0.0.1", "发送邮件通知成功")
 	}
 
 	return err

@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"HFish/core/dbUtil"
 	"HFish/error"
+	"HFish/utils/page"
+	"strconv"
 )
 
 // 钓鱼 页面
@@ -14,8 +16,17 @@ func Html(c *gin.Context) {
 
 // 获取钓鱼列表
 func GetFishList(c *gin.Context) {
-	sql := `select id,type,project_name,ip,create_time from hfish_info ORDER BY id desc;`
-	result := dbUtil.Query(sql)
+	p, _ := c.GetQuery("page")
+	pageSize, _ := c.GetQuery("pageSize")
+
+	pInt, _ := strconv.ParseInt(p, 10, 64)
+	pageSizeInt, _ := strconv.ParseInt(pageSize, 10, 64)
+
+	pageStart := page.Start(pInt, pageSizeInt)
+
+	sql := `select id,type,project_name,ip,create_time from hfish_info ORDER BY id desc LIMIT ?,?;`
+	result := dbUtil.Query(sql, pageStart, pageSizeInt)
+
 	c.JSON(http.StatusOK, error.ErrSuccess(result))
 }
 
