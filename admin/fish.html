@@ -120,9 +120,10 @@
                 <tr>
                     <th width="10%">项目</th>
                     <th width="10%">来源 IP</th>
+                    <th width="10%">地理信息</th>
                     <th width="10%">信息</th>
-                    <th width="10%">上钩时间</th>
-                    <th width="1%">操作</th>
+                    <th width="8%">上钩时间</th>
+                    <th width="2%">操作</th>
                 </tr>
                 </thead>
                 <tbody id="tableList"></tbody>
@@ -252,6 +253,7 @@
                     _h += '       <span class="project">' + data[i].project_name + '</span>';
                     _h += '    </td>';
                     _h += '    <td class="td">' + data[i].ip + '</td>';
+                    _h += '    <td class="td">' + data[i].ip_info + '</td>';
                     _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
                     _h += '    <td class="td">' + data[i].create_time + '</td>';
                     _h += '    <td class="td" style="text-align: center;">';

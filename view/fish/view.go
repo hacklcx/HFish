@@ -26,7 +26,7 @@ func GetFishList(c *gin.Context) {
 
 	pageStart := page.Start(pInt, pageSizeInt)
 
-	sql := `select id,type,project_name,ip,create_time from hfish_info where 1=1`
+	sql := `select id,type,project_name,ip,ip_info,create_time from hfish_info where 1=1`
 	sqlx := `select count(1) as sum from hfish_info where 1=1`
 	sqlStatus := 0
 
@@ -65,7 +65,6 @@ func GetFishList(c *gin.Context) {
 		pageCount := resultx[0]["sum"].(int64)
 		pageCount = page.TotalPage(pageCount, pageSizeInt)
 
-
 		c.JSON(http.StatusOK, gin.H{
 			"data":      result,
 			"pageCount": pageCount,
@@ -77,7 +76,6 @@ func GetFishList(c *gin.Context) {
 		pageCount := resultx[0]["sum"].(int64)
 		pageCount = page.TotalPage(pageCount, pageSizeInt)
 
-
 		c.JSON(http.StatusOK, gin.H{
 			"data":      result,
 			"pageCount": pageCount,
@@ -88,7 +86,6 @@ func GetFishList(c *gin.Context) {
 		resultx := dbUtil.Query(sqlx, typex, "%"+soText+"%", "%"+soText+"%")
 		pageCount := resultx[0]["sum"].(int64)
 		pageCount = page.TotalPage(pageCount, pageSizeInt)
-
 
 		c.JSON(http.StatusOK, gin.H{
 			"data":      result,
