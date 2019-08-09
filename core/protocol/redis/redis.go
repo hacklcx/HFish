@@ -40,7 +40,7 @@ func handleConnection(conn net.Conn, id int64) {
 
 		switch value := str.(type) {
 		case string:
-			report.ReportUpdateRedis(id, "&&"+str.(string))
+			go report.ReportUpdateRedis(id, "&&"+str.(string))
 
 			if len(value) == 0 {
 				goto end
@@ -55,7 +55,7 @@ func handleConnection(conn net.Conn, id int64) {
 					val := string(value[2])
 					kvData[key] = val
 
-					report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1]+" "+value[2])
+					go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1]+" "+value[2])
 
 				}).Catch(func() {
 					// 取不到 key 会异常
@@ -70,14 +70,14 @@ func handleConnection(conn net.Conn, id int64) {
 				valLen := strconv.Itoa(len(val))
 				str := "$" + valLen + "\r\n" + val + "\r\n"
 
-				report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
+				go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
 
 				conn.Write([]byte(str))
 			} else {
 				try.Try(func() {
-					report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
+					go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
 				}).Catch(func() {
-					report.ReportUpdateRedis(id, "&&"+value[0])
+					go report.ReportUpdateRedis(id, "&&"+value[0])
 				})
 
 				conn.Write([]byte("+OK\r\n"))

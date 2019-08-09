@@ -16,7 +16,7 @@ func Start(addr string) {
 
 			log.Pr("SSH", arr[0], "已经连接")
 
-			report.ReportSSH(arr[0], info)
+			go report.ReportSSH(arr[0], info)
 
 			return false // false 代表 账号密码 不正确
 		}),

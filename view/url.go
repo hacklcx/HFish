@@ -45,6 +45,7 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/fish", login.Jump, fish.Html)
 	r.GET("/get/fish/list", login.Jump, fish.GetFishList)
 	r.GET("/get/fish/info", login.Jump, fish.GetFishInfo)
+	r.GET("/get/fish/typeList", login.Jump, fish.GetFishTypeInfo)
 	r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
 
 	// 分布式集群
@@ -70,5 +71,7 @@ func LoadUrl(r *gin.Engine) {
 
 		apiUrl := conf.Get("api", "url")
 		r.POST(apiUrl, api.ReportWeb)
+
+		r.GET("/api/v1/get/ip", login.Jump, api.GetIpList)
 	}
 }

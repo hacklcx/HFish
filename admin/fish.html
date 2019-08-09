@@ -95,13 +95,7 @@
 
     <div class="sos">
         <div class="col-sm-2">
-            <select class="form-control" id="exampleSelect1" style="height: 34px;">
-                <option>请选择类型</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+            <select class="form-control" id="selectType" style="height: 34px;" onchange="so()"></select>
         </div>
         <div class="col-sm-2">
         </div>
@@ -113,8 +107,8 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa  fa-search"></i></span>
                 <input type="text" class="form-control" id="so_text"
-                       placeholder="请输入搜索内容">
-            </div><!-- input-group -->
+                       placeholder="请输入搜索内容" oninput="so()">
+            </div>
         </div>
     </div>
 
@@ -133,6 +127,10 @@
                 </thead>
                 <tbody id="tableList"></tbody>
             </table>
+        </div>
+        <div style="text-align: center;" class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination" id="pages">
+            </ul>
         </div>
     </div>
 </div>
@@ -198,49 +196,22 @@
         });
     }
 
-    function init(page) {
+    function init_type() {
         $.ajax({
             type: "GET",
-            url: "/get/fish/list",
+            url: "/get/fish/typeList",
             dataType: "json",
-            data: {
-                "page": page,
-                "pageSize": 10
-            },
             success: function (e) {
                 if (e.code == 200) {
                     var data = e.data;
-                    var _h = '';
+                    var _h = '<option value="all">请选择类型</option>';
 
                     for (var i = 0; i < data.length; i++) {
-                        _h += '<tr>';
-                        _h += '    <td class="td">';
-                        if (data[i].type == "WEB") {
-                            _h += '       <span class="label label-primary">WEB</span> ';
-                        } else if (data[i].type == "SSH") {
-                            _h += '       <span class="label lb_ssh">SSH</span> ';
-                        } else if (data[i].type == "REDIS") {
-                            _h += '       <span class="label lb_redis">REDIS</span> ';
-                        } else if (data[i].type == "MYSQL") {
-                            _h += '       <span class="label lb_mysql">MYSQL</span> ';
-                        }
-
-                        _h += '       <span class="project">' + data[i].project_name + '</span>';
-                        _h += '    </td>';
-                        _h += '    <td class="td">' + data[i].ip + '</td>';
-                        _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
-                        _h += '    <td class="td">' + data[i].create_time + '</td>';
-                        _h += '    <td class="td" style="text-align: center;">';
-                        _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
-                        _h += '    </td>';
-                        _h += '</tr>';
+                        _h += '<option value="' + data[i].type + '">' + data[i].type + '</option>';
                     }
 
-                    if (_h == "") {
-                        _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>'
-                    }
+                    $("#selectType").html(_h);
 
-                    $("#tableList").html(_h);
                 } else {
 
                 }
@@ -250,6 +221,90 @@
         });
     }
 
+    function init(page, type, so_text) {
+        $.ajax({
+            type: "GET",
+            url: "/get/fish/list",
+            dataType: "json",
+            data: {
+                "page": page,
+                "pageSize": 10,
+                "type": type,
+                "so_text": so_text
+            },
+            success: function (e) {
+                var data = e.data;
+                var _h = '';
 
-    init(10);
+                for (var i = 0; i < data.length; i++) {
+                    _h += '<tr>';
+                    _h += '    <td class="td">';
+                    if (data[i].type == "WEB") {
+                        _h += '       <span class="label label-primary">WEB</span> ';
+                    } else if (data[i].type == "SSH") {
+                        _h += '       <span class="label lb_ssh">SSH</span> ';
+                    } else if (data[i].type == "REDIS") {
+                        _h += '       <span class="label lb_redis">REDIS</span> ';
+                    } else if (data[i].type == "MYSQL") {
+                        _h += '       <span class="label lb_mysql">MYSQL</span> ';
+                    }
+
+                    _h += '       <span class="project">' + data[i].project_name + '</span>';
+                    _h += '    </td>';
+                    _h += '    <td class="td">' + data[i].ip + '</td>';
+                    _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
+                    _h += '    <td class="td">' + data[i].create_time + '</td>';
+                    _h += '    <td class="td" style="text-align: center;">';
+                    _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
+                    _h += '    </td>';
+                    _h += '</tr>';
+                }
+
+                if (_h == "") {
+                    _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>'
+                }
+
+                $("#tableList").html(_h);
+
+                var pageCount = e.pageCount;
+                var page = e.page;
+                var _hx = '';
+
+                for (var i = 0; i < parseInt(pageCount); i++) {
+                    if (page == (i + 1)) {
+                        _hx += '<li class="paginate_button page-item active">';
+                        _hx += '    <a onclick="page(' + (i + 1) + ')" style="cursor: pointer;" aria-controls="datatable" data-dt-idx="' + (i + 1) + '" tabindex="0" class="page-link">' + (i + 1) + '</a>';
+                        _hx += '</li>';
+                    } else {
+                        _hx += '<li class="paginate_button page-item">';
+                        _hx += '    <a onclick="page(' + (i + 1) + ')" style="cursor: pointer;" aria-controls="datatable" data-dt-idx="' + (i + 1) + '" tabindex="0" class="page-link">' + (i + 1) + '</a>';
+                        _hx += '</li>';
+                    }
+                }
+
+
+                $("#pages").html(_hx);
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+
+    init(1, "all", "");
+    init_type();
+
+    function so() {
+        var selectType = $("#selectType").val();
+        var so_text = $("#so_text").val();
+
+        init(1, selectType, so_text);
+    }
+
+    function page(p) {
+        var selectType = $("#selectType").val();
+        var so_text = $("#so_text").val();
+
+        init(p, selectType, so_text);
+    }
 </script>

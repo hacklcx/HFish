@@ -14,6 +14,7 @@ import (
 	"HFish/core/protocol/ssh"
 	"HFish/core/protocol/redis"
 	"HFish/core/protocol/mysql"
+	"HFish/core/protocol/httpx"
 )
 
 func RunWeb(template string, static string, url string) http.Handler {
@@ -88,6 +89,17 @@ func RunAdmin() http.Handler {
 }
 
 func Run() {
+	// 启动 HTTP 正向代理
+	httpStatus := conf.Get("http", "status")
+
+	// 判断 HTTP 正向代理 是否开启
+	if httpStatus == "1" {
+		httpAddr := conf.Get("http", "addr")
+		go httpx.Start(httpAddr)
+	}
+
+	//=========================//
+
 	// 启动 Mysql 钓鱼
 	mysqlStatus := conf.Get("mysql", "status")
 
@@ -159,7 +171,7 @@ func Run() {
 
 		serverDark := &http.Server{
 			Addr:         darkAddr,
-			Handler:      RunWeb(darkTemplate, darkStatic, darkUrl),
+			Handler:      RunDark(darkTemplate, darkStatic, darkUrl),
 			ReadTimeout:  5 * time.Second,
 			WriteTimeout: 10 * time.Second,
 		}

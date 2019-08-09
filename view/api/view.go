@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"HFish/error"
 	"HFish/utils/conf"
+	"HFish/core/dbUtil"
 )
 
 func ReportWeb(c *gin.Context) {
@@ -19,7 +20,14 @@ func ReportWeb(c *gin.Context) {
 	if secKey != apiSecKey {
 		c.JSON(http.StatusOK, error.ErrFailApiKey())
 	} else {
-		report.ReportWeb(name, ip, info)
+		go report.ReportWeb(name, ip, info)
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 	}
+}
+
+// 获取记录黑客IP
+func GetIpList(c *gin.Context) {
+	sql := `select ip from hfish_info GROUP BY ip;`
+	result := dbUtil.Query(sql)
+	c.JSON(http.StatusOK, error.ErrSuccess(result))
 }

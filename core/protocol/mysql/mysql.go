@@ -109,7 +109,7 @@ func connectionClientHandler(conn net.Conn) {
 		log.Pr("Mysql", arr[0], "该客户端正在使用扫描器扫描")
 
 		// 有扫描器扫描
-		report.ReportUpdateMysql(id, "&&该客户端正在使用扫描器扫描")
+		go report.ReportUpdateMysql(id, "&&该客户端正在使用扫描器扫描")
 	})
 }
 
@@ -158,5 +158,5 @@ func getRequestContent(conn net.Conn, id int64) {
 
 //保存文件
 func getFileContent(content bytes.Buffer, id int64) {
-	report.ReportUpdateMysql(id, "&&"+content.String())
+	go report.ReportUpdateMysql(id, "&&"+content.String())
 }
