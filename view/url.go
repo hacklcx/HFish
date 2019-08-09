@@ -59,6 +59,7 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/setting", login.Jump, setting.Html)
 	r.GET("/get/setting/info", login.Jump, setting.GetSettingInfo)
 	r.POST("/post/setting/update", login.Jump, setting.UpdateEmailInfo)
+	r.POST("/post/setting/updateAlertMail", login.Jump, setting.UpdateAlertMail)
 	r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
 
 	// API 接口

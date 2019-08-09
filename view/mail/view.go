@@ -33,3 +33,11 @@ func SendEmailToUsers(c *gin.Context) {
 	send.SendMail(eArr, title, content, config)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
+/*发送警告邮件*/
+func SendAlertEmailToUsers(title string,content string){
+	sql := `select status,info from hfish_setting where type = "alertMail"`
+	isAlertStatus := dbUtil.Query(sql)
+	info := isAlertStatus[0]["info"]
+	config := strings.Split(info.(string), "&&")
+	send.SendMail(config[4:], title, content, config)
+}
