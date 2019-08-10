@@ -41,7 +41,7 @@
                     <tbody id="tableList">
                     {{range $i, $e := .dataList}}
                     <tr>
-                        <td>{{$e.setting_name}} </td>
+                        <td style="font-weight: bold;">{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
                         <td>{{$e.update_time}}</td>
                         <td>{{if ne $e.info ""}}

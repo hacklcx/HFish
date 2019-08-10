@@ -15,9 +15,11 @@ import (
 	"HFish/core/protocol/redis"
 	"HFish/core/protocol/mysql"
 	"HFish/core/protocol/httpx"
+	"HFish/core/rpc/server"
+	"HFish/core/rpc/client"
 )
 
-func RunWeb(template string, static string, url string) http.Handler {
+func RunWeb(template string, index string, static string, url string) http.Handler {
 	r := gin.New()
 	r.Use(gin.Recovery())
 
@@ -28,13 +30,13 @@ func RunWeb(template string, static string, url string) http.Handler {
 	r.Static("/static", "./web/"+static)
 
 	r.GET(url, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{})
+		c.HTML(http.StatusOK, index, gin.H{})
 	})
 
 	return r
 }
 
-func RunDark(template string, static string, url string) http.Handler {
+func RunDeep(template string, index string, static string, url string) http.Handler {
 	r := gin.New()
 	r.Use(gin.Recovery())
 
@@ -45,7 +47,7 @@ func RunDark(template string, static string, url string) http.Handler {
 	r.Static("/static", "./web/"+static)
 
 	r.GET(url, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{})
+		c.HTML(http.StatusOK, index, gin.H{})
 	})
 
 	return r
@@ -89,6 +91,17 @@ func RunAdmin() http.Handler {
 }
 
 func Run() {
+	// 启动 Telnet 正向代理
+	telnetStatus := conf.Get("telnet", "status")
+
+	// 判断 Telnet 正向代理 是否开启
+	if telnetStatus == "1" {
+		//httpAddr := conf.Get("telnet", "addr")
+		//go httpx.Start(httpAddr)
+	}
+
+	//=========================//
+
 	// 启动 HTTP 正向代理
 	httpStatus := conf.Get("http", "status")
 
@@ -146,10 +159,11 @@ func Run() {
 		webTemplate := conf.Get("web", "template")
 		webStatic := conf.Get("web", "static")
 		webUrl := conf.Get("web", "url")
+		webIndex := conf.Get("web", "index")
 
 		serverWeb := &http.Server{
 			Addr:         webAddr,
-			Handler:      RunWeb(webTemplate, webStatic, webUrl),
+			Handler:      RunWeb(webTemplate, webIndex, webStatic, webUrl),
 			ReadTimeout:  5 * time.Second,
 			WriteTimeout: 10 * time.Second,
 		}
@@ -160,23 +174,48 @@ func Run() {
 	//=========================//
 
 	// 启动 暗网 钓鱼
-	darkStatus := conf.Get("dark_net", "status")
+	deepStatus := conf.Get("deep", "status")
 
 	// 判断 暗网 Web 钓鱼 是否开启
-	if darkStatus == "1" {
-		darkAddr := conf.Get("dark_net", "addr")
-		darkTemplate := conf.Get("dark_net", "template")
-		darkStatic := conf.Get("dark_net", "static")
-		darkUrl := conf.Get("dark_net", "url")
+	if deepStatus == "1" {
+		deepAddr := conf.Get("deep", "addr")
+		deepTemplate := conf.Get("deep", "template")
+		deepStatic := conf.Get("deep", "static")
+		deepkUrl := conf.Get("deep", "url")
+		deepIndex := conf.Get("deep", "index")
 
 		serverDark := &http.Server{
-			Addr:         darkAddr,
-			Handler:      RunDark(darkTemplate, darkStatic, darkUrl),
+			Addr:         deepAddr,
+			Handler:      RunDeep(deepTemplate, deepIndex, deepStatic, deepkUrl),
 			ReadTimeout:  5 * time.Second,
 			WriteTimeout: 10 * time.Second,
 		}
 
 		go serverDark.ListenAndServe()
+	}
+
+	//=========================//
+
+	// 启动 RPC
+	rpcStatus := conf.Get("rpc", "status")
+
+	// 判断 RPC 是否开启 1 RPC 服务端 2 RPC 客户端
+	if rpcStatus == "1" {
+		// 服务端监听地址
+		rpcAddr := conf.Get("rpc", "addr")
+		go server.Start(rpcAddr)
+	} else if rpcStatus == "2" {
+		// 客户端连接服务端
+		// 阻止进程，不启动 admin
+
+		rpcName := conf.Get("rpc", "name")
+
+		for {
+			// 这样写 提高IO读写性能
+			go client.Start(rpcName, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus)
+
+			time.Sleep(time.Duration(1) * time.Minute)
+		}
 	}
 
 	//=========================//
@@ -210,7 +249,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.1
+  (__\\   /_//_/_/ /_/___/_//_/ v0.2
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))

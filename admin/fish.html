@@ -82,6 +82,14 @@
         margin-bottom: 10px;
         height: 100px;
     }
+
+    .agent_name{
+        border: 1px solid #167bcc;
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: #167bcc;
+        font-size: 12px;
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -119,6 +127,7 @@
                 <thead>
                 <tr>
                     <th width="10%">项目</th>
+                    <th width="10%">集群名称</th>
                     <th width="10%">来源 IP</th>
                     <th width="10%">地理信息</th>
                     <th width="10%">信息</th>
@@ -252,6 +261,7 @@
 
                     _h += '       <span class="project">' + data[i].project_name + '</span>';
                     _h += '    </td>';
+                    _h += '    <td class="td"><span class="agent_name">' + data[i].agent + '</span></td>';
                     _h += '    <td class="td">' + data[i].ip + '</td>';
                     _h += '    <td class="td">' + data[i].ip_info + '</td>';
                     _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';

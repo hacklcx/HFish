@@ -9,6 +9,8 @@ import (
 	"strings"
 	"HFish/utils/try"
 	"HFish/utils/log"
+	"net"
+	"fmt"
 )
 
 // 爬虫 ip138 获取 ip 地理信息
@@ -35,7 +37,7 @@ func Get(ip string) string {
 		result = strings.Replace(str4, "\n", "", -1)
 
 		if result == "保留地址" {
-			result = ""
+			result = "本地IP"
 		}
 
 	}).Catch(func() {
@@ -43,4 +45,27 @@ func Get(ip string) string {
 	})
 
 	return result
+}
+
+func GetLocalIp() string {
+	netInterfaces, err := net.Interfaces()
+	if err != nil {
+		fmt.Println("net.Interfaces failed, err:", err.Error())
+	}
+
+	for i := 0; i < len(netInterfaces); i++ {
+		if (netInterfaces[i].Flags & net.FlagUp) != 0 {
+			addrs, _ := netInterfaces[i].Addrs()
+
+			for _, address := range addrs {
+				if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+					if ipnet.IP.To4() != nil {
+						return ipnet.IP.String()
+					}
+				}
+			}
+		}
+	}
+
+	return ""
 }

@@ -26,7 +26,7 @@ func GetFishList(c *gin.Context) {
 
 	pageStart := page.Start(pInt, pageSizeInt)
 
-	sql := `select id,type,project_name,ip,ip_info,create_time from hfish_info where 1=1`
+	sql := `select id,type,project_name,agent,ip,ip_info,create_time from hfish_info where 1=1`
 	sqlx := `select count(1) as sum from hfish_info where 1=1`
 	sqlStatus := 0
 

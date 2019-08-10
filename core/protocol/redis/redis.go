@@ -8,6 +8,9 @@ import (
 	"HFish/utils/try"
 	"HFish/core/report"
 	"HFish/utils/log"
+	"HFish/utils/is"
+	"HFish/core/rpc/client"
+	"fmt"
 )
 
 var kvData map[string]string
@@ -26,7 +29,16 @@ func Start(addr string) {
 			continue
 		}
 		arr := strings.Split(conn.RemoteAddr().String(), ":")
-		id := report.ReportRedis(arr[0], conn.RemoteAddr().String()+" 已经连接")
+
+		// 判断是否为 RPC 客户端
+		var id string
+
+		if is.Rpc() {
+			id = client.ReportResult("REDIS", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
+		} else {
+			id = strconv.FormatInt(report.ReportRedis(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
+		}
+
 		log.Pr("Redis", arr[0], "已经连接")
 
 		go handleConnection(conn, id)
@@ -34,13 +46,20 @@ func Start(addr string) {
 }
 
 //处理 Redis 连接
-func handleConnection(conn net.Conn, id int64) {
+func handleConnection(conn net.Conn, id string) {
+
+	fmt.Println("redis ", id)
+
 	for {
 		str := parseRESP(conn)
 
 		switch value := str.(type) {
 		case string:
-			go report.ReportUpdateRedis(id, "&&"+str.(string))
+			if is.Rpc() {
+				go client.ReportResult("REDIS", "", "", "&&"+str.(string), id)
+			} else {
+				go report.ReportUpdateRedis(id, "&&"+str.(string))
+			}
 
 			if len(value) == 0 {
 				goto end
@@ -55,7 +74,11 @@ func handleConnection(conn net.Conn, id int64) {
 					val := string(value[2])
 					kvData[key] = val
 
-					go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1]+" "+value[2])
+					if is.Rpc() {
+						go client.ReportResult("REDIS", "", "", "&&"+value[0]+" "+value[1]+" "+value[2], id)
+					} else {
+						go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1]+" "+value[2])
+					}
 
 				}).Catch(func() {
 					// 取不到 key 会异常
@@ -63,21 +86,37 @@ func handleConnection(conn net.Conn, id int64) {
 
 				conn.Write([]byte("+OK\r\n"))
 			} else if value[0] == "GET" || value[0] == "get" {
-				// 模拟 redis get
-				key := string(value[1])
-				val := string(kvData[key])
+				try.Try(func() {
+					// 模拟 redis get
+					key := string(value[1])
+					val := string(kvData[key])
 
-				valLen := strconv.Itoa(len(val))
-				str := "$" + valLen + "\r\n" + val + "\r\n"
+					valLen := strconv.Itoa(len(val))
+					str := "$" + valLen + "\r\n" + val + "\r\n"
 
-				go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
+					if is.Rpc() {
+						go client.ReportResult("REDIS", "", "", "&&"+value[0]+" "+value[1], id)
+					} else {
+						go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
+					}
 
-				conn.Write([]byte(str))
+					conn.Write([]byte(str))
+				}).Catch(func() {
+					conn.Write([]byte("+OK\r\n"))
+				})
 			} else {
 				try.Try(func() {
-					go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
+					if is.Rpc() {
+						go client.ReportResult("REDIS", "", "", "&&"+value[0]+" "+value[1], id)
+					} else {
+						go report.ReportUpdateRedis(id, "&&"+value[0]+" "+value[1])
+					}
 				}).Catch(func() {
-					go report.ReportUpdateRedis(id, "&&"+value[0])
+					if is.Rpc() {
+						go client.ReportResult("REDIS", "", "", "&&"+value[0], id)
+					} else {
+						go report.ReportUpdateRedis(id, "&&"+value[0])
+					}
 				})
 
 				conn.Write([]byte("+OK\r\n"))

@@ -7,6 +7,8 @@ import (
 	"HFish/error"
 	"HFish/utils/conf"
 	"HFish/core/dbUtil"
+	"HFish/core/rpc/client"
+	"HFish/utils/is"
 )
 
 func ReportWeb(c *gin.Context) {
@@ -20,7 +22,37 @@ func ReportWeb(c *gin.Context) {
 	if secKey != apiSecKey {
 		c.JSON(http.StatusOK, error.ErrFailApiKey())
 	} else {
-		go report.ReportWeb(name, ip, info)
+
+		// 判断是否为 RPC 客户端
+		if is.Rpc() {
+			go client.ReportResult("WEB", name, ip, info, "0")
+		} else {
+			go report.ReportWeb(name, "本机", ip, info)
+		}
+
+		c.JSON(http.StatusOK, error.ErrSuccessNull())
+	}
+}
+
+func ReportDeepWeb(c *gin.Context) {
+	name := c.PostForm("name")
+	info := c.PostForm("info")
+	secKey := c.PostForm("sec_key")
+	ip := c.ClientIP()
+
+	apiSecKey := conf.Get("api", "sec_key")
+
+	if secKey != apiSecKey {
+		c.JSON(http.StatusOK, error.ErrFailApiKey())
+	} else {
+
+		// 判断是否为 RPC 客户端
+		if is.Rpc() {
+			go client.ReportResult("DEEP", name, ip, info, "0")
+		} else {
+			go report.ReportWeb(name, "本机", ip, info)
+		}
+
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 	}
 }

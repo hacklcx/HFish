@@ -18,64 +18,31 @@
         background: #f5f5f5;
     }
 
-    .project {
-        font-weight: bold;
-        padding-left: 5px;
+    .openx {
+        background: #3dd209;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        display: -webkit-inline-box;
+        margin-right: 10px;
     }
 
-    .fa-trash-o {
-        color: #f00;
-        cursor: pointer;
-    }
-
-    .info {
-        color: #039cfd;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .label {
-        line-height: 11px;
-    }
-
-    .lb_ssh {
-        background-color: #434556;
-    }
-
-    .lb_redis {
-        background-color: #e44242;
-    }
-
-    .lb_mysql {
-        background-color: #cabd23;
-    }
-
-    .pre {
-        background: #2c2c31;
-        color: #4fe21b;
-        padding: 10px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-
-    .modal-body {
-        position: relative;
-        padding: 0px;
-        margin-bottom: -14px;
-    }
-
-    .modal-content {
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
-    }
-
-    .modal-header {
-        padding: 10px;
-        border-bottom: 1px solid #e5e5e5;
+    .closex {
+        background: #dc0e0e;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        display: -webkit-inline-box;
+        margin-right: 10px;
     }
 
     .modal-header .close {
         margin-top: 0px;
+    }
+
+    .agent_name{
+        font-weight: bold;
+        color: #167bcc;
     }
 </style>
 <div class="row">
@@ -88,15 +55,21 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th width="10%">项目</th>
-                    <th width="10%">来源 IP</th>
-                    <th width="10%">信息</th>
-                    <th width="10%">上钩时间</th>
-                    <th width="1%">操作</th>
+                    <th width="10%">集群名称</th>
+                    <th width="10%">集群 IP</th>
+                    <th width="10%" style="text-align: center;">WEB</th>
+                    <th width="10%" style="text-align: center;">暗网</th>
+                    <th width="10%" style="text-align: center;">SSH</th>
+                    <th width="10%" style="text-align: center;">Redis</th>
+                    <th width="10%" style="text-align: center;">Mysql</th>
+                    <th width="10%" style="text-align: center;">Telnet</th>
+                    <th width="10%" style="text-align: center;">Http代理</th>
                 </tr>
                 </thead>
                 <tbody id="tableList">
-                <tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>
+                <tr style="text-align: center;">
+                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -105,5 +78,92 @@
 
 {{template "footer" }}
 <script>
+    $.ajax({
+        type: "GET",
+        url: "/get/colony/list",
+        dataType: "json",
+        success: function (e) {
+            var data = e.data;
+            var _h = '';
 
+            for (var i = 0; i < data.length; i++) {
+                _h += '<tr>';
+
+                var last_update_time = data[i].last_update_time;
+                last_update_time = last_update_time.substring(0, 19);
+                last_update_time = last_update_time.replace(/-/g, '/');
+                var timestamp = new Date(last_update_time).getTime();
+                var db_time = timestamp.toString().substring(0, 10);
+                var curr_time = Math.round(new Date() / 1000);
+
+                if ((curr_time - parseInt(db_time)) < 60) {
+                    _h += '    <td class="td agent_name"><span class="openx"></span>' + data[i].agent_name + '</td>';
+                    _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
+
+                    if (data[i].web_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
+                    if (data[i].dart_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
+                    if (data[i].ssh_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
+                    if (data[i].redis_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
+                    if (data[i].mysql_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
+                    if (data[i].telnet_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
+                    if (data[i].http_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+                } else {
+                    _h += '    <td class="td agent_name"><span class="closex"></span>' + data[i].agent_name + '</td>';
+                    _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                }
+
+
+                _h += '</tr>';
+            }
+
+            if (_h == "") {
+                _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="9">暂无数据</td></tr>'
+            }
+
+            $("#tableList").html(_h);
+        },
+        error: function (e) {
+        }
+    });
 </script>

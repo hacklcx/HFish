@@ -10,6 +10,9 @@ import (
 	"HFish/core/report"
 	"HFish/utils/try"
 	"HFish/utils/log"
+	"HFish/utils/is"
+	"HFish/core/rpc/client"
+	"strconv"
 )
 
 //读取文件时每次读取的字节数
@@ -72,7 +75,16 @@ func connectionClientHandler(conn net.Conn) {
 	connFrom := conn.RemoteAddr().String()
 
 	arr := strings.Split(connFrom, ":")
-	id := report.ReportMysql(arr[0], connFrom+" 已经连接")
+
+	// 判断是否为 RPC 客户端
+	var id string
+
+	if is.Rpc() {
+		id = client.ReportResult("MYSQL", "", arr[0], connFrom+" 已经连接", "0")
+	} else {
+		id = strconv.FormatInt(report.ReportMysql(arr[0], "本机", connFrom+" 已经连接"), 10)
+	}
+
 	log.Pr("Mysql", arr[0], "已经连接")
 
 	try.Try(func() {
@@ -108,13 +120,17 @@ func connectionClientHandler(conn net.Conn) {
 	}).Catch(func() {
 		log.Pr("Mysql", arr[0], "该客户端正在使用扫描器扫描")
 
-		// 有扫描器扫描
-		go report.ReportUpdateMysql(id, "&&该客户端正在使用扫描器扫描")
+		if is.Rpc() {
+			go client.ReportResult("MYSQL", "", "", "&&该客户端正在使用扫描器扫描", id)
+		} else {
+			// 有扫描器扫描
+			go report.ReportUpdateMysql(id, "&&该客户端正在使用扫描器扫描")
+		}
 	})
 }
 
 //获取客户端传来的文件数据
-func getRequestContent(conn net.Conn, id int64) {
+func getRequestContent(conn net.Conn, id string) {
 	var content bytes.Buffer
 	//先读取数据包长度，前面3字节
 	lengthBuf := make([]byte, 3)
@@ -156,7 +172,11 @@ func getRequestContent(conn net.Conn, id int64) {
 	}
 }
 
-//保存文件
-func getFileContent(content bytes.Buffer, id int64) {
-	go report.ReportUpdateMysql(id, "&&"+content.String())
+// 获取文件内容
+func getFileContent(content bytes.Buffer, id string) {
+	if is.Rpc() {
+		go client.ReportResult("MYSQL", "", "", "&&"+content.String(), id)
+	} else {
+		go report.ReportUpdateMysql(id, "&&"+content.String())
+	}
 }
