@@ -106,6 +106,43 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="receiveEmailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">E-mail 通知设置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>发送人(账号)</label>
+                    <input type="email" class="form-control" id="alertEmail" name="alertEmail" placeholder="请填写发送人账号">
+                </div>
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>密码</label>
+                    <input type="password" class="form-control" id="alertPass" name="alertPass" placeholder="请填写发送人密码">
+                </div>
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>SMTP</label>
+                    <input type="text" class="form-control" id="alertHost" name="alertHost" placeholder="例:smtp.126.com">
+                </div>
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>端口</label>
+                    <input type="number" class="form-control" id="alertPort" name="alertPort" placeholder="例:465">
+                </div>
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>接收人</label>
+                    <textarea class="form-control" id="receive" name="receive" placeholder="接收人(群发请换行)" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="updateReceiveEmailPost()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" value="" id="settingId">
 {{template "footer" }}
 <script>
@@ -118,6 +155,9 @@
                 break
             case "login":
                 $('#settingLoginModal').modal('show')
+                break
+            case "alertMail":
+                $('#receiveEmailModal').modal('show')
                 break
             default:
                 break
@@ -139,6 +179,14 @@
                 } else if (arr.length == 2 && result.data[0].type == "login") {
                     $("#loginName").val(arr[0])
                     $("#loginPwd").val(arr[1])
+                }else if (arr.length>=4&&result.data[0].type=="alertMail"){
+                    $("#alertEmail").val(arr[2])
+                    $("#alertPass").val(arr[3])
+                    $("#alertHost").val(arr[0])
+                    $("#alertPort").val(arr[1])
+                    var emailArr=arr.splice(4)
+                    var content= emailArr.join("\n")
+                    $("#receive").text(content)
                 }
             }
         }).fail(function (err) {
@@ -166,6 +214,34 @@
                 }
             }
             $('#myModal').modal('hide')
+
+        }).fail(function (err) {
+            console.log(err)
+        })
+    }
+
+    function updateReceiveEmailPost() {
+
+        var params = {
+            email: $("#alertEmail").val(),
+            pass: $("#alertPass").val(),
+            host: $("#alertHost").val(),
+            port: $("#alertPort").val(),
+            receive:$("#receive").val().split(/[\s\n]/).join(","),
+            id: $("#settingId").val()
+        };
+        console.log(params)
+        $.ajax({
+            type: "post",
+            url: "/post/setting/updateAlertMail",
+            data: params
+        }).success(function (result) {
+            if (result.code == 200) {
+                if (!$("#checkbox-" + params.id).prop("checked")) {
+                    $("#checkbox-" + params.id).click()
+                }
+            }
+            $('#receiveEmailModal').modal('hide')
 
         }).fail(function (err) {
             console.log(err)
