@@ -4,11 +4,11 @@
 
 > *本 Team 研发此平台，仅为企业安全测试使用，禁止其他人员使用非法用途！一切行为与本 Team 无关。*
 
-**HFish** 是一款基于 Golang 开发的跨平台多功能主动攻击型蜜罐钓鱼平台框架系统，为了企业安全防护测试做出了精心的打造
+**HFish** 是一款基于 Golang 开发的跨平台多功能主动诱导型蜜罐框架系统，为了企业安全防护测试做出了精心的打造
 
-- 多功能 不仅仅支持 HTTP(S) 钓鱼，还支持 SSH、SFTP、Redis、Mysql 等
-- 扩展性 提供 API 接口，使用者可以随意扩展钓鱼模块 ( WEB、PC、APP )
-- 便捷性 使用 Golang 开发，使用者可以在 Win + Mac + Linux 上快速部署一套钓鱼平台
+- 多功能 不仅仅支持 HTTP(S) 蜜罐，还支持 SSH、SFTP、Redis、Mysql 等
+- 扩展性 提供 API 接口，使用者可以随意扩展蜜罐模块 ( WEB、PC、APP )
+- 便捷性 使用 Golang 开发，使用者可以在 Win + Mac + Linux 上快速部署一套蜜罐平台
 
 # 地址
 
@@ -40,11 +40,11 @@
 
 # 部分功能使用演示
 
-### Redis 钓鱼
+### Redis 蜜罐
 
 ![redis.png](./images/redis.png)
 
-### Mysql 钓鱼
+### Mysql 蜜罐
 
 ![mysql.png](./images/mysql.png)
 
@@ -52,7 +52,7 @@
 
 - 邮箱 SMTP 配置后需要开启方可使用
 - API 接口 info 字段，&& 为换行符
-- 启动 WEB 钓鱼，请先启动 API 模块
+- 启动 WEB 蜜罐，请先启动 API 模块
 - WEB 插件 需在 WEB 目录下 编写
 - WEB 插件 下面必须存在两个目录
 
@@ -63,7 +63,7 @@ URL: http://localhost:9001/api/v1/post/report
 
 POST：
 
-    name    :   Github 钓鱼                        # 项目名
+    name    :   WEB管理后台蜜罐                     # 项目名
     info    :   admin&&12345                      # 上报信息，&& 为换行符号
     sec_key :   9cbf8a4dcb8e30682b927f352d6559a0  # API 安全密钥
 
@@ -84,10 +84,10 @@ POST：
 - [x] 支持 Mysql 服务端获取连接客户端电脑任意文件
 - [x] 支持 HTTP(S)、SSH、SFTP、Redis、Mysql 协议
 - [ ] 支持 FTP、Telnet、SMTP、POP3、TFTP、Oracle、VPN 等
-- [ ] 暗网钓鱼支持
-- [ ] WIFI 钓鱼支持
-- [ ] 自动化钓鱼支持
-- [ ] 钓鱼报告生成
+- [ ] 暗网蜜罐支持
+- [ ] WIFI 蜜罐支持
+- [ ] 自动化蜜罐支持
+- [ ] 蜜罐报告生成
 - [ ] 支持更多的 WEB 模块
 - [ ] 日记完善优化
 - [ ] 邮件发送支持编辑器
