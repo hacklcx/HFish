@@ -10,9 +10,9 @@ import (
 
 // 上报状态结构
 type Status struct {
-	AgentIp                                    string
-	AgentName                                  string
-	Web, Deep, Ssh, Redis, Mysql, Http, Telnet string
+	AgentIp                                         string
+	AgentName                                       string
+	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp string
 }
 
 // 上报结果结构
@@ -42,6 +42,7 @@ func (t *HFishRPCService) ReportStatus(s *Status, reply *string) error {
 		s.Mysql,
 		s.Http,
 		s.Telnet,
+		s.Ftp,
 	)
 
 	return nil
@@ -72,6 +73,15 @@ func (t *HFishRPCService) ReportResult(r *Result, reply *string) error {
 		} else {
 			go report.ReportUpdateMysql(r.Id, r.Info)
 		}
+	case "TELNET":
+		if r.Id == "0" {
+			id := report.ReportTelnet(r.SourceIp, r.AgentName, r.Info)
+			idx = strconv.FormatInt(id, 10)
+		} else {
+			go report.ReportUpdateTelnet(r.Id, r.Info)
+		}
+	case "FTP":
+		go report.ReportFTP(r.SourceIp, r.AgentName, r.Info)
 	}
 
 	*reply = idx

@@ -50,7 +50,7 @@ func ReportDeepWeb(c *gin.Context) {
 		if is.Rpc() {
 			go client.ReportResult("DEEP", name, ip, info, "0")
 		} else {
-			go report.ReportWeb(name, "本机", ip, info)
+			go report.ReportDeepWeb(name, "本机", ip, info)
 		}
 
 		c.JSON(http.StatusOK, error.ErrSuccessNull())

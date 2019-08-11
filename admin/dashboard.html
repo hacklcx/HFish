@@ -23,6 +23,35 @@
         display: -webkit-inline-box;
         margin-right: 10px;
     }
+
+    .lb_web {
+        color: #039cfd;
+    }
+
+    .lb_ssh {
+        color: #953fb9;
+    }
+
+    .lb_redis {
+        color: #e44242;
+    }
+
+    .lb_mysql {
+        color: #cabd23;
+    }
+
+    .lb_ftp {
+        color: #32cc16;
+    }
+
+    .lb_telnet {
+        color: #6b79c1;
+    }
+
+    .lb_deep {
+        color: #000000;
+    }
+
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -36,15 +65,8 @@
     </div>
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
-            <i class="icon-rocket pull-xs-right text-muted"></i>
-            <h6 class="text-success text-uppercase m-b-15 m-t-10">WEB上钩数</h6>
-            <h2 class="m-b-10"><span data-plugin="counterup">{{.webSum}}</span></h2>
-        </div>
-    </div>
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
-        <div class="card-box tilebox-two">
-            <i class="icon-chart pull-xs-right text-muted"></i>
-            <h6 class="text-primary text-uppercase m-b-15 m-t-10">SSH上钩数</h6>
+            <i class="icon-ghost  pull-xs-right text-muted"></i>
+            <h6 class="lb_ssh text-uppercase m-b-15 m-t-10">SSH 蜜罐</h6>
             <h2 class="m-b-10"><span data-plugin="counterup">{{.sshSum}}</span></h2>
         </div>
     </div>
@@ -52,21 +74,54 @@
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-layers pull-xs-right text-muted"></i>
-            <h6 class="text-pink text-uppercase m-b-15 m-t-10">Redis上钩数</h6>
+            <h6 class="lb_redis text-uppercase m-b-15 m-t-10">Redis 蜜罐</h6>
             <h2 class="m-b-10" data-plugin="counterup">{{.redisSum}}</h2>
         </div>
     </div>
 
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
-            <i class="icon-paypal pull-xs-right text-muted"></i>
-            <h6 class="text-info text-uppercase m-b-15 m-t-10">Mysql上钩数</h6>
+            <i class="icon-chart pull-xs-right text-muted"></i>
+            <h6 class="lb_mysql text-uppercase m-b-15 m-t-10">Mysql 蜜罐</h6>
             <h2 class="m-b-10"><span data-plugin="counterup">{{.mysqlSum}}</span></h2>
         </div>
     </div>
 
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card-box tilebox-two">
+            <i class="icon-layers pull-xs-right text-muted"></i>
+            <h6 class="lb_ftp text-uppercase m-b-15 m-t-10">FTP 蜜罐</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.ftpSum}}</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-box tilebox-two">
+            <i class="icon-plane pull-xs-right text-muted"></i>
+            <h6 class="lb_telnet text-uppercase m-b-15 m-t-10">TELNET 蜜罐</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.telnetSum}}</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-box tilebox-two">
+            <i class="icon-fire pull-xs-right text-muted"></i>
+            <h6 class="lb_web text-uppercase m-b-15 m-t-10">WEB 蜜罐</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.webSum}}</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-box tilebox-two">
+            <i class="icon-globe pull-xs-right text-muted"></i>
+            <h6 class="lb_deep text-uppercase m-b-15 m-t-10">DEEP 蜜罐</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.deepSum}}</span></h2>
+        </div>
+    </div>
+
+
     <div class="col-md-2">
-        <div class="card-box" style="height: 340px;">
+        <div class="card-box" style="height: 395px;">
             <p class="title">服务状态</p>
             <p><span class="openx"></span>ADMIN</p>
 
@@ -80,6 +135,12 @@
             <p><span class="openx"></span>WEB</p>
         {{else}}
             <p><span class="closex"></span>WEB</p>
+        {{end}}
+
+        {{if eq .deepStatus "1"}}
+            <p><span class="openx"></span>DEEP</p>
+        {{else}}
+            <p><span class="closex"></span>DEEP</p>
         {{end}}
 
         {{if eq .sshStatus "1"}}
@@ -99,12 +160,25 @@
         {{else}}
             <p><span class="closex"></span>MYSQL</p>
         {{end}}
+
+        {{if eq .telnetStatus "1"}}
+            <p><span class="openx"></span>TELNET</p>
+        {{else}}
+            <p><span class="closex"></span>TELNET</p>
+        {{end}}
+
+        {{if eq .ftpStatus "1"}}
+            <p><span class="openx"></span>FTP</p>
+        {{else}}
+            <p><span class="closex"></span>FTP</p>
+        {{end}}
+
         </div>
     </div>
 
     <div class="col-md-10">
         <div class="card-box">
-            <div id="myChart" style="width:100%;height:300px;"></div>
+            <div id="myChart" style="width:100%;height:355px;"></div>
         </div>
     </div>
 </div>
@@ -220,6 +294,87 @@
         0
     ];
 
+    var deepData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
+    var ftpData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
+    var telnetData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
     var myChart = echarts.init(document.getElementById('myChart'));
 
     $.ajax({
@@ -246,6 +401,18 @@
                     webData[parseInt(item)] = d.web[item];
                 }
 
+                for (var item in d.deep) {
+                    deepData[parseInt(item)] = d.deep[item];
+                }
+
+                for (var item in d.ftp) {
+                    ftpData[parseInt(item)] = d.ftp[item];
+                }
+
+                for (var item in d.telnet) {
+                    telnetData[parseInt(item)] = d.telnet[item];
+                }
+
                 var option = {
                     title: {
                         text: '今日数据'
@@ -260,7 +427,7 @@
                         }
                     },
                     legend: {
-                        data: ['WEB', 'SSH', 'REDIS', 'MYSQL']
+                        data: ['WEB', 'DEEP', 'SSH', 'REDIS', 'MYSQL', 'TELNET', 'FTP']
                     },
                     grid: {
                         left: '0%',
@@ -313,6 +480,13 @@
                             data: webData
                         },
                         {
+                            name: 'DEEP',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: deepData
+                        },
+                        {
                             name: 'SSH',
                             type: 'line',
                             stack: '总量',
@@ -332,6 +506,20 @@
                             stack: '总量',
                             areaStyle: {normal: {}},
                             data: mysqlData
+                        },
+                        {
+                            name: 'TELNET',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: telnetData
+                        },
+                        {
+                            name: 'FTP',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: ftpData
                         }
                     ]
                 };

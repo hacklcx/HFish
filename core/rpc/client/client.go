@@ -9,9 +9,9 @@ import (
 
 // 上报状态结构
 type Status struct {
-	AgentIp                                    string
-	AgentName                                  string
-	Web, Deep, Ssh, Redis, Mysql, Http, Telnet string
+	AgentIp                                         string
+	AgentName                                       string
+	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp string
 }
 
 // 上报结果结构
@@ -37,7 +37,7 @@ func createClient() (*rpc.Client, bool) {
 	return client, true
 }
 
-func reportStatus(rpcName string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string) {
+func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string) {
 	client, boolStatus := createClient()
 
 	if boolStatus {
@@ -53,6 +53,7 @@ func reportStatus(rpcName string, telnetStatus string, httpStatus string, mysqlS
 			mysqlStatus,
 			httpStatus,
 			telnetStatus,
+			ftpStatus,
 		}
 
 		var reply string
@@ -97,6 +98,6 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 	return ""
 }
 
-func Start(rpcName string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string) {
-	reportStatus(rpcName, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, darkStatus)
+func Start(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string) {
+	reportStatus(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, darkStatus)
 }

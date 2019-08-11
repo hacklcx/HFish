@@ -6622,10 +6622,11 @@ File: Menu
 .logo {
     float: left;
     color: #fff !important;
-    font-size: 20px;
+    font-size: 26px;
     font-weight: 600;
     letter-spacing: 1px;
-    line-height: 64px;
+    font-family: fantasy;
+    margin-top: 18px;
 }
 
 .logo span span {

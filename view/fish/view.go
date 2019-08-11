@@ -9,12 +9,12 @@ import (
 	"strconv"
 )
 
-// 钓鱼 页面
+// 蜜罐 页面
 func Html(c *gin.Context) {
 	c.HTML(http.StatusOK, "fish.html", gin.H{})
 }
 
-// 获取钓鱼列表
+// 获取蜜罐列表
 func GetFishList(c *gin.Context) {
 	p, _ := c.GetQuery("page")
 	pageSize, _ := c.GetQuery("pageSize")
@@ -95,7 +95,7 @@ func GetFishList(c *gin.Context) {
 	}
 }
 
-// 删除钓鱼
+// 删除蜜罐
 func PostFishDel(c *gin.Context) {
 	id := c.PostForm("id")
 	sqlDel := `delete from hfish_info where id=?;`
@@ -103,7 +103,7 @@ func PostFishDel(c *gin.Context) {
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 
-// 获取钓鱼信息
+// 获取蜜罐信息
 func GetFishInfo(c *gin.Context) {
 	id, _ := c.GetQuery("id")
 	sql := `select info from hfish_info where id=?;`
@@ -111,7 +111,7 @@ func GetFishInfo(c *gin.Context) {
 	c.JSON(http.StatusOK, error.ErrSuccess(result))
 }
 
-// 获取钓鱼分类信息
+// 获取蜜罐分类信息
 func GetFishTypeInfo(c *gin.Context) {
 	sql := `select type from hfish_info GROUP BY type;`
 	result := dbUtil.Query(sql)

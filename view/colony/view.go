@@ -11,7 +11,7 @@ func Html(c *gin.Context) {
 	c.HTML(http.StatusOK, "colony.html", gin.H{})
 }
 
-// 获取钓鱼分类信息
+// 获取蜜罐分类信息
 func GetColony(c *gin.Context) {
 	sql := `
 		SELECT
@@ -25,6 +25,7 @@ func GetColony(c *gin.Context) {
 			mysql_status,
 			http_status,
 			telnet_status,
+            ftp_status,
 			last_update_time
 		FROM
 			hfish_colony

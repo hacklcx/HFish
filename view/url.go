@@ -37,7 +37,7 @@ func LoadUrl(r *gin.Engine) {
 		/* RPC 客户端 */
 
 		// API 接口
-		// WEB 上报钓鱼信息
+		// WEB 上报蜜罐信息
 		apiStatus := conf.Get("api", "status")
 
 		// 判断 API 是否启用
@@ -62,7 +62,7 @@ func LoadUrl(r *gin.Engine) {
 		r.GET("/dashboard", login.Jump, dashboard.Html)
 		r.GET("/get/dashboard/data", login.Jump, dashboard.GetFishData)
 
-		// 钓鱼列表
+		// 蜜罐列表
 		r.GET("/fish", login.Jump, fish.Html)
 		r.GET("/get/fish/list", login.Jump, fish.GetFishList)
 		r.GET("/get/fish/info", login.Jump, fish.GetFishInfo)
@@ -85,7 +85,7 @@ func LoadUrl(r *gin.Engine) {
 		r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
 
 		// API 接口
-		// WEB 上报钓鱼信息
+		// WEB 上报蜜罐信息
 		apiStatus := conf.Get("api", "status")
 
 		// 判断 API 是否启用

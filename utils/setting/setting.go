@@ -14,7 +14,8 @@ import (
 	"HFish/core/protocol/ssh"
 	"HFish/core/protocol/redis"
 	"HFish/core/protocol/mysql"
-	"HFish/core/protocol/httpx"
+	"HFish/core/protocol/ftp"
+	"HFish/core/protocol/telnet"
 	"HFish/core/rpc/server"
 	"HFish/core/rpc/client"
 )
@@ -91,32 +92,43 @@ func RunAdmin() http.Handler {
 }
 
 func Run() {
-	// 启动 Telnet 正向代理
+	// 启动 FTP 蜜罐
+	ftpStatus := conf.Get("ftp", "status")
+
+	// 判断 FTP 蜜罐 是否开启
+	if ftpStatus == "1" {
+		ftpAddr := conf.Get("ftp", "addr")
+		go ftp.Start(ftpAddr)
+	}
+
+	//=========================//
+
+	// 启动 Telnet 蜜罐
 	telnetStatus := conf.Get("telnet", "status")
 
-	// 判断 Telnet 正向代理 是否开启
+	// 判断 Telnet 蜜罐 是否开启
 	if telnetStatus == "1" {
-		//httpAddr := conf.Get("telnet", "addr")
-		//go httpx.Start(httpAddr)
+		telnetAddr := conf.Get("telnet", "addr")
+		go telnet.Start(telnetAddr)
 	}
 
 	//=========================//
 
-	// 启动 HTTP 正向代理
-	httpStatus := conf.Get("http", "status")
-
-	// 判断 HTTP 正向代理 是否开启
-	if httpStatus == "1" {
-		httpAddr := conf.Get("http", "addr")
-		go httpx.Start(httpAddr)
-	}
+	//// 启动 HTTP 正向代理
+	//httpStatus := conf.Get("http", "status")
+	//
+	//// 判断 HTTP 正向代理 是否开启
+	//if httpStatus == "1" {
+	//	httpAddr := conf.Get("http", "addr")
+	//	go httpx.Start(httpAddr)
+	//}
 
 	//=========================//
 
-	// 启动 Mysql 钓鱼
+	// 启动 Mysql 蜜罐
 	mysqlStatus := conf.Get("mysql", "status")
 
-	// 判断 Mysql 钓鱼 是否开启
+	// 判断 Mysql 蜜罐 是否开启
 	if mysqlStatus == "1" {
 		mysqlAddr := conf.Get("mysql", "addr")
 
@@ -128,10 +140,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 Redis 钓鱼
+	// 启动 Redis 蜜罐
 	redisStatus := conf.Get("redis", "status")
 
-	// 判断 Redis 钓鱼 是否开启
+	// 判断 Redis 蜜罐 是否开启
 	if redisStatus == "1" {
 		redisAddr := conf.Get("redis", "addr")
 		go redis.Start(redisAddr)
@@ -139,10 +151,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 SSH 钓鱼
+	// 启动 SSH 蜜罐
 	sshStatus := conf.Get("ssh", "status")
 
-	// 判断 SSG 钓鱼 是否开启
+	// 判断 SSG 蜜罐 是否开启
 	if sshStatus == "1" {
 		sshAddr := conf.Get("ssh", "addr")
 		go ssh.Start(sshAddr)
@@ -150,10 +162,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 Web 钓鱼
+	// 启动 Web 蜜罐
 	webStatus := conf.Get("web", "status")
 
-	// 判断 Web 钓鱼 是否开启
+	// 判断 Web 蜜罐 是否开启
 	if webStatus == "1" {
 		webAddr := conf.Get("web", "addr")
 		webTemplate := conf.Get("web", "template")
@@ -173,10 +185,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 暗网 钓鱼
+	// 启动 暗网 蜜罐
 	deepStatus := conf.Get("deep", "status")
 
-	// 判断 暗网 Web 钓鱼 是否开启
+	// 判断 暗网 Web 蜜罐 是否开启
 	if deepStatus == "1" {
 		deepAddr := conf.Get("deep", "addr")
 		deepTemplate := conf.Get("deep", "template")
@@ -212,7 +224,7 @@ func Run() {
 
 		for {
 			// 这样写 提高IO读写性能
-			go client.Start(rpcName, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus)
+			go client.Start(rpcName, ftpStatus, telnetStatus, "0", mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus)
 
 			time.Sleep(time.Duration(1) * time.Minute)
 		}
