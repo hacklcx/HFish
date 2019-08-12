@@ -12,9 +12,14 @@
 
 # 地址
 
-- Github: https://github.com/hacklcx/HFish
+## Github
+
+- Git: https://github.com/hacklcx/HFish
 - Download: https://github.com/hacklcx/HFish/releases
-- 码云(Gitee): https://gitee.com/lauix/HFish
+
+## 码云(Gitee)
+
+- Git: https://gitee.com/lauix/HFish
 - Download: https://gitee.com/lauix/HFish/releases
 
 # 快速部署
@@ -93,7 +98,6 @@
 - WEB 插件 下面必须存在两个目录
 - 集群 心跳为60秒,断开显示会延迟60秒
 - 暗网蜜罐是支持的，但是目前Tor服务网上找不到，无法提供演示
--
 
 # API 接口
 
