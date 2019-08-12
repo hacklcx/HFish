@@ -17,3 +17,5 @@ vendor
 */.DS_Store
 */.idea/%
 */vendor/%
+db/*.db
+logs/*.log

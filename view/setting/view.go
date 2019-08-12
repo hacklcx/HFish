@@ -38,15 +38,6 @@ func checkInfo(id string) bool {
 	if num == 2 && typeStr == "login" {
 		return true
 	}
-	if num == 2 && typeStr == "alertOver" {
-		return true
-	}
-	if num == 1 && typeStr == "pushBullet" {
-		return true
-	}
-	if num == 1 && typeStr == "fangTang" {
-		return true
-	}
 	if num >= 4 && typeStr == "alertMail" {
 		return true
 	}

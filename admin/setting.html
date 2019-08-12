@@ -60,8 +60,8 @@
                     </thead>
                     <tbody id="tableList">
                     {{range $i, $e := .dataList}}
-                    <tr>
-                        <td style="font-weight: bold;"><span class="label label-primary">{{$e.setting_name}}</span></td>
+                    <tr id="tr{{$e.type}}" data-id="{{$e.id}}">
+                        <td style="font-weight: bold;">{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
                         <td>{{$e.update_time}}</td>
                         <td>{{if ne $e.info ""}}
@@ -160,6 +160,8 @@
                 </div>
             </div>
             <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" onclick="syncStmpConfig()">同步stmp配置</button>
                 <button type="submit" class="btn btn-primary" onclick="updateReceiveEmailPost()">保存</button>
             </div>
         </div>
@@ -170,7 +172,7 @@
 <script>
     function settingSubFunc(id, type) {
         $("#settingId").val(id)
-        getSettingInfo(id, type)
+        getSettingInfo(id)
         switch (type) {
             case "mail":
                 $('#myModal').modal('show')
@@ -186,7 +188,16 @@
         }
     }
 
-    var getSettingInfo = function (id, type) {
+    var syncStmpConfig = function () {
+        var id = $("#trmail ").data("id")
+        getSettingInfo(id,function () {
+            $("#alertEmail").val($("#email").val())
+            $("#alertPass").val($("#pass").val())
+            $("#alertHost").val($("#host").val())
+            $("#alertPort").val($("#port").val())
+        })
+    }
+    var getSettingInfo = function (id,cb) {
         $.ajax({
             type: "get",
             url: "/get/setting/info?id=" + id
@@ -210,6 +221,9 @@
                     var content = emailArr.join("\n")
                     $("#receive").text(content)
                 }
+               if(typeof cb=="function"){
+                   cb()
+               }
             }
         }).fail(function (err) {
             console.log(err)
