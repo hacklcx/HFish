@@ -98,7 +98,7 @@ func LoadUrl(r *gin.Engine) {
 			r.POST(webUrl, api.ReportWeb)
 			r.POST(deepUrl, api.ReportDeepWeb)
 
-			r.GET("/api/v1/get/ip", login.Jump, api.GetIpList)
+			r.GET("/api/v1/get/ip", api.GetIpList)
 		}
 	}
 }
