@@ -4,13 +4,13 @@ import (
 	"net/http"
 	"HFish/error"
 	"io/ioutil"
-	"github.com/djimenez/iconv-go"
+	"github.com/axgle/mahonia"
 	"regexp"
 	"strings"
-	"HFish/utils/try"
-	"HFish/utils/log"
 	"net"
 	"fmt"
+	"HFish/utils/try"
+	"HFish/utils/log"
 )
 
 // 爬虫 ip138 获取 ip 地理信息
@@ -24,9 +24,7 @@ func Get(ip string) string {
 		input, err := ioutil.ReadAll(resp.Body)
 		error.Check(err, "读取IP138内容异常")
 
-		out := make([]byte, len(input))
-		out = out[:]
-		iconv.Convert(input, out, "gb2312", "utf-8")
+		out := mahonia.NewDecoder("gbk").ConvertString(string(input))
 
 		reg := regexp.MustCompile(`<ul class="ul1"><li>\W*`)
 		arr := reg.FindAllString(string(out), -1)
