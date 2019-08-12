@@ -17,6 +17,26 @@
         color: #ff5d48 !important;
         margin-right: 5px;
     }
+
+    .label {
+        line-height: 11px;
+    }
+
+    .yes_config {
+        border: 1px solid #0f8ce6;
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: #0f8ce6;
+        font-size: 12px;
+    }
+
+    .no_config {
+        border: 1px solid #434e56;
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: #434e56;
+        font-size: 12px;
+    }
 </style>
 <div class="row">
     <!-- Page-Title -->
@@ -41,13 +61,13 @@
                     <tbody id="tableList">
                     {{range $i, $e := .dataList}}
                     <tr>
-                        <td style="font-weight: bold;">{{$e.setting_name}} </td>
+                        <td style="font-weight: bold;"><span class="label label-primary">{{$e.setting_name}}</span></td>
                         <td>{{$e.setting_dis}}</td>
                         <td>{{$e.update_time}}</td>
                         <td>{{if ne $e.info ""}}
-                            已配置
+                            <span class="yes_config">已配置</span>
                         {{else}}
-                            未配置
+                            <span class="no_config">未配置</span>
                         {{end}}
                         </td>
                         <td><input type="checkbox" id="checkbox-{{$e.id}}" data-plugin="switchery"
@@ -126,7 +146,8 @@
                 </div>
                 <div class="form-group">
                     <label for=""><span class="text-danger">*</span>SMTP</label>
-                    <input type="text" class="form-control" id="alertHost" name="alertHost" placeholder="例:smtp.126.com">
+                    <input type="text" class="form-control" id="alertHost" name="alertHost"
+                           placeholder="例:smtp.126.com">
                 </div>
                 <div class="form-group">
                     <label for=""><span class="text-danger">*</span>端口</label>
@@ -134,7 +155,8 @@
                 </div>
                 <div class="form-group">
                     <label for=""><span class="text-danger">*</span>接收人</label>
-                    <textarea class="form-control" id="receive" name="receive" placeholder="接收人(群发请换行)" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" id="receive" name="receive" placeholder="接收人(群发请换行)" cols="30"
+                              rows="10"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -179,13 +201,13 @@
                 } else if (arr.length == 2 && result.data[0].type == "login") {
                     $("#loginName").val(arr[0])
                     $("#loginPwd").val(arr[1])
-                }else if (arr.length>=4&&result.data[0].type=="alertMail"){
+                } else if (arr.length >= 4 && result.data[0].type == "alertMail") {
                     $("#alertEmail").val(arr[2])
                     $("#alertPass").val(arr[3])
                     $("#alertHost").val(arr[0])
                     $("#alertPort").val(arr[1])
-                    var emailArr=arr.splice(4)
-                    var content= emailArr.join("\n")
+                    var emailArr = arr.splice(4)
+                    var content = emailArr.join("\n")
                     $("#receive").text(content)
                 }
             }
@@ -227,7 +249,7 @@
             pass: $("#alertPass").val(),
             host: $("#alertHost").val(),
             port: $("#alertPort").val(),
-            receive:$("#receive").val().split(/[\s\n]/).join(","),
+            receive: $("#receive").val().split(/[\s\n]/).join(","),
             id: $("#settingId").val()
         };
         console.log(params)

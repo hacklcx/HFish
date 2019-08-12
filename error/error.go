@@ -48,3 +48,10 @@ func ErrLoginFail() map[string]interface{} {
 		"msg":  "账号密码不正确",
 	}
 }
+
+func ErrEmailFail() map[string]interface{} {
+	return gin.H{
+		"code": 1003,
+		"msg":  "邮箱未启用",
+	}
+}
