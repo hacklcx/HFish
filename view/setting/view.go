@@ -80,7 +80,7 @@ func UpdateEmailInfo(c *gin.Context) {
 			status = ?,
 			update_time = ?
 		where id = ?;`
-	dbUtil.Update(sql, info, 0, time.Now().Format("2006-01-02 15:04"), id)
+	dbUtil.Update(sql, info, time.Now().Format("2006-01-02 15:04"), id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 /*更新警告邮件通知*/
@@ -101,7 +101,7 @@ func UpdateAlertMail(c *gin.Context) {
 			status = ?,
 			update_time = ?
 		where id = ?;`
-	dbUtil.Update(sql, info, 0, time.Now().Format("2006-01-02 15:04"), id)
+	dbUtil.Update(sql, info, time.Now().Format("2006-01-02 15:04"), id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 
