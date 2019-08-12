@@ -184,7 +184,18 @@
 </div>
 {{template "footer" }}
 <script src="/static/libs/echarts/echarts.js"></script>
+<script src="/static/libs/moment/moment.min.js"></script>
 <script>
+    var m = moment(new Date());
+
+    for (var i = 0; i < 24; i++) {
+        var h = m.subtract(1, 'h').hours();
+        if (h >= 0 && h < 10) {
+            console.log("0" + h.toString());
+        }else{
+            console.log( h.toString());
+        }
+    }
 
     var webData = [
         0,
