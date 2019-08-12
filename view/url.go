@@ -5,11 +5,13 @@ import (
 	"HFish/view/dashboard"
 	"HFish/view/fish"
 	"HFish/view/mail"
+	"HFish/view/colony"
 	"HFish/view/setting"
 	"github.com/gin-gonic/gin"
 	"HFish/view/login"
 	"HFish/utils/conf"
 	"net/http"
+	"HFish/utils/is"
 )
 
 // 解决跨域问题
@@ -30,41 +32,73 @@ func cors() gin.HandlerFunc {
 }
 
 func LoadUrl(r *gin.Engine) {
-	// 登录
-	r.GET("/login", login.Html)
-	r.POST("/login", login.Login)
-	r.GET("/logout", login.Logout)
+	// 判断是否为 RPC 客户端
+	if is.Rpc() {
+		/* RPC 客户端 */
 
-	// 仪表盘
-	r.GET("/", login.Jump, dashboard.Html)
-	r.GET("/dashboard", login.Jump, dashboard.Html)
-	r.GET("/get/dashboard/data", login.Jump, dashboard.GetFishData)
+		// API 接口
+		// WEB 上报蜜罐信息
+		apiStatus := conf.Get("api", "status")
 
-	// 钓鱼列表
-	r.GET("/fish", login.Jump, fish.Html)
-	r.GET("/get/fish/list", login.Jump, fish.GetFishList)
-	r.GET("/get/fish/info", login.Jump, fish.GetFishInfo)
-	r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
+		// 判断 API 是否启用
+		if apiStatus == "1" {
+			r.Use(cors())
 
-	// 邮件群发
-	r.GET("/mail", login.Jump, mail.Html)
-	r.POST("/post/mail/sendEmail", login.Jump, mail.SendEmailToUsers)
+			webUrl := conf.Get("api", "web_url")
+			deepUrl := conf.Get("api", "deep_url")
 
-	// 设置
-	r.GET("/setting", login.Jump, setting.Html)
-	r.GET("/get/setting/info", login.Jump, setting.GetSettingInfo)
-	r.POST("/post/setting/update", login.Jump, setting.UpdateEmailInfo)
-	r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
+			r.POST(webUrl, api.ReportWeb)
+			r.POST(deepUrl, api.ReportDeepWeb)
+		}
+	} else {
+		/* RPC 服务端 */
+		// 登录
+		r.GET("/login", login.Html)
+		r.POST("/login", login.Login)
+		r.GET("/logout", login.Logout)
 
-	// API 接口
-	// WEB 上报钓鱼信息
-	apiStatus := conf.Get("api", "status")
+		// 仪表盘
+		r.GET("/", login.Jump, dashboard.Html)
+		r.GET("/dashboard", login.Jump, dashboard.Html)
+		r.GET("/get/dashboard/data", login.Jump, dashboard.GetFishData)
 
-	// 判断 API 是否启用
-	if apiStatus == "1" {
-		r.Use(cors())
+		// 蜜罐列表
+		r.GET("/fish", login.Jump, fish.Html)
+		r.GET("/get/fish/list", login.Jump, fish.GetFishList)
+		r.GET("/get/fish/info", login.Jump, fish.GetFishInfo)
+		r.GET("/get/fish/typeList", login.Jump, fish.GetFishTypeInfo)
+		r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
 
-		apiUrl := conf.Get("api", "url")
-		r.POST(apiUrl, api.ReportWeb)
+		// 分布式集群
+		r.GET("/colony", login.Jump, colony.Html)
+		r.GET("/get/colony/list", login.Jump, colony.GetColony)
+
+		// 邮件群发
+		r.GET("/mail", login.Jump, mail.Html)
+		r.POST("/post/mail/sendEmail", login.Jump, mail.SendEmailToUsers)
+
+		// 设置
+		r.GET("/setting", login.Jump, setting.Html)
+		r.GET("/get/setting/info", login.Jump, setting.GetSettingInfo)
+		r.POST("/post/setting/update", login.Jump, setting.UpdateEmailInfo)
+		r.POST("/post/setting/updateAlertMail", login.Jump, setting.UpdateAlertMail)
+		r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
+
+		// API 接口
+		// WEB 上报蜜罐信息
+		apiStatus := conf.Get("api", "status")
+
+		// 判断 API 是否启用
+		if apiStatus == "1" {
+			r.Use(cors())
+
+			webUrl := conf.Get("api", "web_url")
+			deepUrl := conf.Get("api", "deep_url")
+
+			r.POST(webUrl, api.ReportWeb)
+			r.POST(deepUrl, api.ReportDeepWeb)
+
+			r.GET("/api/v1/get/ip", api.GetIpList)
+		}
 	}
 }

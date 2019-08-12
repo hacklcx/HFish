@@ -1,4 +1,5 @@
 {{template "header"}}
+<script type="text/javascript" src="/static/libs/wangeditor3/wangEditor.css"></script>
 <style>
     .card-box {
         padding: 0px;
@@ -39,6 +40,7 @@
     }
 
 </style>
+
 <div class="row">
     <!-- Page-Title -->
     <div class="col-sm-12">
@@ -71,14 +73,20 @@
                     <label for="taskExplain" class="col-sm-3 form-control-label"><span class="text-danger">*</span>
                         收件人：</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="emails" placeholder="请输入收件人 例:xxx@gmail.com,xxx@outlook.com">
+                        <input type="text" class="form-control" id="emails"
+                               placeholder="请输入收件人 例:xxx@gmail.com,xxx@outlook.com">
                     </div>
                 </div>
                 <hr>
                 <h4 class="header-title m-t-0 m-b-30 title">邮件模板</h4>
 
             </div>
-            <textarea style="width: 100%;margin-top: 20px;height: 200px;" id="content"></textarea>
+            <div class="clear"></div>
+
+            <div id="editorx">
+                <p>请在此处输入发送的邮件内容</p>
+            </div>
+
             <button type="button" class="btn btn-primary waves-effect waves-light"
                     style="width: 100%;margin-top: 20px;" onclick="sendMailToUsers()">发送邮件
             </button>
@@ -87,21 +95,29 @@
     </div>
 </div>
 {{template "footer" }}
+<script type="text/javascript" src="/static/libs/wangeditor3/wangEditor.js"></script>
 <script>
-    var sendMailToUsers=function () {
+
+    var E = window.wangEditor;
+    var editorx = new E('#editorx');
+    editorx.create();
+
+    var sendMailToUsers = function () {
         var title = $("#title").val();
         var from = $("#from").val();
-        var emails= $("#emails").val();
-        var content=$("#content").val();
-            $.ajax({
+        var emails = $("#emails").val();
+
+        var content = editorx.txt.html();
+
+        $.ajax({
             type: "POST",
             url: "/post/mail/sendEmail",
             dataType: "json",
             data: {
-                title,
-               from,
-                emails,
-                content
+                "title": title,
+                "from": from,
+                "emails": emails,
+                "content": content
             },
             success: function (e) {
                 if (e.code == 200) {
@@ -112,7 +128,7 @@
             },
             error: function (e) {
                 swal("发送失败", "请 Github 提交 Issues", 'error');
-        }
-            })
+            }
+        })
     }
 </script>

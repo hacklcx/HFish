@@ -39,7 +39,7 @@
     }
 
     .lb_ssh {
-        background-color: #434556;
+        background-color: #953fb9;
     }
 
     .lb_redis {
@@ -48,6 +48,18 @@
 
     .lb_mysql {
         background-color: #cabd23;
+    }
+
+    .lb_ftp {
+        background-color: #32cc16;
+    }
+
+    .lb_telnet {
+        background-color: #6b79c1;
+    }
+
+    .lb_deep {
+        background-color: #000000;
     }
 
     .pre {
@@ -77,16 +89,57 @@
     .modal-header .close {
         margin-top: 0px;
     }
+
+    .sos {
+        margin-bottom: 10px;
+        height: 100px;
+    }
+
+    .agent_name {
+        border: 1px solid #167bcc;
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: #167bcc;
+        font-size: 12px;
+    }
+
+    .ipinfo{
+        border: 1px solid #434e56;
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: #434e56;
+        font-size: 12px;
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
-        {{/*<div class="btn-group pull-right m-t-15">*/}}
-            {{/*<a type="button" class="btn btn-custom" href="#">导出 <span class="m-l-5"><i*/}}
-                    {{/*class="zmdi zmdi-alarm-plus"></i></span>*/}}
-            {{/*</a>*/}}
-        {{/*</div>*/}}
+    {{/*<div class="btn-group pull-right m-t-15">*/}}
+    {{/*<a type="button" class="btn btn-custom" href="#">导出 <span class="m-l-5"><i*/}}
+    {{/*class="zmdi zmdi-alarm-plus"></i></span>*/}}
+    {{/*</a>*/}}
+    {{/*</div>*/}}
         <h4 class="page-title">上钩列表</h4>
     </div>
+
+    <div class="sos">
+        <div class="col-sm-2">
+            <select class="form-control" id="selectType" style="height: 34px;" onchange="so()"></select>
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa  fa-search"></i></span>
+                <input type="text" class="form-control" id="so_text"
+                       placeholder="请输入搜索内容" oninput="so()">
+            </div>
+        </div>
+    </div>
+
 
     <div class="col-sm-12">
         <div class="card-box table-responsive">
@@ -94,14 +147,20 @@
                 <thead>
                 <tr>
                     <th width="10%">项目</th>
+                    <th width="10%">集群名称</th>
                     <th width="10%">来源 IP</th>
+                    <th width="10%">地理信息</th>
                     <th width="10%">信息</th>
-                    <th width="10%">上钩时间</th>
-                    <th width="1%">操作</th>
+                    <th width="8%">上钩时间</th>
+                    <th width="2%">操作</th>
                 </tr>
                 </thead>
                 <tbody id="tableList"></tbody>
             </table>
+        </div>
+        <div style="text-align: center;" class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination" id="pages">
+            </ul>
         </div>
     </div>
 </div>
@@ -167,41 +226,22 @@
         });
     }
 
-    function init() {
+    function init_type() {
         $.ajax({
             type: "GET",
-            url: "/get/fish/list",
+            url: "/get/fish/typeList",
             dataType: "json",
             success: function (e) {
                 if (e.code == 200) {
                     var data = e.data;
-                    var _h = '';
+                    var _h = '<option value="all">请选择类型</option>';
 
                     for (var i = 0; i < data.length; i++) {
-                        _h += '<tr>';
-                        _h += '    <td class="td">';
-                        if (data[i].type == "WEB") {
-                            _h += '       <span class="label label-primary">WEB</span> ';
-                        } else if (data[i].type == "SSH") {
-                            _h += '       <span class="label lb_ssh">SSH</span> ';
-                        } else if (data[i].type == "REDIS") {
-                            _h += '       <span class="label lb_redis">REDIS</span> ';
-                        } else if (data[i].type == "MYSQL") {
-                            _h += '       <span class="label lb_mysql">MYSQL</span> ';
-                        }
-
-                        _h += '       <span class="project">' + data[i].project_name + '</span>';
-                        _h += '    </td>';
-                        _h += '    <td class="td">' + data[i].ip + '</td>';
-                        _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
-                        _h += '    <td class="td">' + data[i].create_time + '</td>';
-                        _h += '    <td class="td" style="text-align: center;">';
-                        _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
-                        _h += '    </td>';
-                        _h += '</tr>';
+                        _h += '<option value="' + data[i].type + '">' + data[i].type + '</option>';
                     }
 
-                    $("#tableList").html(_h);
+                    $("#selectType").html(_h);
+
                 } else {
 
                 }
@@ -211,6 +251,98 @@
         });
     }
 
+    function init(page, type, so_text) {
+        $.ajax({
+            type: "GET",
+            url: "/get/fish/list",
+            dataType: "json",
+            data: {
+                "page": page,
+                "pageSize": 10,
+                "type": type,
+                "so_text": so_text
+            },
+            success: function (e) {
+                var data = e.data;
+                var _h = '';
 
-    init();
+                for (var i = 0; i < data.length; i++) {
+                    _h += '<tr>';
+                    _h += '    <td class="td">';
+                    if (data[i].type == "WEB") {
+                        _h += '       <span class="label label-primary">WEB</span> ';
+                    } else if (data[i].type == "SSH") {
+                        _h += '       <span class="label lb_ssh">SSH</span> ';
+                    } else if (data[i].type == "REDIS") {
+                        _h += '       <span class="label lb_redis">REDIS</span> ';
+                    } else if (data[i].type == "MYSQL") {
+                        _h += '       <span class="label lb_mysql">MYSQL</span> ';
+                    } else if (data[i].type == "FTP") {
+                        _h += '       <span class="label lb_ftp">FTP</span> ';
+                    } else if (data[i].type == "TELNET") {
+                        _h += '       <span class="label lb_telnet">TELNET</span> ';
+                    } else if (data[i].type == "DEEP") {
+                        _h += '       <span class="label lb_deep">DEEP</span> ';
+                    }
+
+                    _h += '       <span class="project">' + data[i].project_name + '</span>';
+                    _h += '    </td>';
+                    _h += '    <td class="td"><span class="agent_name">' + data[i].agent + '</span></td>';
+                    _h += '    <td class="td" style="font-weight: bold;">' + data[i].ip + '</td>';
+                    _h += '    <td class="td"><span class="ipinfo">' + data[i].ip_info + '</span></td>';
+                    _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
+                    _h += '    <td class="td">' + data[i].create_time + '</td>';
+                    _h += '    <td class="td" style="text-align: center;">';
+                    _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
+                    _h += '    </td>';
+                    _h += '</tr>';
+                }
+
+                if (_h == "") {
+                    _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>'
+                }
+
+                $("#tableList").html(_h);
+
+                var pageCount = e.pageCount;
+                var page = e.page;
+                var _hx = '';
+
+                for (var i = 0; i < parseInt(pageCount); i++) {
+                    if (page == (i + 1)) {
+                        _hx += '<li class="paginate_button page-item active">';
+                        _hx += '    <a onclick="page(' + (i + 1) + ')" style="cursor: pointer;" aria-controls="datatable" data-dt-idx="' + (i + 1) + '" tabindex="0" class="page-link">' + (i + 1) + '</a>';
+                        _hx += '</li>';
+                    } else {
+                        _hx += '<li class="paginate_button page-item">';
+                        _hx += '    <a onclick="page(' + (i + 1) + ')" style="cursor: pointer;" aria-controls="datatable" data-dt-idx="' + (i + 1) + '" tabindex="0" class="page-link">' + (i + 1) + '</a>';
+                        _hx += '</li>';
+                    }
+                }
+
+
+                $("#pages").html(_hx);
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+
+    init(1, "all", "");
+    init_type();
+
+    function so() {
+        var selectType = $("#selectType").val();
+        var so_text = $("#so_text").val();
+
+        init(1, selectType, so_text);
+    }
+
+    function page(p) {
+        var selectType = $("#selectType").val();
+        var so_text = $("#so_text").val();
+
+        init(p, selectType, so_text);
+    }
 </script>

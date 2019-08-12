@@ -38,17 +38,12 @@ func checkInfo(id string) bool {
 	if num == 2 && typeStr == "login" {
 		return true
 	}
-	if num == 2 && typeStr == "alertOver" {
-		return true
-	}
-	if num == 1 && typeStr == "pushBullet" {
-		return true
-	}
-	if num == 1 && typeStr == "fangTang" {
+	if num >= 4 && typeStr == "alertMail" {
 		return true
 	}
 	return false
 }
+
 func joinInfo(args ...string) string {
 	and := "&&"
 	info := ""
@@ -74,10 +69,30 @@ func UpdateEmailInfo(c *gin.Context) {
 	sql := `
 		UPDATE  hfish_setting 
 		set	info = ?,
-			status = ?,
 			update_time = ?
 		where id = ?;`
-	dbUtil.Update(sql, info, 0, time.Now().Format("2006-01-02 15:04"), id)
+	dbUtil.Update(sql, info, time.Now().Format("2006-01-02 15:04"), id)
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+
+/*更新警告邮件通知*/
+func UpdateAlertMail(c *gin.Context) {
+	email := c.PostForm("email")
+	id := c.PostForm("id")
+	receive := c.PostForm("receive")
+	pass := c.PostForm("pass")
+	host := c.PostForm("host")
+	port := c.PostForm("port")
+	//subType := c.PostForm("type")
+	receiveArr := strings.Split(receive, ",")
+	receiveInfo := joinInfo(receiveArr...)
+	info := joinInfo(host, port, email, pass, receiveInfo)
+	sql := `
+		UPDATE  hfish_setting 
+		set	info = ?,
+			update_time = ?
+		where id = ?;`
+	dbUtil.Update(sql, info, time.Now().Format("2006-01-02 15:04"), id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 

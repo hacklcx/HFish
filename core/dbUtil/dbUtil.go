@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
 	"HFish/error"
+	"HFish/utils/try"
 )
 
 // 连接数据库
@@ -45,17 +46,20 @@ func Insert(sql string, args ...interface{}) int64 {
 	db := conn()
 	stmt, _ := db.Prepare(sql)
 
-	res, err := stmt.Exec(args...)
-	error.Check(err, "插入数据失败")
+	var id int64
+	id = 0
 
-	defer stmt.Close()
+	try.Try(func() {
+		res, _ := stmt.Exec(args...)
+		//error.Check(err, "插入数据失败")
 
-	id, err := res.LastInsertId()
-	error.Check(err, "获取插入ID失败")
+		defer stmt.Close()
 
-	defer db.Close()
+		id, _ = res.LastInsertId()
 
-	// 返回 自增长 ID
+		defer db.Close()
+	}).Catch(func() {})
+
 	return id
 }
 

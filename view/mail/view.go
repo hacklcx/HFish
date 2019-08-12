@@ -7,6 +7,7 @@ import (
 	"HFish/core/dbUtil"
 	"HFish/utils/send"
 	"HFish/error"
+	"strconv"
 )
 
 func Html(c *gin.Context) {
@@ -30,6 +31,13 @@ func SendEmailToUsers(c *gin.Context) {
 		config[2] = from
 	}
 
-	send.SendMail(eArr, title, content, config)
-	c.JSON(http.StatusOK, error.ErrSuccessNull())
+	status := strconv.FormatInt(isAlertStatus[0]["status"].(int64), 10)
+
+	if status == "1" {
+		send.SendMail(eArr, title, content, config)
+		c.JSON(http.StatusOK, error.ErrSuccessNull())
+	} else {
+		c.JSON(http.StatusOK, error.ErrEmailFail())
+	}
+
 }

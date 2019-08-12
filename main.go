@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"fmt"
+	"os"
 	"HFish/utils/setting"
 )
 
@@ -16,7 +16,7 @@ func main() {
 		} else if args[1] == "init" || args[1] == "--init" {
 			setting.Init()
 		} else if args[1] == "version" || args[1] == "--version" {
-			fmt.Println("v0.1")
+			fmt.Println("v0.2")
 		} else if args[1] == "run" || args[1] == "--run" {
 			setting.Run()
 		} else {
