@@ -188,14 +188,18 @@
 <script>
     var m = moment(new Date());
 
+    var arr = new Array();
+
     for (var i = 0; i < 24; i++) {
         var h = m.subtract(1, 'h').hours();
         if (h >= 0 && h < 10) {
-            console.log("0" + h.toString());
-        }else{
-            console.log( h.toString());
+            arr.push("0" + h.toString())
+        } else {
+            arr.push(h.toString())
         }
     }
+
+    var xdata = arr.reverse();
 
     var webData = [
         0,
@@ -397,36 +401,43 @@
                 var d = e.data;
 
                 for (var item in d.mysql) {
-                    mysqlData[parseInt(item)] = d.mysql[item];
+                    var index = xdata.indexOf(item);
+                    mysqlData[index] = d.mysql[item];
                 }
 
                 for (var item in d.redis) {
-                    redisData[parseInt(item)] = d.redis[item];
+                    var index = xdata.indexOf(item);
+                    redisData[index] = d.redis[item];
                 }
 
                 for (var item in d.ssh) {
-                    sshData[parseInt(item)] = d.ssh[item];
+                    var index = xdata.indexOf(item);
+                    sshData[index] = d.ssh[item];
                 }
 
                 for (var item in d.web) {
-                    webData[parseInt(item)] = d.web[item];
+                    var index = xdata.indexOf(item);
+                    webData[index] = d.web[item];
                 }
 
                 for (var item in d.deep) {
-                    deepData[parseInt(item)] = d.deep[item];
+                    var index = xdata.indexOf(item);
+                    deepData[index] = d.deep[item];
                 }
 
                 for (var item in d.ftp) {
-                    ftpData[parseInt(item)] = d.ftp[item];
+                    var index = xdata.indexOf(item);
+                    ftpData[index] = d.ftp[item];
                 }
 
                 for (var item in d.telnet) {
-                    telnetData[parseInt(item)] = d.telnet[item];
+                    var index = xdata.indexOf(item);
+                    telnetData[index] = d.telnet[item];
                 }
 
                 var option = {
                     title: {
-                        text: '今日数据'
+                        text: '最近24小时'
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -442,7 +453,7 @@
                     },
                     grid: {
                         left: '0%',
-                        right: '0%',
+                        right: '2%',
                         bottom: '3%',
                         containLabel: true
                     },
@@ -450,31 +461,7 @@
                         {
                             type: 'category',
                             boundaryGap: false,
-                            data: [
-                                '00',
-                                '01',
-                                '02',
-                                '03',
-                                '04',
-                                '05',
-                                '06',
-                                '07',
-                                '08',
-                                '09',
-                                '10',
-                                '12',
-                                '13',
-                                '14',
-                                '15',
-                                '16',
-                                '17',
-                                '18',
-                                '19',
-                                '20',
-                                '21',
-                                '22',
-                                '23'
-                            ]
+                            data: xdata
                         }
                     ],
                     yAxis: [

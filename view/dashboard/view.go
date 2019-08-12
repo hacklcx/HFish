@@ -74,7 +74,7 @@ func GetFishData(c *gin.Context) {
 	FROM
 		hfish_info
 	WHERE
-		strftime("%Y-%d", create_time) = strftime("%Y-%d", 'now')
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
 	AND type="WEB"
 	GROUP BY
 	hour;
@@ -95,7 +95,7 @@ func GetFishData(c *gin.Context) {
 	FROM
 		hfish_info
 	WHERE
-		strftime("%Y-%d", create_time) = strftime("%Y-%d", 'now')
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
 	AND type="SSH"
 	GROUP BY
 	hour;
@@ -116,7 +116,7 @@ func GetFishData(c *gin.Context) {
 	FROM
 		hfish_info
 	WHERE
-		strftime("%Y-%d", create_time) = strftime("%Y-%d", 'now')
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
 	AND type="REDIS"
 	GROUP BY
 	hour;
@@ -137,7 +137,7 @@ func GetFishData(c *gin.Context) {
 	FROM
 		hfish_info
 	WHERE
-		strftime("%Y-%d", create_time) = strftime("%Y-%d", 'now')
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
 	AND type="MYSQL"
 	GROUP BY
 	hour;
@@ -158,7 +158,7 @@ func GetFishData(c *gin.Context) {
 	FROM
 		hfish_info
 	WHERE
-		strftime("%Y-%d", create_time) = strftime("%Y-%d", 'now')
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
 	AND type="DEEP"
 	GROUP BY
 	hour;
@@ -179,7 +179,7 @@ func GetFishData(c *gin.Context) {
 	FROM
 		hfish_info
 	WHERE
-		strftime("%Y-%d", create_time) = strftime("%Y-%d", 'now')
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
 	AND type="FTP"
 	GROUP BY
 	hour;
@@ -200,7 +200,7 @@ func GetFishData(c *gin.Context) {
 	FROM
 		hfish_info
 	WHERE
-		strftime("%Y-%d", create_time) = strftime("%Y-%d", 'now')
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
 	AND type="TELNET"
 	GROUP BY
 	hour;
