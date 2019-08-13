@@ -37,6 +37,10 @@
 - 修改 config.ini -> rpc -> status 为 2
 - 修改 config.ini -> rpc -> addr  地址为 HFish 服务端地址
 
+## Docker
+
+- HFish 镜像: https://hub.docker.com/r/imdevops/hfish (详细见 Docker Hub 文档)
+
 ## 命令行帮助
 
 ![help.png](./images/help.png)
