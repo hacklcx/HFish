@@ -15,7 +15,7 @@ package memcache
  * stats sizes
  * version
  * verbosity
- * quit 
+ * quit
  */
 
 import (
@@ -192,11 +192,11 @@ var commands = map[string]func([]string) ([]byte, int){
 		nowTime := time.Now()
 		networkRx = networkRx + randNumber(10, 50)
 		networkTx = networkTx + randNumber(100, 500)
+		linkedHashMap.RLock()
+		defer linkedHashMap.RUnlock()
+		items := linkedHashMap.Len()
 
 		if len(args) == 0 {
-			linkedHashMap.RLock()
-			defer linkedHashMap.RUnlock()
-			items := linkedHashMap.Len()
 			statsArray := []string{
 				"STAT pid 1\r\n",
 				fmt.Sprintf("STAT uptime %d\r\n", int(nowTime.Sub(UPTIME)/time.Second)),
@@ -285,7 +285,7 @@ var commands = map[string]func([]string) ([]byte, int){
 			return responseBuffer, 0
 		}
 
-		switch args[1] {
+		switch args[0] {
 		case "slabs":
 			statsArray := []string{
 				"STAT 1:chunk_size 96\r\n",
@@ -346,7 +346,41 @@ var commands = map[string]func([]string) ([]byte, int){
 			}
 			return responseBuffer, 0
 		case "items":
-			return RESPONSE_SERVER_ERROR, 0
+			statsArray := []string{
+				fmt.Sprintf("STAT items:1:number %d\r\n", items),
+				"STAT items:1:number_hot 0\r\n",
+				"STAT items:1:number_warm 0\r\n",
+				fmt.Sprintf("STAT items:1:number_cold %d\r\n", items),
+				"STAT items:1:age_hot 0\r\n",
+				"STAT items:1:age_warm 0\r\n",
+				"STAT items:1:age 31\r\n",
+				"STAT items:1:evicted 0\r\n",
+				"STAT items:1:evicted_nonzero 0\r\n",
+				"STAT items:1:evicted_time 0\r\n",
+				"STAT items:1:outofmemory 0\r\n",
+				"STAT items:1:tailrepairs 0\r\n",
+				"STAT items:1:reclaimed 1\r\n",
+				"STAT items:1:expired_unfetched 1",
+				"STAT items:1:evicted_unfetched 0\r\n",
+				"STAT items:1:evicted_active 0\r\n",
+				"STAT items:1:crawler_reclaimed 0\r\n",
+				"STAT items:1:crawler_items_checked 0\r\n",
+				"STAT items:1:lrutail_reflocked 0\r\n",
+				"STAT items:1:moves_to_cold 3\r\n",
+				"STAT items:1:moves_to_warm 0\r\n",
+				"STAT items:1:moves_within_lru 0\r\n",
+				"STAT items:1:direct_reclaims 0\r\n",
+				"STAT items:1:hits_to_hot 0\r\n",
+				"STAT items:1:hits_to_warm 0\r\n",
+				"STAT items:1:hits_to_cold 0\r\n",
+				"STAT items:1:hits_to_temp 0\r\n",
+				"END\r\n",
+			}
+			responseBuffer := []byte{}
+			for _, response := range statsArray {
+				responseBuffer = append(responseBuffer, []byte(response)...)
+			}
+			return responseBuffer, 0
 		case "detail":
 			return RESPONSE_OK, 0
 		case "sizes":
@@ -400,7 +434,7 @@ func tcpServer(address string, exitChan chan int) {
 				}
 				str = strings.TrimSpace(str)
 
-				log.Printf("[Memcache %d] Got request: %s.", trackID, str)
+				log.Printf("[Memcache %d] Client request: %s.", trackID, str)
 				args := strings.Split(str, " ")
 				function, exist := commands[args[0]]
 				if !exist {
