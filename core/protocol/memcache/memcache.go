@@ -396,7 +396,7 @@ var commands = map[string]func([]string) ([]byte, int){
 }
 
 // TCP服务端连接
-func tcpServer(address string, exitChan chan int) {
+func tcpServer(address string, rateLimitChan chan int, exitChan chan int) {
 	l, err := net.Listen("tcp", address)
 
 	if err != nil {
@@ -422,6 +422,7 @@ func tcpServer(address string, exitChan chan int) {
 			reader := bufio.NewReader(conn)
 			log.Printf("[Memcache TCP %d] Accepted a client socket from %s\n", trackID, conn.RemoteAddr().String())
 			for {
+				<-rateLimitChan
 				str, err := reader.ReadString('\n')
 				if skip {
 					skip = false
@@ -470,7 +471,7 @@ func tcpServer(address string, exitChan chan int) {
 
 }
 
-func udpServer(address string, exitChan chan int) {
+func udpServer(address string, rateLimitChan chan int, exitChan chan int) {
 	udpAddr, err := net.ResolveUDPAddr("udp", address)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -488,6 +489,7 @@ func udpServer(address string, exitChan chan int) {
 	go func() {
 		buf := make([]byte, 1500)
 		for {
+			<-rateLimitChan
 			plen, addr, _ := l.ReadFromUDP(buf)
 			/* UDP协议需要8个字节的头 */
 			if plen < 8 {
@@ -522,13 +524,27 @@ func udpServer(address string, exitChan chan int) {
 	}()
 }
 
-func Start(addr string) {
+func Start(addr string, rateLimitStr string) {
 	// 创建一个程序结束码的通道
 	exitChan := make(chan int)
 
+	// 响应间隔限制
+	rateLimitChan := make(chan int)
+	rateLimit, err := strconv.Atoi(rateLimitStr)
+	if err != nil {
+		panic(err)
+	}
+	go func() {
+		sleepTime := 1000 / rateLimit
+		for {
+			rateLimitChan <- 1
+			time.Sleep(time.Duration(sleepTime) * time.Millisecond)
+		}
+	}()
+
 	// 将服务器并发运行
-	go tcpServer(addr, exitChan)
-	go udpServer(addr, exitChan)
+	go tcpServer(addr, rateLimitChan, exitChan)
+	go udpServer(addr, rateLimitChan, exitChan)
 
 	// 通道阻塞，等待接受返回值
 	code := <-exitChan

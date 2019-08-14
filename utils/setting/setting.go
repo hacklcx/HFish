@@ -211,11 +211,12 @@ func Run() {
 
 	// 启动 Memcache 蜜罐
 	memcacheStatus := conf.Get("memcache", "status")
+	memcacheRateLimit := conf.Get("memcache", "ratelimit")
 
 	// 判断 暗网 Web 蜜罐 是否开启
 	if memcacheStatus == "1" {
 		memcacheAddr := conf.Get("memcache", "addr")
-		go memcache.Start(memcacheAddr)
+		go memcache.Start(memcacheAddr, memcacheRateLimit)
 	}
 
 	//=========================//
