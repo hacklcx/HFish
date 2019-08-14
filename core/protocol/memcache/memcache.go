@@ -404,7 +404,7 @@ func tcpServer(address string, exitChan chan int) {
 		exitChan <- 1
 	}
 
-	log.Println("[Memcache] Listning on " + address)
+	log.Println("[Memcache TCP] Listning on " + address)
 
 	defer l.Close()
 
@@ -420,7 +420,7 @@ func tcpServer(address string, exitChan chan int) {
 		go func() {
 			skip := false
 			reader := bufio.NewReader(conn)
-			log.Printf("[Memcache %d] Accepted a client socket from %s\n", trackID, conn.RemoteAddr().String())
+			log.Printf("[Memcache TCP %d] Accepted a client socket from %s\n", trackID, conn.RemoteAddr().String())
 			for {
 				str, err := reader.ReadString('\n')
 				if skip {
@@ -428,13 +428,13 @@ func tcpServer(address string, exitChan chan int) {
 					continue
 				}
 				if err != nil {
-					log.Printf("[Memcache %d] Closed a client socket.", trackID)
+					log.Printf("[Memcache TCP %d] Closed a client socket.\n", trackID)
 					conn.Close()
 					break
 				}
 				str = strings.TrimSpace(str)
 
-				log.Printf("[Memcache %d] Client request: %s.", trackID, str)
+				log.Printf("[Memcache TCP %d] Client request: %s.\n", trackID, str)
 				args := strings.Split(str, " ")
 				function, exist := commands[args[0]]
 				if !exist {
@@ -470,29 +470,57 @@ func tcpServer(address string, exitChan chan int) {
 
 }
 
-// func udpServer(address string, exitChan chan int) {
-// 	udpAddr, err := net.ResolveUDPAddr("udp", address)
-// 	if err != nil {
-// 		fmt.Println(err.Error())
-// 		exitChan <- 1
-// 	}
+func udpServer(address string, exitChan chan int) {
+	udpAddr, err := net.ResolveUDPAddr("udp", address)
+	if err != nil {
+		fmt.Println(err.Error())
+		exitChan <- 1
+	}
 
-// 	l, err := net.ListenUDP("udp", udpAddr)
-// 	if err != nil {
-// 		fmt.Println(err.Error())
-// 		exitChan <- 1
-// 	}
+	l, err := net.ListenUDP("udp", udpAddr)
+	if err != nil {
+		fmt.Println(err.Error())
+		exitChan <- 1
+	}
 
-// 	go func() {
-// 		buf := make([]byte, 1500)
-// 		for {
-// 			buf := make([]byte, 1500)
-// 			plen, addr, _ := l.ReadFromUDP(buf)
+	log.Println("[Memcache UDP] Listning on " + address)
 
-// 		}
-// 	}
-// }()
-// }
+	go func() {
+		buf := make([]byte, 1500)
+		for {
+			plen, addr, _ := l.ReadFromUDP(buf)
+			/* UDP协议需要8个字节的头 */
+			if plen < 8 {
+				continue
+			}
+			requestStr := string(buf[8:plen])
+
+			for _, request := range strings.Split(requestStr, "\n") {
+				request = strings.TrimSpace(request)
+				if request == "" {
+					continue
+				}
+				log.Printf("[Memcache UDP] Client request: [%s] from: %s\n", request, addr.String())
+				args := strings.Split(request, " ")
+				function, exist := commands[args[0]]
+				if !exist {
+					continue
+				}
+				args = args[1:]
+
+				response, requiredBytes := function(args)
+				if requiredBytes != 0 {
+					continue
+				}
+				if len(response) > 1300 {
+					response = response[:1300]
+				}
+				l.WriteTo(append([]byte{0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00}, response...), addr)
+			}
+
+		}
+	}()
+}
 
 func Start(addr string) {
 	// 创建一个程序结束码的通道
@@ -500,7 +528,7 @@ func Start(addr string) {
 
 	// 将服务器并发运行
 	go tcpServer(addr, exitChan)
-	// go udpServer(addr, exitChan)
+	go udpServer(addr, exitChan)
 
 	// 通道阻塞，等待接受返回值
 	code := <-exitChan
