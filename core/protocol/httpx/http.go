@@ -1,53 +1,30 @@
 package httpx
 
 import (
-	"fmt"
-	"io"
-	"net"
 	"net/http"
-	"strings"
+	"github.com/elazarl/goproxy"
+	"net/url"
+	"fmt"
 )
 
 /*http 正向代理*/
 
-type Pxy struct{}
+func Start(addr string, proxyUrl string) {
 
-func (p *Pxy) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	fmt.Printf("Received request %s %s %s\n", req.Method, req.Host, req.RemoteAddr)
-
-	transport := http.DefaultTransport
-
-	// step 1
-	outReq := new(http.Request)
-	*outReq = *req // this only does shallow copies of maps
-
-	if clientIP, _, err := net.SplitHostPort(req.RemoteAddr); err == nil {
-		if prior, ok := outReq.Header["X-Forwarded-For"]; ok {
-			clientIP = strings.Join(prior, ", ") + ", " + clientIP
-		}
-		outReq.Header.Set("X-Forwarded-For", clientIP)
+	gp := goproxy.NewProxyHttpServer()
+	pu, err := url.Parse(proxyUrl)
+	if err == nil {
+		gp.Tr.Proxy = http.ProxyURL(&url.URL{
+			Scheme: pu.Scheme,
+			Host: pu.Host,
+		})
 	}
 
-	// step 2
-	res, err := transport.RoundTrip(outReq)
-	if err != nil {
-		rw.WriteHeader(http.StatusBadGateway)
-		return
-	}
-
-	// step 3
-	for key, value := range res.Header {
-		for _, v := range value {
-			rw.Header().Add(key, v)
-		}
-	}
-
-	rw.WriteHeader(res.StatusCode)
-	io.Copy(rw, res.Body)
-	res.Body.Close()
-}
-
-func Start(addr string) {
-	http.Handle("/", &Pxy{})
-	http.ListenAndServe(addr, nil)
+	gp.OnRequest().HandleConnect(goproxy.AlwaysMitm)
+	gp.OnRequest().DoFunc(func(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
+		// Report Send
+		fmt.Println(req.RemoteAddr)
+		return req, nil
+	})
+	http.ListenAndServe(addr, gp)
 }
