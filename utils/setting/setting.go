@@ -14,6 +14,7 @@ import (
 	"HFish/core/protocol/ssh"
 	"HFish/core/protocol/redis"
 	"HFish/core/protocol/mysql"
+	"HFish/core/protocol/memcache"
 	"HFish/core/protocol/ftp"
 	"HFish/core/protocol/telnet"
 	"HFish/core/rpc/server"
@@ -204,6 +205,17 @@ func Run() {
 		}
 
 		go serverDark.ListenAndServe()
+	}
+
+	//=========================//
+
+	// 启动 Memcache 蜜罐
+	memcacheStatus := conf.Get("memcache", "status")
+
+	// 判断 暗网 Web 蜜罐 是否开启
+	if memcacheStatus == "1" {
+		memcacheAddr := conf.Get("memcache", "addr")
+		go memcache.Start(memcacheAddr)
 	}
 
 	//=========================//
