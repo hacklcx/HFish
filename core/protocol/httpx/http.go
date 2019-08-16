@@ -16,7 +16,7 @@ func Start(addr string, proxyUrl string) {
 	if err == nil {
 		gp.Tr.Proxy = http.ProxyURL(&url.URL{
 			Scheme: pu.Scheme,
-			Host: pu.Host,
+			Host:   pu.Host,
 		})
 	}
 

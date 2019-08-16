@@ -14,7 +14,6 @@ import (
 	"HFish/core/protocol/ssh"
 	"HFish/core/protocol/redis"
 	"HFish/core/protocol/mysql"
-	"HFish/core/protocol/memcache"
 	"HFish/core/protocol/ftp"
 	"HFish/core/protocol/telnet"
 	"HFish/core/rpc/server"
@@ -93,6 +92,18 @@ func RunAdmin() http.Handler {
 }
 
 func Run() {
+	// 启动 MemCache 蜜罐
+	//memCacheStatus := conf.Get("mem_cache", "status")
+	//
+	//// 判断 MemCache 蜜罐 是否开启
+	//if memCacheStatus == "1" {
+	//	memCacheRateLimit := conf.Get("mem_cache", "rate_limit")
+	//	memCacheAddr := conf.Get("mem_cache", "addr")
+	//	go memcache.Start(memCacheAddr, memCacheRateLimit)
+	//}
+
+	//=========================//
+
 	// 启动 FTP 蜜罐
 	ftpStatus := conf.Get("ftp", "status")
 
@@ -205,18 +216,6 @@ func Run() {
 		}
 
 		go serverDark.ListenAndServe()
-	}
-
-	//=========================//
-
-	// 启动 Memcache 蜜罐
-	memcacheStatus := conf.Get("memcache", "status")
-	memcacheRateLimit := conf.Get("memcache", "ratelimit")
-
-	// 判断 暗网 Web 蜜罐 是否开启
-	if memcacheStatus == "1" {
-		memcacheAddr := conf.Get("memcache", "addr")
-		go memcache.Start(memcacheAddr, memcacheRateLimit)
 	}
 
 	//=========================//
