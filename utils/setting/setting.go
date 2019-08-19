@@ -92,6 +92,18 @@ func RunAdmin() http.Handler {
 }
 
 func Run() {
+	// 启动 MemCache 蜜罐
+	//memCacheStatus := conf.Get("mem_cache", "status")
+	//
+	//// 判断 MemCache 蜜罐 是否开启
+	//if memCacheStatus == "1" {
+	//	memCacheRateLimit := conf.Get("mem_cache", "rate_limit")
+	//	memCacheAddr := conf.Get("mem_cache", "addr")
+	//	go memcache.Start(memCacheAddr, memCacheRateLimit)
+	//}
+
+	//=========================//
+
 	// 启动 FTP 蜜罐
 	ftpStatus := conf.Get("ftp", "status")
 
