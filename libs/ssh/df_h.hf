@@ -1,0 +1,7 @@
+文件系统        容量  已用  可用 已用% 挂载点
+/dev/vda1        40G   14G   24G   37% /
+devtmpfs        487M     0  487M    0% /dev
+tmpfs           497M     0  497M    0% /dev/shm
+tmpfs           497M  556K  496M    1% /run
+tmpfs           497M     0  497M    0% /sys/fs/cgroup
+tmpfs           100M     0  100M    0% /run/user/0

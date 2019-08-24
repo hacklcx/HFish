@@ -18,6 +18,8 @@ import (
 	"HFish/core/protocol/telnet"
 	"HFish/core/rpc/server"
 	"HFish/core/rpc/client"
+	"HFish/view/api"
+	"HFish/utils/cors"
 )
 
 func RunWeb(template string, index string, static string, url string) http.Handler {
@@ -33,6 +35,17 @@ func RunWeb(template string, index string, static string, url string) http.Handl
 	r.GET(url, func(c *gin.Context) {
 		c.HTML(http.StatusOK, index, gin.H{})
 	})
+
+	// API 启用状态
+	apiStatus := conf.Get("api", "status")
+
+	// 判断 API 是否启用
+	if apiStatus == "1" {
+		// 启动 WEB蜜罐 API
+		r.Use(cors.Cors())
+		webUrl := conf.Get("api", "web_url")
+		r.POST(webUrl, api.ReportWeb)
+	}
 
 	return r
 }
@@ -50,6 +63,17 @@ func RunDeep(template string, index string, static string, url string) http.Hand
 	r.GET(url, func(c *gin.Context) {
 		c.HTML(http.StatusOK, index, gin.H{})
 	})
+
+	// API 启用状态
+	apiStatus := conf.Get("api", "status")
+
+	// 判断 API 是否启用
+	if apiStatus == "1" {
+		// 启动 暗网蜜罐 API
+		r.Use(cors.Cors())
+		deepUrl := conf.Get("api", "deep_url")
+		r.POST(deepUrl, api.ReportDeepWeb)
+	}
 
 	return r
 }
@@ -108,7 +132,7 @@ func Run() {
 	ftpStatus := conf.Get("ftp", "status")
 
 	// 判断 FTP 蜜罐 是否开启
-	if ftpStatus == "1" {
+	if ftpStatus != "0" {
 		ftpAddr := conf.Get("ftp", "addr")
 		go ftp.Start(ftpAddr)
 	}
@@ -119,7 +143,7 @@ func Run() {
 	telnetStatus := conf.Get("telnet", "status")
 
 	// 判断 Telnet 蜜罐 是否开启
-	if telnetStatus == "1" {
+	if telnetStatus != "0" {
 		telnetAddr := conf.Get("telnet", "addr")
 		go telnet.Start(telnetAddr)
 	}
@@ -141,7 +165,7 @@ func Run() {
 	mysqlStatus := conf.Get("mysql", "status")
 
 	// 判断 Mysql 蜜罐 是否开启
-	if mysqlStatus == "1" {
+	if mysqlStatus != "0" {
 		mysqlAddr := conf.Get("mysql", "addr")
 
 		// 利用 Mysql 服务端 任意文件读取漏洞
@@ -156,7 +180,7 @@ func Run() {
 	redisStatus := conf.Get("redis", "status")
 
 	// 判断 Redis 蜜罐 是否开启
-	if redisStatus == "1" {
+	if redisStatus != "0" {
 		redisAddr := conf.Get("redis", "addr")
 		go redis.Start(redisAddr)
 	}
@@ -167,7 +191,7 @@ func Run() {
 	sshStatus := conf.Get("ssh", "status")
 
 	// 判断 SSG 蜜罐 是否开启
-	if sshStatus == "1" {
+	if sshStatus != "0" {
 		sshAddr := conf.Get("ssh", "addr")
 		go ssh.Start(sshAddr)
 	}
@@ -178,7 +202,7 @@ func Run() {
 	webStatus := conf.Get("web", "status")
 
 	// 判断 Web 蜜罐 是否开启
-	if webStatus == "1" {
+	if webStatus != "0" {
 		webAddr := conf.Get("web", "addr")
 		webTemplate := conf.Get("web", "template")
 		webStatic := conf.Get("web", "static")
@@ -201,7 +225,7 @@ func Run() {
 	deepStatus := conf.Get("deep", "status")
 
 	// 判断 暗网 Web 蜜罐 是否开启
-	if deepStatus == "1" {
+	if deepStatus != "0" {
 		deepAddr := conf.Get("deep", "addr")
 		deepTemplate := conf.Get("deep", "template")
 		deepStatic := conf.Get("deep", "static")
@@ -273,7 +297,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.2
+  (__\\   /_//_/_/ /_/___/_//_/ v0.3
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))

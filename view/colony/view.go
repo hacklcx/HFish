@@ -36,3 +36,13 @@ func GetColony(c *gin.Context) {
 	result := dbUtil.Query(sql)
 	c.JSON(http.StatusOK, error.ErrSuccess(result))
 }
+
+// 删除集群
+func PostColonyDel(c *gin.Context) {
+	id := c.PostForm("id")
+
+	sqlDel := `delete from hfish_colony where id=?;`
+	dbUtil.Delete(sqlDel, id)
+
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}

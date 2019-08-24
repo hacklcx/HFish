@@ -1,10 +1,10 @@
 package client
 
 import (
-	"net/rpc"
 	"HFish/utils/log"
 	"HFish/utils/conf"
-	"HFish/utils/ip"
+	"HFish/core/rpc/core"
+	"strings"
 )
 
 // 上报状态结构
@@ -25,26 +25,28 @@ type Result struct {
 	Id          string // 数据库ID，更新用 0 为新插入数据
 }
 
-func createClient() (*rpc.Client, bool) {
+func createClient() (*rpc.Client, string, bool) {
 	rpcAddr := conf.Get("rpc", "addr")
-	client, err := rpc.Dial("tcp", rpcAddr)
+	client, conn, err := rpc.Dial("tcp", rpcAddr)
+
+	ipArr := strings.Split(conn.LocalAddr().String(), ":")
 
 	if err != nil {
 		log.Pr("RPC", "127.0.0.1", "连接 RPC Server 失败")
-		return client, false
+		return client, "", false
 	}
 
-	return client, true
+	return client, ipArr[0], true
 }
 
 func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string) {
-	client, boolStatus := createClient()
+	client, addr, boolStatus := createClient()
 
 	if boolStatus {
 		defer client.Close()
 
 		status := Status{
-			ip.GetLocalIp(),
+			addr,
 			rpcName,
 			webStatus,
 			darkStatus,
@@ -69,7 +71,7 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 	// projectName 只有 WEB 才需要传项目名 其他协议空即可
 	// id 0 为 新插入数据，非 0 都是更新数据
 	// id 非 0 的时候 sourceIp 为空
-	client, boolStatus := createClient()
+	client, addr, boolStatus := createClient()
 
 	if boolStatus {
 		defer client.Close()
@@ -77,7 +79,7 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 		rpcName := conf.Get("rpc", "name")
 
 		result := Result{
-			ip.GetLocalIp(),
+			addr,
 			rpcName,
 			typex,
 			projectName,

@@ -11,6 +11,7 @@ import (
 	"HFish/utils/is"
 )
 
+// 上报WEB蜜罐
 func ReportWeb(c *gin.Context) {
 	name := c.PostForm("name")
 	info := c.PostForm("info")
@@ -34,6 +35,7 @@ func ReportWeb(c *gin.Context) {
 	}
 }
 
+// 上报暗网蜜罐
 func ReportDeepWeb(c *gin.Context) {
 	name := c.PostForm("name")
 	info := c.PostForm("info")
@@ -60,6 +62,13 @@ func ReportDeepWeb(c *gin.Context) {
 // 获取记录黑客IP
 func GetIpList(c *gin.Context) {
 	sql := `select ip from hfish_info GROUP BY ip;`
+	result := dbUtil.Query(sql)
+	c.JSON(http.StatusOK, error.ErrSuccess(result))
+}
+
+// 获取记录黑客IP
+func GetFishInfo(c *gin.Context) {
+	sql := `select * from hfish_info ORDER BY id desc`
 	result := dbUtil.Query(sql)
 	c.JSON(http.StatusOK, error.ErrSuccess(result))
 }

@@ -1,0 +1,12 @@
+.spage-total{display: inline-block;margin-right: 20px;line-height: 35px;color: #049cfd;font-size:14px;}
+.spage-number{display: inline-block;color: #666;font-size:14px;}
+.spage-number span{position: relative;box-sizing: border-box;display: inline-block;margin-left:-1px;padding: 0px 14px;line-height: 33px;border:1px solid #ddd;text-align: center;transition: all .2s;cursor: pointer;}
+.spage-number span.active{background: #049cfd;color: #fff;border-color:#049cfd;z-index: 3;}
+.spage-number span.active:hover{background: #049cfd;color: #fff;border-color:#049cfd;z-index: 3;}
+.spage-number span:hover{background-color: #eee;}
+.spage-number span.span-disabled{cursor: not-allowed;color: #ccc;}
+.spage-skip{display: inline-block;margin-left: 20px;line-height: 35px;color: #666;font-size:14px;}
+.spage-skip input{box-sizing: border-box;display: inline-block;width: 45px;height: 35px;line-height: 35px;text-align: center;vertical-align: top;border:1px solid #ddd;outline: none;transition: all .2s;}
+.spage-skip input:focus{border-color: #049cfd;}
+.spage-skip span{background: #049cfd;display: inline-block;padding: 0px 14px;line-height: 33px;vertical-align: top;color: #fff;outline: none;border:1px solid #ddd;cursor: pointer;transition: all .2s;}
+.spage-skip span:hover{background: #049cfd;color: #fff;border:1px solid #049cfd;}

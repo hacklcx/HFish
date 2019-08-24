@@ -40,9 +40,15 @@
         margin-top: 0px;
     }
 
-    .agent_name{
+    .agent_name {
         font-weight: bold;
         color: #167bcc;
+    }
+
+    .fa-trash-o {
+        cursor: pointer;
+        color: #dc0e0e;
+        margin-right: 5px;
     }
 </style>
 <div class="row">
@@ -64,7 +70,7 @@
                     <th width="10%" style="text-align: center;">Mysql</th>
                     <th width="10%" style="text-align: center;">Telnet</th>
                     <th width="10%" style="text-align: center;">FTP</th>
-                    {{/*<th width="10%" style="text-align: center;">Http代理</th>*/}}
+                    <th width="1%"></th>
                 </tr>
                 </thead>
                 <tbody id="tableList">
@@ -79,6 +85,28 @@
 
 {{template "footer" }}
 <script>
+
+    function del(id) {
+        $.ajax({
+            type: "POST",
+            url: "/post/colony/del",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    window.location.href = "/colony";
+                } else {
+                    swal("删除失败", e.msg, 'error');
+                }
+            },
+            error: function (e) {
+                swal("删除失败", "请 Github 提交 Issues", 'error');
+            }
+        });
+    }
+
     $.ajax({
         type: "GET",
         url: "/get/colony/list",
@@ -148,6 +176,10 @@
                     // } else {
                     //     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     // }
+
+                    _h += '    <td class="td" style="text-align: center;">';
+                    _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
+                    _h += '    </td>';
                 } else {
                     _h += '    <td class="td agent_name"><span class="closex"></span>' + data[i].agent_name + '</td>';
                     _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
@@ -159,6 +191,9 @@
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     // _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;">';
+                    _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
+                    _h += '    </td>';
                 }
 
 
