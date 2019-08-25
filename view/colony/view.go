@@ -26,6 +26,8 @@ func GetColony(c *gin.Context) {
 			http_status,
 			telnet_status,
             ftp_status,
+            mem_cache_status,
+            plug_status,
 			last_update_time
 		FROM
 			hfish_colony

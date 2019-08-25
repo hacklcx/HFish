@@ -3,7 +3,6 @@ package ssh
 import (
 	"github.com/gliderlabs/ssh"
 	"golang.org/x/crypto/ssh/terminal"
-	"fmt"
 	"io"
 	"strings"
 	"HFish/utils/is"
@@ -14,7 +13,10 @@ import (
 	"HFish/utils/json"
 	"github.com/bitly/go-simplejson"
 	"HFish/utils/file"
+	"strconv"
 )
+
+var clientData map[string]string
 
 func getJson() *simplejson.Json {
 	res, err := json.Get("ssh")
@@ -26,6 +28,8 @@ func getJson() *simplejson.Json {
 }
 
 func Start(addr string) {
+	clientData = make(map[string]string)
+
 	ssh.ListenAndServe(
 		addr,
 		func(s ssh.Session) {
@@ -47,7 +51,13 @@ func Start(addr string) {
 
 				output := file.ReadLibsText("ssh", fileName)
 
-				fmt.Println(line)
+				id := clientData[s.RemoteAddr().String()]
+
+				if is.Rpc() {
+					go client.ReportResult("SSH", "", "", "&&"+line, id)
+				} else {
+					go report.ReportUpdateSSH(id, "&&"+line)
+				}
 
 				io.WriteString(s, output+"\n")
 			}
@@ -59,11 +69,13 @@ func Start(addr string) {
 
 			log.Pr("SSH", arr[0], "已经连接")
 
+			var id string
+
 			// 判断是否为 RPC 客户端
 			if is.Rpc() {
-				go client.ReportResult("SSH", "", arr[0], info, "0")
+				id = client.ReportResult("SSH", "", arr[0], info, "0")
 			} else {
-				go report.ReportSSH(arr[0], "本机", info)
+				id = strconv.FormatInt(report.ReportSSH(arr[0], "本机", info), 10)
 			}
 
 			sshStatus := conf.Get("ssh", "status")
@@ -75,6 +87,7 @@ func Start(addr string) {
 				passwordx := res.Get("password")
 
 				if (accountx.MustString() == s.User() && passwordx.MustString() == password) {
+					clientData[s.RemoteAddr().String()] = id
 					return true
 				}
 			}

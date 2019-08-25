@@ -1,0 +1,23 @@
+{
+  "command": {
+    "default": "default",
+    "ls": "ls",
+    "ls -all": "ls_all",
+    "arp": "arp",
+    "cat /proc/cpuinfo": "cpuinfo",
+    "cat /etc/group": "group",
+    "cat /etc/hosts": "hosts",
+    "hostname": "hostname",
+    "cat /etc/inittab": "inittab",
+    "cat /proc/meminfo": "meminfo",
+    "cat /etc/passwd": "passwd",
+    "cat /etc/resolv.conf": "resolv",
+    "cat /proc/version": "version",
+    "ifconfig": "ifconfig",
+    "df -h": "df_h",
+    "df": "df",
+    "wget": "wget",
+    "ll": "ll",
+    "ll -h": "ll_h"
+  }
+}

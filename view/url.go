@@ -23,6 +23,7 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/", login.Jump, dashboard.Html)
 	r.GET("/dashboard", login.Jump, dashboard.Html)
 	r.GET("/get/dashboard/data", login.Jump, dashboard.GetFishData)
+	r.GET("/get/dashboard/pie_data", login.Jump, dashboard.GetFishPieData)
 
 	// 蜜罐列表
 	r.GET("/fish", login.Jump, fish.Html)

@@ -18,6 +18,7 @@ func Html(c *gin.Context) {
 	deepMysql := `select count(1) as sum from hfish_info where type="DEEP";`
 	telnetMysql := `select count(1) as sum from hfish_info where type="TELNET";`
 	ftpMysql := `select count(1) as sum from hfish_info where type="FTP";`
+	memCacheMysql := `select count(1) as sum from hfish_info where type="MEMCACHE";`
 
 	resultWeb := dbUtil.Query(sqlWeb)
 	resultSsh := dbUtil.Query(sqlSsh)
@@ -26,6 +27,7 @@ func Html(c *gin.Context) {
 	resultDeep := dbUtil.Query(deepMysql)
 	resultTelnet := dbUtil.Query(telnetMysql)
 	resultFtp := dbUtil.Query(ftpMysql)
+	resultMemCache := dbUtil.Query(memCacheMysql)
 
 	webSum := strconv.FormatInt(resultWeb[0]["sum"].(int64), 10)
 	sshSum := strconv.FormatInt(resultSsh[0]["sum"].(int64), 10)
@@ -34,6 +36,7 @@ func Html(c *gin.Context) {
 	deepSum := strconv.FormatInt(resultDeep[0]["sum"].(int64), 10)
 	telnetSum := strconv.FormatInt(resultTelnet[0]["sum"].(int64), 10)
 	ftpSum := strconv.FormatInt(resultFtp[0]["sum"].(int64), 10)
+	memCacheSum := strconv.FormatInt(resultMemCache[0]["sum"].(int64), 10)
 
 	// 读取服务运行状态
 	mysqlStatus := conf.Get("mysql", "status")
@@ -44,23 +47,26 @@ func Html(c *gin.Context) {
 	deepStatus := conf.Get("deep", "status")
 	telnetStatus := conf.Get("telnet", "status")
 	ftpStatus := conf.Get("ftp", "status")
+	memCacheStatus := conf.Get("mem_cache", "status")
 
 	c.HTML(http.StatusOK, "dashboard.html", gin.H{
-		"webSum":       webSum,
-		"sshSum":       sshSum,
-		"redisSum":     redisSum,
-		"mysqlSum":     mysqlSum,
-		"deepSum":      deepSum,
-		"telnetSum":    telnetSum,
-		"ftpSum":       ftpSum,
-		"webStatus":    webStatus,
-		"sshStatus":    sshStatus,
-		"redisStatus":  redisStatus,
-		"mysqlStatus":  mysqlStatus,
-		"apiStatus":    apiStatus,
-		"deepStatus":   deepStatus,
-		"telnetStatus": telnetStatus,
-		"ftpStatus":    ftpStatus,
+		"webSum":         webSum,
+		"sshSum":         sshSum,
+		"redisSum":       redisSum,
+		"mysqlSum":       mysqlSum,
+		"deepSum":        deepSum,
+		"telnetSum":      telnetSum,
+		"ftpSum":         ftpSum,
+		"memCacheSum":    memCacheSum,
+		"webStatus":      webStatus,
+		"sshStatus":      sshStatus,
+		"redisStatus":    redisStatus,
+		"mysqlStatus":    mysqlStatus,
+		"apiStatus":      apiStatus,
+		"deepStatus":     deepStatus,
+		"telnetStatus":   telnetStatus,
+		"ftpStatus":      ftpStatus,
+		"memCacheStatus": memCacheStatus,
 	})
 }
 
@@ -213,16 +219,93 @@ func GetFishData(c *gin.Context) {
 		telnetMap[resultTelnet[k]["hour"].(string)] = resultTelnet[k]["sum"].(int64)
 	}
 
+	// 统计 MemCache
+	sqlMemCache := `
+	SELECT
+		strftime("%H", create_time) AS hour,
+		sum(1) AS sum
+	FROM
+		hfish_info
+	WHERE
+		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+	AND type="MEMCACHE"
+	GROUP BY
+	hour;
+   `
+
+	resultMemCache := dbUtil.Query(sqlMemCache)
+
+	memCacheMap := make(map[string]int64)
+	for k := range resultMemCache {
+		memCacheMap[resultMemCache[k]["hour"].(string)] = resultMemCache[k]["sum"].(int64)
+	}
+
 	// 拼接 json
 	s := map[string]map[string]int64{
-		"web":    webMap,
-		"ssh":    sshMap,
-		"redis":  redisMap,
-		"mysql":  mysqlMap,
-		"deep":   deepMap,
-		"ftp":    ftpMap,
-		"telnet": telnetMap,
+		"web":      webMap,
+		"ssh":      sshMap,
+		"redis":    redisMap,
+		"mysql":    mysqlMap,
+		"deep":     deepMap,
+		"ftp":      ftpMap,
+		"telnet":   telnetMap,
+		"memCache": memCacheMap,
 	}
 
 	c.JSON(http.StatusOK, error.ErrSuccessEdit(s))
+}
+
+// 仪表盘攻击饼图统计
+func GetFishPieData(c *gin.Context) {
+	// 统计攻击地区
+	sqlRegion := `
+	SELECT
+		region,
+		count(1) AS sum
+	FROM
+		hfish_info
+	WHERE
+		region != ""
+	GROUP BY
+		region;
+   `
+
+	resultRegion := dbUtil.Query(sqlRegion)
+
+	var regionList []map[string]string
+
+	for k := range resultRegion {
+		regionMap := make(map[string]string)
+		regionMap["name"] = resultRegion[k]["region"].(string)
+		regionMap["value"] = strconv.FormatInt(resultRegion[k]["sum"].(int64), 10)
+		regionList = append(regionList, regionMap)
+	}
+
+	// 统计攻击IP
+	sqlIP := `
+	SELECT
+		ip,
+		count(1) AS sum
+	FROM
+		hfish_info
+	WHERE
+		ip != ""
+	GROUP BY
+		ip;
+   `
+	resultIP := dbUtil.Query(sqlIP)
+
+	var ipList []map[string]string
+
+	for k := range resultIP {
+		ipMap := make(map[string]string)
+		ipMap["name"] = resultIP[k]["ip"].(string)
+		ipMap["value"] = strconv.FormatInt(resultIP[k]["sum"].(int64), 10)
+		ipList = append(ipList, ipMap)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"regionList": regionList,
+		"ipList":     ipList,
+	})
 }

@@ -63,13 +63,15 @@
                 <tr>
                     <th width="10%">集群名称</th>
                     <th width="10%">集群 IP</th>
-                    <th width="10%" style="text-align: center;">WEB</th>
-                    <th width="10%" style="text-align: center;">暗网</th>
-                    <th width="10%" style="text-align: center;">SSH</th>
-                    <th width="10%" style="text-align: center;">Redis</th>
-                    <th width="10%" style="text-align: center;">Mysql</th>
-                    <th width="10%" style="text-align: center;">Telnet</th>
-                    <th width="10%" style="text-align: center;">FTP</th>
+                    <th width="8%" style="text-align: center;">插件</th>
+                    <th width="8%" style="text-align: center;">WEB</th>
+                    <th width="8%" style="text-align: center;">暗网</th>
+                    <th width="8%" style="text-align: center;">SSH</th>
+                    <th width="8%" style="text-align: center;">Redis</th>
+                    <th width="8%" style="text-align: center;">Mysql</th>
+                    <th width="8%" style="text-align: center;">Telnet</th>
+                    <th width="8%" style="text-align: center;">FTP</th>
+                    <th width="8%" style="text-align: center;">MemCache</th>
                     <th width="1%"></th>
                 </tr>
                 </thead>
@@ -129,6 +131,12 @@
                     _h += '    <td class="td agent_name"><span class="openx"></span>' + data[i].agent_name + '</td>';
                     _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
 
+                    if (data[i].plug_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
                     if (data[i].web_status == "1") {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
@@ -171,6 +179,13 @@
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
+                    if (data[i].mem_cache_status == "1") {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
+
                     // if (data[i].http_status == "1") {
                     //     _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     // } else {
@@ -183,6 +198,8 @@
                 } else {
                     _h += '    <td class="td agent_name"><span class="closex"></span>' + data[i].agent_name + '</td>';
                     _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';

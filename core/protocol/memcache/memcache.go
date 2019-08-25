@@ -29,6 +29,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"HFish/utils/is"
+	"HFish/core/rpc/client"
+	"HFish/core/report"
 )
 
 var linkedHashMap = LinkedHashMap.NewLinkedHashMap()
@@ -421,6 +424,18 @@ func tcpServer(address string, rateLimitChan chan int, exitChan chan int) {
 			skip := false
 			reader := bufio.NewReader(conn)
 			log.Printf("[Memcache TCP %d] Accepted a client socket from %s\n", trackID, conn.RemoteAddr().String())
+
+			arr := strings.Split(conn.RemoteAddr().String(), ":")
+
+			// 判断是否为 RPC 客户端
+			var id string
+
+			if is.Rpc() {
+				id = client.ReportResult("MEMCACHE", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
+			} else {
+				id = strconv.FormatInt(report.ReportMemCche(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
+			}
+
 			for {
 				<-rateLimitChan
 				str, err := reader.ReadString('\n')
@@ -434,6 +449,12 @@ func tcpServer(address string, rateLimitChan chan int, exitChan chan int) {
 					break
 				}
 				str = strings.TrimSpace(str)
+
+				if is.Rpc() {
+					go client.ReportResult("MEMCACHE", "", "", "&&"+str, id)
+				} else {
+					go report.ReportUpdateMemCche(id, "&&"+str)
+				}
 
 				log.Printf("[Memcache TCP %d] Client request: %s.\n", trackID, str)
 				args := strings.Split(str, " ")
@@ -544,7 +565,9 @@ func Start(addr string, rateLimitStr string) {
 
 	// 将服务器并发运行
 	go tcpServer(addr, rateLimitChan, exitChan)
-	go udpServer(addr, rateLimitChan, exitChan)
+
+	// UPD 暂不支持
+	//go udpServer(addr, rateLimitChan, exitChan)
 
 	// 通道阻塞，等待接受返回值
 	code := <-exitChan

@@ -62,6 +62,10 @@
         background-color: #000000;
     }
 
+    .lb_mem_cache {
+        background-color: #3d9671;
+    }
+
     .pre {
         background: #2c2c31;
         color: #4fe21b;
@@ -358,6 +362,8 @@
                         _h += '       <span class="label lb_telnet">TELNET</span> ';
                     } else if (data[i].type == "DEEP") {
                         _h += '       <span class="label lb_deep">DEEP</span> ';
+                    } else if (data[i].type == "MEMCACHE") {
+                        _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
                     }
 
                     _h += '       <span class="project">' + data[i].project_name + '</span>';

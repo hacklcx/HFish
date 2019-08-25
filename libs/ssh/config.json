@@ -13,7 +13,7 @@
     "hostname": "hostname",
     "cat /etc/inittab": "inittab",
     "cat /proc/meminfo": "meminfo",
-    "cat /proc/passwd": "passwd",
+    "cat /etc/passwd": "passwd",
     "cat /etc/resolv.conf": "resolv",
     "cat /proc/version": "version",
     "ifconfig": "ifconfig",

@@ -11,6 +11,9 @@ import (
 	"strconv"
 	"HFish/core/report"
 	"HFish/utils/log"
+	"github.com/bitly/go-simplejson"
+	"HFish/utils/json"
+	"HFish/utils/file"
 )
 
 // 服务端连接
@@ -50,6 +53,15 @@ func server(address string, exitChan chan int) {
 	}
 }
 
+func getJson() *simplejson.Json {
+	res, err := json.Get("telnet")
+
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "解析 Telnet JSON 文件失败", err)
+	}
+	return res
+}
+
 // 会话处理
 func handleSession(conn net.Conn, exitChan chan int, id string) {
 	fmt.Println("Session started")
@@ -65,7 +77,7 @@ func handleSession(conn net.Conn, exitChan chan int, id string) {
 			if is.Rpc() {
 				go client.ReportResult("TELNET", "", "", "&&"+str, id)
 			} else {
-				go report.ReportUpdateRedis(id, "&&"+str)
+				go report.ReportUpdateTelnet(id, "&&"+str)
 			}
 
 			if !processTelnetCommand(str, exitChan) {
@@ -73,7 +85,17 @@ func handleSession(conn net.Conn, exitChan chan int, id string) {
 				break
 			}
 
-			conn.Write([]byte("OK" + "\r\n"))
+			res := getJson()
+
+			fileName := res.Get("command").Get(str).MustString()
+
+			if (fileName == "") {
+				fileName = res.Get("command").Get("default").MustString()
+			}
+
+			output := file.ReadLibsText("telnet", fileName)
+
+			conn.Write([]byte(output + "\r\n"))
 		} else {
 			// 发生错误
 			fmt.Println("Session closed")
@@ -97,11 +119,7 @@ func processTelnetCommand(str string, exitChan chan int) bool {
 		exitChan <- 0
 		return false
 	}
-
-	// 打印输入的字符串
-	fmt.Println(str)
 	return true
-
 }
 
 func Start(addr string) {

@@ -11,9 +11,9 @@ import (
 
 // 上报状态结构
 type Status struct {
-	AgentIp                                         string
-	AgentName                                       string
-	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp string
+	AgentIp                                                        string
+	AgentName                                                      string
+	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug string
 }
 
 // 上报结果结构
@@ -44,6 +44,8 @@ func (t *HFishRPCService) ReportStatus(s *Status, reply *string) error {
 		s.Http,
 		s.Telnet,
 		s.Ftp,
+		s.MemCahe,
+		s.Plug,
 	)
 
 	return nil
@@ -54,6 +56,8 @@ func (t *HFishRPCService) ReportResult(r *Result, reply *string) error {
 	var idx string
 
 	switch r.Type {
+	case "PLUG":
+		go report.ReportPlugWeb(r.ProjectName, r.AgentName, r.SourceIp, r.Info)
 	case "WEB":
 		go report.ReportWeb(r.ProjectName, r.AgentName, r.SourceIp, r.Info)
 	case "DEEP":
@@ -81,8 +85,13 @@ func (t *HFishRPCService) ReportResult(r *Result, reply *string) error {
 		} else {
 			go report.ReportUpdateTelnet(r.Id, r.Info)
 		}
-	case "FTP":
-		go report.ReportFTP(r.SourceIp, r.AgentName, r.Info)
+	case "MEMCACHE":
+		if r.Id == "0" {
+			id := report.ReportMemCche(r.SourceIp, r.AgentName, r.Info)
+			idx = strconv.FormatInt(id, 10)
+		} else {
+			go report.ReportUpdateMemCche(r.Id, r.Info)
+		}
 	}
 
 	*reply = idx

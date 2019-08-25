@@ -111,7 +111,7 @@ func alert(id string, model string, typex string, projectName string, agent stri
 }
 
 // 上报 集群 状态
-func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepStatus string, sshStatus string, redisStatus string, mysqlStatus string, httpStatus string, telnetStatus string, ftpStatus string) {
+func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepStatus string, sshStatus string, redisStatus string, mysqlStatus string, httpStatus string, telnetStatus string, ftpStatus string, memCacheStatus string, plugStatus string) {
 	sql := `
 	INSERT INTO hfish_colony (
 		agent_name,
@@ -124,24 +124,26 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 		http_status,
 		telnet_status,
 		ftp_status,
+		mem_cache_status,
+		plug_status,
 		last_update_time
 	)
 	VALUES
-		(?,?,?,?,?,?,?,?,?,?,?);
+		(?,?,?,?,?,?,?,?,?,?,?,?,?);
 	`
 
-	id := dbUtil.Insert(sql, agentName, agentIp, webStatus, deepStatus, sshStatus, redisStatus, mysqlStatus, httpStatus, telnetStatus, ftpStatus, time.Now().Format("2006-01-02 15:04:05"))
+	id := dbUtil.Insert(sql, agentName, agentIp, webStatus, deepStatus, sshStatus, redisStatus, mysqlStatus, httpStatus, telnetStatus, ftpStatus, memCacheStatus, plugStatus, time.Now().Format("2006-01-02 15:04:05"))
 
 	// 如果 ID 等于0 代表 该数据以及存在
 	if id == 0 {
 		sql := `
 		UPDATE hfish_colony
-		SET agent_ip = ?, web_status = ?, deep_status = ?, ssh_status = ?, redis_status = ?, mysql_status = ?, http_status = ?, telnet_status = ?, ftp_status = ?, last_update_time =?
+		SET agent_ip = ?, web_status = ?, deep_status = ?, ssh_status = ?, redis_status = ?, mysql_status = ?, http_status = ?, telnet_status = ?, ftp_status = ?, mem_cache_status = ?, plug_status = ?, last_update_time = ?
 		WHERE
 			agent_name =?;
 		`
 
-		dbUtil.Update(sql, agentIp, webStatus, deepStatus, sshStatus, redisStatus, mysqlStatus, httpStatus, telnetStatus, ftpStatus, time.Now().Format("2006-01-02 15:04:05"), agentName)
+		dbUtil.Update(sql, agentIp, webStatus, deepStatus, sshStatus, redisStatus, mysqlStatus, httpStatus, telnetStatus, ftpStatus, memCacheStatus, plugStatus, time.Now().Format("2006-01-02 15:04:05"), agentName)
 	}
 }
 
@@ -161,12 +163,28 @@ func ReportDeepWeb(projectName string, agent string, ipx string, info string) {
 	go alert(strconv.FormatInt(id, 10), "new", "DEEP", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 }
 
+// 上报 蜜罐插件
+func ReportPlugWeb(projectName string, agent string, ipx string, info string) {
+	country, region, city := ip.GetIp(ipx)
+	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+	id := dbUtil.Insert(sql, "PLUG", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	go alert(strconv.FormatInt(id, 10), "new", "PLUG", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+}
+
 // 上报 SSH
-func ReportSSH(ipx string, agent string, info string) {
+func ReportSSH(ipx string, agent string, info string) int64 {
 	country, region, city := ip.GetIp(ipx)
 	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
 	id := dbUtil.Insert(sql, "SSH", "SSH蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 	go alert(strconv.FormatInt(id, 10), "new", "SSH", "SSH蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	return id
+}
+
+// 更新 SSH 操作
+func ReportUpdateSSH(id string, info string) {
+	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
+	dbUtil.Update(sql, info, id)
+	go alert(id, "update", "SSH", "SSH蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 }
 
 // 上报 Redis
@@ -223,4 +241,20 @@ func ReportUpdateTelnet(id string, info string) {
 	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
 	dbUtil.Update(sql, info, id)
 	go alert(id, "update", "TELNET", "Telnet蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+}
+
+// 上报 MemCache
+func ReportMemCche(ipx string, agent string, info string) int64 {
+	country, region, city := ip.GetIp(ipx)
+	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+	id := dbUtil.Insert(sql, "MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	go alert(strconv.FormatInt(id, 10), "new", "MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	return id
+}
+
+// 更新 MemCache 操作
+func ReportUpdateMemCche(id string, info string) {
+	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
+	dbUtil.Update(sql, info, id)
+	go alert(id, "update", "MEMCACHE", "MemCache蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 }
