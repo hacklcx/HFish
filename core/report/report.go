@@ -28,6 +28,7 @@ type HFishInfo struct {
 	time    string
 }
 
+// 通知模块
 func alert(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, time string) {
 	// 判断邮件通知
 	try.Try(func() {
@@ -147,114 +148,175 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 	}
 }
 
+// 判断是否为白名单IP
+func isWhiteIp(ip string) bool {
+	sql := `select status,info from hfish_setting where type = "whiteIp"`
+	isStatus := dbUtil.Query(sql)
+
+	status := strconv.FormatInt(isStatus[0]["status"].(int64), 10)
+
+	// 判断是否启用通知
+	if status == "1" {
+		info := isStatus[0]["info"]
+		ipArr := strings.Split(info.(string), "&&")
+
+		for _, val := range ipArr {
+			if (ip == val) {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
 // 上报 WEB
 func ReportWeb(projectName string, agent string, ipx string, info string) {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "WEB", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "WEB", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "WEB", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "WEB", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 暗网 WEB
 func ReportDeepWeb(projectName string, agent string, ipx string, info string) {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "DEEP", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "DEEP", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "DEEP", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "DEEP", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 蜜罐插件
 func ReportPlugWeb(projectName string, agent string, ipx string, info string) {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "PLUG", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "PLUG", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "PLUG", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "PLUG", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 SSH
 func ReportSSH(ipx string, agent string, info string) int64 {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "SSH", "SSH蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "SSH", "SSH蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	return id
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "SSH", "SSH蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "SSH", "SSH蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		return id
+	}
+	return 0
 }
 
 // 更新 SSH 操作
 func ReportUpdateSSH(id string, info string) {
-	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
-	dbUtil.Update(sql, info, id)
-	go alert(id, "update", "SSH", "SSH蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	if (id != "0") {
+		sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
+		dbUtil.Update(sql, info, id)
+		go alert(id, "update", "SSH", "SSH蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 Redis
 func ReportRedis(ipx string, agent string, info string) int64 {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "REDIS", "Redis蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "REDIS", "Redis蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	return id
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "REDIS", "Redis蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "REDIS", "Redis蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		return id
+	}
+	return 0
 }
 
 // 更新 Redis 操作
 func ReportUpdateRedis(id string, info string) {
-	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
-	dbUtil.Update(sql, info, id)
-	go alert(id, "update", "REDIS", "Redis蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	if (id != "0") {
+		sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
+		dbUtil.Update(sql, info, id)
+		go alert(id, "update", "REDIS", "Redis蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 Mysql
 func ReportMysql(ipx string, agent string, info string) int64 {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "MYSQL", "Mysql蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "MYSQL", "Mysql蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	return id
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "MYSQL", "Mysql蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "MYSQL", "Mysql蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		return id
+	}
+	return 0
 }
 
 // 更新 Mysql 操作
 func ReportUpdateMysql(id string, info string) {
-	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
-	dbUtil.Update(sql, info, id)
-	go alert(id, "update", "MYSQL", "Mysql蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	if (id != "0") {
+		sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
+		dbUtil.Update(sql, info, id)
+		go alert(id, "update", "MYSQL", "Mysql蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 FTP
 func ReportFTP(ipx string, agent string, info string) {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "FTP", "FTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "FTP", "FTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "FTP", "FTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "FTP", "FTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 Telnet
 func ReportTelnet(ipx string, agent string, info string) int64 {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "TELNET", "Telnet蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "TELNET", "Telnet蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	return id
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "TELNET", "Telnet蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "TELNET", "Telnet蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		return id
+	}
+	return 0
 }
 
 // 更新 Telnet 操作
 func ReportUpdateTelnet(id string, info string) {
-	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
-	dbUtil.Update(sql, info, id)
-	go alert(id, "update", "TELNET", "Telnet蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	if (id != "0") {
+		sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
+		dbUtil.Update(sql, info, id)
+		go alert(id, "update", "TELNET", "Telnet蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
 
 // 上报 MemCache
 func ReportMemCche(ipx string, agent string, info string) int64 {
-	country, region, city := ip.GetIp(ipx)
-	sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
-	id := dbUtil.Insert(sql, "MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	go alert(strconv.FormatInt(id, 10), "new", "MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
-	return id
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		sql := `INSERT INTO hfish_info(type,project_name,agent,ip,country,region,city,info,create_time) values(?,?,?,?,?,?,?,?,?);`
+		id := dbUtil.Insert(sql, "MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alert(strconv.FormatInt(id, 10), "new", "MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		return id
+	}
+	return 0
 }
 
 // 更新 MemCache 操作
 func ReportUpdateMemCche(id string, info string) {
-	sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
-	dbUtil.Update(sql, info, id)
-	go alert(id, "update", "MEMCACHE", "MemCache蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	if (id != "0") {
+		sql := `UPDATE hfish_info SET info = info||? WHERE id = ?;`
+		dbUtil.Update(sql, info, id)
+		go alert(id, "update", "MEMCACHE", "MemCache蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	}
 }
