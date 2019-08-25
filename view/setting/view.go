@@ -41,6 +41,12 @@ func checkInfo(id string) bool {
 	if num >= 4 && typeStr == "alertMail" {
 		return true
 	}
+	if num >= 1 && typeStr == "whiteIp" {
+		return true
+	}
+	if num >= 1 && typeStr == "webHook" {
+		return true
+	}
 	return false
 }
 
@@ -56,6 +62,16 @@ func joinInfo(args ...string) string {
 	info = info[:len(info)-2]
 	return info
 }
+var (
+	Sql=`
+		UPDATE  hfish_setting 
+		set	info = ?,
+			update_time = ?
+		where id = ?;`
+)
+func updateInfoBase(info string,id string){
+	dbUtil.Update(Sql, info, time.Now().Format("2006-01-02 15:04"), id)
+}
 
 /*更新邮件通知*/
 func UpdateEmailInfo(c *gin.Context) {
@@ -66,12 +82,7 @@ func UpdateEmailInfo(c *gin.Context) {
 	port := c.PostForm("port")
 	//subType := c.PostForm("type")
 	info := joinInfo(host, port, email, pass)
-	sql := `
-		UPDATE  hfish_setting 
-		set	info = ?,
-			update_time = ?
-		where id = ?;`
-	dbUtil.Update(sql, info, time.Now().Format("2006-01-02 15:04"), id)
+	updateInfoBase(info,id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 
@@ -87,12 +98,28 @@ func UpdateAlertMail(c *gin.Context) {
 	receiveArr := strings.Split(receive, ",")
 	receiveInfo := joinInfo(receiveArr...)
 	info := joinInfo(host, port, email, pass, receiveInfo)
-	sql := `
-		UPDATE  hfish_setting 
-		set	info = ?,
-			update_time = ?
-		where id = ?;`
-	dbUtil.Update(sql, info, time.Now().Format("2006-01-02 15:04"), id)
+	updateInfoBase(info,id)
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+
+/*更新ip白名单*/
+func UpdateWhiteIp(c *gin.Context) {
+	id := c.PostForm("id")
+	whiteIpList := c.PostForm("whiteIpList")
+	//subType := c.PostForm("type")
+	Arr := strings.Split(whiteIpList, ",")
+	info := joinInfo(Arr...)
+	updateInfoBase(info,id)
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+/*更新webhook*/
+func UpdateWebHook(c *gin.Context){
+	id := c.PostForm("id")
+	whiteIpList := c.PostForm("webHookUrl")
+	//subType := c.PostForm("type")
+	Arr := strings.Split(whiteIpList, ",")
+	info := joinInfo(Arr...)
+	updateInfoBase(info,id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 
