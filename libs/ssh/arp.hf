@@ -1,0 +1,2 @@
+Address                  HWtype  HWaddress           Flags Mask            Iface
+gateway                  ether   ee:ff:ff:ff:ff:ff   C                     eth0

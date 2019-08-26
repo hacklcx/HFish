@@ -4,6 +4,8 @@ import (
 	"HFish/error"
 	"fmt"
 	"os"
+	"io/ioutil"
+	"HFish/utils/log"
 )
 
 func Output(result string, path string) {
@@ -21,4 +23,14 @@ func Output(result string, path string) {
 	} else {
 		fmt.Println(result)
 	}
+}
+
+func ReadLibsText(typex string, name string) string {
+	text, err := ioutil.ReadFile("./libs/" + typex + "/" + name + ".hf")
+
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "读取文件失败", err)
+	}
+
+	return string(text[:])
 }

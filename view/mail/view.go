@@ -18,7 +18,7 @@ func Html(c *gin.Context) {
 func SendEmailToUsers(c *gin.Context) {
 	emails := c.PostForm("emails")
 	title := c.PostForm("title")
-	from := c.PostForm("from")
+	//from := c.PostForm("from")
 	content := c.PostForm("content")
 
 	eArr := strings.Split(emails, ",")
@@ -27,9 +27,9 @@ func SendEmailToUsers(c *gin.Context) {
 	info := isAlertStatus[0]["info"]
 	config := strings.Split(info.(string), "&&")
 
-	if from != "" {
-		config[2] = from
-	}
+	//if from != "" {
+	//	config[2] = from
+	//}
 
 	status := strconv.FormatInt(isAlertStatus[0]["status"].(int64), 10)
 

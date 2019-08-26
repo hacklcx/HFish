@@ -11,10 +11,12 @@ import (
 	"fmt"
 	"HFish/utils/try"
 	"HFish/utils/log"
+	"github.com/ipipdotnet/ipdb-go"
 )
 
 // 爬虫 ip138 获取 ip 地理信息
-func Get(ip string) string {
+// ~~~~~~ 暂时废弃，采用 IPIP
+func GetIp138(ip string) string {
 	result := ""
 	try.Try(func() {
 		resp, err := http.Get("http://ip138.com/ips138.asp?ip=" + ip)
@@ -66,4 +68,11 @@ func GetLocalIp() string {
 	}
 
 	return ""
+}
+
+// 采用 IPIP 本地库
+func GetIp(ip string) (string, string, string) {
+	db, _ := ipdb.NewCity("./db/ipip.ipdb")
+	ipInfo, _ := db.FindMap(ip, "CN")
+	return ipInfo["country_name"], ipInfo["region_name"], ipInfo["city_name"]
 }

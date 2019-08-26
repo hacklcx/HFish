@@ -1,4 +1,5 @@
 {{template "header"}}
+<link href="/static/libs/page/jquery.sPage.css" rel="stylesheet"/>
 <style>
     .card-box {
         padding: 0px;
@@ -24,8 +25,7 @@
     }
 
     .fa-trash-o {
-        color: #f00;
-        cursor: pointer;
+        margin-right: 5px;
     }
 
     .info {
@@ -62,6 +62,14 @@
         background-color: #000000;
     }
 
+    .lb_mem_cache {
+        background-color: #3d9671;
+    }
+
+    .lb_plug {
+        background-color: #61772d;
+    }
+
     .pre {
         background: #2c2c31;
         color: #4fe21b;
@@ -96,19 +104,37 @@
     }
 
     .agent_name {
-        border: 1px solid #167bcc;
+        border: 1px solid #079dfd;
         padding: 2px 5px;
         border-radius: 5px;
-        color: #167bcc;
+        color: #079dfd;
         font-size: 12px;
     }
 
-    .ipinfo{
+    .ipinfo {
         border: 1px solid #434e56;
         padding: 2px 5px;
         border-radius: 5px;
         color: #434e56;
         font-size: 12px;
+    }
+
+    .cinfo {
+        border: 1px solid #1eaec1;
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: #1eaec1;
+        font-size: 12px;
+    }
+
+    #myPage {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .checkbox {
+        padding-left: 20px;
+        margin-bottom: -2px;
     }
 </style>
 <div class="row">
@@ -126,6 +152,7 @@
             <select class="form-control" id="selectType" style="height: 34px;" onchange="so()"></select>
         </div>
         <div class="col-sm-2">
+            <select class="form-control" id="selectColony" style="height: 34px;" onchange="so()"></select>
         </div>
         <div class="col-sm-2">
         </div>
@@ -146,22 +173,28 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th width="10%">项目</th>
-                    <th width="10%">集群名称</th>
-                    <th width="10%">来源 IP</th>
-                    <th width="10%">地理信息</th>
-                    <th width="10%">信息</th>
+                    <th width="1%">
+                        <div class="checkbox checkbox-single checkbox-danger">
+                            <input type="checkbox" value="all" id="check_all">
+                            <label></label>
+                        </div>
+                    </th>
+                    <th width="11%">项目</th>
+                    <th width="8%">集群名称</th>
+                    <th width="8%">来源 IP</th>
+                    <th width="8%">地理信息</th>
+                    <th width="5%">信息</th>
+                    <th width="5%">长度</th>
                     <th width="8%">上钩时间</th>
-                    <th width="2%">操作</th>
                 </tr>
                 </thead>
                 <tbody id="tableList"></tbody>
             </table>
         </div>
-        <div style="text-align: center;" class="dataTables_paginate paging_simple_numbers">
-            <ul class="pagination" id="pages">
-            </ul>
-        </div>
+        <button type="button" id="delbtn" class="btn btn-danger waves-effect waves-light btn-sm"
+                style="float: left;margin-top: 5px;" onclick="del()" disabled><i class="fa fa-trash-o"></i>删除
+        </button>
+        <div id="myPage"></div>
     </div>
 </div>
 
@@ -180,6 +213,7 @@
 </div>
 
 {{template "footer" }}
+<script src="/static/libs/page/jquery.sPage.js"></script>
 <script>
     function show(id) {
         $.ajax({
@@ -205,13 +239,21 @@
         $('#myModal').modal('show')
     }
 
-    function del(id) {
+    function del() {
+        var val = "";
+        $('input[name^="check_"]').each(function () {
+            if (this.checked) {
+                val += $(this).val() + ',';
+            }
+        });
+        val = val.substring(0, val.length - 1);
+
         $.ajax({
             type: "POST",
             url: "/post/fish/del",
             dataType: "json",
             data: {
-                "id": id
+                "id": val
             },
             success: function (e) {
                 if (e.code == 200) {
@@ -232,26 +274,65 @@
             url: "/get/fish/typeList",
             dataType: "json",
             success: function (e) {
-                if (e.code == 200) {
-                    var data = e.data;
-                    var _h = '<option value="all">请选择类型</option>';
+                var data = e.resultInfoType;
+                var _h = '<option value="all">请选择类型</option>';
 
-                    for (var i = 0; i < data.length; i++) {
-                        _h += '<option value="' + data[i].type + '">' + data[i].type + '</option>';
-                    }
-
-                    $("#selectType").html(_h);
-
-                } else {
-
+                for (var i = 0; i < data.length; i++) {
+                    _h += '<option value="' + data[i].type + '">' + data[i].type + '</option>';
                 }
+
+                $("#selectType").html(_h);
+
+                var data1 = e.resultColonyName;
+                var _h1 = '<option value="all">请选择集群</option>';
+                _h1 += '<option value="本机">本机</option>';
+
+                for (var i = 0; i < data1.length; i++) {
+                    _h1 += '<option value="' + data1[i].agent_name + '">' + data1[i].agent_name + '</option>';
+                }
+                $("#selectColony").html(_h1);
             },
             error: function (e) {
             }
         });
     }
 
-    function init(page, type, so_text) {
+    $("#check_all").click(function () {
+        var status = 0;
+
+        $('input[name="check_x"]').each(function () {
+            if ($("#check_all").prop('checked') == true) {
+                status++;
+                this.checked = true;
+            } else {
+                this.checked = false;
+            }
+        });
+
+        if (status > 0) {
+            $("#delbtn").attr("disabled", false);
+        } else {
+            $("#delbtn").attr("disabled", true);
+        }
+    });
+
+    function changedel() {
+        var status = 0;
+        $('input[name="check_x"]').each(function () {
+            if (this.checked == true) {
+                status++;
+            } else {
+            }
+        });
+
+        if (status > 0) {
+            $("#delbtn").attr("disabled", false);
+        } else {
+            $("#delbtn").attr("disabled", true);
+        }
+    }
+
+    function init(page, type, colony, so_text) {
         $.ajax({
             type: "GET",
             url: "/get/fish/list",
@@ -260,6 +341,7 @@
                 "page": page,
                 "pageSize": 10,
                 "type": type,
+                "colony": colony,
                 "so_text": so_text
             },
             success: function (e) {
@@ -268,6 +350,7 @@
 
                 for (var i = 0; i < data.length; i++) {
                     _h += '<tr>';
+                    _h += '    <td class="td"><div class="checkbox checkbox-single checkbox-danger"><input type="checkbox"  value="' + data[i].id + '" name="check_x" onchange="changedel()"><label></label></div></td>'
                     _h += '    <td class="td">';
                     if (data[i].type == "WEB") {
                         _h += '       <span class="label label-primary">WEB</span> ';
@@ -283,66 +366,77 @@
                         _h += '       <span class="label lb_telnet">TELNET</span> ';
                     } else if (data[i].type == "DEEP") {
                         _h += '       <span class="label lb_deep">DEEP</span> ';
+                    } else if (data[i].type == "MEMCACHE") {
+                        _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
+                    } else if (data[i].type == "PLUG") {
+                        _h += '       <span class="label lb_plug">PLUG</span> ';
                     }
 
                     _h += '       <span class="project">' + data[i].project_name + '</span>';
                     _h += '    </td>';
                     _h += '    <td class="td"><span class="agent_name">' + data[i].agent + '</span></td>';
                     _h += '    <td class="td" style="font-weight: bold;">' + data[i].ip + '</td>';
-                    _h += '    <td class="td"><span class="ipinfo">' + data[i].ip_info + '</span></td>';
+
+                    // country,region,city
+                    if (data[i].country == "本机地址") {
+                        _h += '    <td class="td"><span class="ipinfo">本机地址</span></td>';
+                    } else if (data[i].country == "局域网") {
+                        _h += '    <td class="td"><span class="ipinfo">局域网</span></td>';
+                    }
+                    else {
+                        _h += '    <td class="td"><span class="ipinfo">' + data[i].country + ' ' + data[i].region + ' ' + data[i].city + '</span></td>';
+                    }
+
                     _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
+                    _h += '    <td class="td"><span class="cinfo">' + data[i].info.length + '</span></td>';
                     _h += '    <td class="td">' + data[i].create_time + '</td>';
-                    _h += '    <td class="td" style="text-align: center;">';
-                    _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
-                    _h += '    </td>';
                     _h += '</tr>';
                 }
 
                 if (_h == "") {
-                    _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>'
+                    _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="8">暂无数据</td></tr>'
                 }
 
                 $("#tableList").html(_h);
 
                 var pageCount = e.pageCount;
+                var totalCount = e.totalCount;
                 var page = e.page;
-                var _hx = '';
 
-                for (var i = 0; i < parseInt(pageCount); i++) {
-                    if (page == (i + 1)) {
-                        _hx += '<li class="paginate_button page-item active">';
-                        _hx += '    <a onclick="page(' + (i + 1) + ')" style="cursor: pointer;" aria-controls="datatable" data-dt-idx="' + (i + 1) + '" tabindex="0" class="page-link">' + (i + 1) + '</a>';
-                        _hx += '</li>';
-                    } else {
-                        _hx += '<li class="paginate_button page-item">';
-                        _hx += '    <a onclick="page(' + (i + 1) + ')" style="cursor: pointer;" aria-controls="datatable" data-dt-idx="' + (i + 1) + '" tabindex="0" class="page-link">' + (i + 1) + '</a>';
-                        _hx += '</li>';
+
+                $("#myPage").sPage({
+                    page: page,
+                    pageSize: 10,
+                    total: totalCount,
+                    totalTxt: "共{total}条",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
+                    noData: true,//没有数据时是否显示分页，默认false不显示，true显示第一页
+                    showTotal: true,//是否显示总条数，默认关闭：false
+                    showSkip: true,
+                    showPN: true,
+                    prevPage: "上一页",
+                    nextPage: "下一页",
+                    backFun: function (p) {
+                        var selectType = $("#selectType").val();
+                        var selectColony = $("#selectColony").val();
+                        var so_text = $("#so_text").val();
+                        init(p, selectType, selectColony, so_text);
                     }
-                }
-
-
-                $("#pages").html(_hx);
+                });
             },
             error: function (e) {
             }
         });
     }
 
-
-    init(1, "all", "");
+    init(1, "all", "all", "");
     init_type();
 
     function so() {
         var selectType = $("#selectType").val();
+        var selectColony = $("#selectColony").val();
         var so_text = $("#so_text").val();
 
-        init(1, selectType, so_text);
-    }
 
-    function page(p) {
-        var selectType = $("#selectType").val();
-        var so_text = $("#so_text").val();
-
-        init(p, selectType, so_text);
+        init(1, selectType, selectColony, so_text);
     }
 </script>

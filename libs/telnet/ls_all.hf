@@ -1,0 +1,24 @@
+总用量 68
+dr-xr-xr-x. 18 root root  4096 12月  5 2017 .
+dr-xr-xr-x. 18 root root  4096 12月  5 2017 ..
+-rw-r--r--   1 root root     0 10月 15 2017 .autorelabel
+lrwxrwxrwx.  1 root root     7 10月 15 2017 bin -> usr/bin
+dr-xr-xr-x.  5 root root  4096 4月  27 2018 boot
+drwxr-xr-x  20 root root  3040 12月  5 2017 dev
+drwxr-xr-x. 81 root root  4096 8月  14 23:37 etc
+drwxr-xr-x.  5 root root  4096 12月  4 2017 home
+lrwxrwxrwx.  1 root root     7 10月 15 2017 lib -> usr/lib
+lrwxrwxrwx.  1 root root     9 10月 15 2017 lib64 -> usr/lib64
+drwx------.  2 root root 16384 10月 15 2017 lost+found
+drwxr-xr-x.  2 root root  4096 11月  5 2016 media
+drwxr-xr-x.  2 root root  4096 11月  5 2016 mnt
+drwxr-xr-x.  4 root root  4096 8月  14 23:45 opt
+dr-xr-xr-x  95 root root     0 12月  5 2017 proc
+dr-xr-x---.  7 root root  4096 8月   5 22:15 root
+drwxr-xr-x  26 root root   840 8月  14 23:37 run
+lrwxrwxrwx.  1 root root     8 10月 15 2017 sbin -> usr/sbin
+drwxr-xr-x.  2 root root  4096 11月  5 2016 srv
+dr-xr-xr-x  13 root root     0 12月  5 2017 sys
+drwxrwxrwt.  8 root root  4096 8月  25 00:39 tmp
+drwxr-xr-x. 13 root root  4096 10月 15 2017 usr
+drwxr-xr-x. 19 root root  4096 10月 15 2017 var

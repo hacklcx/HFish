@@ -4,6 +4,7 @@
         font-weight: bold;
         font-size: 18px;
         margin-bottom: 30px;
+        color: #383838;
     }
 
     .openx {
@@ -52,11 +53,14 @@
         color: #000000;
     }
 
+    .lb_mem_cache {
+        color: #3d9671;
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
         <div class="btn-group pull-right m-t-15">
-            <a type="button" class="btn btn-custom" href="https://github.com/hacklcx/HFish/blob/master/README.md"
+            <a type="button" class="btn btn-custom" href="https://hfish.io/docs"
                target="_blank">查看帮助 <span class="m-l-5"><i
                     class="zmdi zmdi-help-outline"></i></span>
             </a>
@@ -95,7 +99,16 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card-box tilebox-two">
+            <i class="icon-social-pintarest pull-xs-right text-muted"></i>
+            <h6 class="lb_mem_cache text-uppercase m-b-15 m-t-10">MemCache 蜜罐</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.memCacheSum}}</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-plane pull-xs-right text-muted"></i>
             <h6 class="lb_telnet text-uppercase m-b-15 m-t-10">TELNET 蜜罐</h6>
@@ -103,7 +116,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-fire pull-xs-right text-muted"></i>
             <h6 class="lb_web text-uppercase m-b-15 m-t-10">WEB 蜜罐</h6>
@@ -111,7 +124,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-globe pull-xs-right text-muted"></i>
             <h6 class="lb_deep text-uppercase m-b-15 m-t-10">DEEP 蜜罐</h6>
@@ -119,9 +132,8 @@
         </div>
     </div>
 
-
     <div class="col-md-2">
-        <div class="card-box" style="height: 395px;">
+        <div class="card-box" style="height: 550px;">
             <p class="title">服务状态</p>
             <p><span class="openx"></span>ADMIN</p>
 
@@ -129,6 +141,12 @@
             <p><span class="openx"></span>API</p>
         {{else}}
             <p><span class="closex"></span>API</p>
+        {{end}}
+
+        {{if eq .apiStatus "1"}}
+            <p><span class="openx"></span>PLUG</p>
+        {{else}}
+            <p><span class="closex"></span>PLUG</p>
         {{end}}
 
         {{if eq .webStatus "1"}}
@@ -173,12 +191,28 @@
             <p><span class="closex"></span>FTP</p>
         {{end}}
 
+        {{if eq .memCacheStatus "1"}}
+            <p><span class="openx"></span>MEMCACHE</p>
+        {{else}}
+            <p><span class="closex"></span>MEMCACHE</p>
+        {{end}}
+
         </div>
     </div>
 
     <div class="col-md-10">
         <div class="card-box">
-            <div id="myChart" style="width:100%;height:355px;"></div>
+            <div id="myChart" style="width:100%;height:200px;"></div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card-box">
+            <div id="myChart1" style="width:100%;height:250px;"></div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card-box">
+            <div id="myChart2" style="width:100%;height:250px;"></div>
         </div>
     </div>
 </div>
@@ -390,6 +424,33 @@
         0
     ];
 
+    var memCacheData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
     var myChart = echarts.init(document.getElementById('myChart'));
 
     $.ajax({
@@ -435,6 +496,12 @@
                     telnetData[index] = d.telnet[item];
                 }
 
+                for (var item in d.memCache) {
+                    var index = xdata.indexOf(item);
+                    memCacheData[index] = d.memCache[item];
+                }
+
+
                 var option = {
                     title: {
                         text: '最近24小时'
@@ -449,7 +516,7 @@
                         }
                     },
                     legend: {
-                        data: ['WEB', 'DEEP', 'SSH', 'REDIS', 'MYSQL', 'TELNET', 'FTP']
+                        data: ['WEB', 'DEEP', 'SSH', 'REDIS', 'MYSQL', 'TELNET', 'FTP', 'MEMCACHE']
                     },
                     grid: {
                         left: '0%',
@@ -518,6 +585,13 @@
                             stack: '总量',
                             areaStyle: {normal: {}},
                             data: ftpData
+                        },
+                        {
+                            name: 'MEMCACHE',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: memCacheData
                         }
                     ]
                 };
@@ -527,4 +601,77 @@
     });
 
 
+    var myChart1 = echarts.init(document.getElementById('myChart1'));
+    var myChart2 = echarts.init(document.getElementById('myChart2'));
+
+
+    $.ajax({
+        type: "GET",
+        url: "/get/dashboard/pie_data",
+        dataType: "json",
+        success: function (e) {
+            var d = e;
+
+            console.log(d);
+
+            var option = {
+                title: {
+                    text: '攻击地区',
+                    x: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [
+                    {
+                        name: '来源地区',
+                        type: 'pie',
+                        radius: '70%',
+                        center: ['50%', '50%'],
+                        data: d.regionList,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            myChart1.setOption(option);
+
+
+            var option = {
+                title: {
+                    text: '攻击 IP',
+                    x: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [
+                    {
+                        name: '攻击者IP',
+                        type: 'pie',
+                        radius: '70%',
+                        center: ['50%', '50%'],
+                        data: d.ipList,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            myChart2.setOption(option);
+        }
+    });
 </script>

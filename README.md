@@ -1,4 +1,4 @@
-![dashboard.png](./images/dashboard.png)
+![hfish.png](./images/hfish.png)
 
 # 介绍
 
@@ -12,6 +12,11 @@
 
 # 地址
 
+## HFish 官方
+
+- 官网: https://hfish.io
+- 使用文档: https://hfish.io/docs
+
 ## Github
 
 - Git: https://github.com/hacklcx/HFish
@@ -22,6 +27,7 @@
 - Git: https://gitee.com/lauix/HFish
 - Download: https://gitee.com/lauix/HFish/releases
 
+
 # 快速部署
 
 ## 部署说明
@@ -30,16 +36,6 @@
 - cd 到程序根目录，修改 config.ini 配置文件
 - 执行 ./HFish run 启动服务
 - 浏览器输入 http://localhost:9001 打开
-
-## 集群部署
-
-- 复制 HFish、config.ini、web(不启动WEB蜜罐可以不复制) 目录文件到服务器上
-- 修改 config.ini -> rpc -> status 为 2
-- 修改 config.ini -> rpc -> addr  地址为 HFish 服务端地址
-
-## Docker
-
-- HFish 镜像: https://hub.docker.com/r/imdevops/hfish (详细见 Docker Hub 文档)
 
 ## 命令行帮助
 
@@ -55,6 +51,10 @@
 
 ![login.png](./images/login.png)
 
+## 仪表盘
+
+![dashboard.png](./images/dashboard.png)
+
 ## 上钩页
 
 ![fish.png](./images/fish.png)
@@ -66,6 +66,10 @@
 ## 邮件群发
 
 ![mail.png](./images/mail.png)
+
+## 设置页
+
+![mail.png](./images/setting.png)
 
 # 部分功能使用演示
 
@@ -93,6 +97,11 @@
 
 ![telnet.png](./images/telnet.png)
 
+## MemCache 蜜罐
+
+![telnet.png](./images/memcache.png)
+
+
 # 注意事项
 
 - 邮箱 SMTP 配置后需要开启方可使用
@@ -101,14 +110,13 @@
 - WEB 插件 需在 WEB 目录下 编写
 - WEB 插件 下面必须存在两个目录
 - 集群 心跳为60秒,断开显示会延迟60秒
-- 暗网蜜罐是支持的，但是目前Tor服务网上找不到，无法提供演示
 
 # API 接口
 
 ## WEB 蜜罐
 
 ```
-URL: http://localhost:9001/api/v1/post/report
+URL: http://WEB蜜罐地址/api/v1/post/report
 
 POST：
 
@@ -125,7 +133,7 @@ POST：
 ## 暗网 蜜罐
 
 ```
-URL: http://localhost:9001/api/v1/post/deep_report
+URL: http://暗网蜜罐地址/api/v1/post/deep_report
 
 POST：
 
@@ -149,26 +157,52 @@ URL(Get): http://localhost:9001/api/v1/get/ip
     提供此接口为了配合防火墙使用，具体方案欢迎来讨论！
 ```
 
+## 获取全部钓鱼信息
+
+```
+URL(Get): http://localhost:9001/api/v1/get/fish_info
+
+返回数据格式:
+
+  {
+      code: 200,
+      data: [
+          {
+              agent: "本机",
+              city: "",
+              country: "本机地址",
+              create_time: "2019-08-26 21:29:00",
+              id: 224,
+              info: "127.0.0.1:51548 已经连接&&stats&&&&set foo 0 6",
+              ip: "127.0.0.1",
+              project_name: "MemCache蜜罐",
+              region: "本机地址",
+              type: "MEMCACHE"
+          }, 
+      ],
+      msg: "success"
+  }
+
+字段说明：
+
+	agent        :    集群名称
+	country      : 		国家
+	region       : 		省份/地区
+  city         : 		城市
+	ip           : 		IP 地址
+	project_name : 		项目名称
+	type 				 :    蜜罐类型
+	info 				 :    上钩信息
+	id           :    数据库唯一标识
+	create_time  :    上钩时间
+```
+
 # TODO
 
-- [x] 登录模块
-- [x] 仪表盘模块
-- [x] 上钩列表
-- [x] 邮件群发
-- [x] 命令行优化
-- [x] 支持自定义 WEB 模板
-- [x] 支持 Mysql 服务端获取连接客户端电脑任意文件
-- [x] 支持 HTTP(S)、SSH、SFTP、Redis、Mysql、FTP、Telnet、暗网 蜜罐
-- [x] 日记完善优化
-- [x] 支持分布式架构
-- [x] 支持分页
-- [x] 支持 ip 地理信息
-- [x] 提供黑名单IP接口
 - [ ] 支持 SMTP、POP3、TFTP、Oracle、VPN 等
 - [ ] WIFI 蜜罐支持
 - [ ] 自动化蜜罐支持
 - [ ] 蜜罐报告生成
-- [ ] 邮件发送支持编辑器
 - [ ] 支持邮件模板选择
 - [ ] 蜜罐高交互完善
 - [ ] 支持 Ngrok 一键映射

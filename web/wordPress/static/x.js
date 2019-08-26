@@ -4,7 +4,7 @@ function report() {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:9001/api/v1/post/report",
+        url: "/api/v1/post/report",
         dataType: "json",
         data: {
             "name": "WordPress钓鱼",
@@ -13,7 +13,7 @@ function report() {
         },
         success: function (e) {
             if (e.code == "200") {
-               alert("账号密码错误");
+                alert("账号密码错误");
             } else {
                 console.log(e.msg)
             }
