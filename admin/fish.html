@@ -66,6 +66,10 @@
         background-color: #3d9671;
     }
 
+    .lb_plug {
+        background-color: #61772d;
+    }
+
     .pre {
         background: #2c2c31;
         color: #4fe21b;
@@ -364,6 +368,8 @@
                         _h += '       <span class="label lb_deep">DEEP</span> ';
                     } else if (data[i].type == "MEMCACHE") {
                         _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
+                    } else if (data[i].type == "PLUG") {
+                        _h += '       <span class="label lb_plug">PLUG</span> ';
                     }
 
                     _h += '       <span class="project">' + data[i].project_name + '</span>';
@@ -388,7 +394,7 @@
                 }
 
                 if (_h == "") {
-                    _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td></tr>'
+                    _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="8">暂无数据</td></tr>'
                 }
 
                 $("#tableList").html(_h);

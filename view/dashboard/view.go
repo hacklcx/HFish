@@ -260,14 +260,14 @@ func GetFishPieData(c *gin.Context) {
 	// 统计攻击地区
 	sqlRegion := `
 	SELECT
-		region,
+		country,
 		count(1) AS sum
 	FROM
 		hfish_info
 	WHERE
-		region != ""
+		country != ""
 	GROUP BY
-		region;
+		country;
    `
 
 	resultRegion := dbUtil.Query(sqlRegion)
@@ -276,7 +276,7 @@ func GetFishPieData(c *gin.Context) {
 
 	for k := range resultRegion {
 		regionMap := make(map[string]string)
-		regionMap["name"] = resultRegion[k]["region"].(string)
+		regionMap["name"] = resultRegion[k]["country"].(string)
 		regionMap["value"] = strconv.FormatInt(resultRegion[k]["sum"].(int64), 10)
 		regionList = append(regionList, regionMap)
 	}

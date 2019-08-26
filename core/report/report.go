@@ -80,24 +80,28 @@ func alert(id string, model string, typex string, projectName string, agent stri
 		if status == "1" {
 			info := isAlertStatus[0]["info"]
 
-			fishInfo := HFishInfo{
-				id,
-				model,
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			}
+			song := make(map[string]interface{})
+			song["id"] = id
+			song["model"] = model
+			song["project"] = projectName
+			song["type"] = typex
+			song["agent"] = agent
+			song["ip"] = ipx
+			song["country"] = country
+			song["region"] = region
+			song["city"] = city
+			song["info"] = infox
+			song["time"] = time
 
-			b, _ := json.Marshal(fishInfo)
-			body := bytes.NewBuffer(b)
+			bytesData, _ := json.Marshal(song)
 
-			resp, err := http.Post(info.(string), "application/json;charset=utf-8", body)
+			reader := bytes.NewReader(bytesData)
+
+			request, _ := http.NewRequest("POST", info.(string), reader)
+			request.Header.Set("Content-Type", "application/json;charset=UTF-8")
+
+			client := http.Client{}
+			_, err := client.Do(request)
 
 			if err != nil {
 				log.Pr("HFish", "127.0.0.1", "WebHook 调用失败", err)
@@ -105,7 +109,7 @@ func alert(id string, model string, typex string, projectName string, agent stri
 				log.Pr("HFish", "127.0.0.1", "WebHook 调用成功")
 			}
 
-			defer resp.Body.Close()
+			defer request.Body.Close()
 		}
 	}).Catch(func() {
 	})

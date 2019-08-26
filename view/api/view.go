@@ -18,6 +18,10 @@ func ReportWeb(c *gin.Context) {
 	secKey := c.PostForm("sec_key")
 	ip := c.ClientIP()
 
+	if (ip == "::1") {
+		ip = "127.0.0.1"
+	}
+
 	apiSecKey := conf.Get("api", "sec_key")
 
 	if secKey != apiSecKey {
@@ -41,6 +45,10 @@ func ReportDeepWeb(c *gin.Context) {
 	info := c.PostForm("info")
 	secKey := c.PostForm("sec_key")
 	ip := c.ClientIP()
+
+	if (ip == "::1") {
+		ip = "127.0.0.1"
+	}
 
 	apiSecKey := conf.Get("api", "sec_key")
 
