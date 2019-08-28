@@ -1,16 +1,11 @@
 #!/bin/sh
 
-HFISH_DIR=/opt/hfish
+HFISH_DIR=/opt/HFish
 
 if [ ! -d $HFISH_DIR ];then
-  mv /tmp/hfish $HFISH_DIR
+  mv /tmp/HFish $HFISH_DIR
   sed -i "s/status = 0/status = 1/g" $HFISH_DIR/config.ini
   sed -i "s/127.0.0.1/0.0.0.0/g" $HFISH_DIR/config.ini
-  sed -i "s/dart_report/deep_report/" $HFISH_DIR/web/deep/static/x.js
-fi
-
-if [ ! -z "$API_IP" ];then
-  sed -i "s/localhost:9001/$API_IP/" `find $HFISH_DIR/web -name x.js`
 fi
 
 if [ ! -z "$CLUSTER_IP" ];then
