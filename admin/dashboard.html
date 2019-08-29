@@ -163,6 +163,8 @@
 
         {{if eq .sshStatus "1"}}
             <p><span class="openx"></span>SSH</p>
+        {{ else if eq .sshStatus "2"}}
+            <p><span class="openx"></span>SSH</p>
         {{else}}
             <p><span class="closex"></span>SSH</p>
         {{end}}
@@ -616,7 +618,7 @@
 
             var option = {
                 title: {
-                    text: '攻击地区',
+                    text: '[攻击地区] TOP10',
                     x: 'left'
                 },
                 tooltip: {
@@ -627,8 +629,8 @@
                     {
                         name: '来源地区',
                         type: 'pie',
-                        radius: '70%',
-                        center: ['50%', '50%'],
+                        radius: '60%',
+                        center: ['50%', '60%'],
                         data: d.regionList,
                         itemStyle: {
                             emphasis: {
@@ -646,7 +648,7 @@
 
             var option = {
                 title: {
-                    text: '攻击 IP',
+                    text: '[攻击IP] TOP10',
                     x: 'left'
                 },
                 tooltip: {
@@ -657,8 +659,8 @@
                     {
                         name: '攻击者IP',
                         type: 'pie',
-                        radius: '70%',
-                        center: ['50%', '50%'],
+                        radius: '60%',
+                        center: ['50%', '60%'],
                         data: d.ipList,
                         itemStyle: {
                             emphasis: {

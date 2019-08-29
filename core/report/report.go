@@ -101,7 +101,7 @@ func alert(id string, model string, typex string, projectName string, agent stri
 			request.Header.Set("Content-Type", "application/json;charset=UTF-8")
 
 			client := http.Client{}
-			_, err := client.Do(request)
+			resp, err := client.Do(request)
 
 			if err != nil {
 				log.Pr("HFish", "127.0.0.1", "WebHook 调用失败", err)
@@ -109,7 +109,8 @@ func alert(id string, model string, typex string, projectName string, agent stri
 				log.Pr("HFish", "127.0.0.1", "WebHook 调用成功")
 			}
 
-			defer request.Body.Close()
+			defer resp.Body.Close()
+			//defer request.Body.Close()
 		}
 	}).Catch(func() {
 	})

@@ -267,7 +267,9 @@ func GetFishPieData(c *gin.Context) {
 	WHERE
 		country != ""
 	GROUP BY
-		country;
+		country
+	ORDER BY sum desc
+	LIMIT 10;
    `
 
 	resultRegion := dbUtil.Query(sqlRegion)
@@ -291,7 +293,9 @@ func GetFishPieData(c *gin.Context) {
 	WHERE
 		ip != ""
 	GROUP BY
-		ip;
+		ip
+	ORDER BY sum desc
+	LIMIT 10;
    `
 	resultIP := dbUtil.Query(sqlIP)
 
