@@ -1,0 +1,180 @@
+[HFish] 127.0.0.1 - [2019-09-02 20:12:59] "GET / HTTP/1.1 200 644.247098ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:12:59 | 200 |  644.382607ms |       127.0.0.1 | GET      /
+[HFish] 127.0.0.1 - [2019-09-02 20:12:59] "GET /get/dashboard/data HTTP/1.1 200 119.072µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:12:59 | 200 |     181.691µs |       127.0.0.1 | GET      /get/dashboard/data
+[HFish] 127.0.0.1 - [2019-09-02 20:12:59] "GET /get/dashboard/pie_data HTTP/1.1 200 155.326073ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:12:59 | 200 |  155.437992ms |       127.0.0.1 | GET      /get/dashboard/pie_data
+[HFish] 127.0.0.1 - [2019-09-02 20:13:03] "GET /dashboard HTTP/1.1 200 630.464755ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:03 | 200 |  630.544572ms |       127.0.0.1 | GET      /dashboard
+[HFish] 127.0.0.1 - [2019-09-02 20:13:03] "GET /get/dashboard/data HTTP/1.1 200 52.208µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:03 | 200 |     111.831µs |       127.0.0.1 | GET      /get/dashboard/data
+[HFish] 127.0.0.1 - [2019-09-02 20:13:03] "GET /get/dashboard/pie_data HTTP/1.1 200 156.81618ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:03 | 200 |  157.018731ms |       127.0.0.1 | GET      /get/dashboard/pie_data
+[HFish] 127.0.0.1 - [2019-09-02 20:13:05] "GET /fish HTTP/1.1 200 1.903276ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:05 | 200 |    1.951403ms |       127.0.0.1 | GET      /fish
+[HFish] 127.0.0.1 - [2019-09-02 20:13:06] "GET /get/fish/list?page=1&pageSize=10&type=all&colony=all&so_text= HTTP/1.1 200 157.397916ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:06 | 200 |  157.628539ms |       127.0.0.1 | GET      /get/fish/list?page=1&pageSize=10&type=all&colony=all&so_text=
+[HFish] 127.0.0.1 - [2019-09-02 20:13:06] "GET /get/fish/typeList HTTP/1.1 200 162.030908ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:06 | 200 |  162.075483ms |       127.0.0.1 | GET      /get/fish/typeList
+[HFish] 127.0.0.1 - [2019-09-02 20:13:07] "GET /colony HTTP/1.1 200 1.920111ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:07 | 200 |    1.974307ms |       127.0.0.1 | GET      /colony
+[HFish] 127.0.0.1 - [2019-09-02 20:13:07] "GET /get/colony/list HTTP/1.1 200 80.834056ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:07 | 200 |   80.929436ms |       127.0.0.1 | GET      /get/colony/list
+[HFish] 127.0.0.1 - [2019-09-02 20:13:09] "GET /mail HTTP/1.1 200 1.5119ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:09 | 200 |    1.557469ms |       127.0.0.1 | GET      /mail
+[HFish] 127.0.0.1 - [2019-09-02 20:13:10] "GET /setting HTTP/1.1 200 87.25991ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:10 | 200 |   87.359887ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:13:12] "GET /get/setting/info?id=4 HTTP/1.1 200 85.527786ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:12 | 200 |   85.811629ms |       127.0.0.1 | GET      /get/setting/info?id=4
+[HFish] 127.0.0.1 - [2019-09-02 20:13:14] "GET /mail HTTP/1.1 200 1.443847ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:14 | 200 |    1.478159ms |       127.0.0.1 | GET      /mail
+[HFish] 127.0.0.1 - [2019-09-02 20:13:15] "GET /colony HTTP/1.1 200 1.752479ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:15 | 200 |    1.794938ms |       127.0.0.1 | GET      /colony
+[HFish] 127.0.0.1 - [2019-09-02 20:13:15] "GET /get/colony/list HTTP/1.1 200 68.874171ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:15 | 200 |   68.949005ms |       127.0.0.1 | GET      /get/colony/list
+[HFish] 127.0.0.1 - [2019-09-02 20:13:15] "GET /fish HTTP/1.1 200 3.291716ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:15 | 200 |   19.239568ms |       127.0.0.1 | GET      /fish
+[HFish] 127.0.0.1 - [2019-09-02 20:13:16] "GET /get/fish/typeList HTTP/1.1 200 163.224835ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:16 | 200 |  163.412966ms |       127.0.0.1 | GET      /get/fish/typeList
+[HFish] 127.0.0.1 - [2019-09-02 20:13:16] "GET /get/fish/list?page=1&pageSize=10&type=all&colony=all&so_text= HTTP/1.1 200 167.199799ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:16 | 200 |  167.449324ms |       127.0.0.1 | GET      /get/fish/list?page=1&pageSize=10&type=all&colony=all&so_text=
+[HFish] 127.0.0.1 - [2019-09-02 20:13:17] "GET /dashboard HTTP/1.1 200 634.497908ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:17 | 200 |  634.552407ms |       127.0.0.1 | GET      /dashboard
+[HFish] 127.0.0.1 - [2019-09-02 20:13:17] "GET /get/dashboard/data HTTP/1.1 200 52.072µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:17 | 200 |     102.664µs |       127.0.0.1 | GET      /get/dashboard/data
+[HFish] 127.0.0.1 - [2019-09-02 20:13:17] "GET /get/dashboard/pie_data HTTP/1.1 200 152.924416ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:17 | 200 |  153.126976ms |       127.0.0.1 | GET      /get/dashboard/pie_data
+[HFish] 127.0.0.1 - [2019-09-02 20:13:19] "GET /fish HTTP/1.1 200 1.87829ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:19 | 200 |    1.931785ms |       127.0.0.1 | GET      /fish
+[HFish] 127.0.0.1 - [2019-09-02 20:13:19] "GET /get/fish/typeList HTTP/1.1 200 163.774635ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:19 | 200 |   164.01876ms |       127.0.0.1 | GET      /get/fish/typeList
+[HFish] 127.0.0.1 - [2019-09-02 20:13:19] "GET /get/fish/list?page=1&pageSize=10&type=all&colony=all&so_text= HTTP/1.1 200 168.484694ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:19 | 200 |  168.534863ms |       127.0.0.1 | GET      /get/fish/list?page=1&pageSize=10&type=all&colony=all&so_text=
+[HFish] 127.0.0.1 - [2019-09-02 20:13:20] "GET /colony HTTP/1.1 200 1.855059ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:20 | 200 |    1.904681ms |       127.0.0.1 | GET      /colony
+[HFish] 127.0.0.1 - [2019-09-02 20:13:20] "GET /get/colony/list HTTP/1.1 200 79.622074ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:20 | 200 |   79.732005ms |       127.0.0.1 | GET      /get/colony/list
+[HFish] 127.0.0.1 - [2019-09-02 20:13:21] "GET /mail HTTP/1.1 200 1.354647ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:21 | 200 |    1.390378ms |       127.0.0.1 | GET      /mail
+[HFish] 127.0.0.1 - [2019-09-02 20:13:21] "GET /setting HTTP/1.1 200 77.446272ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:21 | 200 |   77.500598ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:13:35] "GET /static/js/jquery.min.map HTTP/1.1 404 82.99µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:35 | 404 |     143.984µs |       127.0.0.1 | GET      /static/js/jquery.min.map
+[HFish] 127.0.0.1 - [2019-09-02 20:13:35] "GET /static/css/style.css.map HTTP/1.1 200 4.991254ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:35 | 200 |    5.049558ms |       127.0.0.1 | GET      /static/css/style.css.map
+[HFish] 127.0.0.1 - [2019-09-02 20:13:40] "GET /get/setting/info?id=3 HTTP/1.1 200 88.746433ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:13:40 | 200 |   88.861048ms |       127.0.0.1 | GET      /get/setting/info?id=3
+[HFish] 127.0.0.1 - [2019-09-02 20:14:53] "GET /setting HTTP/1.1 200 95.386649ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:53 | 200 |   95.443784ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:14:53] "GET /static/libs/bootstrap-sweetalert/sweet-alert.css HTTP/1.1 200 249.283µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:53 | 200 |     321.171µs |       127.0.0.1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.css
+[HFish] 127.0.0.1 - [2019-09-02 20:14:53] "GET /static/css/style.css HTTP/1.1 200 861.081µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:53 | 200 |      894.81µs |       127.0.0.1 | GET      /static/css/style.css
+[HFish] 127.0.0.1 - [2019-09-02 20:14:53] "GET /static/libs/switchery/switchery.min.css HTTP/1.1 200 164.909µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:53 | 200 |     215.948µs |       127.0.0.1 | GET      /static/libs/switchery/switchery.min.css
+[HFish] 127.0.0.1 - [2019-09-02 20:14:53] "GET /static/images/avatar.png HTTP/1.1 200 196.085µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:53 | 200 |     245.074µs |       127.0.0.1 | GET      /static/images/avatar.png
+[HFish] 127.0.0.1 - [2019-09-02 20:14:53] "GET /static/js/jquery.min.js HTTP/1.1 200 267.028µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:53 | 200 |     338.797µs |       127.0.0.1 | GET      /static/js/jquery.min.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/js/tether.min.js HTTP/1.1 200 231.715µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |      266.18µs |       127.0.0.1 | GET      /static/js/tether.min.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/js/bootstrap.min.js HTTP/1.1 200 278.646µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     311.858µs |       127.0.0.1 | GET      /static/js/bootstrap.min.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/libs/bootstrap-sweetalert/sweet-alert.min.js HTTP/1.1 200 173.523µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     210.304µs |       127.0.0.1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.min.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/libs/switchery/switchery.min.js HTTP/1.1 200 195.891µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     235.793µs |       127.0.0.1 | GET      /static/libs/switchery/switchery.min.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/libs/waypoints/lib/jquery.waypoints.js HTTP/1.1 200 202.431µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     237.082µs |       127.0.0.1 | GET      /static/libs/waypoints/lib/jquery.waypoints.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/libs/counterup/jquery.counterup.min.js HTTP/1.1 200 120.231µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     149.587µs |       127.0.0.1 | GET      /static/libs/counterup/jquery.counterup.min.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/js/jquery.core.js HTTP/1.1 200 188.2µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/js/jquery.app.js HTTP/1.1 200 133.803µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     176.626µs |       127.0.0.1 | GET      /static/js/jquery.app.js
+[GIN] 2019/09/02 - 20:14:54 | 200 |     219.565µs |       127.0.0.1 | GET      /static/js/jquery.core.js
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/js/jquery.min.map HTTP/1.1 404 54.981µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 404 |     138.376µs |       127.0.0.1 | GET      /static/js/jquery.min.map
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0 HTTP/1.1 200 168.273µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     195.688µs |       127.0.0.1 | GET      /static/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/fonts/fontawesome-webfont.woff2?v=4.6.2 HTTP/1.1 200 215.981µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     242.467µs |       127.0.0.1 | GET      /static/fonts/fontawesome-webfont.woff2?v=4.6.2
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/css/style.css.map HTTP/1.1 200 500.675µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     570.903µs |       127.0.0.1 | GET      /static/css/style.css.map
+[HFish] 127.0.0.1 - [2019-09-02 20:14:54] "GET /static/favicon.ico HTTP/1.1 200 211.588µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:54 | 200 |     250.409µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:14:56] "GET /get/setting/info?id=3 HTTP/1.1 200 83.323989ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:56 | 200 |   83.380177ms |       127.0.0.1 | GET      /get/setting/info?id=3
+[HFish] 127.0.0.1 - [2019-09-02 20:14:59] "POST /post/setting/updateWebHook HTTP/1.1 200 84.781954ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:14:59 | 200 |    84.85987ms |       127.0.0.1 | POST     /post/setting/updateWebHook
+[HFish] 127.0.0.1 - [2019-09-02 20:15:00] "POST /post/setting/checkSetting HTTP/1.1 200 170.381821ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:00 | 200 |  170.422487ms |       127.0.0.1 | POST     /post/setting/checkSetting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:01] "GET /setting HTTP/1.1 200 77.882673ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:01 | 200 |   77.927124ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:01] "GET /static/favicon.ico HTTP/1.1 200 225.977µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:01 | 200 |      290.85µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:03] "GET /get/setting/info?id=3 HTTP/1.1 200 79.640805ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:03 | 200 |   79.692208ms |       127.0.0.1 | GET      /get/setting/info?id=3
+[HFish] 127.0.0.1 - [2019-09-02 20:15:05] "POST /post/setting/checkSetting HTTP/1.1 200 182.46045ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:05 | 200 |  182.610857ms |       127.0.0.1 | POST     /post/setting/checkSetting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:05] "GET /setting HTTP/1.1 200 84.447435ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:05 | 200 |   84.500982ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:05] "GET /static/favicon.ico HTTP/1.1 200 568.583µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:05 | 200 |     736.482µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:06] "GET /get/setting/info?id=3 HTTP/1.1 200 86.753068ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:06 | 200 |    86.80909ms |       127.0.0.1 | GET      /get/setting/info?id=3
+[HFish] 127.0.0.1 - [2019-09-02 20:15:08] "GET /get/setting/info?id=4 HTTP/1.1 200 87.671268ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:08 | 200 |   87.742543ms |       127.0.0.1 | GET      /get/setting/info?id=4
+[HFish] 127.0.0.1 - [2019-09-02 20:15:11] "POST /post/setting/updateWhiteIp HTTP/1.1 200 86.102201ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:11 | 200 |   86.212765ms |       127.0.0.1 | POST     /post/setting/updateWhiteIp
+[HFish] 127.0.0.1 - [2019-09-02 20:15:11] "GET /setting HTTP/1.1 200 69.078813ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:11 | 200 |   69.120741ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:12] "GET /static/favicon.ico HTTP/1.1 200 270.224µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:12 | 200 |     327.102µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:12] "POST /post/setting/checkSetting HTTP/1.1 200 148.520854ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:12 | 200 |  148.586099ms |       127.0.0.1 | POST     /post/setting/checkSetting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:13] "GET /setting HTTP/1.1 200 86.679542ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:13 | 200 |   86.855425ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:13] "GET /static/favicon.ico HTTP/1.1 200 622.206µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:13 | 200 |     787.303µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:13] "GET /setting HTTP/1.1 200 91.961911ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:13 | 200 |   92.020072ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:13] "GET /static/favicon.ico HTTP/1.1 200 143.452µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:13 | 200 |     175.328µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:15] "POST /post/setting/checkSetting HTTP/1.1 200 168.922691ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:15 | 200 |   169.03564ms |       127.0.0.1 | POST     /post/setting/checkSetting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:15] "GET /get/setting/info?id=1 HTTP/1.1 200 82.77373ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:15 | 200 |   82.820749ms |       127.0.0.1 | GET      /get/setting/info?id=1
+[HFish] 127.0.0.1 - [2019-09-02 20:15:17] "GET /setting HTTP/1.1 200 89.525113ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:17 | 200 |   89.712283ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:17] "GET /static/favicon.ico HTTP/1.1 200 181.56µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:17 | 200 |       236.5µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:18] "POST /post/setting/checkSetting HTTP/1.1 200 166.238617ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:18 | 200 |  176.030488ms |       127.0.0.1 | POST     /post/setting/checkSetting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:18] "GET /setting HTTP/1.1 200 87.376755ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:18 | 200 |   87.494505ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:19] "GET /static/favicon.ico HTTP/1.1 200 208.372µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:19 | 200 |     253.792µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:19] "GET /setting HTTP/1.1 200 84.31936ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:19 | 200 |   84.373924ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:19] "GET /static/favicon.ico HTTP/1.1 200 267.28µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:19 | 200 |     317.122µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:19] "GET /setting HTTP/1.1 200 89.62937ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:19 | 200 |    89.70859ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:19] "GET /static/favicon.ico HTTP/1.1 200 152.08µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:19 | 200 |     188.669µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:20] "GET /setting HTTP/1.1 200 73.840862ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:20 | 200 |   73.880331ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:20] "GET /static/favicon.ico HTTP/1.1 200 354.193µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:20 | 200 |     515.903µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:20] "GET /get/setting/info?id=1 HTTP/1.1 200 81.770515ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:20 | 200 |   81.818054ms |       127.0.0.1 | GET      /get/setting/info?id=1
+[HFish] 127.0.0.1 - [2019-09-02 20:15:22] "GET /get/setting/info?id=2 HTTP/1.1 200 82.385744ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:22 | 200 |   82.437334ms |       127.0.0.1 | GET      /get/setting/info?id=2
+[HFish] 127.0.0.1 - [2019-09-02 20:15:23] "GET /setting HTTP/1.1 200 86.468883ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:23 | 200 |    86.53202ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:23] "GET /static/favicon.ico HTTP/1.1 200 208.542µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:23 | 200 |     255.105µs |       127.0.0.1 | GET      /static/favicon.ico
+[HFish] 127.0.0.1 - [2019-09-02 20:15:23] "GET /setting HTTP/1.1 200 84.279451ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:23 | 200 |    84.33658ms |       127.0.0.1 | GET      /setting
+[HFish] 127.0.0.1 - [2019-09-02 20:15:24] "GET /static/favicon.ico HTTP/1.1 200 158.711µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/02 - 20:15:24 | 200 |     218.091µs |       127.0.0.1 | GET      /static/favicon.ico

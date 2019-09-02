@@ -251,8 +251,8 @@
             url: "/get/setting/info?id=" + id
         }).success(function (result) {
             if (result.code == 200) {
-                var typeStr = result.data[0].type;
-                var arr = result.data[0].info.split("&&")
+                var typeStr = result.data.type;
+                var arr = result.data.info.split("&&")
                 if (arr.length == 4 && typeStr == "mail") {
                     $("#email").val(arr[2])
                     $("#pass").val(arr[3])
