@@ -5,11 +5,12 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"HFish/error"
 	"HFish/utils/try"
+	"HFish/utils/log"
 )
 
 // 连接数据库
 func conn() *sql.DB {
-	db, err := sql.Open("sqlite3", "./db/hfish.db")
+	db, err := sql.Open("sqlite3", "./db/hfish.db?cache=shared&mode=rwc")
 	error.Check(err, "连接数据库失败")
 	return db
 }
@@ -43,15 +44,19 @@ func Insert(sql string, args ...interface{}) int64 {
 		`
 		dbUtil.Insert(sql, "插入任务测试", "测试说明", "", 1, "2", "", "1", "shell", "/scripts/myscript/test.sh", "1", "2019-07-10 16:12")
 	*/
-	db := conn()
-	stmt, _ := db.Prepare(sql)
 
 	var id int64
 	id = 0
 
 	try.Try(func() {
+		db := conn()
+		stmt, _ := db.Prepare(sql)
+
 		res, _ := stmt.Exec(args...)
-		//error.Check(err, "插入数据失败")
+
+		//if err != nil {
+		//	log.Pr("HFish", "127.0.0.1", "插入数据失败", err)
+		//}
 
 		defer stmt.Close()
 
@@ -64,7 +69,7 @@ func Insert(sql string, args ...interface{}) int64 {
 }
 
 // 更新数据
-func Update(sql string, args ...interface{}) int64 {
+func Update(sql string, args ...interface{}) {
 	/*
 	参数说明：
 
@@ -81,20 +86,21 @@ func Update(sql string, args ...interface{}) int64 {
 		`
 		dbUtil.Update(sql, "任务更新测试", 1)
 	*/
-	db := conn()
-	stmt, _ := db.Prepare(sql)
 
-	res, err := stmt.Exec(args...)
+	try.Try(func() {
+		db := conn()
+		stmt, _ := db.Prepare(sql)
 
-	error.Check(err, "更新数据失败")
-	defer stmt.Close()
+		_, err := stmt.Exec(args...)
 
-	affect, err := res.RowsAffected()
-	error.Check(err, "获取影响行数失败")
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "更新数据失败", err)
+		}
 
-	defer db.Close()
+		defer stmt.Close()
+		defer db.Close()
 
-	return affect
+	}).Catch(func() {})
 }
 
 // 查询数据
@@ -114,12 +120,17 @@ func Query(sql string, args ...interface{}) []map[string]interface{} {
 	db := conn()
 
 	rows, err := db.Query(sql, args ...)
-	error.Check(err, "查询数据失败")
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "查询数据失败", err)
+	}
 
 	defer rows.Close()
 
 	columns, err := rows.Columns()
-	error.Check(err, "查询表名失败")
+
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "查询表名失败", err)
+	}
 
 	count := len(columns)
 
@@ -153,7 +164,7 @@ func Query(sql string, args ...interface{}) []map[string]interface{} {
 }
 
 // 删除数据
-func Delete(sql string, args ...interface{}) int64 {
+func Delete(sql string, args ...interface{}) {
 	/*
 	参数说明：
 
@@ -165,18 +176,18 @@ func Delete(sql string, args ...interface{}) int64 {
 		sql := `delete from coot_tasks where id=?;`
 		dbUtil.Delete(sql, 2)
 	*/
-	db := conn()
 
-	stmt, _ := db.Prepare(sql)
+	try.Try(func() {
+		db := conn()
+		stmt, _ := db.Prepare(sql)
 
-	res, err := stmt.Exec(args...)
-	error.Check(err, "删除数据失败")
-	defer stmt.Close()
+		_, err := stmt.Exec(args...)
 
-	affect, err := res.RowsAffected()
-	error.Check(err, "获取影响行数失败")
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "删除数据失败", err)
+		}
 
-	defer db.Close()
-
-	return affect
+		defer stmt.Close()
+		defer db.Close()
+	}).Catch(func() {})
 }

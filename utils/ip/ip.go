@@ -2,7 +2,6 @@ package ip
 
 import (
 	"net/http"
-	"HFish/error"
 	"io/ioutil"
 	"github.com/axgle/mahonia"
 	"regexp"
@@ -14,17 +13,21 @@ import (
 	"github.com/ipipdotnet/ipdb-go"
 )
 
+var ipipDB *ipdb.City
+
+func init() {
+	ipipDB, _ = ipdb.NewCity("./db/ipip.ipdb")
+}
+
 // 爬虫 ip138 获取 ip 地理信息
 // ~~~~~~ 暂时废弃，采用 IPIP
 func GetIp138(ip string) string {
 	result := ""
 	try.Try(func() {
-		resp, err := http.Get("http://ip138.com/ips138.asp?ip=" + ip)
-		error.Check(err, "请求IP138异常")
+		resp, _ := http.Get("http://ip138.com/ips138.asp?ip=" + ip)
 
 		defer resp.Body.Close()
-		input, err := ioutil.ReadAll(resp.Body)
-		error.Check(err, "读取IP138内容异常")
+		input, _ := ioutil.ReadAll(resp.Body)
 
 		out := mahonia.NewDecoder("gbk").ConvertString(string(input))
 
@@ -72,7 +75,6 @@ func GetLocalIp() string {
 
 // 采用 IPIP 本地库
 func GetIp(ip string) (string, string, string) {
-	db, _ := ipdb.NewCity("./db/ipip.ipdb")
-	ipInfo, _ := db.FindMap(ip, "CN")
+	ipInfo, _ := ipipDB.FindMap(ip, "CN")
 	return ipInfo["country_name"], ipInfo["region_name"], ipInfo["city_name"]
 }

@@ -155,24 +155,30 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 
 // 判断是否为白名单IP
 func isWhiteIp(ip string) bool {
-	sql := `select status,info from hfish_setting where type = "whiteIp"`
-	isStatus := dbUtil.Query(sql)
+	var isWhite = false
 
-	status := strconv.FormatInt(isStatus[0]["status"].(int64), 10)
+	try.Try(func() {
+		sql := `select status,info from hfish_setting where type = "whiteIp"`
+		isStatus := dbUtil.Query(sql)
 
-	// 判断是否启用通知
-	if status == "1" {
-		info := isStatus[0]["info"]
-		ipArr := strings.Split(info.(string), "&&")
+		status := strconv.FormatInt(isStatus[0]["status"].(int64), 10)
 
-		for _, val := range ipArr {
-			if (ip == val) {
-				return true
+		// 判断是否启用通知
+		if status == "1" {
+			info := isStatus[0]["info"]
+			ipArr := strings.Split(info.(string), "&&")
+
+			for _, val := range ipArr {
+				if (ip == val) {
+					isWhite = true
+				}
 			}
 		}
-	}
 
-	return false
+	}).Catch(func() {
+	})
+
+	return isWhite
 }
 
 // 上报 WEB

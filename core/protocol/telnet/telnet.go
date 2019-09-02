@@ -54,7 +54,7 @@ func server(address string, exitChan chan int) {
 }
 
 func getJson() *simplejson.Json {
-	res, err := json.Get("telnet")
+	res, err := json.GetTelnet()
 
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "解析 Telnet JSON 文件失败", err)
