@@ -278,7 +278,7 @@
             url: "/get/fish/typeList",
             dataType: "json",
             success: function (e) {
-                var data = e.resultInfoType;
+                var data = e.data.resultInfoType;
                 var _h = '<option value="all">请选择类型</option>';
 
                 for (var i = 0; i < data.length; i++) {
@@ -287,12 +287,11 @@
 
                 $("#selectType").html(_h);
 
-                var data1 = e.resultColonyName;
+                var data1 = e.data.resultColonyName;
                 var _h1 = '<option value="all">请选择集群</option>';
-                _h1 += '<option value="本机">本机</option>';
 
                 for (var i = 0; i < data1.length; i++) {
-                    _h1 += '<option value="' + data1[i].agent_name + '">' + data1[i].agent_name + '</option>';
+                    _h1 += '<option value="' + data1[i].agent + '">' + data1[i].agent + '</option>';
                 }
                 $("#selectColony").html(_h1);
             },

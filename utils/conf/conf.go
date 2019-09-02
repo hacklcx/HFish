@@ -20,3 +20,8 @@ func Get(node string, key string) string {
 	val := cfg.Section(node).Key(key).String()
 	return val
 }
+
+func GetInt(node string, key string) int {
+	val, _ := cfg.Section(node).Key(key).Int()
+	return val
+}
