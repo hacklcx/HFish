@@ -4,8 +4,8 @@ import (
 	"github.com/gohouse/gorose"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"
-	"fmt"
 	"HFish/utils/conf"
+	"HFish/utils/log"
 )
 
 var engin *gorose.Engin
@@ -21,13 +21,13 @@ func init() {
 		engin, err = gorose.Open(&gorose.Config{Driver: "sqlite3", Dsn: dbStr, SetMaxOpenConns: dbMaxOpen})
 
 		if err != nil {
-			fmt.Println(err)
+			log.Pr("HFish", "127.0.0.1", "连接 Sqlite 数据库失败", err)
 		}
 	} else if dbType == "mysql" {
 		engin, err = gorose.Open(&gorose.Config{Driver: "mysql", Dsn: dbStr, SetMaxOpenConns: dbMaxOpen})
 
 		if err != nil {
-			fmt.Println(err)
+			log.Pr("HFish", "127.0.0.1", "连接 Mysql 数据库失败", err)
 		}
 	}
 }

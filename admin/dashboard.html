@@ -465,42 +465,42 @@
 
                 for (var item in d.mysql) {
                     var index = xdata.indexOf(item);
-                    mysqlData[index] = d.mysql[item];
+                    mysqlData[index] = parseInt(d.mysql[item]);
                 }
 
                 for (var item in d.redis) {
                     var index = xdata.indexOf(item);
-                    redisData[index] = d.redis[item];
+                    redisData[index] = parseInt(d.redis[item]);
                 }
 
                 for (var item in d.ssh) {
                     var index = xdata.indexOf(item);
-                    sshData[index] = d.ssh[item];
+                    sshData[index] = parseInt(d.ssh[item]);
                 }
 
                 for (var item in d.web) {
                     var index = xdata.indexOf(item);
-                    webData[index] = d.web[item];
+                    webData[index] = parseInt(d.web[item]);
                 }
 
                 for (var item in d.deep) {
                     var index = xdata.indexOf(item);
-                    deepData[index] = d.deep[item];
+                    deepData[index] = parseInt(d.deep[item]);
                 }
 
                 for (var item in d.ftp) {
                     var index = xdata.indexOf(item);
-                    ftpData[index] = d.ftp[item];
+                    ftpData[index] = parseInt(d.ftp[item]);
                 }
 
                 for (var item in d.telnet) {
                     var index = xdata.indexOf(item);
-                    telnetData[index] = d.telnet[item];
+                    telnetData[index] = parseInt(d.telnet[item]);
                 }
 
                 for (var item in d.memCache) {
                     var index = xdata.indexOf(item);
-                    memCacheData[index] = d.memCache[item];
+                    memCacheData[index] = parseInt(d.memCache[item]);
                 }
 
 

@@ -166,6 +166,8 @@ func UpdateStatusSetting(c *gin.Context) {
 			"code": error.ErrFailConfigCode,
 			"msg":  error.ErrFailConfigMsg,
 		})
+
+		return
 	}
 
 	_, err := dbUtil.DB().

@@ -230,8 +230,7 @@
             success: function (e) {
                 if (e.code == 200) {
                     var data = e.data;
-                    var str = data[0].info.replace(/&&/g, "<br>");
-                    console.log(str);
+                    var str = data.info.replace(/&&/g, "<br>");
                     $(".pre").html(str);
                 } else {
                 }

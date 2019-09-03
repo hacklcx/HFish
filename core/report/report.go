@@ -9,6 +9,7 @@ import (
 	"HFish/utils/try"
 	"strings"
 	"HFish/core/alert"
+	"HFish/utils/conf"
 )
 
 type HFishInfo struct {
@@ -129,11 +130,29 @@ func insertInfo(typex string, projectName string, agent string, ipx string, coun
 
 // 通用的更新
 func updateInfo(id string, info string) {
-	_, err := dbUtil.DB().
-		Table("hfish_info").
-		Data(map[string]interface{}{"info": "CONCAT(info," + info + ")"}).
-		Where("id", id).
-		Update()
+
+	var sql string
+
+	// 此处为了兼容 Mysql + Sqlite
+	dbType := conf.Get("admin", "db_type")
+
+	if dbType == "sqlite" {
+		sql = `
+		UPDATE hfish_info
+		SET info = info||?
+		WHERE
+			id = ?;
+		`
+	} else if dbType == "mysql" {
+		sql = `
+		UPDATE hfish_info
+		SET info = CONCAT(info, ?)
+		WHERE
+			id = ?;
+		`
+	}
+
+	_, err := dbUtil.DB().Execute(sql, info, id)
 
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "更新上钩信息失败", err)

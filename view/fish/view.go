@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 	"HFish/utils/log"
+	"fmt"
 )
 
 // 蜜罐 页面
@@ -55,7 +56,10 @@ func GetFishList(c *gin.Context) {
 	pageSizeInt, _ := strconv.Atoi(pageSize)
 	pageStart := page.Start(pInt, pageSizeInt)
 
-	result, err := db.OrderBy("id desc").Limit(pageStart).Offset(pageSizeInt).Get()
+	result, err := db.OrderBy("id desc").Limit(pageSizeInt).Offset(pageStart).Get()
+
+	fmt.Println(db.LastSql())
+	fmt.Println(result)
 
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "查询上钩信息列表失败", err)

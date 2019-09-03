@@ -37,6 +37,8 @@ func Login(c *gin.Context) {
 				"code": error.ErrSuccessCode,
 				"msg":  error.ErrSuccessMsg,
 			})
+
+			return
 		}
 	}
 
