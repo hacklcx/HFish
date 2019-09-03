@@ -9,7 +9,6 @@ import (
 	"strconv"
 	"strings"
 	"HFish/utils/log"
-	"fmt"
 )
 
 // 蜜罐 页面
@@ -25,9 +24,9 @@ func GetFishList(c *gin.Context) {
 	colony, _ := c.GetQuery("colony")
 	soText, _ := c.GetQuery("so_text")
 
-	// 统计攻击IP
-	db := dbUtil.DB().Table("hfish_info").Fields("id", "type", "project_name", "agent", "ip", "country", "region", "city", "create_time", "info").Where("1", "=", "1")
-	dbCount := dbUtil.DB().Table("hfish_info").Where("1", "=", "1")
+	// 拼接 SQL
+	db := dbUtil.DB().Table("hfish_info").Fields("id", "type", "project_name", "agent", "ip", "country", "region", "city", "create_time", "info")
+	dbCount := dbUtil.DB().Table("hfish_info")
 
 	if typex != "all" {
 		db.Where("type", "=", typex)
@@ -58,9 +57,6 @@ func GetFishList(c *gin.Context) {
 
 	result, err := db.OrderBy("id desc").Limit(pageSizeInt).Offset(pageStart).Get()
 
-	fmt.Println(db.LastSql())
-	fmt.Println(result)
-
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "查询上钩信息列表失败", err)
 	}
@@ -70,11 +66,17 @@ func GetFishList(c *gin.Context) {
 
 	pageCount := page.TotalPage(totalCountInt, pageSizeInt)
 
-	c.JSON(http.StatusOK, gin.H{
-		"data":       result,
+	data := map[string]interface{}{
+		"result":     result,
 		"pageCount":  pageCount,
 		"totalCount": totalCount,
 		"page":       p,
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
+		"data": data,
 	})
 }
 

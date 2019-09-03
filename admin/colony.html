@@ -120,7 +120,7 @@
             for (var i = 0; i < data.length; i++) {
                 _h += '<tr>';
 
-                var last_update_time = data[i].last_update_time;
+                var last_update_time = data[i].last_update_time.replace("T", " ").replace("+08:00", " ");
                 last_update_time = last_update_time.substring(0, 19);
                 last_update_time = last_update_time.replace(/-/g, '/');
                 var timestamp = new Date(last_update_time).getTime();

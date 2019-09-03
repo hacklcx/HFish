@@ -32,6 +32,10 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/get/fish/typeList", login.Jump, fish.GetFishTypeInfo)
 	r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
 
+	// 大数据仪表盘
+	//r.GET("/data", login.Jump, data.Html)
+	//r.GET("/data/ws", data.Ws)
+
 	// 分布式集群
 	r.GET("/colony", login.Jump, colony.Html)
 	r.GET("/get/colony/list", login.Jump, colony.GetColony)

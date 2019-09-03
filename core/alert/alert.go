@@ -10,6 +10,9 @@ import (
 	"net/http"
 	"HFish/utils/log"
 	"encoding/json"
+	"HFish/view/data"
+	"github.com/gin-gonic/gin"
+	"HFish/error"
 )
 
 func AlertMail(model string, typex string, agent string, ipx string, country string, region string, city string, infox string) {
@@ -105,4 +108,28 @@ func AlertWebHook(id string, model string, typex string, projectName string, age
 		}
 	}).Catch(func() {
 	})
+}
+
+// 大数据展示
+func AlertDataWs(model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, time string) {
+	if (model == "new") {
+		// 拼接字典
+		d := data.MakeDataJson("center_data", map[string]interface{}{
+			"type":        typex,
+			"projectName": projectName,
+			"agent":       agent,
+			"ipx":         ipx,
+			"country":     country,
+			"region":      region,
+			"city":        city,
+			"time":        time,
+		})
+
+		// 发送到客户端
+		data.Send(gin.H{
+			"code": error.ErrSuccessCode,
+			"msg":  error.ErrSuccessMsg,
+			"data": d,
+		})
+	}
 }

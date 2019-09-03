@@ -33,6 +33,9 @@ func alertx(id string, model string, typex string, projectName string, agent str
 
 	// WebHook
 	alert.AlertWebHook(id, model, typex, projectName, agent, ipx, country, region, city, infox, time)
+
+	// 大数据展示
+	//alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, time)
 }
 
 // 上报 集群 状态

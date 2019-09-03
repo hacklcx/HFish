@@ -8,15 +8,11 @@ import (
 	"strconv"
 	"HFish/error"
 	"HFish/utils/log"
-	"fmt"
 )
 
 func Html(c *gin.Context) {
 	// 查询上钩数量
-	webSum, err := dbUtil.DB().Table("hfish_info").Where("type", "=", "WEB").Count()
-
-	fmt.Println(err)
-
+	webSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "WEB").Count()
 	sshSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "SSH").Count()
 	redisSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "REDIS").Count()
 	mysqlSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "MYSQL").Count()
