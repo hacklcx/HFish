@@ -17,7 +17,6 @@ func Jump(c *gin.Context) {
 	if account != loginCookie {
 		c.Redirect(http.StatusFound, "/login")
 		c.Abort()
-		return
 	} else {
 		c.Next()
 	}
@@ -33,12 +32,20 @@ func Login(c *gin.Context) {
 	if loginName == account {
 		if loginPwd == password {
 			c.SetCookie("is_login", loginName, 60*60*24, "/", "*", false, true)
-			c.JSON(http.StatusOK, error.ErrSuccessNull())
+
+			c.JSON(http.StatusOK, gin.H{
+				"code": error.ErrSuccessCode,
+				"msg":  error.ErrSuccessMsg,
+			})
+
 			return
 		}
 	}
 
-	c.JSON(http.StatusOK, error.ErrLoginFail())
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrFailLoginCode,
+		"msg":  error.ErrFailLoginMsg,
+	})
 }
 
 func Logout(c *gin.Context) {

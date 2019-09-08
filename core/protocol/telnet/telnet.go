@@ -8,12 +8,14 @@ import (
 	"os"
 	"HFish/utils/is"
 	"HFish/core/rpc/client"
-	"strconv"
 	"HFish/core/report"
 	"HFish/utils/log"
 	"github.com/bitly/go-simplejson"
 	"HFish/utils/json"
 	"HFish/utils/file"
+	"strconv"
+	"time"
+	"HFish/core/pool"
 )
 
 // 服务端连接
@@ -27,34 +29,43 @@ func server(address string, exitChan chan int) {
 
 	defer l.Close()
 
+	wg, poolX := pool.New(10)
+	defer poolX.Release()
+
 	for {
-		conn, err := l.Accept()
+		wg.Add(1)
+		poolX.Submit(func() {
+			time.Sleep(time.Second * 2)
 
-		if err != nil {
-			fmt.Println(err.Error())
-			continue
-		}
+			conn, err := l.Accept()
 
-		arr := strings.Split(conn.RemoteAddr().String(), ":")
+			if err != nil {
+				log.Pr("Telnet", "127.0.0.1", "Telnet 连接失败", err)
+			}
 
-		// 判断是否为 RPC 客户端
-		var id string
+			arr := strings.Split(conn.RemoteAddr().String(), ":")
 
-		if is.Rpc() {
-			id = client.ReportResult("TELNET", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
-		} else {
-			id = strconv.FormatInt(report.ReportTelnet(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
-		}
+			var id string
 
-		log.Pr("Telnet", arr[0], "已经连接")
+			// 判断是否为 RPC 客户端
+			if is.Rpc() {
+				id = client.ReportResult("TELNET", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
+			} else {
+				id = strconv.FormatInt(report.ReportTelnet(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
+			}
 
-		// 根据连接开启会话, 这个过程需要并行执行
-		go handleSession(conn, exitChan, id)
+			log.Pr("Telnet", arr[0], "已经连接")
+
+			// 根据连接开启会话, 这个过程需要并行执行
+			go handleSession(conn, exitChan, id)
+
+			wg.Done()
+		})
 	}
 }
 
 func getJson() *simplejson.Json {
-	res, err := json.Get("telnet")
+	res, err := json.GetTelnet()
 
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "解析 Telnet JSON 文件失败", err)

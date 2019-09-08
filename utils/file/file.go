@@ -2,11 +2,48 @@ package file
 
 import (
 	"HFish/error"
-	"fmt"
 	"os"
 	"io/ioutil"
 	"HFish/utils/log"
+	"HFish/utils/json"
+	"fmt"
 )
+
+// 防止高并发下 打开过多
+var sshMap map[string]string
+var telnetMap map[string]string
+
+func init() {
+	// 把 SSH 命令配置 放到内存
+	resSsh, errSsh := json.GetSsh()
+	if errSsh != nil {
+		log.Pr("HFish", "127.0.0.1", "打开配置文件失败", errSsh)
+	}
+
+	sshCmdList, _ := resSsh.Get("command").Map()
+
+	sshMap = make(map[string]string)
+
+	for _, value := range sshCmdList {
+		str := ReadLibs("ssh", value.(string))
+		sshMap[value.(string)] = str
+	}
+
+	// 把 TELNET 命令配置 放到内存
+	resTelnet, errTelnet := json.GetSsh()
+	if errTelnet != nil {
+		log.Pr("HFish", "127.0.0.1", "打开配置文件失败", errTelnet)
+	}
+
+	telnetCmdList, _ := resTelnet.Get("command").Map()
+
+	telnetMap = make(map[string]string)
+
+	for _, value := range telnetCmdList {
+		str := ReadLibs("telnet", value.(string))
+		telnetMap[value.(string)] = str
+	}
+}
 
 func Output(result string, path string) {
 	if path != "" {
@@ -25,7 +62,7 @@ func Output(result string, path string) {
 	}
 }
 
-func ReadLibsText(typex string, name string) string {
+func ReadLibs(typex string, name string) string {
 	text, err := ioutil.ReadFile("./libs/" + typex + "/" + name + ".hf")
 
 	if err != nil {
@@ -33,4 +70,29 @@ func ReadLibsText(typex string, name string) string {
 	}
 
 	return string(text[:])
+}
+
+func ReadLibsText(typex string, name string) string {
+	switch typex {
+	case "ssh":
+		text, ok := sshMap[name]
+
+		if (ok) {
+			return text
+		} else {
+			return sshMap["default"]
+		}
+	case "telnet":
+		text, ok := telnetMap[name]
+
+		if (ok) {
+			return text
+		} else {
+			return telnetMap["default"]
+		}
+	default:
+		return ""
+	}
+
+	return ""
 }

@@ -4,39 +4,22 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"HFish/core/dbUtil"
-	"strconv"
 	"HFish/utils/conf"
+	"strconv"
 	"HFish/error"
+	"HFish/utils/log"
 )
 
 func Html(c *gin.Context) {
 	// 查询上钩数量
-	sqlWeb := `select count(1) as sum from hfish_info where type="WEB";`
-	sqlSsh := `select count(1) as sum from hfish_info where type="SSH";`
-	sqlRedis := `select count(1) as sum from hfish_info where type="REDIS";`
-	sqlMysql := `select count(1) as sum from hfish_info where type="MYSQL";`
-	deepMysql := `select count(1) as sum from hfish_info where type="DEEP";`
-	telnetMysql := `select count(1) as sum from hfish_info where type="TELNET";`
-	ftpMysql := `select count(1) as sum from hfish_info where type="FTP";`
-	memCacheMysql := `select count(1) as sum from hfish_info where type="MEMCACHE";`
-
-	resultWeb := dbUtil.Query(sqlWeb)
-	resultSsh := dbUtil.Query(sqlSsh)
-	resultRedis := dbUtil.Query(sqlRedis)
-	resultMysql := dbUtil.Query(sqlMysql)
-	resultDeep := dbUtil.Query(deepMysql)
-	resultTelnet := dbUtil.Query(telnetMysql)
-	resultFtp := dbUtil.Query(ftpMysql)
-	resultMemCache := dbUtil.Query(memCacheMysql)
-
-	webSum := strconv.FormatInt(resultWeb[0]["sum"].(int64), 10)
-	sshSum := strconv.FormatInt(resultSsh[0]["sum"].(int64), 10)
-	redisSum := strconv.FormatInt(resultRedis[0]["sum"].(int64), 10)
-	mysqlSum := strconv.FormatInt(resultMysql[0]["sum"].(int64), 10)
-	deepSum := strconv.FormatInt(resultDeep[0]["sum"].(int64), 10)
-	telnetSum := strconv.FormatInt(resultTelnet[0]["sum"].(int64), 10)
-	ftpSum := strconv.FormatInt(resultFtp[0]["sum"].(int64), 10)
-	memCacheSum := strconv.FormatInt(resultMemCache[0]["sum"].(int64), 10)
+	webSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "WEB").Count()
+	sshSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "SSH").Count()
+	redisSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "REDIS").Count()
+	mysqlSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "MYSQL").Count()
+	deepSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "DEEP").Count()
+	telnetSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "TELNET").Count()
+	ftpSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "FTP").Count()
+	memCacheSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "MEMCACHE").Count()
 
 	// 读取服务运行状态
 	mysqlStatus := conf.Get("mysql", "status")
@@ -70,178 +53,275 @@ func Html(c *gin.Context) {
 	})
 }
 
+func getData(sql string) map[string]interface{} {
+	var result []map[string]interface{}
+	err := dbUtil.DB().Table(&result).Query(sql)
+
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "查询SQL失败", err)
+	}
+
+	resultMap := make(map[string]interface{})
+
+	for k := range result {
+		resultMap[result[k]["hour"].(string)] = result[k]["sum"]
+	}
+
+	return resultMap
+}
+
 // 仪表盘折线图 统计
 func GetFishData(c *gin.Context) {
-	// 统计 web
-	sqlWeb := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="WEB"
-	GROUP BY
-	hour;
-   `
+	var sqlWeb string
+	var sqlSsh string
+	var sqlRedis string
+	var sqlMysql string
+	var sqlDeep string
+	var sqlFtp string
+	var sqlTelnet string
+	var sqlMemCache string
 
-	resultWeb := dbUtil.Query(sqlWeb)
+	// 此处为了兼容 Mysql + Sqlite
+	dbType := conf.Get("admin", "db_type")
 
-	webMap := make(map[string]int64)
-	for k := range resultWeb {
-		webMap[resultWeb[k]["hour"].(string)] = resultWeb[k]["sum"].(int64)
+	if dbType == "sqlite" {
+		// 统计 web
+		sqlWeb = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="WEB"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 ssh
+		sqlSsh = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="SSH"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 redis
+		sqlRedis = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="REDIS"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 mysql
+		sqlMysql = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="MYSQL"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 deep
+		sqlDeep = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="DEEP"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 ftp
+		sqlFtp = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="FTP"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 Telnet
+		sqlTelnet = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="TELNET"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 MemCache
+		sqlMemCache = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="MEMCACHE"
+		GROUP BY
+		hour;
+		`
+
+	} else if dbType == "mysql" {
+		// 统计 web
+		sqlWeb = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "WEB"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 ssh
+		sqlSsh = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "SSH"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 redis
+		sqlRedis = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "REDIS"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 mysql
+		sqlMysql = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "MYSQL"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 deep
+		sqlDeep = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "DEEP"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 ftp
+		sqlFtp = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "FTP"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 Telnet
+		sqlTelnet = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "TELNET"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 MemCache
+		sqlMemCache = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "MEMCACHE"
+		GROUP BY
+			hour;
+		`
 	}
 
-	// 统计 ssh
-	sqlSsh := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="SSH"
-	GROUP BY
-	hour;
-   `
-
-	resultSSH := dbUtil.Query(sqlSsh)
-
-	sshMap := make(map[string]int64)
-	for k := range resultSSH {
-		sshMap[resultSSH[k]["hour"].(string)] = resultSSH[k]["sum"].(int64)
-	}
-
-	// 统计 redis
-	sqlRedis := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="REDIS"
-	GROUP BY
-	hour;
-   `
-
-	resultRedis := dbUtil.Query(sqlRedis)
-
-	redisMap := make(map[string]int64)
-	for k := range resultRedis {
-		redisMap[resultRedis[k]["hour"].(string)] = resultRedis[k]["sum"].(int64)
-	}
-
-	// 统计 mysql
-	sqlMysql := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="MYSQL"
-	GROUP BY
-	hour;
-   `
-
-	resultMysql := dbUtil.Query(sqlMysql)
-
-	mysqlMap := make(map[string]int64)
-	for k := range resultMysql {
-		mysqlMap[resultMysql[k]["hour"].(string)] = resultMysql[k]["sum"].(int64)
-	}
-
-	// 统计 deep
-	sqlDeep := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="DEEP"
-	GROUP BY
-	hour;
-   `
-
-	resultDeep := dbUtil.Query(sqlDeep)
-
-	deepMap := make(map[string]int64)
-	for k := range resultDeep {
-		deepMap[resultDeep[k]["hour"].(string)] = resultDeep[k]["sum"].(int64)
-	}
-
-	// 统计 ftp
-	sqlFtp := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="FTP"
-	GROUP BY
-	hour;
-   `
-
-	resultFtp := dbUtil.Query(sqlFtp)
-
-	ftpMap := make(map[string]int64)
-	for k := range resultFtp {
-		ftpMap[resultFtp[k]["hour"].(string)] = resultFtp[k]["sum"].(int64)
-	}
-
-	// 统计 Telnet
-	sqlTelnet := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="TELNET"
-	GROUP BY
-	hour;
-   `
-
-	resultTelnet := dbUtil.Query(sqlTelnet)
-
-	telnetMap := make(map[string]int64)
-	for k := range resultTelnet {
-		telnetMap[resultTelnet[k]["hour"].(string)] = resultTelnet[k]["sum"].(int64)
-	}
-
-	// 统计 MemCache
-	sqlMemCache := `
-	SELECT
-		strftime("%H", create_time) AS hour,
-		sum(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
-	AND type="MEMCACHE"
-	GROUP BY
-	hour;
-   `
-
-	resultMemCache := dbUtil.Query(sqlMemCache)
-
-	memCacheMap := make(map[string]int64)
-	for k := range resultMemCache {
-		memCacheMap[resultMemCache[k]["hour"].(string)] = resultMemCache[k]["sum"].(int64)
-	}
+	webMap := getData(sqlWeb)
+	sshMap := getData(sqlSsh)
+	redisMap := getData(sqlRedis)
+	mysqlMap := getData(sqlMysql)
+	deepMap := getData(sqlDeep)
+	ftpMap := getData(sqlFtp)
+	telnetMap := getData(sqlTelnet)
+	memCacheMap := getData(sqlMemCache)
 
 	// 拼接 json
-	s := map[string]map[string]int64{
+	data := map[string]interface{}{
 		"web":      webMap,
 		"ssh":      sshMap,
 		"redis":    redisMap,
@@ -252,25 +332,21 @@ func GetFishData(c *gin.Context) {
 		"memCache": memCacheMap,
 	}
 
-	c.JSON(http.StatusOK, error.ErrSuccessEdit(s))
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
+		"data": data,
+	})
 }
 
 // 仪表盘攻击饼图统计
 func GetFishPieData(c *gin.Context) {
 	// 统计攻击地区
-	sqlRegion := `
-	SELECT
-		country,
-		count(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		country != ""
-	GROUP BY
-		country;
-   `
+	resultRegion, errRegion := dbUtil.DB().Table("hfish_info").Fields("country", "count(1) AS sum").Where("country", "!=", "").GroupBy("country").OrderBy("sum desc").Limit(10).Get()
 
-	resultRegion := dbUtil.Query(sqlRegion)
+	if errRegion != nil {
+		log.Pr("HFish", "127.0.0.1", "统计攻击地区失败", errRegion)
+	}
 
 	var regionList []map[string]string
 
@@ -282,18 +358,11 @@ func GetFishPieData(c *gin.Context) {
 	}
 
 	// 统计攻击IP
-	sqlIP := `
-	SELECT
-		ip,
-		count(1) AS sum
-	FROM
-		hfish_info
-	WHERE
-		ip != ""
-	GROUP BY
-		ip;
-   `
-	resultIP := dbUtil.Query(sqlIP)
+	resultIP, errIp := dbUtil.DB().Table("hfish_info").Fields("ip", "count(1) AS sum").Where("ip", "!=", "").GroupBy("ip").OrderBy("sum desc").Limit(10).Get()
+
+	if errIp != nil {
+		log.Pr("HFish", "127.0.0.1", "统计攻击IP失败", errIp)
+	}
 
 	var ipList []map[string]string
 
@@ -304,8 +373,14 @@ func GetFishPieData(c *gin.Context) {
 		ipList = append(ipList, ipMap)
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	data := map[string]interface{}{
 		"regionList": regionList,
 		"ipList":     ipList,
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
+		"data": data,
 	})
 }

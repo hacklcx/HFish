@@ -77,7 +77,7 @@
                 </thead>
                 <tbody id="tableList">
                 <tr style="text-align: center;">
-                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="5">暂无数据</td>
+                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="11">暂无数据</td>
                 </tr>
                 </tbody>
             </table>
@@ -120,7 +120,7 @@
             for (var i = 0; i < data.length; i++) {
                 _h += '<tr>';
 
-                var last_update_time = data[i].last_update_time;
+                var last_update_time = data[i].last_update_time.replace("T", " ").replace("+08:00", "").replace("Z", "");
                 last_update_time = last_update_time.substring(0, 19);
                 last_update_time = last_update_time.replace(/-/g, '/');
                 var timestamp = new Date(last_update_time).getTime();
@@ -131,55 +131,55 @@
                     _h += '    <td class="td agent_name"><span class="openx"></span>' + data[i].agent_name + '</td>';
                     _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
 
-                    if (data[i].plug_status == "1") {
+                    if (data[i].plug_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].web_status == "1") {
+                    if (data[i].web_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].dart_status == "1") {
+                    if (data[i].deep_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].ssh_status == "1") {
+                    if (data[i].ssh_status == 1 || data[i].ssh_status == 2) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].redis_status == "1") {
+                    if (data[i].redis_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].mysql_status == "1") {
+                    if (data[i].mysql_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].telnet_status == "1") {
+                    if (data[i].telnet_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].ftp_status == "1") {
+                    if (data[i].ftp_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].mem_cache_status == "1") {
+                    if (data[i].mem_cache_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';

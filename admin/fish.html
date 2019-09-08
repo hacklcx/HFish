@@ -182,13 +182,17 @@
                     <th width="11%">项目</th>
                     <th width="8%">集群名称</th>
                     <th width="8%">来源 IP</th>
-                    <th width="8%">地理信息</th>
+                    <th width="9%">地理信息</th>
                     <th width="5%">信息</th>
                     <th width="5%">长度</th>
                     <th width="8%">上钩时间</th>
                 </tr>
                 </thead>
-                <tbody id="tableList"></tbody>
+                <tbody id="tableList">
+                <tr style="text-align: center;">
+                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="8">暂无数据</td>
+                </tr>
+                </tbody>
             </table>
         </div>
         <button type="button" id="delbtn" class="btn btn-danger waves-effect waves-light btn-sm"
@@ -226,8 +230,7 @@
             success: function (e) {
                 if (e.code == 200) {
                     var data = e.data;
-                    var str = data[0].info.replace(/&&/g, "<br>");
-                    console.log(str);
+                    var str = data.info.replace(/&&/g, "<br>");
                     $(".pre").html(str);
                 } else {
                 }
@@ -274,7 +277,7 @@
             url: "/get/fish/typeList",
             dataType: "json",
             success: function (e) {
-                var data = e.resultInfoType;
+                var data = e.data.resultInfoType;
                 var _h = '<option value="all">请选择类型</option>';
 
                 for (var i = 0; i < data.length; i++) {
@@ -283,12 +286,11 @@
 
                 $("#selectType").html(_h);
 
-                var data1 = e.resultColonyName;
+                var data1 = e.data.resultColonyName;
                 var _h1 = '<option value="all">请选择集群</option>';
-                _h1 += '<option value="本机">本机</option>';
 
                 for (var i = 0; i < data1.length; i++) {
-                    _h1 += '<option value="' + data1[i].agent_name + '">' + data1[i].agent_name + '</option>';
+                    _h1 += '<option value="' + data1[i].agent + '">' + data1[i].agent + '</option>';
                 }
                 $("#selectColony").html(_h1);
             },
@@ -348,48 +350,48 @@
                 var data = e.data;
                 var _h = '';
 
-                for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < data.result.length; i++) {
                     _h += '<tr>';
-                    _h += '    <td class="td"><div class="checkbox checkbox-single checkbox-danger"><input type="checkbox"  value="' + data[i].id + '" name="check_x" onchange="changedel()"><label></label></div></td>'
+                    _h += '    <td class="td"><div class="checkbox checkbox-single checkbox-danger"><input type="checkbox"  value="' + data.result[i].id + '" name="check_x" onchange="changedel()"><label></label></div></td>'
                     _h += '    <td class="td">';
-                    if (data[i].type == "WEB") {
+                    if (data.result[i].type == "WEB") {
                         _h += '       <span class="label label-primary">WEB</span> ';
-                    } else if (data[i].type == "SSH") {
+                    } else if (data.result[i].type == "SSH") {
                         _h += '       <span class="label lb_ssh">SSH</span> ';
-                    } else if (data[i].type == "REDIS") {
+                    } else if (data.result[i].type == "REDIS") {
                         _h += '       <span class="label lb_redis">REDIS</span> ';
-                    } else if (data[i].type == "MYSQL") {
+                    } else if (data.result[i].type == "MYSQL") {
                         _h += '       <span class="label lb_mysql">MYSQL</span> ';
-                    } else if (data[i].type == "FTP") {
+                    } else if (data.result[i].type == "FTP") {
                         _h += '       <span class="label lb_ftp">FTP</span> ';
-                    } else if (data[i].type == "TELNET") {
+                    } else if (data.result[i].type == "TELNET") {
                         _h += '       <span class="label lb_telnet">TELNET</span> ';
-                    } else if (data[i].type == "DEEP") {
+                    } else if (data.result[i].type == "DEEP") {
                         _h += '       <span class="label lb_deep">DEEP</span> ';
-                    } else if (data[i].type == "MEMCACHE") {
+                    } else if (data.result[i].type == "MEMCACHE") {
                         _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
-                    } else if (data[i].type == "PLUG") {
+                    } else if (data.result[i].type == "PLUG") {
                         _h += '       <span class="label lb_plug">PLUG</span> ';
                     }
 
-                    _h += '       <span class="project">' + data[i].project_name + '</span>';
+                    _h += '       <span class="project">' + data.result[i].project_name + '</span>';
                     _h += '    </td>';
-                    _h += '    <td class="td"><span class="agent_name">' + data[i].agent + '</span></td>';
-                    _h += '    <td class="td" style="font-weight: bold;">' + data[i].ip + '</td>';
+                    _h += '    <td class="td"><span class="agent_name">' + data.result[i].agent + '</span></td>';
+                    _h += '    <td class="td" style="font-weight: bold;">' + data.result[i].ip + '</td>';
 
                     // country,region,city
-                    if (data[i].country == "本机地址") {
+                    if (data.result[i].country == "本机地址") {
                         _h += '    <td class="td"><span class="ipinfo">本机地址</span></td>';
-                    } else if (data[i].country == "局域网") {
+                    } else if (data.result[i].country == "局域网") {
                         _h += '    <td class="td"><span class="ipinfo">局域网</span></td>';
                     }
                     else {
-                        _h += '    <td class="td"><span class="ipinfo">' + data[i].country + ' ' + data[i].region + ' ' + data[i].city + '</span></td>';
+                        _h += '    <td class="td"><span class="ipinfo">' + data.result[i].country + ' ' + data.result[i].region + ' ' + data.result[i].city + '</span></td>';
                     }
 
-                    _h += '    <td><span class="info" onclick="show(' + data[i].id + ')">点击查看</span></td>';
-                    _h += '    <td class="td"><span class="cinfo">' + data[i].info.length + '</span></td>';
-                    _h += '    <td class="td">' + data[i].create_time + '</td>';
+                    _h += '    <td><span class="info" onclick="show(' + data.result[i].id + ')">点击查看</span></td>';
+                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.length + '</span></td>';
+                    _h += '    <td class="td">' + data.result[i].create_time.replace("T", " ").replace("+08:00", " ").replace("Z", "") + '</td>';
                     _h += '</tr>';
                 }
 
@@ -399,9 +401,9 @@
 
                 $("#tableList").html(_h);
 
-                var pageCount = e.pageCount;
-                var totalCount = e.totalCount;
-                var page = e.page;
+                var pageCount = data.pageCount;
+                var totalCount = data.totalCount;
+                var page = data.page;
 
 
                 $("#myPage").sPage({

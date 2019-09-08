@@ -12,11 +12,18 @@ require (
 	github.com/flynn/go-shlex v0.0.0-20150515145356-3f9db97f8568 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/gliderlabs/ssh v0.2.2
+	github.com/go-sql-driver/mysql v1.4.1
+	github.com/gohouse/gorose v0.0.0-20190830103550-ad3ce0985b9e
+	github.com/gorilla/websocket v1.4.1
 	github.com/ipipdotnet/ipdb-go v1.2.0
 	github.com/jehiah/go-strftime v0.0.0-20171201141054-1d33003b3869
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-sqlite3 v1.11.0
-	golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2
+	github.com/panjf2000/ants v1.2.0
+	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337 // indirect
+	golang.org/x/crypto v0.0.0-20190605123033-f99c8df09eb5
+	google.golang.org/appengine v1.6.2 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+	gopkg.in/ini.v1 v1.46.0
 )

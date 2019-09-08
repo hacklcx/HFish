@@ -163,6 +163,8 @@
 
         {{if eq .sshStatus "1"}}
             <p><span class="openx"></span>SSH</p>
+        {{ else if eq .sshStatus "2"}}
+            <p><span class="openx"></span>SSH</p>
         {{else}}
             <p><span class="closex"></span>SSH</p>
         {{end}}
@@ -463,42 +465,42 @@
 
                 for (var item in d.mysql) {
                     var index = xdata.indexOf(item);
-                    mysqlData[index] = d.mysql[item];
+                    mysqlData[index] = parseInt(d.mysql[item]);
                 }
 
                 for (var item in d.redis) {
                     var index = xdata.indexOf(item);
-                    redisData[index] = d.redis[item];
+                    redisData[index] = parseInt(d.redis[item]);
                 }
 
                 for (var item in d.ssh) {
                     var index = xdata.indexOf(item);
-                    sshData[index] = d.ssh[item];
+                    sshData[index] = parseInt(d.ssh[item]);
                 }
 
                 for (var item in d.web) {
                     var index = xdata.indexOf(item);
-                    webData[index] = d.web[item];
+                    webData[index] = parseInt(d.web[item]);
                 }
 
                 for (var item in d.deep) {
                     var index = xdata.indexOf(item);
-                    deepData[index] = d.deep[item];
+                    deepData[index] = parseInt(d.deep[item]);
                 }
 
                 for (var item in d.ftp) {
                     var index = xdata.indexOf(item);
-                    ftpData[index] = d.ftp[item];
+                    ftpData[index] = parseInt(d.ftp[item]);
                 }
 
                 for (var item in d.telnet) {
                     var index = xdata.indexOf(item);
-                    telnetData[index] = d.telnet[item];
+                    telnetData[index] = parseInt(d.telnet[item]);
                 }
 
                 for (var item in d.memCache) {
                     var index = xdata.indexOf(item);
-                    memCacheData[index] = d.memCache[item];
+                    memCacheData[index] = parseInt(d.memCache[item]);
                 }
 
 
@@ -610,13 +612,13 @@
         url: "/get/dashboard/pie_data",
         dataType: "json",
         success: function (e) {
-            var d = e;
+            var d = e.data;
 
             console.log(d);
 
             var option = {
                 title: {
-                    text: '攻击地区',
+                    text: '[攻击地区] TOP10',
                     x: 'left'
                 },
                 tooltip: {
@@ -627,8 +629,8 @@
                     {
                         name: '来源地区',
                         type: 'pie',
-                        radius: '70%',
-                        center: ['50%', '50%'],
+                        radius: '60%',
+                        center: ['50%', '60%'],
                         data: d.regionList,
                         itemStyle: {
                             emphasis: {
@@ -646,7 +648,7 @@
 
             var option = {
                 title: {
-                    text: '攻击 IP',
+                    text: '[攻击IP] TOP10',
                     x: 'left'
                 },
                 tooltip: {
@@ -657,8 +659,8 @@
                     {
                         name: '攻击者IP',
                         type: 'pie',
-                        radius: '70%',
-                        center: ['50%', '50%'],
+                        radius: '60%',
+                        center: ['50%', '60%'],
                         data: d.ipList,
                         itemStyle: {
                             emphasis: {

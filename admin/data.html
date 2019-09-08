@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="p">
+
+</div>
+
+<script>
+    var ws = new WebSocket('ws://127.0.0.1:9001/data/ws');
+
+    ws.onopen = function () {
+        ws.send("ping");
+    };
+
+    ws.onmessage = function (evt) {
+        var received_msg = evt.data;
+        document.getElementById("p").innerHTML = "<p>" + received_msg + "</p>"
+    };
+
+    ws.onclose = function () {
+        // 关闭 websocket
+        console.log("close")
+    };
+</script>
+</body>
+</html>

@@ -29,12 +29,12 @@ func createClient() (*rpc.Client, string, bool) {
 	rpcAddr := conf.Get("rpc", "addr")
 	client, conn, err := rpc.Dial("tcp", rpcAddr)
 
-	ipArr := strings.Split(conn.LocalAddr().String(), ":")
-
 	if err != nil {
 		log.Pr("RPC", "127.0.0.1", "连接 RPC Server 失败")
 		return client, "", false
 	}
+
+	ipArr := strings.Split(conn.LocalAddr().String(), ":")
 
 	return client, ipArr[0], true
 }
