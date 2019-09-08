@@ -13,9 +13,10 @@ import (
 	"HFish/view/data"
 	"github.com/gin-gonic/gin"
 	"HFish/error"
+	"sync"
 )
 
-func AlertMail(model string, typex string, agent string, ipx string, country string, region string, city string, infox string) {
+func AlertMail(model string, typex string, agent string, ipx string, country string, region string, city string, infox string, wg *sync.WaitGroup) {
 	// 判断邮件通知
 	try.Try(func() {
 		// 只有新加入才会发送邮件通知
@@ -55,11 +56,14 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 				send.SendMail(config[4:], "[HFish]提醒你，"+typex+"有鱼上钩!", text, config)
 			}
 		}
+
+		wg.Done()
 	}).Catch(func() {
+		wg.Done()
 	})
 }
 
-func AlertWebHook(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, time string) {
+func AlertWebHook(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, time string, wg *sync.WaitGroup) {
 	// 判断 WebHook 通知
 	try.Try(func() {
 		result, err := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "webHook").First()
@@ -106,7 +110,10 @@ func AlertWebHook(id string, model string, typex string, projectName string, age
 			defer resp.Body.Close()
 			//defer request.Body.Close()
 		}
+
+		wg.Done()
 	}).Catch(func() {
+		wg.Done()
 	})
 }
 

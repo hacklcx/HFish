@@ -11,6 +11,8 @@ import (
 	"HFish/utils/is"
 	"HFish/core/rpc/client"
 	"fmt"
+	"HFish/core/pool"
+	"time"
 )
 
 var kvData map[string]string
@@ -23,25 +25,37 @@ func Start(addr string) {
 
 	defer netListen.Close()
 
+	wg, poolX := pool.New(10)
+	defer poolX.Release()
+
 	for {
-		conn, err := netListen.Accept()
-		if err != nil {
-			continue
-		}
-		arr := strings.Split(conn.RemoteAddr().String(), ":")
+		wg.Add(1)
+		poolX.Submit(func() {
+			time.Sleep(time.Second * 2)
 
-		// 判断是否为 RPC 客户端
-		var id string
+			conn, err := netListen.Accept()
 
-		if is.Rpc() {
-			id = client.ReportResult("REDIS", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
-		} else {
-			id = strconv.FormatInt(report.ReportRedis(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
-		}
+			if err != nil {
+				log.Pr("Redis", "127.0.0.1", "Redis 连接失败", err)
+			}
 
-		log.Pr("Redis", arr[0], "已经连接")
+			arr := strings.Split(conn.RemoteAddr().String(), ":")
 
-		go handleConnection(conn, id)
+			// 判断是否为 RPC 客户端
+			var id string
+
+			if is.Rpc() {
+				id = client.ReportResult("REDIS", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
+			} else {
+				id = strconv.FormatInt(report.ReportRedis(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
+			}
+
+			log.Pr("Redis", arr[0], "已经连接")
+
+			go handleConnection(conn, id)
+
+			wg.Done()
+		})
 	}
 }
 

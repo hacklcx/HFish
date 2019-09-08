@@ -13,6 +13,8 @@ import (
 	"HFish/utils/is"
 	"HFish/core/rpc/client"
 	"strconv"
+	"HFish/core/pool"
+	"time"
 )
 
 //读取文件时每次读取的字节数
@@ -47,26 +49,38 @@ func Start(addr string, files string) {
 	// 读取文件列表
 	fileNames = strings.Split(files, ",")
 
+	wg, poolX := pool.New(10)
+	defer poolX.Release()
+
 	for {
-		conn, _ := listener.Accept()
-		ip, _, _ := net.SplitHostPort(conn.RemoteAddr().String())
+		wg.Add(1)
+		poolX.Submit(func() {
+			time.Sleep(time.Second * 2)
 
-		//由于文件最后保存的文件名包含ip地址，为了本地测试加了这个
-		if ip == "::1" {
-			ip = "localhost"
-		}
+			conn, err := listener.Accept()
 
-		//这里记录每个客户端连接的次数，实现获取多个文件
-		_, ok := recordClient[ip]
-		if ok {
-			if recordClient[ip] < len(fileNames)-1 {
-				recordClient[ip] += 1
+			if err != nil {
+				log.Pr("Mysql", "127.0.0.1", "Mysql 连接失败", err)
 			}
-		} else {
-			recordClient[ip] = 0
-		}
 
-		go connectionClientHandler(conn)
+			arr := strings.Split(conn.RemoteAddr().String(), ":")
+
+			ip := arr[0]
+
+			//这里记录每个客户端连接的次数，实现获取多个文件
+			_, ok := recordClient[ip]
+			if ok {
+				if recordClient[ip] < len(fileNames)-1 {
+					recordClient[ip] += 1
+				}
+			} else {
+				recordClient[ip] = 0
+			}
+
+			go connectionClientHandler(conn)
+
+			wg.Done()
+		})
 	}
 }
 

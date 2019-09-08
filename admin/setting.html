@@ -59,7 +59,7 @@
                     <tr id="tr{{$e.type}}" data-id="{{$e.id}}">
                         <td style="font-weight: bold;">{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
-                        <td id="trx{{$e.type}}"><script>var t={{$e.update_time}}; document.getElementById("trx{{$e.type}}").innerHTML= t.replace("T", " ").replace("+08:00", " ");</script></td>
+                        <td id="trx{{$e.type}}"><script>var t={{$e.update_time}}; document.getElementById("trx{{$e.type}}").innerHTML= t.replace("T", " ").replace("+08:00", " ").replace("Z", "");</script></td>
                         <td>{{if ne $e.info ""}}
                             <span class="yes_config">已配置</span>
                         {{else}}

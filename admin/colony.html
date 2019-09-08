@@ -120,7 +120,7 @@
             for (var i = 0; i < data.length; i++) {
                 _h += '<tr>';
 
-                var last_update_time = data[i].last_update_time.replace("T", " ").replace("+08:00", " ");
+                var last_update_time = data[i].last_update_time.replace("T", " ").replace("+08:00", "").replace("Z", "");
                 last_update_time = last_update_time.substring(0, 19);
                 last_update_time = last_update_time.replace(/-/g, '/');
                 var timestamp = new Date(last_update_time).getTime();
@@ -143,7 +143,7 @@
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
-                    if (data[i].dart_status == 1) {
+                    if (data[i].deep_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
                     } else {
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';

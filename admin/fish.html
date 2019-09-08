@@ -391,7 +391,7 @@
 
                     _h += '    <td><span class="info" onclick="show(' + data.result[i].id + ')">点击查看</span></td>';
                     _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.length + '</span></td>';
-                    _h += '    <td class="td">' + data.result[i].create_time.replace("T", " ").replace("+08:00", " ") + '</td>';
+                    _h += '    <td class="td">' + data.result[i].create_time.replace("T", " ").replace("+08:00", " ").replace("Z", "") + '</td>';
                     _h += '</tr>';
                 }
 

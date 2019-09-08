@@ -10,6 +10,9 @@ import (
 	"strings"
 	"HFish/core/alert"
 	"HFish/utils/conf"
+	"HFish/core/pool"
+	"sync"
+	"github.com/panjf2000/ants"
 )
 
 type HFishInfo struct {
@@ -26,16 +29,37 @@ type HFishInfo struct {
 	time    string
 }
 
+var (
+	wg    sync.WaitGroup
+	poolX *ants.Pool
+
+	wgUpdate    sync.WaitGroup
+	poolUpdateX *ants.Pool
+)
+
+func init() {
+	wg, poolX = pool.New(10)
+	defer poolX.Release()
+
+	wgUpdate, poolUpdateX = pool.New(10)
+	defer poolUpdateX.Release()
+}
+
 // 通知模块
-func alertx(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, time string) {
-	// 邮件通知
-	alert.AlertMail(model, typex, agent, ipx, country, region, city, infox)
+func alertx(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, timex string) {
+	wg.Add(1)
+	poolX.Submit(func() {
+		time.Sleep(time.Second * 2)
 
-	// WebHook
-	alert.AlertWebHook(id, model, typex, projectName, agent, ipx, country, region, city, infox, time)
+		// 邮件通知
+		alert.AlertMail(model, typex, agent, ipx, country, region, city, infox, &wg)
 
-	// 大数据展示
-	//alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, time)
+		// WebHook
+		alert.AlertWebHook(id, model, typex, projectName, agent, ipx, country, region, city, infox, timex, &wg)
+
+		// 大数据展示
+		//alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, time)
+	})
 }
 
 // 上报 集群 状态
@@ -113,6 +137,7 @@ func isWhiteIp(ip string) bool {
 
 // 通用的插入
 func insertInfo(typex string, projectName string, agent string, ipx string, country string, region string, city string, info string) int64 {
+
 	id, err := dbUtil.DB().Table("hfish_info").Data(map[string]interface{}{
 		"type":         typex,
 		"project_name": projectName,
@@ -128,38 +153,54 @@ func insertInfo(typex string, projectName string, agent string, ipx string, coun
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "插入上钩信息失败", err)
 	}
+
 	return id
+}
+
+// 更新
+func updateInfoCore(id string, info string) {
+	time.Sleep(time.Second * 2)
+
+	try.Try(func() {
+		var sql string
+
+		// 此处为了兼容 Mysql + Sqlite
+		dbType := conf.Get("admin", "db_type")
+
+		if dbType == "sqlite" {
+			sql = `
+				UPDATE hfish_info
+				SET info = info||?
+				WHERE
+					id = ?;
+				`
+		} else if dbType == "mysql" {
+			sql = `
+				UPDATE hfish_info
+				SET info = CONCAT(info, ?)
+				WHERE
+					id = ?;
+				`
+		}
+
+		_, err := dbUtil.DB().Execute(sql, info, id)
+
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "更新上钩信息失败", err)
+		}
+
+		wgUpdate.Done()
+	}).Catch(func() {
+		wgUpdate.Done()
+	})
 }
 
 // 通用的更新
 func updateInfo(id string, info string) {
-
-	var sql string
-
-	// 此处为了兼容 Mysql + Sqlite
-	dbType := conf.Get("admin", "db_type")
-
-	if dbType == "sqlite" {
-		sql = `
-		UPDATE hfish_info
-		SET info = info||?
-		WHERE
-			id = ?;
-		`
-	} else if dbType == "mysql" {
-		sql = `
-		UPDATE hfish_info
-		SET info = CONCAT(info, ?)
-		WHERE
-			id = ?;
-		`
-	}
-
-	_, err := dbUtil.DB().Execute(sql, info, id)
-
-	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "更新上钩信息失败", err)
-	}
+	wgUpdate.Add(1)
+	poolUpdateX.Submit(func() {
+		updateInfoCore(id, info)
+	})
 }
 
 // 上报 WEB
@@ -194,6 +235,12 @@ func ReportPlugWeb(projectName string, agent string, ipx string, info string) {
 
 // 上报 SSH
 func ReportSSH(ipx string, agent string, info string) int64 {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Pr("HFish", "127.0.0.1", "执行SSH插入失败", err)
+		}
+	}()
+
 	// IP 不在白名单，进行上报
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
@@ -206,6 +253,12 @@ func ReportSSH(ipx string, agent string, info string) int64 {
 
 // 更新 SSH 操作
 func ReportUpdateSSH(id string, info string) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Pr("HFish", "127.0.0.1", "执行SSH更新失败", err)
+		}
+	}()
+
 	if (id != "0") {
 		go updateInfo(id, info)
 		go alertx(id, "update", "SSH", "SSH蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))

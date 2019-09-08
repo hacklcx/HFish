@@ -19,6 +19,9 @@ const (
 
 	ErrFailConfigCode = 1004
 	ErrFailConfigMsg  = "请配置后在启用"
+
+	ErrFailPlugCode = 1005
+	ErrFailPlugMsg  = "上报信息错误"
 )
 
 func Check(e error, tips string) {
