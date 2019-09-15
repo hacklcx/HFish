@@ -19,7 +19,7 @@ import (
 var clientData map[string]string
 
 func getJson() *simplejson.Json {
-	res, err := json.Get("ssh")
+	res, err := json.GetSsh()
 
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "解析 SSH JSON 文件失败", err)
@@ -44,10 +44,6 @@ func Start(addr string) {
 				}
 
 				fileName := res.Get("command").Get(line).MustString()
-
-				if (fileName == "") {
-					fileName = res.Get("command").Get("default").MustString()
-				}
 
 				output := file.ReadLibsText("ssh", fileName)
 

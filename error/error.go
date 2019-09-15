@@ -2,56 +2,31 @@ package error
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
+)
+
+const (
+	ErrSuccessCode = 200
+	ErrSuccessMsg  = "success"
+
+	ErrFailApiKeyCode = 1001
+	ErrFailApiKeyMsg  = "秘钥不正确"
+
+	ErrFailLoginCode = 1002
+	ErrFailLoginMsg  = "账号密码不正确"
+
+	ErrFailMailCode = 1003
+	ErrFailMailMsg  = "邮箱未启用"
+
+	ErrFailConfigCode = 1004
+	ErrFailConfigMsg  = "请配置后在启用"
+
+	ErrFailPlugCode = 1005
+	ErrFailPlugMsg  = "上报信息错误"
 )
 
 func Check(e error, tips string) {
 	if e != nil {
 		fmt.Println(tips)
-		panic(e)
-	}
-}
-
-func ErrSuccess(data []map[string]interface{}) map[string]interface{} {
-	return gin.H{
-		"code": 200,
-		"msg":  "success",
-		"data": data,
-	}
-}
-
-func ErrSuccessEdit(data map[string]map[string]int64) map[string]interface{} {
-	return gin.H{
-		"code": 200,
-		"msg":  "success",
-		"data": data,
-	}
-}
-
-func ErrSuccessNull() map[string]interface{} {
-	return gin.H{
-		"code": 200,
-		"msg":  "success",
-	}
-}
-
-func ErrFailApiKey() map[string]interface{} {
-	return gin.H{
-		"code": 1001,
-		"msg":  "秘钥不正确",
-	}
-}
-
-func ErrLoginFail() map[string]interface{} {
-	return gin.H{
-		"code": 1002,
-		"msg":  "账号密码不正确",
-	}
-}
-
-func ErrEmailFail() map[string]interface{} {
-	return gin.H{
-		"code": 1003,
-		"msg":  "邮箱未启用",
+		//panic(e)
 	}
 }

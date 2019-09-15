@@ -31,7 +31,6 @@ type HFishRPCService int
 
 // 上报状态 RPC 方法
 func (t *HFishRPCService) ReportStatus(s *Status, reply *string) error {
-	fmt.Println(s)
 	// 上报 客户端 状态
 	go report.ReportAgentStatus(
 		s.AgentName,

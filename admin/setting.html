@@ -17,6 +17,7 @@
         color: #ff5d48 !important;
         margin-right: 5px;
     }
+
     .yes_config {
         border: 1px solid #0f8ce6;
         padding: 2px 5px;
@@ -58,7 +59,7 @@
                     <tr id="tr{{$e.type}}" data-id="{{$e.id}}">
                         <td style="font-weight: bold;">{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
-                        <td>{{$e.update_time}}</td>
+                        <td id="trx{{$e.type}}"><script>var t={{$e.update_time}}; document.getElementById("trx{{$e.type}}").innerHTML= t.replace("T", " ").replace("+08:00", " ").replace("Z", "");</script></td>
                         <td>{{if ne $e.info ""}}
                             <span class="yes_config">已配置</span>
                         {{else}}
@@ -250,8 +251,8 @@
             url: "/get/setting/info?id=" + id
         }).success(function (result) {
             if (result.code == 200) {
-                var typeStr = result.data[0].type;
-                var arr = result.data[0].info.split("&&")
+                var typeStr = result.data.type;
+                var arr = result.data.info.split("&&")
                 if (arr.length == 4 && typeStr == "mail") {
                     $("#email").val(arr[2])
                     $("#pass").val(arr[3])

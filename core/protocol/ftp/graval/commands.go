@@ -11,6 +11,9 @@ import (
 	"HFish/core/report"
 	"HFish/utils/is"
 	"HFish/core/rpc/client"
+	"sync"
+	"github.com/panjf2000/ants"
+	"HFish/core/pool"
 )
 
 type ftpCommand interface {
@@ -329,24 +332,42 @@ func (cmd commandPass) RequireAuth() bool {
 	return false
 }
 
+// 加入线程池
+
+var (
+	wg    sync.WaitGroup
+	poolX *ants.Pool
+)
+
+func init() {
+	wg, poolX = pool.New(10)
+	defer poolX.Release()
+}
+
 func (cmd commandPass) Execute(conn *ftpConn, param string) {
-	info := conn.reqUser + "&&" + param
-	arr := strings.Split(conn.conn.RemoteAddr().String(), ":")
+	wg.Add(1)
+	poolX.Submit(func() {
 
-	// 判断是否为 RPC 客户端
-	if is.Rpc() {
-		go client.ReportResult("FTP", "", arr[0], info, "0")
-	} else {
-		go report.ReportFTP(arr[0], "本机", info)
-	}
+		info := conn.reqUser + "&&" + param
+		arr := strings.Split(conn.conn.RemoteAddr().String(), ":")
 
-	if conn.driver.Authenticate(conn.reqUser, param) {
-		conn.user = conn.reqUser
-		conn.reqUser = ""
-		conn.writeMessage(230, "Password ok, continue")
-	} else {
-		conn.writeMessage(530, "Incorrect password, not logged in")
-	}
+		// 判断是否为 RPC 客户端
+		if is.Rpc() {
+			go client.ReportResult("FTP", "", arr[0], info, "0")
+		} else {
+			go report.ReportFTP(arr[0], "本机", info)
+		}
+
+		if conn.driver.Authenticate(conn.reqUser, param) {
+			conn.user = conn.reqUser
+			conn.reqUser = ""
+			conn.writeMessage(230, "Password ok, continue")
+		} else {
+			conn.writeMessage(530, "Incorrect password, not logged in")
+		}
+
+		wg.Done()
+	})
 }
 
 // commandPasv responds to the PASV FTP command.

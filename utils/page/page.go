@@ -1,7 +1,7 @@
 package page
 
 // 分页从1开始
-func Start(currentPage int64, pageSize int64) int64 {
+func Start(currentPage int, pageSize int) int {
 	return (currentPage - 1) * pageSize
 }
 
@@ -11,7 +11,7 @@ func End(currentPage int64, pageSize int64) int64 {
 }
 
 // 分页总页数
-func TotalPage(count int64, pageSize int64) int64 {
+func TotalPage(count int, pageSize int) int {
 	result := count / pageSize
 	yu := count % pageSize
 	if yu > 0 {

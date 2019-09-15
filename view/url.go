@@ -32,6 +32,10 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/get/fish/typeList", login.Jump, fish.GetFishTypeInfo)
 	r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
 
+	// 大数据仪表盘
+	//r.GET("/data", login.Jump, data.Html)
+	//r.GET("/data/ws", data.Ws)
+
 	// 分布式集群
 	r.GET("/colony", login.Jump, colony.Html)
 	r.GET("/get/colony/list", login.Jump, colony.GetColony)
@@ -49,6 +53,7 @@ func LoadUrl(r *gin.Engine) {
 	r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
 	r.POST("/post/setting/updateWebHook", login.Jump, setting.UpdateWebHook)
 	r.POST("/post/setting/updateWhiteIp", login.Jump, setting.UpdateWhiteIp)
+
 	// API 接口
 	// 解决跨域问题
 	r.Use(cors.Cors())

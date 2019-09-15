@@ -23,7 +23,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"log"
 	"net"
 	"os"
 	"strconv"
@@ -32,6 +31,8 @@ import (
 	"HFish/utils/is"
 	"HFish/core/rpc/client"
 	"HFish/core/report"
+	"HFish/core/pool"
+	"HFish/utils/log"
 )
 
 var linkedHashMap = LinkedHashMap.NewLinkedHashMap()
@@ -407,87 +408,91 @@ func tcpServer(address string, rateLimitChan chan int, exitChan chan int) {
 		exitChan <- 1
 	}
 
-	log.Println("[Memcache TCP] Listning on " + address)
-
 	defer l.Close()
 
+	wg, poolX := pool.New(10)
+	defer poolX.Release()
+
 	for {
-		conn, err := l.Accept()
-		trackID := randNumber(100000, 999999)
+		wg.Add(1)
+		poolX.Submit(func() {
+			time.Sleep(time.Second * 2)
 
-		if err != nil {
-			fmt.Println(err.Error())
-			continue
-		}
+			conn, err := l.Accept()
 
-		go func() {
-			skip := false
-			reader := bufio.NewReader(conn)
-			log.Printf("[Memcache TCP %d] Accepted a client socket from %s\n", trackID, conn.RemoteAddr().String())
-
-			arr := strings.Split(conn.RemoteAddr().String(), ":")
-
-			// 判断是否为 RPC 客户端
-			var id string
-
-			if is.Rpc() {
-				id = client.ReportResult("MEMCACHE", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
-			} else {
-				id = strconv.FormatInt(report.ReportMemCche(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
+			if err != nil {
+				log.Pr("Mysql", "127.0.0.1", "Mysql 连接失败", err)
 			}
 
-			for {
-				<-rateLimitChan
-				str, err := reader.ReadString('\n')
-				if skip {
-					skip = false
-					continue
-				}
-				if err != nil {
-					log.Printf("[Memcache TCP %d] Closed a client socket.\n", trackID)
-					conn.Close()
-					break
-				}
-				str = strings.TrimSpace(str)
+			go func() {
+				skip := false
+				reader := bufio.NewReader(conn)
+
+				arr := strings.Split(conn.RemoteAddr().String(), ":")
+
+				// 判断是否为 RPC 客户端
+				var id string
 
 				if is.Rpc() {
-					go client.ReportResult("MEMCACHE", "", "", "&&"+str, id)
+					id = client.ReportResult("MEMCACHE", "", arr[0], conn.RemoteAddr().String()+" 已经连接", "0")
 				} else {
-					go report.ReportUpdateMemCche(id, "&&"+str)
+					id = strconv.FormatInt(report.ReportMemCche(arr[0], "本机", conn.RemoteAddr().String()+" 已经连接"), 10)
 				}
-
-				log.Printf("[Memcache TCP %d] Client request: %s.\n", trackID, str)
-				args := strings.Split(str, " ")
-				function, exist := commands[args[0]]
-				if !exist {
-					conn.Write(RESPONSE_ERROR)
-					continue
-				}
-
-				args = args[1:]
 
 				for {
-					response, requiredBytes := function(args)
-					if requiredBytes == -1 {
+					<-rateLimitChan
+					str, err := reader.ReadString('\n')
+					if skip {
+						skip = false
+						continue
+					}
+					if err != nil {
 						conn.Close()
 						break
 					}
-					if requiredBytes == 0 {
-						conn.Write(response)
-						break
+					str = strings.TrimSpace(str)
+
+					if is.Rpc() {
+						go client.ReportResult("MEMCACHE", "", "", "&&"+str, id)
+					} else {
+						go report.ReportUpdateMemCche(id, "&&"+str)
 					}
 
-					data := make([]byte, requiredBytes)
-					_, err = io.ReadFull(reader, data)
-					if err != nil {
-						break
+					args := strings.Split(str, " ")
+					function, exist := commands[args[0]]
+					if !exist {
+						conn.Write(RESPONSE_ERROR)
+						continue
 					}
-					skip = true
-					args = append(args, string(data))
+
+					args = args[1:]
+
+					for {
+						response, requiredBytes := function(args)
+						if requiredBytes == -1 {
+							conn.Close()
+							break
+						}
+						if requiredBytes == 0 {
+							conn.Write(response)
+							break
+						}
+
+						data := make([]byte, requiredBytes)
+						_, err = io.ReadFull(reader, data)
+						if err != nil {
+							break
+						}
+						skip = true
+						args = append(args, string(data))
+					}
+
 				}
 
-			}
-		}()
+			}()
+
+			wg.Done()
+		})
 	}
 
 }
@@ -505,8 +510,6 @@ func udpServer(address string, rateLimitChan chan int, exitChan chan int) {
 		exitChan <- 1
 	}
 
-	log.Println("[Memcache UDP] Listning on " + address)
-
 	go func() {
 		buf := make([]byte, 1500)
 		for {
@@ -523,7 +526,7 @@ func udpServer(address string, rateLimitChan chan int, exitChan chan int) {
 				if request == "" {
 					continue
 				}
-				log.Printf("[Memcache UDP] Client request: [%s] from: %s\n", request, addr.String())
+
 				args := strings.Split(request, " ")
 				function, exist := commands[args[0]]
 				if !exist {
