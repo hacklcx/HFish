@@ -1,11 +1,11 @@
 FROM alpine:latest
 
 ENV GLIBC_VERSION 2.29-r0
-ENV HFISH_VERSION 0.3
+ENV HFISH_VERSION 0.3.1
 
 # Download and install glibc
 RUN apk update && \
-  apk add --no-cache curl tzdata && \
+  apk add --no-cache curl tzdata mysql-client && \
   cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
   curl -Lo /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
   curl -Lo glibc.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" && \
@@ -24,5 +24,6 @@ RUN chmod +x /Entrypoint.sh
 
 EXPOSE 21 22 23 3306 6379 7879 8080 8989 9000 9001 11211
 
-ENTRYPOINT ["/Entrypoint.sh"]
+WORKDIR /opt
 
+ENTRYPOINT ["/Entrypoint.sh"]
