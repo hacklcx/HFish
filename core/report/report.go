@@ -11,8 +11,6 @@ import (
 	"HFish/core/alert"
 	"HFish/utils/conf"
 	"HFish/core/pool"
-	"sync"
-	"github.com/panjf2000/ants"
 )
 
 type HFishInfo struct {
@@ -29,37 +27,16 @@ type HFishInfo struct {
 	time    string
 }
 
-var (
-	wg    sync.WaitGroup
-	poolX *ants.Pool
-
-	wgUpdate    sync.WaitGroup
-	poolUpdateX *ants.Pool
-)
-
-func init() {
-	wg, poolX = pool.New(10)
-	defer poolX.Release()
-
-	wgUpdate, poolUpdateX = pool.New(10)
-	defer poolUpdateX.Release()
-}
-
 // 通知模块
 func alertx(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, timex string) {
-	wg.Add(1)
-	poolX.Submit(func() {
-		time.Sleep(time.Second * 2)
+	// 邮件通知
+	alert.AlertMail(model, typex, agent, ipx, country, region, city, infox)
 
-		// 邮件通知
-		alert.AlertMail(model, typex, agent, ipx, country, region, city, infox, &wg)
+	// WebHook
+	alert.AlertWebHook(id, model, typex, projectName, agent, ipx, country, region, city, infox, timex)
 
-		// WebHook
-		alert.AlertWebHook(id, model, typex, projectName, agent, ipx, country, region, city, infox, timex, &wg)
-
-		// 大数据展示
-		//alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, time)
-	})
+	// 大数据展示
+	//alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, time)
 }
 
 // 上报 集群 状态
@@ -159,8 +136,6 @@ func insertInfo(typex string, projectName string, agent string, ipx string, coun
 
 // 更新
 func updateInfoCore(id string, info string) {
-	time.Sleep(time.Second * 2)
-
 	try.Try(func() {
 		var sql string
 
@@ -188,18 +163,21 @@ func updateInfoCore(id string, info string) {
 		if err != nil {
 			log.Pr("HFish", "127.0.0.1", "更新上钩信息失败", err)
 		}
-
-		wgUpdate.Done()
 	}).Catch(func() {
-		wgUpdate.Done()
 	})
 }
 
 // 通用的更新
 func updateInfo(id string, info string) {
+	wgUpdate, poolUpdateX := pool.New(10)
+
+	defer poolUpdateX.Release()
+
 	wgUpdate.Add(1)
 	poolUpdateX.Submit(func() {
-		updateInfoCore(id, info)
+		time.Sleep(time.Second * 2)
+		go updateInfoCore(id, info)
+		wgUpdate.Done()
 	})
 }
 
@@ -253,12 +231,6 @@ func ReportSSH(ipx string, agent string, info string) int64 {
 
 // 更新 SSH 操作
 func ReportUpdateSSH(id string, info string) {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Pr("HFish", "127.0.0.1", "执行SSH更新失败", err)
-		}
-	}()
-
 	if (id != "0") {
 		go updateInfo(id, info)
 		go alertx(id, "update", "SSH", "SSH蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
