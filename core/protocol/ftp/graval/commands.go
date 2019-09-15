@@ -11,8 +11,6 @@ import (
 	"HFish/core/report"
 	"HFish/utils/is"
 	"HFish/core/rpc/client"
-	"sync"
-	"github.com/panjf2000/ants"
 	"HFish/core/pool"
 )
 
@@ -332,19 +330,10 @@ func (cmd commandPass) RequireAuth() bool {
 	return false
 }
 
-// 加入线程池
-
-var (
-	wg    sync.WaitGroup
-	poolX *ants.Pool
-)
-
-func init() {
-	wg, poolX = pool.New(10)
-	defer poolX.Release()
-}
-
 func (cmd commandPass) Execute(conn *ftpConn, param string) {
+	wg, poolX := pool.New(10)
+	defer poolX.Release()
+
 	wg.Add(1)
 	poolX.Submit(func() {
 

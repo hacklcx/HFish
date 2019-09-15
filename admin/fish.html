@@ -384,9 +384,13 @@
                         _h += '    <td class="td"><span class="ipinfo">本机地址</span></td>';
                     } else if (data.result[i].country == "局域网") {
                         _h += '    <td class="td"><span class="ipinfo">局域网</span></td>';
-                    }
-                    else {
-                        _h += '    <td class="td"><span class="ipinfo">' + data.result[i].country + ' ' + data.result[i].region + ' ' + data.result[i].city + '</span></td>';
+                    } else {
+                        if (data.result[i].country == "中国") {
+                            _h += '    <td class="td"><span class="ipinfo">' + data.result[i].country + ' ' + data.result[i].region + ' ' + data.result[i].city + '</span></td>';
+                        } else {
+                            // 国外IP只能拿到国家
+                            _h += '    <td class="td"><span class="ipinfo">' + data.result[i].country + '</span></td>';
+                        }
                     }
 
                     _h += '    <td><span class="info" onclick="show(' + data.result[i].id + ')">点击查看</span></td>';

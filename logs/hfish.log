@@ -1,0 +1,12 @@
+[HFish] ::1 - [2019-09-15 20:35:25] "POST /login HTTP/1.1 200 169.667µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/15 - 20:35:25 | 200 |     404.526µs |             ::1 | POST     /login
+[HFish] ::1 - [2019-09-15 20:35:28] "POST /login HTTP/1.1 200 133.633µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/15 - 20:35:28 | 200 |     209.568µs |             ::1 | POST     /login
+[HFish] ::1 - [2019-09-15 20:35:28] "GET /dashboard HTTP/1.1 200 4.270281ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/15 - 20:35:28 | 200 |    4.306622ms |             ::1 | GET      /dashboard
+[HFish] ::1 - [2019-09-15 20:35:28] "GET /static/css/style.css HTTP/1.1 304 283.146µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/15 - 20:35:28 | 304 |      369.83µs |             ::1 | GET      /static/css/style.css
+[HFish] ::1 - [2019-09-15 20:35:28] "GET /get/dashboard/data HTTP/1.1 200 1.417361ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/15 - 20:35:28 | 200 |     1.46201ms |             ::1 | GET      /get/dashboard/data
+[HFish] ::1 - [2019-09-15 20:35:28] "GET /get/dashboard/pie_data HTTP/1.1 200 636.382µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36" "
+[GIN] 2019/09/15 - 20:35:28 | 200 |     667.996µs |             ::1 | GET      /get/dashboard/pie_data
