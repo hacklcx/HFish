@@ -70,6 +70,22 @@
         background-color: #61772d;
     }
 
+    .lb_es {
+        background-color: #0177a3;
+    }
+
+    .lb_tftp {
+        background-color: #452b6d;
+    }
+
+    .lb_vnc {
+        background-color: #3c6f40;
+    }
+
+    .lb_http {
+        background-color: #56a996;
+    }
+
     .pre {
         background: #2c2c31;
         color: #4fe21b;
@@ -372,6 +388,14 @@
                         _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
                     } else if (data.result[i].type == "PLUG") {
                         _h += '       <span class="label lb_plug">PLUG</span> ';
+                    }else if (data.result[i].type == "ES") {
+                        _h += '       <span class="label lb_es">ES</span> ';
+                    }else if (data.result[i].type == "TFTP") {
+                        _h += '       <span class="label lb_tftp">TFTP</span> ';
+                    }else if (data.result[i].type == "VNC") {
+                        _h += '       <span class="label lb_vnc">VNC</span> ';
+                    } else if (data.result[i].type == "HTTP") {
+                        _h += '       <span class="label lb_http">HTTP</span> ';
                     }
 
                     _h += '       <span class="project">' + data.result[i].project_name + '</span>';
@@ -394,7 +418,7 @@
                     }
 
                     _h += '    <td><span class="info" onclick="show(' + data.result[i].id + ')">点击查看</span></td>';
-                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.length + '</span></td>';
+                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.replace("&&","").length + '</span></td>';
                     _h += '    <td class="td">' + data.result[i].create_time.replace("T", " ").replace("+08:00", " ").replace("Z", "") + '</td>';
                     _h += '</tr>';
                 }

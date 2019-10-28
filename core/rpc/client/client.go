@@ -9,9 +9,9 @@ import (
 
 // 上报状态结构
 type Status struct {
-	AgentIp                                                        string
-	AgentName                                                      string
-	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug string
+	AgentIp                                                                       string
+	AgentName                                                                     string
+	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug, ES, TFtp, Vnc string
 }
 
 // 上报结果结构
@@ -39,7 +39,7 @@ func createClient() (*rpc.Client, string, bool) {
 	return client, ipArr[0], true
 }
 
-func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string) {
+func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
 	client, addr, boolStatus := createClient()
 
 	if boolStatus {
@@ -58,6 +58,9 @@ func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpSta
 			ftpStatus,
 			memCacheStatus,
 			plugStatus,
+			esStatus,
+			tftpStatus,
+			vncStatus,
 		}
 
 		var reply string
@@ -102,6 +105,6 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 	return ""
 }
 
-func Start(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string) {
-	reportStatus(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, darkStatus, memCacheStatus, plugStatus)
+func Start(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
+	reportStatus(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, darkStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus)
 }

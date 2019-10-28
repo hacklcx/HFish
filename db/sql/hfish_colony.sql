@@ -16,6 +16,9 @@ CREATE TABLE `hfish_colony` (
   `ftp_status` int(2) NOT NULL DEFAULT '0',
   `mem_cache_status` int(2) NOT NULL DEFAULT '0',
   `plug_status` int(2) NOT NULL DEFAULT '0',
+  `es_status` int(2) NOT NULL DEFAULT '0',
+  `tftp_status` int(2) NOT NULL DEFAULT '0',
+  `vnc_status` int(2) NOT NULL DEFAULT '0',
   `last_update_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `un_agent` (`agent_name`) USING BTREE
