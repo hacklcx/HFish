@@ -32,6 +32,11 @@ func Html(c *gin.Context) {
 	ftpStatus := conf.Get("ftp", "status")
 	memCacheStatus := conf.Get("mem_cache", "status")
 
+	httpStatus := conf.Get("http", "status")
+	tftpStatus := conf.Get("tftp", "status")
+	esStatus := conf.Get("elasticsearch", "status")
+	vncStatus := conf.Get("vnc", "status")
+
 	c.HTML(http.StatusOK, "dashboard.html", gin.H{
 		"webSum":         webSum,
 		"sshSum":         sshSum,
@@ -50,6 +55,10 @@ func Html(c *gin.Context) {
 		"telnetStatus":   telnetStatus,
 		"ftpStatus":      ftpStatus,
 		"memCacheStatus": memCacheStatus,
+		"httpStatus":     httpStatus,
+		"tftpStatus":     tftpStatus,
+		"esStatus":       esStatus,
+		"vncStatus":      vncStatus,
 	})
 }
 

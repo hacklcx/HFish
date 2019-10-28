@@ -40,7 +40,7 @@ func alertx(id string, model string, typex string, projectName string, agent str
 }
 
 // 上报 集群 状态
-func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepStatus string, sshStatus string, redisStatus string, mysqlStatus string, httpStatus string, telnetStatus string, ftpStatus string, memCacheStatus string, plugStatus string) {
+func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepStatus string, sshStatus string, redisStatus string, mysqlStatus string, httpStatus string, telnetStatus string, ftpStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
 	_, err := dbUtil.DB().Table("hfish_colony").Data(map[string]interface{}{
 		"agent_name":       agentName,
 		"agent_ip":         agentIp,
@@ -54,6 +54,9 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 		"ftp_status":       ftpStatus,
 		"mem_cache_status": memCacheStatus,
 		"plug_status":      plugStatus,
+		"es_status":        esStatus,
+		"tftp_status":      tftpStatus,
+		"vnc_status":       vncStatus,
 		"last_update_time": time.Now().Format("2006-01-02 15:04:05"),
 	}).InsertGetId()
 
@@ -72,6 +75,9 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 			"ftp_status":       ftpStatus,
 			"mem_cache_status": memCacheStatus,
 			"plug_status":      plugStatus,
+			"es_status":        esStatus,
+			"tftp_status":      tftpStatus,
+			"vnc_status":       vncStatus,
 			"last_update_time": time.Now().Format("2006-01-02 15:04:05"),
 		}).Where("agent_name", agentName).Update()
 
@@ -321,5 +327,54 @@ func ReportUpdateMemCche(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
 		go alertx(id, "update", "MEMCACHE", "MemCache蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	}
+}
+
+// 上报 HTTP 代理
+func ReportHttp(projectName string, agent string, ipx string, info string) {
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		id := insertInfo("HTTP", projectName, agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "HTTP", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	}
+}
+
+// 上报 ES
+func ReportEs(projectName string, agent string, ipx string, info string) {
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		id := insertInfo("ES", projectName, agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "ES", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	}
+}
+
+// 上报 VNC
+func ReportVnc(projectName string, agent string, ipx string, info string) {
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		id := insertInfo("VNC", projectName, agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "VNC", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+	}
+}
+
+// 上报 TFTP
+func ReportTFtp(ipx string, agent string, info string) int64 {
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		id := insertInfo("TFTP", "TFTP蜜罐", agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "TFTP", "TFTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		return id
+	}
+	return 0
+}
+
+// 更新 TFTP 操作
+func ReportUpdateTFtp(id string, info string) {
+	if (id != "0") {
+		go updateInfo(id, info)
+		go alertx(id, "update", "TFTP", "TFTP蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }

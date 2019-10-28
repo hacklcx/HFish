@@ -133,7 +133,7 @@
     </div>
 
     <div class="col-md-2">
-        <div class="card-box" style="height: 550px;">
+        <div class="card-box" style="height: 600px;">
             <p class="title">服务状态</p>
             <p><span class="openx"></span>ADMIN</p>
 
@@ -194,10 +194,35 @@
         {{end}}
 
         {{if eq .memCacheStatus "1"}}
-            <p><span class="openx"></span>MEMCACHE</p>
+            <p><span class="openx"></span>MemCache</p>
         {{else}}
-            <p><span class="closex"></span>MEMCACHE</p>
+            <p><span class="closex"></span>MemCache</p>
         {{end}}
+
+        {{if eq .httpStatus "1"}}
+            <p><span class="openx"></span>HTTP</p>
+        {{else}}
+            <p><span class="closex"></span>HTTP</p>
+        {{end}}
+
+        {{if eq .tftpStatus "1"}}
+            <p><span class="openx"></span>TFTP</p>
+        {{else}}
+            <p><span class="closex"></span>TFTP</p>
+        {{end}}
+
+        {{if eq .esStatus "1"}}
+            <p><span class="openx"></span>ElasticSearch</p>
+        {{else}}
+            <p><span class="closex"></span>ElasticSearch</p>
+        {{end}}
+
+        {{if eq .vncStatus "1"}}
+            <p><span class="openx"></span>VNC</p>
+        {{else}}
+            <p><span class="closex"></span>VNC</p>
+        {{end}}
+
 
         </div>
     </div>
@@ -209,12 +234,12 @@
     </div>
     <div class="col-md-5">
         <div class="card-box">
-            <div id="myChart1" style="width:100%;height:250px;"></div>
+            <div id="myChart1" style="width:100%;height:300px;"></div>
         </div>
     </div>
     <div class="col-md-5">
         <div class="card-box">
-            <div id="myChart2" style="width:100%;height:250px;"></div>
+            <div id="myChart2" style="width:100%;height:300px;"></div>
         </div>
     </div>
 </div>

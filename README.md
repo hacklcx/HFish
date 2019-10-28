@@ -101,7 +101,23 @@
 
 ## MemCache 蜜罐
 
-![telnet.png](./images/memcache.png)
+![memcache.png](./images/memcache.png)
+
+## HTTP 蜜罐
+
+![http.png](./images/http.png)
+
+## TFTP 蜜罐
+
+![tftp.png](./images/tftp.png)
+
+## ES 蜜罐
+
+![es.png](./images/es.png)
+
+## VNC 蜜罐
+
+![vnc.png](./images/vnc.png)
 
 
 # 注意事项
