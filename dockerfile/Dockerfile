@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 ENV GLIBC_VERSION 2.29-r0
-ENV HFISH_VERSION 0.3.2
+ENV HFISH_VERSION 0.4
 
 # Download and install glibc
 RUN apk update && \
@@ -22,7 +22,7 @@ COPY Entrypoint.sh /Entrypoint.sh
 
 RUN chmod +x /Entrypoint.sh
 
-EXPOSE 21 22 23 3306 6379 7879 8080 8989 9000 9001 11211
+EXPOSE 21 22 23 69 3306 5900 6379 7879 8000 8080 8989 9000 9001 9200 11211
 
 WORKDIR /opt
 
