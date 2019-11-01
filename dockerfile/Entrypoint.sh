@@ -4,7 +4,7 @@ HFISH_DIR=/opt/HFish
 
 if [ ! -d $HFISH_DIR ];then
   mv /tmp/HFish $HFISH_DIR
-  sed -i "s/status = 0/status = 1/g" $HFISH_DIR/config.ini
+  sed -i "71s/addr = 0.0.0.0:8080/addr = 0.0.0.0:8000/" $HFISH_DIR/config.ini
 fi
 
 if [ ! -z "$CLUSTER_IP" ];then
