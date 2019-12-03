@@ -49,6 +49,10 @@
 
 # 部分界面展示
 
+## HFish 态势感知
+
+![data.jpg](./images/data.jpg)
+
 ## 登录页
 
 ![login.png](./images/login.png)
@@ -168,7 +172,7 @@ POST：
 ## 黑名单IP
 
 ```
-URL(Get): http://localhost:9001/api/v1/get/ip
+URL(Get): http://localhost:9001/api/v1/get/ip?key=585e2ba265d965b1929148d0f0e33133
 
 特殊说明：
 
@@ -178,7 +182,7 @@ URL(Get): http://localhost:9001/api/v1/get/ip
 ## 获取全部钓鱼信息
 
 ```
-URL(Get): http://localhost:9001/api/v1/get/fish_info
+URL(Get): http://localhost:9001/api/v1/get/fish_info?key=585e2ba265d965b1929148d0f0e33133
 
 返回数据格式:
 
@@ -215,17 +219,46 @@ URL(Get): http://localhost:9001/api/v1/get/fish_info
 	create_time  :    上钩时间
 ```
 
-# TODO
+## 获取全部账号密码信息
 
-- [ ] 支持 SMTP、POP3、TFTP、Oracle、VPN 等
-- [ ] WIFI 蜜罐支持
-- [ ] 自动化蜜罐支持
-- [ ] 蜜罐报告生成
-- [ ] 支持邮件模板选择
-- [ ] 蜜罐高交互完善
-- [ ] 支持 Ngrok 一键映射
-- [ ] 支持更多的图表统计
-- [ ] 规划更多的功能...
+```
+URL(Get): http://localhost:9001/api/v1/get/passwd_list?key=585e2ba265d965b1929148d0f0e33133
+
+返回数据格式:
+
+  {
+      code: 200,
+      data: [
+          {
+              agent: "本机",
+              city: "",
+              country: "本机地址",
+              create_time: "2019-08-26 21:29:00",
+              id: 224,
+              info: "127.0.0.1:51548 已经连接&&stats&&&&set foo 0 6",
+              ip: "127.0.0.1",
+              project_name: "MemCache蜜罐",
+              region: "本机地址",
+              type: "MEMCACHE"
+          },
+      ],
+      msg: "success"
+  }
+
+字段说明：
+
+	agent        :    集群名称
+	country      : 		国家
+	region       : 		省份/地区
+    city         : 		城市
+	ip           : 		IP 地址
+	project_name : 		项目名称
+	type 				 :    蜜罐类型
+	info 				 :    上钩信息
+	id           :    数据库唯一标识
+	create_time  :    上钩时间
+```
+
 
 # 关于
 

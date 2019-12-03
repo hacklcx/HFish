@@ -11,6 +11,7 @@ import (
 	"HFish/core/alert"
 	"HFish/utils/conf"
 	"HFish/core/pool"
+	"HFish/utils/cache"
 )
 
 type HFishInfo struct {
@@ -36,7 +37,7 @@ func alertx(id string, model string, typex string, projectName string, agent str
 	alert.AlertWebHook(id, model, typex, projectName, agent, ipx, country, region, city, infox, timex)
 
 	// 大数据展示
-	//alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, time)
+	alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, timex)
 }
 
 // 上报 集群 状态
@@ -92,17 +93,11 @@ func isWhiteIp(ip string) bool {
 	var isWhite = false
 
 	try.Try(func() {
-		result, err := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "whiteIp").First()
-
-		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "获取白名单IP失败", err)
-		}
-
-		status := strconv.FormatInt(result["status"].(int64), 10)
+		status, _ := cache.Get("IpConfigStatus")
 
 		// 判断是否启用通知
 		if status == "1" {
-			info := result["info"]
+			info, _ := cache.Get("IpConfigInfo")
 			ipArr := strings.Split(info.(string), "&&")
 
 			for _, val := range ipArr {
@@ -138,6 +133,20 @@ func insertInfo(typex string, projectName string, agent string, ipx string, coun
 	}
 
 	return id
+}
+
+// 账号密码的插入
+func insertAccountPasswd(typex string, account string, passwd string) {
+	_, err := dbUtil.DB().Table("hfish_passwd").Data(map[string]interface{}{
+		"type":        typex,
+		"account":     account,
+		"password":    passwd,
+		"create_time": time.Now().Format("2006-01-02 15:04:05"),
+	}).Insert()
+
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "插入账号密码信息失败", err)
+	}
 }
 
 // 更新
@@ -193,6 +202,11 @@ func ReportWeb(projectName string, agent string, ipx string, info string) {
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("WEB", projectName, agent, ipx, country, region, city, info)
+
+		// 插入账号密码
+		arr := strings.Split(info, "&&")
+		insertAccountPasswd("WEB", arr[0], arr[1])
+
 		go alertx(strconv.FormatInt(id, 10), "new", "WEB", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
@@ -202,6 +216,11 @@ func ReportDeepWeb(projectName string, agent string, ipx string, info string) {
 	// IP 不在白名单，进行上报
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
+
+		// 插入账号密码
+		arr := strings.Split(info, "&&")
+		insertAccountPasswd("DEEP", arr[0], arr[1])
+
 		id := insertInfo("DEEP", projectName, agent, ipx, country, region, city, info)
 		go alertx(strconv.FormatInt(id, 10), "new", "DEEP", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 	}
@@ -229,6 +248,11 @@ func ReportSSH(ipx string, agent string, info string) int64 {
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("SSH", "SSH蜜罐", agent, ipx, country, region, city, info)
+
+		// 插入账号密码
+		arr := strings.Split(info, "&&")
+		insertAccountPasswd("SSH", arr[0], arr[1])
+
 		go alertx(strconv.FormatInt(id, 10), "new", "SSH", "SSH蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 		return id
 	}
@@ -288,6 +312,11 @@ func ReportFTP(ipx string, agent string, info string) {
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("FTP", "FTP蜜罐", agent, ipx, country, region, city, info)
+
+		// 插入账号密码
+		arr := strings.Split(info, "&&")
+		insertAccountPasswd("FTP", arr[0], arr[1])
+
 		go alertx(strconv.FormatInt(id, 10), "new", "FTP", "FTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }

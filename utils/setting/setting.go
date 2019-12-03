@@ -10,6 +10,7 @@ import (
 	"os"
 	"net/http"
 	"time"
+	"HFish/utils/cache"
 	"HFish/utils/conf"
 	"HFish/core/protocol/ssh"
 	"HFish/core/protocol/redis"
@@ -25,6 +26,10 @@ import (
 	"HFish/core/protocol/httpx"
 	"HFish/core/protocol/elasticsearch"
 	"HFish/core/protocol/vnc"
+	"HFish/core/dbUtil"
+	"strconv"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 )
 
 func RunWeb(template string, index string, static string, url string) http.Handler {
@@ -124,6 +129,9 @@ func RunAdmin() http.Handler {
 		)
 	}))
 
+	store := cookie.NewStore([]byte("HFish"))
+	r.Use(sessions.Sessions("HFish", store))
+
 	r.Use(gin.Recovery())
 
 	// 引入html资源
@@ -136,6 +144,22 @@ func RunAdmin() http.Handler {
 	view.LoadUrl(r)
 
 	return r
+}
+
+// 初始化缓存
+func initCahe() {
+	resultMail, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "alertMail").First()
+	resultHook, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "webHook").First()
+	resultIp, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "whiteIp").First()
+
+	cache.Setx("MailConfigStatus", strconv.FormatInt(resultMail["status"].(int64), 10))
+	cache.Setx("MailConfigInfo", resultMail["info"])
+
+	cache.Setx("HookConfigStatus", strconv.FormatInt(resultHook["status"].(int64), 10))
+	cache.Setx("HookConfigInfo", resultHook["info"])
+
+	cache.Setx("IpConfigStatus", strconv.FormatInt(resultIp["status"].(int64), 10))
+	cache.Setx("IpConfigInfo", resultIp["info"])
 }
 
 func Run() {
@@ -341,6 +365,8 @@ func Run() {
 	}
 
 	//=========================//
+	// 初始化缓存
+	initCahe()
 
 	// 启动 admin 管理后台
 	adminAddr := conf.Get("admin", "addr")
@@ -371,7 +397,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.4
+  (__\\   /_//_/_/ /_/___/_//_/ v0.5
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))

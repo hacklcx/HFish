@@ -70,6 +70,8 @@ func (t *HFishRPCService) ReportResult(r *Result, reply *string) error {
 		go report.ReportEs(r.ProjectName, r.AgentName, r.SourceIp, r.Info)
 	case "VNC":
 		go report.ReportVnc(r.ProjectName, r.AgentName, r.SourceIp, r.Info)
+	case "FTP":
+		go report.ReportFTP(r.SourceIp, r.AgentName, r.Info)
 	case "TFTP":
 		if r.Id == "0" {
 			id := report.ReportTFtp(r.SourceIp, r.AgentName, r.Info)

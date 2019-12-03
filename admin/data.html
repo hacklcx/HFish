@@ -1,30 +1,547 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <title>HFish 全球态势感知</title>
+    <link rel="stylesheet" href="/static/data/css/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/data/css/app.css"/>
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <style>
+        #datamian {
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .data_list {
+            width: 100%;
+            border-bottom: 1px solid #206c90;
+            clear: both;
+            height: 35px;
+        }
+
+        .data_list:hover {
+            background: rgba(55, 138, 177, 0.2)
+        }
+
+        .data_ul_head {
+            background: #307fa8;
+        }
+
+        .data_ul_head li {
+            float: left;
+            list-style-type: none;
+            margin-right: 55px;
+        }
+
+        .look {
+            color: #49addc;
+            cursor: pointer;
+
+        }
+
+        td {
+            padding-left: 7px;
+        }
+
+        .title {
+            color: #67c8fd;
+            text-align: center;
+            margin-top: -5px;
+            font-weight: bold;
+        }
+
+        .homex {
+            color: #4cb5f3;
+            position: absolute;
+            margin-top: 46px;
+            margin-left: 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-<div id="p">
-
+<header class="header">
+    <h3>HFish 全球态势感知</h3>
+</header>
+<a href="/dashboard"><span class="glyphicon glyphicon-home homex" aria-hidden="true"></span></a>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row fill-h">
+            <div class="col-lg-3 fill-h">
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">中国地区 TOP 8</div>
+                        <div class="fill-h" id="main1"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">全球地区 TOP 8</div>
+                        <div class="fill-h" id="main2"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">IP TOP 10</div>
+                        <div class="fill-h" id="main3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 fill-h">
+                <div class="xpanel-wrapper xpanel-wrapper-2">
+                    <div style="height: 100%;">
+                        <div class="fill-h" style="text-align: center;background: #0e1729;border-radius: 5px;">
+                            <video style="mix-blend-mode: lighten;height: 100%;" autoplay loop muted>
+                                <source src="/static/data/dq.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-2">
+                    <div class="xpanel">
+                        <!-- 地图散点 -->
+                        <div class="fill-h" id="datamian">
+                            <table class="data_list_head table" id="info_list">
+                                <tbody class="data_ul_head">
+                                <tr>
+                                    <th style="border: 0px;width: 25%;">类型</th>
+                                    <th style="border: 0px;width: 25%;">节点</th>
+                                    <th style="border: 0px;width: 25%;">来源IP</th>
+                                    <th style="border: 0px;width: 25%;">地理信息</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 fill-h">
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">攻击类型 TOP 10</div>
+                        <div class="fill-h" id="main4"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">账号统计</div>
+                        <div class="fill-h" id="main5"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">密码统计</div>
+                        <div class="fill-h" id="main6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript" src="/static/data/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/data/js/echarts-3.8.5.min.js"></script>
+<script type="text/javascript" src="/static/data/js/echarts-wordcloud.min.js"></script>
+<script type="text/javascript">
 
-<script>
-    var ws = new WebSocket('ws://127.0.0.1:9001/data/ws');
-
-    ws.onopen = function () {
-        ws.send("ping");
+    window.onresize = function () {
+        main1.resize();
+        main2.resize();
+        main3.resize();
+        main4.resize();
+        main5.resize();
+        main6.resize();
     };
 
-    ws.onmessage = function (evt) {
-        var received_msg = evt.data;
-        document.getElementById("p").innerHTML = "<p>" + received_msg + "</p>"
-    };
+    var main1 = echarts.init(document.getElementById('main1'));
+    var main2 = echarts.init(document.getElementById('main2'));
+    var main3 = echarts.init(document.getElementById('main3'));
+    var main4 = echarts.init(document.getElementById('main4'));
+    var main5 = echarts.init(document.getElementById('main5'));
+    var main6 = echarts.init(document.getElementById('main6'));
 
-    ws.onclose = function () {
-        // 关闭 websocket
-        console.log("close")
-    };
+    function main1_data() {
+        $.ajax({
+            type: "GET",
+            url: "/data/get/china",
+            dataType: "json",
+            success: function (e) {
+                var d = e.data;
+
+                var listx = [];
+
+                for (var i = 0; i < d.regionList.length; i++) {
+                    listx.push(d.regionList[i].name);
+                }
+
+                var option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        bottom: 10,
+                        left: 'center',
+                        data: listx,
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    series: [{
+                        name: '来源地区',
+                        type: 'pie',
+                        radius: '60%',
+                        center: ['50%', '40%'],
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            }
+                        },
+                        data: d.regionList,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }]
+                };
+
+
+                main1.setOption(option);
+            }
+        });
+    }
+
+
+    function main2_data() {
+        $.ajax({
+            type: "GET",
+            url: "/data/get/country",
+            dataType: "json",
+            success: function (e) {
+                var d = e.data;
+
+                var listx = [];
+
+                for (var i = 0; i < d.regionList.length; i++) {
+                    listx.push(d.regionList[i].name);
+                }
+
+                var option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        bottom: 10,
+                        left: 'center',
+                        data: listx,
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    series: [{
+                        name: '来源国家',
+                        type: 'pie',
+                        radius: '60%',
+                        center: ['50%', '40%'],
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            }
+                        },
+                        data: d.regionList,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }]
+                };
+
+                main2.setOption(option);
+            }
+        });
+
+    }
+
+
+    function main3_data() {
+        $.ajax({
+            type: "GET",
+            url: "/data/get/ip",
+            dataType: "json",
+            success: function (e) {
+                var d = e.data;
+
+                var option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    series: [{
+                        name: 'IP分布',
+                        type: 'pie',
+                        radius: '30%',
+                        center: ['50%', '50%'],
+                        data: d.ipList,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }]
+                };
+
+                main3.setOption(option);
+            }
+        });
+    }
+
+
+    function main4_data() {
+        $.ajax({
+            type: "GET",
+            url: "/data/get/type",
+            dataType: "json",
+            success: function (e) {
+                var d = e.data;
+
+                var dataN = [];
+                var dataV = [];
+
+                for (var i = d.typeList.length - 1; i >= 0; i--) {
+                    dataN.push(d.typeList[i].name);
+                    dataV.push(d.typeList[i].value);
+                }
+
+                var option = {
+                    tooltip: {},
+                    xAxis: {
+                        type: 'value',
+                        show: false
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: dataN,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#67c8fd'
+                            }
+                        }
+                    },
+                    grid: {
+                        left: '0%',
+                        right: '0%',
+                        bottom: '0%',
+                        top: '3%',
+                        containLabel: true
+                    },
+                    series: [{
+                        data: dataV,
+                        type: 'bar',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'inside',
+                                color: '#fff'
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#307fa8'
+                            }
+                        }
+                    }]
+                };
+
+                main4.setOption(option);
+            }
+        });
+    }
+
+    function main5_data() {
+        $.ajax({
+            type: "GET",
+            url: "/data/get/account",
+            dataType: "json",
+            success: function (e) {
+                var d = e.data;
+
+                var option = {
+
+                    tooltip: {
+                        show: true
+                    },
+                    series: [{
+                        name: '账号',
+                        type: "wordCloud",
+                        gridSize: 6,
+                        shape: 'circle',
+                        sizeRange: [12, 50],
+                        width: '100%',
+                        height: '80%',
+                        textStyle: {
+                            normal: {
+                                color: function () {
+                                    return 'rgb(' + [
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160)
+                                    ].join(',') + ')';
+                                }
+                            },
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowColor: '#333'
+                            }
+                        },
+                        data: d
+                    }]
+
+                };
+
+                main5.setOption(option);
+            }
+        });
+    }
+
+
+    function main6_data() {
+        $.ajax({
+            type: "GET",
+            url: "/data/get/password",
+            dataType: "json",
+            success: function (e) {
+                var d = e.data;
+
+                var option = {
+
+                    tooltip: {
+                        show: true
+                    },
+                    series: [{
+                        name: '密码',
+                        type: "wordCloud",
+                        gridSize: 6,
+                        shape: 'circle',
+                        sizeRange: [12, 50],
+                        width: '100%',
+                        height: '80%',
+                        textStyle: {
+                            normal: {
+                                color: function () {
+                                    return 'rgb(' + [
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160)
+                                    ].join(',') + ')';
+                                }
+                            },
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowColor: '#333'
+                            }
+                        },
+                        data: d
+                    }]
+
+                };
+
+                main6.setOption(option);
+            }
+        });
+    }
+
+    function mainInfo() {
+        $.ajax({
+            type: "GET",
+            url: "/data/get/info",
+            dataType: "json",
+            success: function (e) {
+                var d = e.data;
+
+                var _h = '';
+
+                var result = d.result;
+                for (var i = 0; i < result.length; i++) {
+                    _h += '    <tr class="data_list">';
+                    _h += '        <td>' + result[i].type + '</td>';
+                    _h += '        <td>' + result[i].agent + '</td>';
+                    _h += '        <td>' + result[i].ip + '</td>';
+                    _h += '        <td>' + result[i].country + ' ' + result[i].region + '</td>';
+                    _h += '    </tr>';
+                }
+
+                $("#info_list").append(_h);
+            }
+        });
+    }
+
+
+    function mainWs() {
+        var wsuri = "ws://" + window.location.host + "/data/ws";
+        var sock = new WebSocket(wsuri);
+
+        sock.onopen = function () {
+            console.log("connected to " + wsuri);
+        };
+
+        sock.onclose = function (e) {
+            console.log("connection closed (" + e.code + ")");
+        };
+
+        sock.onmessage = function (e) {
+            var data = JSON.parse(e.data);
+
+            if (data.data.type === "center_data") {
+                var d = data.data.data;
+
+                var _h = '';
+
+                _h += '    <tr class="data_list">';
+                _h += '        <td>' + d.type + '</td>';
+                _h += '        <td>' + d.agent + '</td>';
+                _h += '        <td>' + d.ipx + '</td>';
+                _h += '        <td>' + d.country + ' ' + d.region + '</td>';
+                _h += '    </tr>';
+
+                $(".data_list").before(_h);
+            }
+        }
+    }
+
+
+    function init_chart() {
+        main1_data();
+        main2_data();
+        main3_data();
+        main4_data();
+        main5_data();
+        main6_data();
+    }
+
+    init_chart();
+    mainInfo();
+    mainWs();
+
+
+    setInterval(init_chart, 300000);
+
 </script>
 </body>
+
 </html>

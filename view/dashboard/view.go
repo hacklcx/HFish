@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"HFish/error"
 	"HFish/utils/log"
+	"HFish/utils/cache"
 )
 
 func Html(c *gin.Context) {
@@ -20,6 +21,10 @@ func Html(c *gin.Context) {
 	telnetSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "TELNET").Count()
 	ftpSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "FTP").Count()
 	memCacheSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "MEMCACHE").Count()
+	httpSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "HTTP").Count()
+	tftpSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "TFTP").Count()
+	esSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "ES").Count()
+	vncSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "VNC").Count()
 
 	// 读取服务运行状态
 	mysqlStatus := conf.Get("mysql", "status")
@@ -31,7 +36,6 @@ func Html(c *gin.Context) {
 	telnetStatus := conf.Get("telnet", "status")
 	ftpStatus := conf.Get("ftp", "status")
 	memCacheStatus := conf.Get("mem_cache", "status")
-
 	httpStatus := conf.Get("http", "status")
 	tftpStatus := conf.Get("tftp", "status")
 	esStatus := conf.Get("elasticsearch", "status")
@@ -46,6 +50,10 @@ func Html(c *gin.Context) {
 		"telnetSum":      telnetSum,
 		"ftpSum":         ftpSum,
 		"memCacheSum":    memCacheSum,
+		"httpSum":        httpSum,
+		"tftpSum":        tftpSum,
+		"esSum":          esSum,
+		"vncSum":         vncSum,
 		"webStatus":      webStatus,
 		"sshStatus":      sshStatus,
 		"redisStatus":    redisStatus,
@@ -89,6 +97,10 @@ func GetFishData(c *gin.Context) {
 	var sqlFtp string
 	var sqlTelnet string
 	var sqlMemCache string
+	var sqlHttp string
+	var sqlTftp string
+	var sqlVnc string
+	var sqlEs string
 
 	// 此处为了兼容 Mysql + Sqlite
 	dbType := conf.Get("admin", "db_type")
@@ -206,6 +218,62 @@ func GetFishData(c *gin.Context) {
 		hour;
 		`
 
+		// 统计 HTTP
+		sqlHttp = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="HTTP"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 TFTP
+		sqlTftp = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="TFTP"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 VNC
+		sqlVnc = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="VNC"
+		GROUP BY
+		hour;
+		`
+
+		// 统计 ES
+		sqlEs = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="ES"
+		GROUP BY
+		hour;
+		`
+
 	} else if dbType == "mysql" {
 		// 统计 web
 		sqlWeb = `
@@ -318,27 +386,101 @@ func GetFishData(c *gin.Context) {
 		GROUP BY
 			hour;
 		`
+
+		// 统计 HTTP
+		sqlHttp = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "HTTP"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 TFTP
+		sqlTftp = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "TFTP"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 VNC
+		sqlVnc = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "VNC"
+		GROUP BY
+			hour;
+		`
+
+		// 统计 ES
+		sqlEs = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "ES"
+		GROUP BY
+			hour;
+		`
 	}
 
-	webMap := getData(sqlWeb)
-	sshMap := getData(sqlSsh)
-	redisMap := getData(sqlRedis)
-	mysqlMap := getData(sqlMysql)
-	deepMap := getData(sqlDeep)
-	ftpMap := getData(sqlFtp)
-	telnetMap := getData(sqlTelnet)
-	memCacheMap := getData(sqlMemCache)
+	var data interface{}
 
-	// 拼接 json
-	data := map[string]interface{}{
-		"web":      webMap,
-		"ssh":      sshMap,
-		"redis":    redisMap,
-		"mysql":    mysqlMap,
-		"deep":     deepMap,
-		"ftp":      ftpMap,
-		"telnet":   telnetMap,
-		"memCache": memCacheMap,
+	val, is := cache.Get("DashboardZxDq")
+
+	if is {
+		data = val
+	} else {
+		webMap := getData(sqlWeb)
+		sshMap := getData(sqlSsh)
+		redisMap := getData(sqlRedis)
+		mysqlMap := getData(sqlMysql)
+		deepMap := getData(sqlDeep)
+		ftpMap := getData(sqlFtp)
+		telnetMap := getData(sqlTelnet)
+		memCacheMap := getData(sqlMemCache)
+		httpMap := getData(sqlHttp)
+		tftpMap := getData(sqlTftp)
+		esMap := getData(sqlEs)
+		vncMap := getData(sqlVnc)
+
+		// 拼接 json
+		data = map[string]interface{}{
+			"web":      webMap,
+			"ssh":      sshMap,
+			"redis":    redisMap,
+			"mysql":    mysqlMap,
+			"deep":     deepMap,
+			"ftp":      ftpMap,
+			"telnet":   telnetMap,
+			"memCache": memCacheMap,
+			"httpMap":  httpMap,
+			"tftpMap":  tftpMap,
+			"vncMap":   vncMap,
+			"esMap":    esMap,
+		}
+
+		cache.Set("DashboardZxDq", data)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -351,40 +493,50 @@ func GetFishData(c *gin.Context) {
 // 仪表盘攻击饼图统计
 func GetFishPieData(c *gin.Context) {
 	// 统计攻击地区
-	resultRegion, errRegion := dbUtil.DB().Table("hfish_info").Fields("country", "count(1) AS sum").Where("country", "!=", "").GroupBy("country").OrderBy("sum desc").Limit(10).Get()
+	var data interface{}
 
-	if errRegion != nil {
-		log.Pr("HFish", "127.0.0.1", "统计攻击地区失败", errRegion)
-	}
+	val, is := cache.Get("DashboardBarDq")
 
-	var regionList []map[string]string
+	if is {
+		data = val
+	} else {
+		resultRegion, errRegion := dbUtil.DB().Table("hfish_info").Fields("country", "count(1) AS sum").Where("country", "!=", "").GroupBy("country").OrderBy("sum desc").Limit(10).Get()
 
-	for k := range resultRegion {
-		regionMap := make(map[string]string)
-		regionMap["name"] = resultRegion[k]["country"].(string)
-		regionMap["value"] = strconv.FormatInt(resultRegion[k]["sum"].(int64), 10)
-		regionList = append(regionList, regionMap)
-	}
+		if errRegion != nil {
+			log.Pr("HFish", "127.0.0.1", "统计攻击地区失败", errRegion)
+		}
 
-	// 统计攻击IP
-	resultIP, errIp := dbUtil.DB().Table("hfish_info").Fields("ip", "count(1) AS sum").Where("ip", "!=", "").GroupBy("ip").OrderBy("sum desc").Limit(10).Get()
+		var regionList []map[string]string
 
-	if errIp != nil {
-		log.Pr("HFish", "127.0.0.1", "统计攻击IP失败", errIp)
-	}
+		for k := range resultRegion {
+			regionMap := make(map[string]string)
+			regionMap["name"] = resultRegion[k]["country"].(string)
+			regionMap["value"] = strconv.FormatInt(resultRegion[k]["sum"].(int64), 10)
+			regionList = append(regionList, regionMap)
+		}
 
-	var ipList []map[string]string
+		// 统计攻击IP
+		resultIP, errIp := dbUtil.DB().Table("hfish_info").Fields("ip", "count(1) AS sum").Where("ip", "!=", "").GroupBy("ip").OrderBy("sum desc").Limit(10).Get()
 
-	for k := range resultIP {
-		ipMap := make(map[string]string)
-		ipMap["name"] = resultIP[k]["ip"].(string)
-		ipMap["value"] = strconv.FormatInt(resultIP[k]["sum"].(int64), 10)
-		ipList = append(ipList, ipMap)
-	}
+		if errIp != nil {
+			log.Pr("HFish", "127.0.0.1", "统计攻击IP失败", errIp)
+		}
 
-	data := map[string]interface{}{
-		"regionList": regionList,
-		"ipList":     ipList,
+		var ipList []map[string]string
+
+		for k := range resultIP {
+			ipMap := make(map[string]string)
+			ipMap["name"] = resultIP[k]["ip"].(string)
+			ipMap["value"] = strconv.FormatInt(resultIP[k]["sum"].(int64), 10)
+			ipList = append(ipList, ipMap)
+		}
+
+		data = map[string]interface{}{
+			"regionList": regionList,
+			"ipList":     ipList,
+		}
+
+		cache.Set("DashboardBarDq", data)
 	}
 
 	c.JSON(http.StatusOK, gin.H{

@@ -8,6 +8,7 @@ import (
 	"time"
 	"HFish/utils/log"
 	"HFish/error"
+	"HFish/utils/cache"
 )
 
 func Html(c *gin.Context) {
@@ -81,7 +82,7 @@ func updateInfoBase(info string, id string) {
 	}
 }
 
-// 更新邮件通知
+// 更新邮件群发配置
 func UpdateEmailInfo(c *gin.Context) {
 	email := c.PostForm("email")
 	id := c.PostForm("id")
@@ -101,7 +102,7 @@ func UpdateEmailInfo(c *gin.Context) {
 	})
 }
 
-// 更新警告邮件通知
+// 更新警告邮件配置
 func UpdateAlertMail(c *gin.Context) {
 	email := c.PostForm("email")
 	id := c.PostForm("id")
@@ -116,6 +117,7 @@ func UpdateAlertMail(c *gin.Context) {
 	info := joinInfo(host, port, email, pass, receiveInfo)
 
 	// 更新
+	cache.Setx("MailConfigInfo", info)
 	updateInfoBase(info, id)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -134,6 +136,7 @@ func UpdateWhiteIp(c *gin.Context) {
 	info := joinInfo(Arr...)
 
 	// 更新
+	cache.Setx("IpConfigInfo", info)
 	updateInfoBase(info, id)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -148,6 +151,7 @@ func UpdateWebHook(c *gin.Context) {
 	webHookUrl := c.PostForm("webHookUrl")
 
 	// 更新
+	cache.Setx("HookConfigInfo", webHookUrl)
 	updateInfoBase(webHookUrl, id)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -175,6 +179,14 @@ func UpdateStatusSetting(c *gin.Context) {
 		Data(map[string]interface{}{"status": status, "update_time": time.Now().Format("2006-01-02 15:04")}).
 		Where("id", id).
 		Update()
+
+	if id == "2" {
+		cache.Setx("MailConfigStatus", status)
+	} else if id == "3" {
+		cache.Setx("HookConfigStatus", status)
+	} else if id == "4" {
+		cache.Setx("IpConfigStatus", status)
+	}
 
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "更新设置状态失败", err)
