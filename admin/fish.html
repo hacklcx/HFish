@@ -218,7 +218,7 @@
     </div>
 </div>
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="myFishInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -247,7 +247,7 @@
                 if (e.code == 200) {
                     var data = e.data;
                     var str = data.info.replace(/&&/g, "<br>");
-                    $(".pre").html(str);
+                    $(".pre").html(str.replace(/<s/g, '&lt;s').replace(/t>/g, 't&gt;'));
                 } else {
                 }
             },
@@ -255,7 +255,7 @@
             }
         });
 
-        $('#myModal').modal('show')
+        $('#myFishInfo').modal('show');
     }
 
     function del() {
@@ -388,11 +388,11 @@
                         _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
                     } else if (data.result[i].type == "PLUG") {
                         _h += '       <span class="label lb_plug">PLUG</span> ';
-                    }else if (data.result[i].type == "ES") {
+                    } else if (data.result[i].type == "ES") {
                         _h += '       <span class="label lb_es">ES</span> ';
-                    }else if (data.result[i].type == "TFTP") {
+                    } else if (data.result[i].type == "TFTP") {
                         _h += '       <span class="label lb_tftp">TFTP</span> ';
-                    }else if (data.result[i].type == "VNC") {
+                    } else if (data.result[i].type == "VNC") {
                         _h += '       <span class="label lb_vnc">VNC</span> ';
                     } else if (data.result[i].type == "HTTP") {
                         _h += '       <span class="label lb_http">HTTP</span> ';
@@ -418,7 +418,7 @@
                     }
 
                     _h += '    <td><span class="info" onclick="show(' + data.result[i].id + ')">点击查看</span></td>';
-                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.replace("&&","").length + '</span></td>';
+                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.replace("&&", "").length + '</span></td>';
                     _h += '    <td class="td">' + data.result[i].create_time.replace("T", " ").replace("+08:00", " ").replace("Z", "") + '</td>';
                     _h += '</tr>';
                 }
