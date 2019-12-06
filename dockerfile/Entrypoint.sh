@@ -4,7 +4,6 @@ HFISH_DIR=/opt/HFish
 
 if [ ! -d $HFISH_DIR ];then
   mv /tmp/HFish $HFISH_DIR
-  sed -i "71s/addr = 0.0.0.0:8080/addr = 0.0.0.0:8000/" $HFISH_DIR/config.ini
 fi
 
 if [ ! -z "$CLUSTER_IP" ];then
@@ -28,9 +27,7 @@ if [ ! -z "$MYSQL_USER" ] && [ ! -z "$MYSQL_PASSWORD" ] && [ ! -z "$MYSQL_IP" ] 
   sed -i "s/db_type = sqlite/db_type = mysql/" $HFISH_DIR/config.ini
   sed -i "s#^db_str = .*rwc#db_str = $MYSQL_USER:$MYSQL_PASSWORD@tcp\($MYSQL_IP:$MYSQL_PORT\)\/$MYSQL_DATABASE\?charset=utf8\&parseTime=true\&loc=Local#" $HFISH_DIR/config.ini
   if [ ! -f $HFISH_DIR/db/sql/import_sql.log ];then
-    mysql -h $MYSQL_IP -P $MYSQL_PORT -u$MYSQL_USER -p$MYSQL_PASSWORD -D $MYSQL_DATABASE < $HFISH_DIR/db/sql/hfish_colony.sql &&
-    mysql -h $MYSQL_IP -P $MYSQL_PORT -u$MYSQL_USER -p$MYSQL_PASSWORD -D $MYSQL_DATABASE < $HFISH_DIR/db/sql/hfish_info.sql &&
-    mysql -h $MYSQL_IP -P $MYSQL_PORT -u$MYSQL_USER -p$MYSQL_PASSWORD -D $MYSQL_DATABASE < $HFISH_DIR/db/sql/hfish_setting.sql &&
+    mysql -h $MYSQL_IP -P $MYSQL_PORT -u$MYSQL_USER -p$MYSQL_PASSWORD -D $MYSQL_DATABASE < $HFISH_DIR/db/sql/hfish_db.sql &&
     echo "SQL import time: `date "+%Y-%m-%d %H:%M:%S"`" > $HFISH_DIR/db/sql/import_sql.log
   fi
 fi
