@@ -59,7 +59,10 @@
                     <tr id="tr{{$e.type}}" data-id="{{$e.id}}">
                         <td style="font-weight: bold;">{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
-                        <td id="trx{{$e.type}}"><script>var t={{$e.update_time}}; document.getElementById("trx{{$e.type}}").innerHTML= t.replace("T", " ").replace("+08:00", " ").replace("Z", "");</script></td>
+                        <td id="trx{{$e.type}}">
+                            <script>var t ={{$e.update_time}};
+                            document.getElementById("trx{{$e.type}}").innerHTML = t.replace("T", " ").replace("+08:00", " ").replace("Z", "");</script>
+                        </td>
                         <td>{{if ne $e.info ""}}
                             <span class="yes_config">已配置</span>
                         {{else}}
@@ -209,42 +212,68 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="passwdTMModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">密码脱敏符号设置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>加密符号</label>
+                    <input type="url" class="form-control" id="passwdTMText" name="webHookUrl" placeholder="请配置加密符号">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="updatePasswdTM()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" value="" id="settingId">
 {{template "footer" }}
 <script>
     function settingSubFunc(id, type) {
-        $("#settingId").val(id)
-        getSettingInfo(id)
+        $("#settingId").val(id);
+        getSettingInfo(id);
         switch (type) {
             case "mail":
-                $('#myModal').modal('show')
-                break
+                $('#myModal').modal('show');
+                break;
             case "login":
-                $('#settingLoginModal').modal('show')
-                break
+                $('#settingLoginModal').modal('show');
+                break;
             case "alertMail":
-                $('#receiveEmailModal').modal('show')
-                break
+                $('#receiveEmailModal').modal('show');
+                break;
             case "whiteIp":
-                $('#ipWhitelistModal').modal('show')
-                break
+                $('#ipWhitelistModal').modal('show');
+                break;
             case "webHook":
                 $("#webHookModal").modal('show');
-                break
+                break;
+            case "passwdTM":
+                $("#passwdTMModal").modal('show');
+                break;
             default:
                 break
         }
     }
 
     var syncStmpConfig = function () {
-        var id = $("#trmail ").data("id")
+        var id = $("#trmail ").data("id");
         getSettingInfo(id, function () {
-            $("#alertEmail").val($("#email").val())
-            $("#alertPass").val($("#pass").val())
-            $("#alertHost").val($("#host").val())
-            $("#alertPort").val($("#port").val())
+            $("#alertEmail").val($("#email").val());
+            $("#alertPass").val($("#pass").val());
+            $("#alertHost").val($("#host").val());
+            $("#alertPort").val($("#port").val());
         })
-    }
+    };
+
     var getSettingInfo = function (id, cb) {
         $.ajax({
             type: "get",
@@ -273,6 +302,8 @@
                     $("#whiteIpList").text(arr.join("\n"));
                 } else if (arr.length >= 1 && typeStr == "webHook") {
                     $("#webHookUrl").val(arr[0]);
+                } else if (arr.length >= 1 && typeStr == "passwdTM") {
+                    $("#passwdTMText").val(arr[0]);
                 }
                 if (typeof cb == "function") {
                     cb()
@@ -401,22 +432,25 @@
         })
     }
 
-    function IsURL(str_url) {
-        var strRegex = '^((https|http|ftp|rtsp|mms)?://)'
-                + '?(([0-9a-z_!~*\'().&=+$%-]+: )?[0-9a-z_!~*\'().&=+$%-]+@)?' //ftp的user@
-                + '(([0-9]{1,3}.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184
-                + '|' // 允许IP和DOMAIN（域名）
-                + '([0-9a-z_!~*\'()-]+.)*' // 域名- www.
-                + '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' // 二级域名
-                + '[a-z]{2,6})' // first level domain- .com or .museum
-                + '(:[0-9]{1,4})?' // 端口- :80
-                + '((/?)|' // a slash isn't required if there is no file name
-                + '(/[0-9a-z_!~*\'().;?:@&=+$,%#-]+)+/?)$';
-        var re = new RegExp(strRegex);
-        if (re.test(str_url)) {
-            return (true);
-        } else {
-            return (false);
-        }
+    function updatePasswdTM() {
+        var params = {
+            text: $("#passwdTMText").val(),
+            id: $("#settingId").val()
+        };
+        $.ajax({
+            type: "post",
+            url: "/post/setting/updatePasswdTM",
+            data: params
+        }).success(function (result) {
+            if (result.code == 200) {
+                if (!$("#checkbox-" + params.id).prop("checked")) {
+                    $("#checkbox-" + params.id).click()
+                }
+            }
+            $('#passwdTMModal').modal('hide');
+
+        }).fail(function (err) {
+            console.log(err)
+        })
     }
 </script>

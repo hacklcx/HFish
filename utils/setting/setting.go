@@ -30,6 +30,7 @@ import (
 	"strconv"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
+	"syscall"
 )
 
 func RunWeb(template string, index string, static string, url string) http.Handler {
@@ -151,6 +152,7 @@ func initCahe() {
 	resultMail, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "alertMail").First()
 	resultHook, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "webHook").First()
 	resultIp, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "whiteIp").First()
+	resultPasswd, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "passwdTM").First()
 
 	cache.Setx("MailConfigStatus", strconv.FormatInt(resultMail["status"].(int64), 10))
 	cache.Setx("MailConfigInfo", resultMail["info"])
@@ -160,6 +162,9 @@ func initCahe() {
 
 	cache.Setx("IpConfigStatus", strconv.FormatInt(resultIp["status"].(int64), 10))
 	cache.Setx("IpConfigInfo", resultIp["info"])
+
+	cache.Setx("PasswdConfigStatus", strconv.FormatInt(resultPasswd["status"].(int64), 10))
+	cache.Setx("PasswdConfigInfo", resultPasswd["info"])
 }
 
 func Run() {
@@ -170,6 +175,7 @@ func Run() {
 	if vncStatus == "1" {
 		vncAddr := conf.Get("vnc", "addr")
 		go vnc.Start(vncAddr)
+
 	}
 
 	//=========================//
@@ -354,11 +360,13 @@ func Run() {
 		// 客户端连接服务端
 		// 阻止进程，不启动 admin
 
-		rpcName := conf.Get("rpc", "name")
+		//rpcName := conf.Get("rpc", "name")
+
+		client.RpcInit()
 
 		for {
 			// 这样写 提高IO读写性能
-			go client.Start(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus)
+			//go client.Start(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus)
 
 			time.Sleep(time.Duration(1) * time.Minute)
 		}
@@ -377,6 +385,8 @@ func Run() {
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
+
+	fmt.Printf("pid is %d", syscall.Getpid())
 
 	serverAdmin.ListenAndServe()
 }
@@ -397,7 +407,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.5
+  (__\\   /_//_/_/ /_/___/_//_/ v0.5.1
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))

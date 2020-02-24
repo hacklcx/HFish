@@ -9,6 +9,7 @@ import (
 	"HFish/utils/is"
 	"HFish/core/rpc/client"
 	"HFish/core/report"
+	"HFish/core/pool"
 )
 
 const VERSION = "RFB 003.008\n"
@@ -22,23 +23,31 @@ func Start(address string) {
 	}
 	log.Printf("Listening on %v", l.Addr())
 
+	wg, poolX := pool.New(10)
+	defer poolX.Release()
+
 	/* Accept and handle clients */
 	for {
-		c, err := l.Accept()
-		if nil != err {
-			log.Fatalf("Error accepting connection: %v", err)
-		}
+		wg.Add(1)
+		poolX.Submit(func() {
+			c, err := l.Accept()
+			if nil != err {
+				log.Fatalf("Error accepting connection: %v", err)
+			}
 
-		arr := strings.Split(c.RemoteAddr().String(), ":")
+			arr := strings.Split(c.RemoteAddr().String(), ":")
 
-		// 判断是否为 RPC 客户端
-		if is.Rpc() {
-			go client.ReportResult("VNC", "VNC蜜罐", arr[0], "存在VNC扫描！", "0")
-		} else {
-			go report.ReportVnc("VNC蜜罐", "本机", arr[0], "存在VNC扫描！")
-		}
+			// 判断是否为 RPC 客户端
+			if is.Rpc() {
+				go client.ReportResult("VNC", "VNC蜜罐", arr[0], "存在VNC扫描！", "0")
+			} else {
+				go report.ReportVnc("VNC蜜罐", "本机", arr[0], "存在VNC扫描！")
+			}
 
-		go handle(c, )
+			go handle(c, )
+
+			wg.Done()
+		})
 	}
 }
 

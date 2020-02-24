@@ -5,6 +5,7 @@ import (
 	"HFish/utils/conf"
 	"HFish/core/rpc/core"
 	"strings"
+	"fmt"
 )
 
 // 上报状态结构
@@ -25,28 +26,28 @@ type Result struct {
 	Id          string // 数据库ID，更新用 0 为新插入数据
 }
 
-func createClient() (*rpc.Client, string, bool) {
+var rpcClient *rpc.Client
+var ipAddr string
+
+func RpcInit() {
 	rpcAddr := conf.Get("rpc", "addr")
-	client, conn, err := rpc.Dial("tcp", rpcAddr)
+	c, conn, err := rpc.Dial("tcp", rpcAddr)
 
 	if err != nil {
+		rpcClient = nil
 		log.Pr("RPC", "127.0.0.1", "连接 RPC Server 失败")
-		return client, "", false
+		ipAddr = ""
+	} else {
+		rpcClient = c
+		ipAddr = strings.Split(conn.LocalAddr().String(), ":")[0]
+		fmt.Println("连接RPC Server 成功")
 	}
-
-	ipArr := strings.Split(conn.LocalAddr().String(), ":")
-
-	return client, ipArr[0], true
 }
 
 func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
-	client, addr, boolStatus := createClient()
-
-	if boolStatus {
-		defer client.Close()
-
+	if (rpcClient != nil) {
 		status := Status{
-			addr,
+			ipAddr,
 			rpcName,
 			webStatus,
 			darkStatus,
@@ -64,27 +65,30 @@ func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpSta
 		}
 
 		var reply string
-		err := client.Call("HFishRPCService.ReportStatus", status, &reply)
+		err := rpcClient.Call("HFishRPCService.ReportStatus", status, &reply)
 
 		if err != nil {
 			log.Pr("RPC", "127.0.0.1", "上报服务状态失败", err)
+			RpcInit()
+		} else {
+			fmt.Println("上报服务状态成功")
 		}
+	} else {
+		RpcInit()
 	}
 }
 
 func ReportResult(typex string, projectName string, sourceIp string, info string, id string) string {
-	// projectName 只有 WEB 才需要传项目名 其他协议空即可
-	// id 0 为 新插入数据，非 0 都是更新数据
-	// id 非 0 的时候 sourceIp 为空
-	client, addr, boolStatus := createClient()
+	var reply string
 
-	if boolStatus {
-		defer client.Close()
-
+	if (rpcClient != nil) {
+		// projectName 只有 WEB 才需要传项目名 其他协议空即可
+		// id 0 为 新插入数据，非 0 都是更新数据
+		// id 非 0 的时候 sourceIp 为空
 		rpcName := conf.Get("rpc", "name")
 
 		result := Result{
-			addr,
+			ipAddr,
 			rpcName,
 			typex,
 			projectName,
@@ -93,16 +97,19 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 			id,
 		}
 
-		var reply string
-		err := client.Call("HFishRPCService.ReportResult", result, &reply)
+		err := rpcClient.Call("HFishRPCService.ReportResult", result, &reply)
 
 		if err != nil {
 			log.Pr("RPC", "127.0.0.1", "上报上钩结果失败")
+			RpcInit()
+		} else {
+			fmt.Println("上报上钩结果成功")
 		}
 
 		return reply
+	} else {
+		return "0"
 	}
-	return ""
 }
 
 func Start(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
