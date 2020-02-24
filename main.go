@@ -1,9 +1,9 @@
 package main
 
 import (
-	"HFish/utils/setting"
 	"fmt"
 	"os"
+	"HFish/utils/setting"
 )
 
 func main() {

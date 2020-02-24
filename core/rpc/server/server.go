@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"net"
 	"fmt"
+	"HFish/core/pool"
 )
 
 // 上报状态结构
@@ -135,14 +136,23 @@ func Start(addr string) {
 		log.Pr("RPC", "127.0.0.1", "RPC Server 监听地址失败", err)
 	}
 
+	wg, poolX := pool.New(10)
+	defer poolX.Release()
+
 	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			continue
-		}
+		wg.Add(1)
+		poolX.Submit(func() {
+			conn, err := listener.Accept()
 
-		fmt.Println(conn.RemoteAddr())
+			if err != nil {
+				log.Pr("RPC", "127.0.0.1", "客户端连接 RPC Server 失败", err)
+			}
 
-		rpc.ServeConn(conn)
+			fmt.Println(conn.RemoteAddr())
+
+			rpc.ServeConn(conn)
+
+			wg.Done()
+		})
 	}
 }

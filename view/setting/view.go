@@ -52,6 +52,9 @@ func checkInfo(id string) bool {
 	if num >= 1 && typeStr == "webHook" {
 		return true
 	}
+	if num >= 1 && typeStr == "passwdTM" {
+		return true
+	}
 	return false
 }
 
@@ -160,6 +163,21 @@ func UpdateWebHook(c *gin.Context) {
 	})
 }
 
+// 更新 密码加密符号
+func UpdatePasswdTM(c *gin.Context) {
+	id := c.PostForm("id")
+	text := c.PostForm("text")
+
+	// 更新
+	cache.Setx("PasswdConfigInfo", text)
+	updateInfoBase(text, id)
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
+	})
+}
+
 // 更新设置状态
 func UpdateStatusSetting(c *gin.Context) {
 	id := c.PostForm("id")
@@ -186,6 +204,8 @@ func UpdateStatusSetting(c *gin.Context) {
 		cache.Setx("HookConfigStatus", status)
 	} else if id == "4" {
 		cache.Setx("IpConfigStatus", status)
+	} else if id == "4" {
+		cache.Setx("PasswdConfigStatus", status)
 	}
 
 	if err != nil {

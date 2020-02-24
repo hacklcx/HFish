@@ -61,6 +61,7 @@ func LoadUrl(r *gin.Engine) {
 	r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
 	r.POST("/post/setting/updateWebHook", login.Jump, setting.UpdateWebHook)
 	r.POST("/post/setting/updateWhiteIp", login.Jump, setting.UpdateWhiteIp)
+	r.POST("/post/setting/updatePasswdTM", login.Jump, setting.UpdatePasswdTM)
 
 	// API 接口
 	// 解决跨域问题

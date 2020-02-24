@@ -3,7 +3,7 @@ module HFish
 go 1.12
 
 require (
-	github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239 // indirect
+	github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/bitly/go-simplejson v0.5.0
 	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 // indirect
@@ -23,6 +23,7 @@ require (
 	github.com/panjf2000/ants v1.2.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pin/tftp v2.1.0+incompatible
+	github.com/scottkiss/grtm v0.0.0-20151009105840-1c69ec29e5b2
 	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337 // indirect
 	github.com/stretchr/testify v1.3.0
 	golang.org/x/crypto v0.0.0-20190605123033-f99c8df09eb5

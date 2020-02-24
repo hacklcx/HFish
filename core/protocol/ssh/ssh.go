@@ -1,7 +1,7 @@
 package ssh
 
 import (
-	"github.com/gliderlabs/ssh"
+	"HFish/core/protocol/ssh/gliderlabs"
 	"golang.org/x/crypto/ssh/terminal"
 	"io"
 	"strings"

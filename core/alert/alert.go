@@ -12,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"HFish/error"
 	"HFish/utils/cache"
+	"HFish/utils/passwd"
 )
 
 func AlertMail(model string, typex string, agent string, ipx string, country string, region string, city string, infox string) {
@@ -32,6 +33,20 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 				} else if (country == "局域网") {
 					region = ""
 					city = ""
+				}
+
+				// 判断是否开启脱敏
+				passwdConfigStatus, _ := cache.Get("PasswdConfigStatus")
+
+				if (passwdConfigStatus == "1") {
+					if (typex == "FTP" || typex == "SSH") {
+						// 获取脱敏加密字符
+						passwdConfigInfo, _ := cache.Get("PasswdConfigInfo")
+
+						arr := strings.Split(infox, "&&")
+
+						infox = arr[0] + "&&" + passwd.Desensitization(arr[1], passwdConfigInfo.(string))
+					}
 				}
 
 				text := `
