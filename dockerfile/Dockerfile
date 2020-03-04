@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 ENV GLIBC_VERSION 2.29-r0
-ENV HFISH_VERSION 0.5
+ENV HFISH_VERSION 0.5.1
 
 # Download and install glibc
 RUN apk update && \
