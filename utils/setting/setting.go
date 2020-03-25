@@ -168,6 +168,7 @@ func initCahe() {
 }
 
 func Run() {
+	gin.SetMode(gin.ReleaseMode)
 	// 启动 vnc  蜜罐
 	vncStatus := conf.Get("vnc", "status")
 
@@ -360,13 +361,15 @@ func Run() {
 		// 客户端连接服务端
 		// 阻止进程，不启动 admin
 
-		//rpcName := conf.Get("rpc", "name")
+		rpcName := conf.Get("rpc", "name")
 
 		client.RpcInit()
 
 		for {
 			// 这样写 提高IO读写性能
-			//go client.Start(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus)
+			go client.Start(
+				rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus,
+				deepStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus)
 
 			time.Sleep(time.Duration(1) * time.Minute)
 		}
