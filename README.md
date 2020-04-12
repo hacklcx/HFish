@@ -223,40 +223,6 @@ URL(Get): http://localhost:9001/api/v1/get/fish_info?key=585e2ba265d965b1929148d
 
 ```
 URL(Get): http://localhost:9001/api/v1/get/passwd_list?key=585e2ba265d965b1929148d0f0e33133
-
-返回数据格式:
-
-  {
-      code: 200,
-      data: [
-          {
-              agent: "本机",
-              city: "",
-              country: "本机地址",
-              create_time: "2019-08-26 21:29:00",
-              id: 224,
-              info: "127.0.0.1:51548 已经连接&&stats&&&&set foo 0 6",
-              ip: "127.0.0.1",
-              project_name: "MemCache蜜罐",
-              region: "本机地址",
-              type: "MEMCACHE"
-          },
-      ],
-      msg: "success"
-  }
-
-字段说明：
-
-	agent        :    集群名称
-	country      : 		国家
-	region       : 		省份/地区
-    city         : 		城市
-	ip           : 		IP 地址
-	project_name : 		项目名称
-	type 				 :    蜜罐类型
-	info 				 :    上钩信息
-	id           :    数据库唯一标识
-	create_time  :    上钩时间
 ```
 
 

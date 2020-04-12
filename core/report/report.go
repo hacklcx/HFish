@@ -41,7 +41,7 @@ func alertx(id string, model string, typex string, projectName string, agent str
 }
 
 // 上报 集群 状态
-func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepStatus string, sshStatus string, redisStatus string, mysqlStatus string, httpStatus string, telnetStatus string, ftpStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
+func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepStatus string, sshStatus string, redisStatus string, mysqlStatus string, httpStatus string, telnetStatus string, ftpStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string, customStatus string) {
 	_, err := dbUtil.DB().Table("hfish_colony").Data(map[string]interface{}{
 		"agent_name":       agentName,
 		"agent_ip":         agentIp,
@@ -58,6 +58,7 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 		"es_status":        esStatus,
 		"tftp_status":      tftpStatus,
 		"vnc_status":       vncStatus,
+		"custom_status":    customStatus,
 		"last_update_time": time.Now().Format("2006-01-02 15:04:05"),
 	}).InsertGetId()
 
@@ -79,6 +80,7 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 			"es_status":        esStatus,
 			"tftp_status":      tftpStatus,
 			"vnc_status":       vncStatus,
+			"custom_status":    customStatus,
 			"last_update_time": time.Now().Format("2006-01-02 15:04:05"),
 		}).Where("agent_name", agentName).Update()
 
@@ -405,5 +407,15 @@ func ReportUpdateTFtp(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
 		go alertx(id, "update", "TFTP", "TFTP蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+	}
+}
+
+// 上报 自定义蜜罐
+func ReportCustom(projectName string, agent string, ipx string, info string) {
+	// IP 不在白名单，进行上报
+	if (isWhiteIp(ipx) == false) {
+		country, region, city := ip.GetIp(ipx)
+		id := insertInfo("CUSTOM", projectName, agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "CUSTOM", projectName, agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }

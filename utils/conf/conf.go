@@ -3,6 +3,7 @@ package conf
 import (
 	"gopkg.in/ini.v1"
 	"HFish/utils/log"
+	"container/list"
 )
 
 var cfg *ini.File
@@ -24,4 +25,47 @@ func Get(node string, key string) string {
 func GetInt(node string, key string) int {
 	val, _ := cfg.Section(node).Key(key).Int()
 	return val
+}
+
+func Contains(l *list.List, value string) (bool, *list.Element) {
+	for e := l.Front(); e != nil; e = e.Next() {
+		if e.Value == value {
+			return true, e
+		}
+	}
+	return false, nil
+}
+
+func GetCustomName() []string {
+	names := cfg.SectionStrings()
+
+	existConfig := []string{
+		"DEFAULT",
+		"rpc",
+		"admin",
+		"api",
+		"plug",
+		"web",
+		"deep",
+		"ssh",
+		"redis",
+		"mysql",
+		"telnet",
+		"ftp",
+		"mem_cache",
+		"http",
+		"tftp",
+		"elasticsearch",
+		"vnc",
+	}
+
+	for i := 0; i < len(names); i++ {
+		for j := 0; j < len(existConfig); j++ {
+			if names[i] == existConfig[j] {
+				names = append(names[:i], names[i+1:]...)
+			}
+		}
+	}
+
+	return names
 }

@@ -25,6 +25,7 @@ func Html(c *gin.Context) {
 	tftpSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "TFTP").Count()
 	esSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "ES").Count()
 	vncSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "VNC").Count()
+	customSum, _ := dbUtil.DB().Table("hfish_info").Where("type", "=", "CUSTOM").Count()
 
 	// 读取服务运行状态
 	mysqlStatus := conf.Get("mysql", "status")
@@ -41,6 +42,14 @@ func Html(c *gin.Context) {
 	esStatus := conf.Get("elasticsearch", "status")
 	vncStatus := conf.Get("vnc", "status")
 
+	// 判断自定义蜜罐是否启动
+	customStatus := "0"
+
+	customNames := conf.GetCustomName()
+	if len(customNames) > 0 {
+		customStatus = "1"
+	}
+
 	c.HTML(http.StatusOK, "dashboard.html", gin.H{
 		"webSum":         webSum,
 		"sshSum":         sshSum,
@@ -54,6 +63,7 @@ func Html(c *gin.Context) {
 		"tftpSum":        tftpSum,
 		"esSum":          esSum,
 		"vncSum":         vncSum,
+		"customSum":      customSum,
 		"webStatus":      webStatus,
 		"sshStatus":      sshStatus,
 		"redisStatus":    redisStatus,
@@ -67,6 +77,7 @@ func Html(c *gin.Context) {
 		"tftpStatus":     tftpStatus,
 		"esStatus":       esStatus,
 		"vncStatus":      vncStatus,
+		"customStatus":   customStatus,
 	})
 }
 
@@ -101,6 +112,7 @@ func GetFishData(c *gin.Context) {
 	var sqlTftp string
 	var sqlVnc string
 	var sqlEs string
+	var sqlCustom string
 
 	// 此处为了兼容 Mysql + Sqlite
 	dbType := conf.Get("admin", "db_type")
@@ -274,6 +286,20 @@ func GetFishData(c *gin.Context) {
 		hour;
 		`
 
+		// 统计 CUSTOM
+		sqlCustom = `
+		SELECT
+			strftime("%H", create_time) AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			strftime('%s', datetime('now')) - strftime('%s', create_time) < (24 * 3600)
+		AND type="CUSTOM"
+		GROUP BY
+		hour;
+		`
+
 	} else if dbType == "mysql" {
 		// 统计 web
 		sqlWeb = `
@@ -442,6 +468,20 @@ func GetFishData(c *gin.Context) {
 		GROUP BY
 			hour;
 		`
+
+		// 统计 CUSTOM
+		sqlCustom = `
+		SELECT
+			DATE_FORMAT(create_time,"%H") AS hour,
+			sum(1) AS sum
+		FROM
+			hfish_info
+		WHERE
+			create_time >= (NOW() - INTERVAL 24 HOUR)
+		AND type = "CUSTOM"
+		GROUP BY
+			hour;
+		`
 	}
 
 	var data interface{}
@@ -463,21 +503,23 @@ func GetFishData(c *gin.Context) {
 		tftpMap := getData(sqlTftp)
 		esMap := getData(sqlEs)
 		vncMap := getData(sqlVnc)
+		customMap := getData(sqlCustom)
 
 		// 拼接 json
 		data = map[string]interface{}{
-			"web":      webMap,
-			"ssh":      sshMap,
-			"redis":    redisMap,
-			"mysql":    mysqlMap,
-			"deep":     deepMap,
-			"ftp":      ftpMap,
-			"telnet":   telnetMap,
-			"memCache": memCacheMap,
-			"httpMap":  httpMap,
-			"tftpMap":  tftpMap,
-			"vncMap":   vncMap,
-			"esMap":    esMap,
+			"web":       webMap,
+			"ssh":       sshMap,
+			"redis":     redisMap,
+			"mysql":     mysqlMap,
+			"deep":      deepMap,
+			"ftp":       ftpMap,
+			"telnet":    telnetMap,
+			"memCache":  memCacheMap,
+			"httpMap":   httpMap,
+			"tftpMap":   tftpMap,
+			"vncMap":    vncMap,
+			"esMap":     esMap,
+			"customMap": customMap,
 		}
 
 		cache.Set("DashboardZxDq", data)

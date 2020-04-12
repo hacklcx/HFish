@@ -62,7 +62,7 @@
                 <thead>
                 <tr>
                     <th width="10%">集群名称</th>
-                    <th width="10%">集群 IP</th>
+                    <th width="8%">集群 IP</th>
                     <th width="6%" style="text-align: center;">插件</th>
                     <th width="6%" style="text-align: center;">WEB</th>
                     <th width="6%" style="text-align: center;">暗网</th>
@@ -76,12 +76,13 @@
                     <th width="6%" style="text-align: center;">TFTP</th>
                     <th width="6%" style="text-align: center;">VNC</th>
                     <th width="6%" style="text-align: center;">ES</th>
+                    <th width="6%" style="text-align: center;">CUSTOM</th>
                     <th width="1%"></th>
                 </tr>
                 </thead>
                 <tbody id="tableList">
                 <tr style="text-align: center;">
-                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="15">暂无数据</td>
+                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="16">暂无数据</td>
                 </tr>
                 </tbody>
             </table>
@@ -132,8 +133,8 @@
                 var curr_time = Math.round(new Date() / 1000);
 
                 if ((curr_time - parseInt(db_time)) < 60) {
-                    _h += '    <td class="td agent_name"><span class="openx"></span>' + data[i].agent_name + '</td>';
-                    _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
+                    _h += '    <td class="td agent_name"><span class="openx"></span>' + filterXSS(data[i].agent_name) + '</td>';
+                    _h += '    <td class="td"><span>' + filterXSS(data[i].agent_ip) + '</span></td>';
 
                     if (data[i].plug_status == 1) {
                         _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
@@ -213,6 +214,12 @@
                         _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     }
 
+                    if (data[i].custom_status == 1) {
+                        _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
+                    } else {
+                        _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
+                    }
+
 
                     // if (data[i].http_status == "1") {
                     //     _h += '    <td class="td" style="text-align: center;"><span class="openx"></span></td>';
@@ -224,8 +231,9 @@
                     _h += '        <i class="fa fa-trash-o" onclick="del(' + data[i].id + ')"></i>';
                     _h += '    </td>';
                 } else {
-                    _h += '    <td class="td agent_name"><span class="closex"></span>' + data[i].agent_name + '</td>';
-                    _h += '    <td class="td"><span>' + data[i].agent_ip + '</span></td>';
+                    _h += '    <td class="td agent_name"><span class="closex"></span>' + filterXSS(data[i].agent_name) + '</td>';
+                    _h += '    <td class="td"><span>' + filterXSS(data[i].agent_ip) + '</span></td>';
+                    _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
                     _h += '    <td class="td" style="text-align: center;"><span class="closex"></span></td>';
