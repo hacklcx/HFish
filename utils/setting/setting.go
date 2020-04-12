@@ -17,6 +17,7 @@ import (
 	"HFish/core/protocol/mysql"
 	"HFish/core/protocol/ftp"
 	"HFish/core/protocol/telnet"
+	"HFish/core/protocol/custom"
 	"HFish/core/rpc/server"
 	"HFish/core/rpc/client"
 	"HFish/view/api"
@@ -31,6 +32,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"syscall"
+	"HFish/utils/ping"
 )
 
 func RunWeb(template string, index string, static string, url string) http.Handler {
@@ -168,6 +170,11 @@ func initCahe() {
 }
 
 func Run() {
+	ping.Ping()
+
+	// 启动 自定义 蜜罐
+	custom.StartCustom()
+
 	// 启动 vnc  蜜罐
 	vncStatus := conf.Get("vnc", "status")
 
@@ -360,13 +367,21 @@ func Run() {
 		// 客户端连接服务端
 		// 阻止进程，不启动 admin
 
-		//rpcName := conf.Get("rpc", "name")
+		rpcName := conf.Get("rpc", "name")
 
 		client.RpcInit()
 
 		for {
+			// 判断自定义蜜罐是否启动
+			customStatus := "0"
+
+			customNames := conf.GetCustomName()
+			if len(customNames) > 0 {
+				customStatus = "1"
+			}
+
 			// 这样写 提高IO读写性能
-			//go client.Start(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus)
+			go client.Start(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus, customStatus)
 
 			time.Sleep(time.Duration(1) * time.Minute)
 		}
@@ -407,7 +422,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.5.1
+  (__\\   /_//_/_/ /_/___/_//_/ v0.6
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))

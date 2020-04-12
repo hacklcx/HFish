@@ -10,9 +10,9 @@ import (
 
 // 上报状态结构
 type Status struct {
-	AgentIp                                                                       string
-	AgentName                                                                     string
-	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug, ES, TFtp, Vnc string
+	AgentIp                                                                               string
+	AgentName                                                                             string
+	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug, ES, TFtp, Vnc, Custom string
 }
 
 // 上报结果结构
@@ -44,7 +44,7 @@ func RpcInit() {
 	}
 }
 
-func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
+func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string, customStatus string) {
 	if (rpcClient != nil) {
 		status := Status{
 			ipAddr,
@@ -62,6 +62,7 @@ func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpSta
 			esStatus,
 			tftpStatus,
 			vncStatus,
+			customStatus,
 		}
 
 		var reply string
@@ -112,6 +113,6 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 	}
 }
 
-func Start(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string) {
-	reportStatus(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, darkStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus)
+func Start(rpcName string, ftpStatus string, telnetStatus string, httpStatus string, mysqlStatus string, redisStatus string, sshStatus string, webStatus string, darkStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string, customStatus string) {
+	reportStatus(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, darkStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus, customStatus)
 }

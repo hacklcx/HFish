@@ -234,3 +234,33 @@ func GetSettingInfo(c *gin.Context) {
 		"data": result,
 	})
 }
+
+// 清空数据
+func ClearData(c *gin.Context) {
+	tyep := c.PostForm("type")
+
+	if tyep == "1" {
+		_, err := dbUtil.DB().Table("hfish_info").Force().Delete()
+
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "清空上钩数据失败", err)
+		}
+	} else if tyep == "2" {
+		_, err := dbUtil.DB().Table("hfish_colony").Force().Delete()
+
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "清空集群数据失败", err)
+		}
+	} else if tyep == "3" {
+		_, err := dbUtil.DB().Table("hfish_passwd").Force().Delete()
+
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "清空密码数据失败", err)
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
+	})
+}

@@ -95,6 +95,10 @@
     .lb_http {
         color: #56a996;
     }
+
+    .lb_custom {
+        color: #8c600e;
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -154,7 +158,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-fire pull-xs-right text-muted"></i>
             <h6 class="lb_web text-uppercase m-b-15 m-t-10">WEB</h6>
@@ -162,7 +166,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-globe pull-xs-right text-muted"></i>
             <h6 class="lb_deep text-uppercase m-b-15 m-t-10">DEEP</h6>
@@ -170,7 +174,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-plane pull-xs-right text-muted"></i>
             <h6 class="lb_http text-uppercase m-b-15 m-t-10">HTTP代理</h6>
@@ -178,7 +182,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-cursor pull-xs-right text-muted"></i>
             <h6 class="lb_tftp text-uppercase m-b-15 m-t-10">TFTP</h6>
@@ -186,7 +190,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
         <div class="card-box tilebox-two">
             <i class="icon-diamond pull-xs-right text-muted"></i>
             <h6 class="lb_es text-uppercase m-b-15 m-t-10">ES</h6>
@@ -194,11 +198,19 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
         <div class="card-box tilebox-two">
             <i class="icon-target pull-xs-right text-muted"></i>
-            <h6 class="lb_vnc text-uppercase m-b-15 m-t-10">VNC</h6>
+            <h6 class="lb_custom text-uppercase m-b-15 m-t-10">VNC</h6>
             <h2 class="m-b-10"><span data-plugin="counterup">{{.vncSum}}</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-box tilebox-two">
+            <i class="icon-cup pull-xs-right text-muted"></i>
+            <h6 class="lb_vnc text-uppercase m-b-15 m-t-10">CUSTOM</h6>
+            <h2 class="m-b-10"><span data-plugin="counterup">{{.customSum}}</span></h2>
         </div>
     </div>
 
@@ -298,6 +310,12 @@
             <p><span class="closex"></span>VNC</p>
         {{end}}
 
+        {{if eq .customStatus "1"}}
+            <p><span class="openx"></span>CUSTOM</p>
+        {{else}}
+            <p><span class="closex"></span>CUSTOM</p>
+        {{end}}
+
         </div>
     </div>
 
@@ -331,37 +349,37 @@
 
 </div>
 {{/*<div id="myRegInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">*/}}
-    {{/*<div class="modal-dialog" style="width: 486px;">*/}}
-        {{/*<div class="modal-content">*/}}
-            {{/*<div class="modal-header">*/}}
-                {{/*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>*/}}
-                {{/*<h6 class="modal-title" id="myModalLabel">请填写 - 收集需求为了更好的 HFish</h6>*/}}
-            {{/*</div>*/}}
-            {{/*<div class="modal-body">*/}}
-                {{/*<div class="form-horizontal">*/}}
+{{/*<div class="modal-dialog" style="width: 486px;">*/}}
+{{/*<div class="modal-content">*/}}
+{{/*<div class="modal-header">*/}}
+{{/*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>*/}}
+{{/*<h6 class="modal-title" id="myModalLabel">请填写 - 收集需求为了更好的 HFish</h6>*/}}
+{{/*</div>*/}}
+{{/*<div class="modal-body">*/}}
+{{/*<div class="form-horizontal">*/}}
 
-                    {{/*<div class="form-group form-x">*/}}
-                        {{/*<label for="inputPassword3" class="col-sm-2 control-label"><span*/}}
-                                {{/*class="xing">*</span>使用者</label>*/}}
-                        {{/*<div class="col-sm-10">*/}}
-                            {{/*<input type="text" class="form-control" id="reg_use" placeholder="请输入企业名或个人网名(真名)">*/}}
-                        {{/*</div>*/}}
-                    {{/*</div>*/}}
+{{/*<div class="form-group form-x">*/}}
+{{/*<label for="inputPassword3" class="col-sm-2 control-label"><span*/}}
+{{/*class="xing">*</span>使用者</label>*/}}
+{{/*<div class="col-sm-10">*/}}
+{{/*<input type="text" class="form-control" id="reg_use" placeholder="请输入企业名或个人网名(真名)">*/}}
+{{/*</div>*/}}
+{{/*</div>*/}}
 
-                    {{/*<div class="form-group form-x">*/}}
-                        {{/*<label for="reg_mail" class="col-sm-2 control-label"><span class="xing">*</span>邮箱</label>*/}}
-                        {{/*<div class="col-sm-10">*/}}
-                            {{/*<input type="email" class="form-control" id="reg_mail" placeholder="请输入公司或个人邮箱">*/}}
-                        {{/*</div>*/}}
-                    {{/*</div>*/}}
-                {{/*</div>*/}}
-                {{/*<div style="clear: both"></div>*/}}
-            {{/*</div>*/}}
-            {{/*<div class="modal-footer">*/}}
-                {{/*<button type="button" class="btn btn-primary">提交信息</button>*/}}
-            {{/*</div>*/}}
-        {{/*</div>*/}}
-    {{/*</div>*/}}
+{{/*<div class="form-group form-x">*/}}
+{{/*<label for="reg_mail" class="col-sm-2 control-label"><span class="xing">*</span>邮箱</label>*/}}
+{{/*<div class="col-sm-10">*/}}
+{{/*<input type="email" class="form-control" id="reg_mail" placeholder="请输入公司或个人邮箱">*/}}
+{{/*</div>*/}}
+{{/*</div>*/}}
+{{/*</div>*/}}
+{{/*<div style="clear: both"></div>*/}}
+{{/*</div>*/}}
+{{/*<div class="modal-footer">*/}}
+{{/*<button type="button" class="btn btn-primary">提交信息</button>*/}}
+{{/*</div>*/}}
+{{/*</div>*/}}
+{{/*</div>*/}}
 {{/*</div>*/}}
 {{template "footer" }}
 <script type="text/javascript" src="/static/data/js/echarts-3.8.5.min.js"></script>
@@ -711,6 +729,33 @@
         0
     ];
 
+    var customData = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
+
     var myChart = echarts.init(document.getElementById('myChart'));
 
     $.ajax({
@@ -761,24 +806,30 @@
                     memCacheData[index] = parseInt(d.memCache[item]);
                 }
 
-                for (var item in d.memCache) {
+                for (var item in d.httpMap) {
                     var index = xdata.indexOf(item);
-                    httpData[index] = parseInt(d.memCache[item]);
+                    httpData[index] = parseInt(d.httpMap[item]);
                 }
 
-                for (var item in d.memCache) {
+                for (var item in d.vncMap) {
                     var index = xdata.indexOf(item);
-                    vncData[index] = parseInt(d.memCache[item]);
+                    vncData[index] = parseInt(d.vncMap[item]);
                 }
 
-                for (var item in d.memCache) {
+                for (var item in d.tftpMap) {
                     var index = xdata.indexOf(item);
-                    tftpData[index] = parseInt(d.memCache[item]);
+                    tftpData[index] = parseInt(d.tftpMap[item]);
                 }
 
-                for (var item in d.memCache) {
+                for (var item in d.esMap) {
                     var index = xdata.indexOf(item);
-                    esData[index] = parseInt(d.memCache[item]);
+                    esData[index] = parseInt(d.esMap[item]);
+                }
+
+
+                for (var item in d.customMap) {
+                    var index = xdata.indexOf(item);
+                    customData[index] = parseInt(d.customMap[item]);
                 }
 
 
@@ -793,7 +844,7 @@
                         }
                     },
                     legend: {
-                        data: ['WEB', 'DEEP', 'SSH', 'REDIS', 'MYSQL', 'TELNET', 'FTP', 'MEMCACHE', 'HTTP', 'TFTP', 'VNC', 'ES']
+                        data: ['WEB', 'DEEP', 'SSH', 'REDIS', 'MYSQL', 'TELNET', 'FTP', 'MEMCACHE', 'HTTP', 'TFTP', 'VNC', 'ES', 'CUSTOM']
                     },
                     grid: {
                         left: '0%',
@@ -897,6 +948,13 @@
                             stack: '总量',
                             areaStyle: {normal: {}},
                             data: esData
+                        },
+                        {
+                            name: 'CUSTOM',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data: customData
                         }
                     ]
                 };
