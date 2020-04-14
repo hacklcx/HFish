@@ -12,9 +12,9 @@ import (
 
 // 上报状态结构
 type Status struct {
-	AgentIp                                                                       string
-	AgentName                                                                     string
-	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug, ES, TFtp, Vnc string
+	AgentIp                                                                               string
+	AgentName                                                                             string
+	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug, ES, TFtp, Vnc, Custom string
 }
 
 // 上报结果结构
@@ -49,6 +49,7 @@ func (t *HFishRPCService) ReportStatus(s *Status, reply *string) error {
 		s.ES,
 		s.TFtp,
 		s.Vnc,
+		s.Custom,
 	)
 
 	return nil
@@ -71,6 +72,8 @@ func (t *HFishRPCService) ReportResult(r *Result, reply *string) error {
 		go report.ReportEs(r.ProjectName, r.AgentName, r.SourceIp, r.Info)
 	case "VNC":
 		go report.ReportVnc(r.ProjectName, r.AgentName, r.SourceIp, r.Info)
+	case "CUSTOM":
+		go report.ReportCustom(r.ProjectName, r.AgentName, r.SourceIp, r.Info)
 	case "FTP":
 		go report.ReportFTP(r.SourceIp, r.AgentName, r.Info)
 	case "TFTP":

@@ -147,6 +147,7 @@
 <script type="text/javascript" src="/static/data/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/static/data/js/echarts-3.8.5.min.js"></script>
 <script type="text/javascript" src="/static/data/js/echarts-wordcloud.min.js"></script>
+<script type="text/javascript" src="/static/js/xss.min.js"></script>
 <script type="text/javascript">
 
     window.onresize = function () {
@@ -479,10 +480,10 @@
                 var result = d.result;
                 for (var i = 0; i < result.length; i++) {
                     _h += '    <tr class="data_list">';
-                    _h += '        <td>' + result[i].type + '</td>';
-                    _h += '        <td>' + result[i].agent + '</td>';
-                    _h += '        <td>' + result[i].ip + '</td>';
-                    _h += '        <td>' + result[i].country + ' ' + result[i].region + '</td>';
+                    _h += '        <td>' + filterXSS(result[i].type) + '</td>';
+                    _h += '        <td>' + filterXSS(result[i].agent) + '</td>';
+                    _h += '        <td>' + filterXSS(result[i].ip) + '</td>';
+                    _h += '        <td>' + filterXSS(result[i].country) + ' ' + filterXSS(result[i].region) + '</td>';
                     _h += '    </tr>';
                 }
 
@@ -513,10 +514,10 @@
                 var _h = '';
 
                 _h += '    <tr class="data_list">';
-                _h += '        <td>' + d.type + '</td>';
-                _h += '        <td>' + d.agent + '</td>';
-                _h += '        <td>' + d.ipx + '</td>';
-                _h += '        <td>' + d.country + ' ' + d.region + '</td>';
+                _h += '        <td>' + filterXSS(d.type) + '</td>';
+                _h += '        <td>' + filterXSS(d.agent) + '</td>';
+                _h += '        <td>' + filterXSS(d.ipx) + '</td>';
+                _h += '        <td>' + filterXSS(d.country) + ' ' + filterXSS(d.region) + '</td>';
                 _h += '    </tr>';
 
                 $(".data_list").before(_h);

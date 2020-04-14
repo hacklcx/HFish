@@ -38,6 +38,10 @@
     <!-- Page-Title -->
     <div class="row">
         <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-15">
+                <button type="button" class="btn btn-custom" onclick="showSetting()"><i class="fa fa-cog"></i> 高级设置
+                </button>
+            </div>
             <h4 class="page-title">系统设置</h4>
         </div>
 
@@ -230,6 +234,34 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" onclick="updatePasswdTM()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="showSetting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">高级设置</h4>
+            </div>
+            <div class="modal-body">
+                <button style="width: 100%;margin-bottom: 20px;" type="button" class="btn btn-custom"
+                        onclick="clearData(1)"><i class="fa fa-trash-o"></i>
+                    清空上钩数据
+                </button>
+                <button style="width: 100%;margin-bottom: 20px;" type="button" class="btn btn-custom"
+                        onclick="clearData(2)"><i
+                        class="fa fa-trash-o"></i>
+                    清空集群数据
+                </button>
+                <button style="width: 100%;" type="button" class="btn btn-custom" onclick="clearData(3)"><i
+                        class="fa fa-trash-o"></i>
+                    清空密码数据
+                </button>
             </div>
         </div>
     </div>
@@ -452,5 +484,32 @@
         }).fail(function (err) {
             console.log(err)
         })
+    }
+
+    function showSetting() {
+        $('#showSetting').modal('show');
+    }
+
+    function clearData(type) {
+        swal("success", "正在清空数据...", 'success');
+
+        $.ajax({
+            type: "POST",
+            url: "/post/setting/clearData",
+            dataType: "json",
+            data: {
+                "type": type
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    swal("success", "清空成功", 'success');
+                } else {
+                    swal("清空失败", e.msg, 'error');
+                }
+            },
+            error: function (e) {
+                swal("清空失败", "请 Github 提交 Issues", 'error');
+            }
+        });
     }
 </script>
