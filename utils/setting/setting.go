@@ -422,7 +422,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.6
+  (__\\   /_//_/_/ /_/___/_//_/ v0.6.1
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))

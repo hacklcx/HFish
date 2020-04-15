@@ -139,7 +139,7 @@ func Start(addr string) {
 		log.Pr("RPC", "127.0.0.1", "RPC Server 监听地址失败", err)
 	}
 
-	wg, poolX := pool.New(10)
+	wg, poolX := pool.New(500)
 	defer poolX.Release()
 
 	for {
