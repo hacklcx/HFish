@@ -4,6 +4,7 @@ import (
 	"gopkg.in/gomail.v2"
 	"strconv"
 	"HFish/utils/log"
+	"crypto/tls"
 )
 
 func SendMail(mailTo []string, subject string, body string, config []string) error {
@@ -15,13 +16,17 @@ func SendMail(mailTo []string, subject string, body string, config []string) err
 	m.SetHeader("Subject", subject) //设置邮件主题
 	m.SetBody("text/html", body)    //设置邮件正文
 
-	d := &gomail.Dialer{
-		Host:     config[0],
-		Port:     port,
-		Username: config[2],
-		Password: config[3],
-		SSL:      false,
-	}
+	//d := &gomail.Dialer{
+	//	Host:     config[0],
+	//	Port:     port,
+	//	Username: config[2],
+	//	Password: config[3],
+	//	SSL:      false,
+	//}
+
+	d := gomail.NewDialer(config[0], port, config[2], config[3])
+
+	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	err := d.DialAndSend(m)
 

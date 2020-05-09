@@ -9,10 +9,14 @@ import (
 	"strconv"
 	"HFish/utils/log"
 	"HFish/error"
+	"HFish/utils/conf"
 )
 
 func Html(c *gin.Context) {
-	c.HTML(http.StatusOK, "data.html", gin.H{})
+	attackCity := conf.Get("admin", "attack_city")
+	c.HTML(http.StatusOK, "data.html", gin.H{
+		"dataAttack": attackCity,
+	})
 }
 
 // 统计中国攻击地区
@@ -189,6 +193,31 @@ func GetPasswdInfo(c *gin.Context) {
 	for k := range result {
 		rMap := make(map[string]string)
 		rMap["name"] = result[k]["password"].(string)
+		rMap["value"] = strconv.FormatInt(result[k]["sum"].(int64), 10)
+		resultMap = append(resultMap, rMap)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
+		"data": resultMap,
+	})
+}
+
+// 获取全球攻击数量
+func GetWordInfo(c *gin.Context) {
+	var result []map[string]interface{}
+	err := dbUtil.DB().Table(&result).Query("select region,sum(1) as sum from hfish_info GROUP BY region;")
+
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "查询SQL失败", err)
+	}
+
+	var resultMap []map[string]string
+
+	for k := range result {
+		rMap := make(map[string]string)
+		rMap["name"] = result[k]["region"].(string)
 		rMap["value"] = strconv.FormatInt(result[k]["sum"].(int64), 10)
 		resultMap = append(resultMap, rMap)
 	}
