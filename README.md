@@ -118,7 +118,7 @@
 **Team：** HackLC
 
 
-**官网：** https://hack.lc
+**Website：** https://hack.lc
 
 
 **Focus on the safety industry, focus on building good products**
