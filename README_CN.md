@@ -93,7 +93,7 @@
 ### 态势感知
 
 
-![](./images/data.jpg)
+![](./images/data.png)
 
 
 ### 上钩页
