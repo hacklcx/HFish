@@ -82,7 +82,7 @@
 ### Situational awareness
 
 
-![](./images/data.jpg)
+![](./images/data.png)
 
 
 ### Upper hook page

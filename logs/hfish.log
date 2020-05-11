@@ -1,0 +1,104 @@
+[HFish] ::1 - [2020-05-11 19:31:00] "GET / HTTP/1.1 302 83.692µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 302 |     152.474µs |             ::1 | GET      /
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /login HTTP/1.1 200 2.295913ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |    2.345867ms |             ::1 | GET      /login
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/libs/bootstrap-sweetalert/sweet-alert.css HTTP/1.1 200 3.274376ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |    3.321223ms |             ::1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.css
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/css/style.css HTTP/1.1 200 8.076231ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |    8.127389ms |             ::1 | GET      /static/css/style.css
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/images/hfish.png HTTP/1.1 200 2.70423ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |    2.764717ms |             ::1 | GET      /static/images/hfish.png
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/js/jquery.min.js HTTP/1.1 200 909.593µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |      946.33µs |             ::1 | GET      /static/js/jquery.min.js
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/js/jquery.app.js HTTP/1.1 200 317.941µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |     363.321µs |             ::1 | GET      /static/js/jquery.app.js
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/js/jquery.core.js HTTP/1.1 200 351.795µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |     435.683µs |             ::1 | GET      /static/js/jquery.core.js
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/js/loginbg.js HTTP/1.1 200 332.042µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |      415.29µs |             ::1 | GET      /static/js/loginbg.js
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/libs/bootstrap-sweetalert/sweet-alert.min.js HTTP/1.1 200 383.782µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |     411.856µs |             ::1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.min.js
+[HFish] ::1 - [2020-05-11 19:31:00] "GET /static/favicon.ico HTTP/1.1 200 310.367µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:00 | 200 |     341.742µs |             ::1 | GET      /static/favicon.ico
+[HFish] ::1 - [2020-05-11 19:31:01] "POST /login HTTP/1.1 200 278.806µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     319.473µs |             ::1 | POST     /login
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /dashboard HTTP/1.1 200 8.056194ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |    8.087738ms |             ::1 | GET      /dashboard
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/libs/switchery/switchery.min.css HTTP/1.1 200 283.052µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     321.926µs |             ::1 | GET      /static/libs/switchery/switchery.min.css
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/images/logo.png HTTP/1.1 200 260.939µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     289.771µs |             ::1 | GET      /static/images/logo.png
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/images/avatar.jpg HTTP/1.1 200 469.262µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     508.381µs |             ::1 | GET      /static/images/avatar.jpg
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/js/tether.min.js HTTP/1.1 200 395.375µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     428.121µs |             ::1 | GET      /static/js/tether.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/js/bootstrap.min.js HTTP/1.1 200 604.026µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     631.729µs |             ::1 | GET      /static/js/bootstrap.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/js/xss.min.js HTTP/1.1 200 759.771µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     791.781µs |             ::1 | GET      /static/js/xss.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/libs/switchery/switchery.min.js HTTP/1.1 200 316.679µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     364.776µs |             ::1 | GET      /static/libs/switchery/switchery.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/libs/waypoints/lib/jquery.waypoints.js HTTP/1.1 200 339.98µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     368.543µs |             ::1 | GET      /static/libs/waypoints/lib/jquery.waypoints.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/libs/counterup/jquery.counterup.min.js HTTP/1.1 200 291.307µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     329.037µs |             ::1 | GET      /static/libs/counterup/jquery.counterup.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/libs/moment/moment.min.js HTTP/1.1 200 532.742µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     561.544µs |             ::1 | GET      /static/libs/moment/moment.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/data/js/echarts-wordcloud.min.js HTTP/1.1 200 964.083µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     994.601µs |             ::1 | GET      /static/data/js/echarts-wordcloud.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/data/js/echarts-3.8.5.min.js HTTP/1.1 200 1.971362ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |    1.997341ms |             ::1 | GET      /static/data/js/echarts-3.8.5.min.js
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/fonts/fontawesome-webfont.woff2?v=4.6.2 HTTP/1.1 200 1.605986ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |    1.681938ms |             ::1 | GET      /static/fonts/fontawesome-webfont.woff2?v=4.6.2
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0 HTTP/1.1 200 1.355779ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |    1.447878ms |             ::1 | GET      /static/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/fonts/ionicons.ttf?v=1.5.0 HTTP/1.1 200 1.333662ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |    1.357486ms |             ::1 | GET      /static/fonts/ionicons.ttf?v=1.5.0
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /static/fonts/Simple-Line-Icons.ttf?-i3a2kk HTTP/1.1 200 669.102µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |     999.153µs |             ::1 | GET      /static/fonts/Simple-Line-Icons.ttf?-i3a2kk
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /data/get/account HTTP/1.1 200 6.199379ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |    6.254789ms |             ::1 | GET      /data/get/account
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /get/dashboard/pie_data HTTP/1.1 200 10.641267ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |   10.669774ms |             ::1 | GET      /get/dashboard/pie_data
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /data/get/password HTTP/1.1 200 8.324778ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |    8.378722ms |             ::1 | GET      /data/get/password
+[HFish] ::1 - [2020-05-11 19:31:01] "GET /get/dashboard/data HTTP/1.1 200 36.452681ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:01 | 200 |   36.481976ms |             ::1 | GET      /get/dashboard/data
+[HFish] ::1 - [2020-05-11 19:31:03] "GET /data HTTP/1.1 200 1.843422ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:03 | 200 |    1.883658ms |             ::1 | GET      /data
+[HFish] ::1 - [2020-05-11 19:31:03] "GET /static/data/css/app.css HTTP/1.1 200 585.687µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:03 | 200 |     653.437µs |             ::1 | GET      /static/data/css/app.css
+[HFish] ::1 - [2020-05-11 19:31:03] "GET /static/data/css/bootstrap/css/bootstrap.min.css HTTP/1.1 200 2.556065ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:03 | 200 |    2.596005ms |             ::1 | GET      /static/data/css/bootstrap/css/bootstrap.min.css
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/img/bg01.png HTTP/1.1 200 2.126792ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    2.185738ms |             ::1 | GET      /static/data/img/bg01.png
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/img/header.png HTTP/1.1 200 802.917µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |     887.132µs |             ::1 | GET      /static/data/img/header.png
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/img/panel.png HTTP/1.1 200 317.365µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |     346.091µs |             ::1 | GET      /static/data/img/panel.png
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/js/jquery-3.3.1.min.js HTTP/1.1 200 740.85µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |     786.163µs |             ::1 | GET      /static/data/js/jquery-3.3.1.min.js
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/js/dark.js HTTP/1.1 200 1.018088ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.059882ms |             ::1 | GET      /static/data/js/dark.js
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/js/data.js HTTP/1.1 200 1.005924ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.040281ms |             ::1 | GET      /static/data/js/data.js
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/js/echarts-map-world.js HTTP/1.1 200 10.28198ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |   10.304639ms |             ::1 | GET      /static/data/js/echarts-map-world.js
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /static/data/css/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1 200 1.379473ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.412327ms |             ::1 | GET      /static/data/css/bootstrap/fonts/glyphicons-halflings-regular.woff2
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/country HTTP/1.1 200 1.093567ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.156437ms |             ::1 | GET      /data/get/country
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/china HTTP/1.1 200 2.150019ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    2.189109ms |             ::1 | GET      /data/get/china
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/ip HTTP/1.1 200 1.4743ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.517841ms |             ::1 | GET      /data/get/ip
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/type HTTP/1.1 200 1.683417ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.774669ms |             ::1 | GET      /data/get/type
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/account HTTP/1.1 200 1.405326ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.437913ms |             ::1 | GET      /data/get/account
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/password HTTP/1.1 200 3.165678ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    3.196883ms |             ::1 | GET      /data/get/password
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/info HTTP/1.1 200 1.339884ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    1.430617ms |             ::1 | GET      /data/get/info
+[HFish] ::1 - [2020-05-11 19:31:04] "GET /data/get/word HTTP/1.1 200 2.924486ms "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" "
+[GIN] 2020/05/11 - 19:31:04 | 200 |    2.951286ms |             ::1 | GET      /data/get/word

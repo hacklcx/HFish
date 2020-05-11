@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	setting.Run()
+	//setting.Run()
 	args := os.Args
 	if args == nil || len(args) < 2 {
 		setting.Help()
@@ -17,7 +17,7 @@ func main() {
 		} else if args[1] == "init" || args[1] == "--init" {
 			setting.Init()
 		} else if args[1] == "version" || args[1] == "--version" {
-			fmt.Println("v0.6.1")
+			fmt.Println("v0.6.2")
 		} else if args[1] == "run" || args[1] == "--run" {
 			setting.Run()
 		} else {
