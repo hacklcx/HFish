@@ -207,7 +207,7 @@ func GetPasswdInfo(c *gin.Context) {
 // 获取全球攻击数量
 func GetWordInfo(c *gin.Context) {
 	var result []map[string]interface{}
-	err := dbUtil.DB().Table(&result).Query("select region,sum(1) as sum from hfish_info GROUP BY region;")
+	err := dbUtil.DB().Table(&result).Query("select region,count(1) as sum from hfish_info GROUP BY region;")
 
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "查询SQL失败", err)

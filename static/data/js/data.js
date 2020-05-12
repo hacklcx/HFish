@@ -335,7 +335,7 @@ function mainInfo() {
                 _h += '        <td>' + filterXSS(result[i].agent) + '</td>';
                 _h += '        <td>' + filterXSS(result[i].ip) + '</td>';
                 _h += '        <td>' + filterXSS(result[i].country) + ' ' + filterXSS(result[i].region) + '</td>';
-                _h += '        <td>' + filterXSS(result[i].create_time).split(" ")[1] + '</td>';
+                _h += '        <td>' + filterXSS(formatDate(result[i].create_time)).split(" ")[1] + '</td>';
                 _h += '    </tr>';
             }
 
@@ -370,7 +370,7 @@ function mainWs() {
             _h += '        <td>' + filterXSS(d.agent) + '</td>';
             _h += '        <td>' + filterXSS(d.ipx) + '</td>';
             _h += '        <td>' + filterXSS(d.country) + ' ' + filterXSS(d.region) + '</td>';
-            _h += '        <td>' + filterXSS(d.time).split(" ")[1] + '</td>';
+            _h += '        <td>' + filterXSS(formatDate(d.time)).split(" ")[1] + '</td>';
             _h += '    </tr>';
 
             $(".data_list").before(_h);
@@ -879,6 +879,11 @@ function getTime() {
     var currentFormatDate = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 
     $("#timex").text(currentFormatDate);
+}
+
+function formatDate(d) {
+    var datex = new Date(d).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+    return datex
 }
 
 setInterval(getTime, 1000);

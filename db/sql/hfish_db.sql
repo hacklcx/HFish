@@ -74,7 +74,7 @@ DROP TABLE IF EXISTS `hfish_setting`;
 CREATE TABLE `hfish_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL DEFAULT '',
-  `info` text NOT NULL DEFAULT '',
+  `info` text,
   `update_time` datetime NOT NULL,
   `status` int(2) NOT NULL DEFAULT '0',
   `setting_name` varchar(50) NOT NULL DEFAULT '',
