@@ -16,6 +16,22 @@ var main5 = echarts.init(document.getElementById('main5'));
 var main6 = echarts.init(document.getElementById('main6'));
 var worldMap = echarts.init(document.getElementById('worldMap'));
 
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
 
 function main1_data() {
     $.ajax({
@@ -882,8 +898,7 @@ function getTime() {
 }
 
 function formatDate(d) {
-    var datex = new Date(d).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-    return datex
+    return new Date(d).Format("yyyy-MM-dd hh:mm:ss");
 }
 
 setInterval(getTime, 1000);
