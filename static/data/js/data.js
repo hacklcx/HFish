@@ -882,7 +882,7 @@ function getTime() {
 }
 
 function formatDate(d) {
-    var datex = new Date(d).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+    var datex = new Date(d).toLocaleString('zh-CN', {hour12:false})
     return datex
 }
 
