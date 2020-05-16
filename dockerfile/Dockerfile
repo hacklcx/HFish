@@ -1,7 +1,8 @@
 FROM alpine:latest
 
 ENV GLIBC_VERSION 2.29-r0
-ENV HFISH_VERSION 0.6
+ENV HFISH_VERSION 0.6.2
+ENV HFISH_VERSION_NEW 0.6.3
 
 # Download and install glibc
 RUN apk update && \
@@ -16,7 +17,15 @@ RUN apk update && \
 RUN curl -Lo /tmp/HFish.tar.gz https://github.com/hacklcx/HFish/releases/download/${HFISH_VERSION}/HFish-${HFISH_VERSION}-linux-amd64.tar.gz && \
   tar -zxvf /tmp/HFish.tar.gz -C /tmp && \
   mv /tmp/HFish-${HFISH_VERSION}-linux-amd64 /tmp/HFish && \
-  rm -f /tmp/HFish.tar.gz /tmp/HFish/LICENSE /tmp/HFish/README.md
+  rm -f /tmp/HFish.tar.gz /tmp/HFish/LICENSE && \
+  rm -f /tmp/HFish/HFish /tmp/HFish/static/data/js/data.js
+
+RUN curl -Lo /tmp/HFish.tar.gz https://github.com/hacklcx/HFish/releases/download/${HFISH_VERSION_NEW}/HFish-${HFISH_VERSION_NEW}-linux-amd64.tar.gz && \
+  tar -zxvf /tmp/HFish.tar.gz -C /tmp && \
+  cp /tmp/HFish-${HFISH_VERSION_NEW}-linux-amd64/HFish /tmp/HFish/ && \
+  cp /tmp/HFish-${HFISH_VERSION_NEW}-linux-amd64/static/data/js/data.js /tmp/HFish/static/data/js/ && \
+  rm -rf /tmp/HFish-${HFISH_VERSION}-linux-amd64 && \
+  rm -f /tmp/HFish.tar.gz
 
 COPY Entrypoint.sh /Entrypoint.sh
 
