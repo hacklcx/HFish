@@ -761,7 +761,7 @@ function main7_data() {
                     formatter: function (params, ticket, callback) {
                         var res = "";
                         var name = params.name;
-                        var value = params.value[params.seriesIndex + 1];
+                        var value = typeof(params.value[params.seriesIndex + 1]) == "undefined" ? 0 : params.value[params.seriesIndex + 1];
                         res =
                             "<span style='color:#fff;'>" +
                             name +
