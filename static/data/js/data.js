@@ -27,6 +27,10 @@ function main1_data() {
 
             var listx = [];
 
+            if (d.regionList == null) {
+                return
+            }
+
             for (var i = 0; i < d.regionList.length; i++) {
                 listx.push(d.regionList[i].name);
             }
@@ -83,6 +87,10 @@ function main2_data() {
 
             var listx = [];
 
+            if (d.regionList == null) {
+                return
+            }
+
             for (var i = 0; i < d.regionList.length; i++) {
                 listx.push(d.regionList[i].name);
             }
@@ -137,6 +145,9 @@ function main3_data() {
         success: function (e) {
             var d = e.data;
 
+            if (d.ipList == null) {
+                return
+            }
             var option = {
                 tooltip: {
                     trigger: 'item',
@@ -174,6 +185,10 @@ function main4_data() {
 
             var dataN = [];
             var dataV = [];
+
+            if (d.typeList == null) {
+                return
+            }
 
             for (var i = d.typeList.length - 1; i >= 0; i--) {
                 dataN.push(d.typeList[i].name);
@@ -233,6 +248,9 @@ function main5_data() {
         success: function (e) {
             var d = e.data;
 
+            if (d == null) {
+                return
+            }
             var option = {
 
                 tooltip: {
@@ -280,6 +298,9 @@ function main6_data() {
         success: function (e) {
             var d = e.data;
 
+            if (d == null) {
+                return
+            }
             var option = {
 
                 tooltip: {
@@ -328,6 +349,9 @@ function mainInfo() {
 
             var _h = '';
 
+            if (d.result == null) {
+                return
+            }
             var result = d.result;
             for (var i = 0; i < result.length; i++) {
                 _h += '    <tr class="data_list">';
@@ -335,7 +359,7 @@ function mainInfo() {
                 _h += '        <td>' + filterXSS(result[i].agent) + '</td>';
                 _h += '        <td>' + filterXSS(result[i].ip) + '</td>';
                 _h += '        <td>' + filterXSS(result[i].country) + ' ' + filterXSS(result[i].region) + '</td>';
-                _h += '        <td>' + filterXSS(formatDate(result[i].create_time)).split(" ")[1] + '</td>';
+                _h += '        <td>' + filterXSS(formatDate(result[i].create_time)) + '</td>';
                 _h += '    </tr>';
             }
 
@@ -370,7 +394,7 @@ function mainWs() {
             _h += '        <td>' + filterXSS(d.agent) + '</td>';
             _h += '        <td>' + filterXSS(d.ipx) + '</td>';
             _h += '        <td>' + filterXSS(d.country) + ' ' + filterXSS(d.region) + '</td>';
-            _h += '        <td>' + filterXSS(formatDate(d.time)).split(" ")[1] + '</td>';
+            _h += '        <td>' + filterXSS(formatDate(d.time)) + '</td>';
             _h += '    </tr>';
 
             $(".data_list").before(_h);
@@ -626,13 +650,15 @@ function main7_data() {
         dataType: "json",
         success: function (e) {
             var d = e.data;
-
             var geoCoordArry = [];
             for (var item in geoCoordMap) {
                 geoCoordArry.push(item);
             }
 
             var attckData = [];
+            if (d == null) {
+                return
+            }
             for (var i = 0; i < d.length; i++) {
 
                 if (geoCoordArry.indexOf(d[i].name) > -1) {
@@ -761,7 +787,7 @@ function main7_data() {
                     formatter: function (params, ticket, callback) {
                         var res = "";
                         var name = params.name;
-                        var value = typeof(params.value[params.seriesIndex + 1]) == "undefined" ? 0 : params.value[params.seriesIndex + 1];
+                        var value = typeof (params.value[params.seriesIndex + 1]) == "undefined" ? 0 : params.value[params.seriesIndex + 1];
                         res =
                             "<span style='color:#fff;'>" +
                             name +
@@ -881,9 +907,10 @@ function getTime() {
     $("#timex").text(currentFormatDate);
 }
 
-function formatDate(d) {
-    var datex = new Date(d).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-    return datex
+
+function formatDate(time) {
+    return new Date(+new Date(time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
 }
+
 
 setInterval(getTime, 1000);
