@@ -1,7 +1,7 @@
 package ssh
 
 import (
-	"github.com/gliderlabs/ssh"
+	"HFish/core/protocol/ssh/gliderlabs"
 	"golang.org/x/crypto/ssh/terminal"
 	"io"
 	"strings"
@@ -36,9 +36,13 @@ func Start(addr string) {
 			res := getJson()
 
 			term := terminal.NewTerminal(s, res.Get("hostname").MustString())
-			line := ""
 			for {
-				line, _ = term.ReadLine()
+				line, rerr := term.ReadLine()
+
+				if rerr != nil {
+					break
+				}
+
 				if line == "exit" {
 					break
 				}

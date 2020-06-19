@@ -1,30 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <title>HFish 全球态势感知</title>
+    <link rel="stylesheet" href="/static/data/css/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/data/css/app.css"/>
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <style>
+        #datamian {
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .data_list {
+            width: 100%;
+            border-bottom: 1px solid #206c90;
+            clear: both;
+            height: 35px;
+        }
+
+        .data_list:hover {
+            background: rgba(55, 138, 177, 0.2)
+        }
+
+        .data_ul_head {
+            background: #175165;
+        }
+
+        .data_ul_head li {
+            float: left;
+            list-style-type: none;
+            margin-right: 55px;
+        }
+
+        .look {
+            color: #49addc;
+            cursor: pointer;
+
+        }
+
+        td {
+            padding-left: 7px;
+        }
+
+        .title {
+            color: #bfc7cc;
+            text-align: center;
+            margin-top: -5px;
+            font-weight: bold;
+        }
+
+        .homex {
+            color: #4cb5f3;
+            position: absolute;
+            margin-top: 46px;
+            margin-left: 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .timex{
+            color: #45b4f5;
+            float: right;
+            position: absolute;
+            margin-top: -21px;
+            font-size: 16px;
+            right: 0;
+            margin-right: 22px;
+        }
+    </style>
 </head>
-<body>
-<div id="p">
 
+<body class="bg01">
+<header class="header">
+    <h3>HFish 全球态势感知</h3>
+</header>
+<a href="/dashboard"><span class="glyphicon glyphicon-home homex" aria-hidden="true"></span></a>
+<div class="timex">
+    <span>当前时间: </span><span id="timex">2020-04-28 21:31:01</span>
 </div>
-
-<script>
-    var ws = new WebSocket('ws://127.0.0.1:9001/data/ws');
-
-    ws.onopen = function () {
-        ws.send("ping");
-    };
-
-    ws.onmessage = function (evt) {
-        var received_msg = evt.data;
-        document.getElementById("p").innerHTML = "<p>" + received_msg + "</p>"
-    };
-
-    ws.onclose = function () {
-        // 关闭 websocket
-        console.log("close")
-    };
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row fill-h">
+            <div class="col-lg-3 fill-h">
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">中国地区 TOP 8</div>
+                        <div class="fill-h" id="main1"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">全球地区 TOP 8</div>
+                        <div class="fill-h" id="main2"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">IP TOP 10</div>
+                        <div class="fill-h" id="main3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 fill-h">
+                <div class="xpanel-wrapper xpanel-wrapper-2">
+                    <div class="xpanel">
+                        <!-- 地图散点 -->
+                        <div class="fill-h" id="worldMap"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-2">
+                    <div class="xpanel">
+                        <!-- 地图散点 -->
+                        <div class="fill-h" id="datamian">
+                            <table class="data_list_head table" id="info_list">
+                                <tbody class="data_ul_head">
+                                <tr>
+                                    <th style="border: 0px;width: 10%;">类型</th>
+                                    <th style="border: 0px;width: 25%;">节点</th>
+                                    <th style="border: 0px;width: 25%;">来源IP</th>
+                                    <th style="border: 0px;width: 29%;">地理信息</th>
+                                    <th style="border: 0px;width: 11%;">攻击时间</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 fill-h">
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">攻击类型 TOP 10</div>
+                        <div class="fill-h" id="main4"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">账号统计</div>
+                        <div class="fill-h" id="main5"></div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-3">
+                    <div class="xpanel">
+                        <div class="title">密码统计</div>
+                        <div class="fill-h" id="main6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="dataAttack" type="hidden" value="{{.dataAttack}}">
+<script type="text/javascript" src="/static/data/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/data/js/echarts-3.8.5.min.js"></script>
+<script type="text/javascript" src="/static/data/js/echarts-wordcloud.min.js"></script>
+<script type="text/javascript" src="/static/data/js/echarts-map-world.js"></script>
+<script type="text/javascript" src="/static/data/js/dark.js"></script>
+<script type="text/javascript" src="/static/js/xss.min.js"></script>
+<script type="text/javascript">
+    var attckCity = $("#dataAttack").val();
 </script>
+<script type="text/javascript" src="/static/data/js/data.js"></script>
 </body>
+
 </html>

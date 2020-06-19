@@ -2,8 +2,6 @@ package alert
 
 import (
 	"HFish/utils/try"
-	"HFish/core/dbUtil"
-	"strconv"
 	"strings"
 	"HFish/utils/send"
 	"bytes"
@@ -13,6 +11,8 @@ import (
 	"HFish/view/data"
 	"github.com/gin-gonic/gin"
 	"HFish/error"
+	"HFish/utils/cache"
+	"HFish/utils/passwd"
 )
 
 func AlertMail(model string, typex string, agent string, ipx string, country string, region string, city string, infox string) {
@@ -20,17 +20,11 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 	try.Try(func() {
 		// 只有新加入才会发送邮件通知
 		if (model == "new") {
-			result, err := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "alertMail").First()
-
-			if err != nil {
-				log.Pr("HFish", "127.0.0.1", "获取邮件告警配置失败", err)
-			}
-
-			status := strconv.FormatInt(result["status"].(int64), 10)
+			status, _ := cache.Get("MailConfigStatus")
 
 			// 判断是否启用通知
 			if status == "1" {
-				info := result["info"]
+				info, _ := cache.Get("MailConfigInfo")
 				config := strings.Split(info.(string), "&&")
 
 				if (country == "本地地址") {
@@ -39,6 +33,20 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 				} else if (country == "局域网") {
 					region = ""
 					city = ""
+				}
+
+				// 判断是否开启脱敏
+				passwdConfigStatus, _ := cache.Get("PasswdConfigStatus")
+
+				if (passwdConfigStatus == "1") {
+					if (typex == "FTP" || typex == "SSH") {
+						// 获取脱敏加密字符
+						passwdConfigInfo, _ := cache.Get("PasswdConfigInfo")
+
+						arr := strings.Split(infox, "&&")
+
+						infox = arr[0] + "&&" + passwd.Desensitization(arr[1], passwdConfigInfo.(string))
+					}
 				}
 
 				text := `
@@ -62,17 +70,11 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 func AlertWebHook(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, time string) {
 	// 判断 WebHook 通知
 	try.Try(func() {
-		result, err := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "webHook").First()
-
-		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "获取WebHook配置失败", err)
-		}
-
-		status := strconv.FormatInt(result["status"].(int64), 10)
+		status, _ := cache.Get("HookConfigStatus")
 
 		// 判断是否启用通知
 		if status == "1" {
-			info := result["info"]
+			info, _ := cache.Get("HookConfigInfo")
 
 			song := make(map[string]interface{})
 			song["id"] = id

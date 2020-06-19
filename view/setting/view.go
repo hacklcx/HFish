@@ -8,6 +8,7 @@ import (
 	"time"
 	"HFish/utils/log"
 	"HFish/error"
+	"HFish/utils/cache"
 )
 
 func Html(c *gin.Context) {
@@ -51,6 +52,9 @@ func checkInfo(id string) bool {
 	if num >= 1 && typeStr == "webHook" {
 		return true
 	}
+	if num >= 1 && typeStr == "passwdTM" {
+		return true
+	}
 	return false
 }
 
@@ -81,7 +85,7 @@ func updateInfoBase(info string, id string) {
 	}
 }
 
-// 更新邮件通知
+// 更新邮件群发配置
 func UpdateEmailInfo(c *gin.Context) {
 	email := c.PostForm("email")
 	id := c.PostForm("id")
@@ -101,7 +105,7 @@ func UpdateEmailInfo(c *gin.Context) {
 	})
 }
 
-// 更新警告邮件通知
+// 更新警告邮件配置
 func UpdateAlertMail(c *gin.Context) {
 	email := c.PostForm("email")
 	id := c.PostForm("id")
@@ -116,6 +120,7 @@ func UpdateAlertMail(c *gin.Context) {
 	info := joinInfo(host, port, email, pass, receiveInfo)
 
 	// 更新
+	cache.Setx("MailConfigInfo", info)
 	updateInfoBase(info, id)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -134,6 +139,7 @@ func UpdateWhiteIp(c *gin.Context) {
 	info := joinInfo(Arr...)
 
 	// 更新
+	cache.Setx("IpConfigInfo", info)
 	updateInfoBase(info, id)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -148,7 +154,23 @@ func UpdateWebHook(c *gin.Context) {
 	webHookUrl := c.PostForm("webHookUrl")
 
 	// 更新
+	cache.Setx("HookConfigInfo", webHookUrl)
 	updateInfoBase(webHookUrl, id)
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
+	})
+}
+
+// 更新 密码加密符号
+func UpdatePasswdTM(c *gin.Context) {
+	id := c.PostForm("id")
+	text := c.PostForm("text")
+
+	// 更新
+	cache.Setx("PasswdConfigInfo", text)
+	updateInfoBase(text, id)
 
 	c.JSON(http.StatusOK, gin.H{
 		"code": error.ErrSuccessCode,
@@ -176,6 +198,16 @@ func UpdateStatusSetting(c *gin.Context) {
 		Where("id", id).
 		Update()
 
+	if id == "2" {
+		cache.Setx("MailConfigStatus", status)
+	} else if id == "3" {
+		cache.Setx("HookConfigStatus", status)
+	} else if id == "4" {
+		cache.Setx("IpConfigStatus", status)
+	} else if id == "4" {
+		cache.Setx("PasswdConfigStatus", status)
+	}
+
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "更新设置状态失败", err)
 	}
@@ -200,5 +232,35 @@ func GetSettingInfo(c *gin.Context) {
 		"code": error.ErrSuccessCode,
 		"msg":  error.ErrSuccessMsg,
 		"data": result,
+	})
+}
+
+// 清空数据
+func ClearData(c *gin.Context) {
+	tyep := c.PostForm("type")
+
+	if tyep == "1" {
+		_, err := dbUtil.DB().Table("hfish_info").Force().Delete()
+
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "清空上钩数据失败", err)
+		}
+	} else if tyep == "2" {
+		_, err := dbUtil.DB().Table("hfish_colony").Force().Delete()
+
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "清空集群数据失败", err)
+		}
+	} else if tyep == "3" {
+		_, err := dbUtil.DB().Table("hfish_passwd").Force().Delete()
+
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "清空密码数据失败", err)
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": error.ErrSuccessCode,
+		"msg":  error.ErrSuccessMsg,
 	})
 }

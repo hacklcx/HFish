@@ -24,7 +24,7 @@ func ReportWeb(c *gin.Context) {
 		ip = "127.0.0.1"
 	}
 
-	apiSecKey := conf.Get("api", "sec_key")
+	apiSecKey := conf.Get("api", "report_key")
 
 	if secKey != apiSecKey {
 		c.JSON(http.StatusOK, gin.H{
@@ -60,7 +60,7 @@ func ReportDeepWeb(c *gin.Context) {
 		ip = "127.0.0.1"
 	}
 
-	apiSecKey := conf.Get("api", "sec_key")
+	apiSecKey := conf.Get("api", "report_key")
 
 	if secKey != apiSecKey {
 		c.JSON(http.StatusOK, gin.H{
@@ -123,7 +123,7 @@ func ReportPlugWeb(c *gin.Context) {
 
 	data := "Host:" + info.Info["host"].(string) + "&&Url:" + info.Info["uri"].(string) + "&&Method:" + info.Info["method"].(string) + "&&Args:" + args + "&&UserAgent:" + info.Info["http_user_agent"].(string) + "&&RemoteAddr:" + info.Info["remote_addr"].(string) + "&&TimeLocal:" + info.Info["time_local"].(string)
 
-	apiSecKey := conf.Get("api", "sec_key")
+	apiSecKey := conf.Get("api", "report_key")
 
 	if info.SecKey != apiSecKey {
 		c.JSON(http.StatusOK, gin.H{
@@ -150,30 +150,84 @@ func ReportPlugWeb(c *gin.Context) {
 
 // 获取黑名单 黑客IP 列表
 func GetIpList(c *gin.Context) {
-	result, err := dbUtil.DB().Table("hfish_info").Fields("ip").GroupBy("ip").Get()
+	key, _ := c.GetQuery("key")
 
-	if err != nil {
-		log.Pr("API", "127.0.0.1", "查询黑名单IP列表失败", err)
+	apiSecKey := conf.Get("api", "query_key")
+
+	if key != apiSecKey {
+		c.JSON(http.StatusOK, gin.H{
+			"code": error.ErrFailApiKeyCode,
+			"msg":  error.ErrFailApiKeyMsg,
+		})
+
+		return
+	} else {
+		result, err := dbUtil.DB().Table("hfish_info").Fields("ip").GroupBy("ip").Get()
+
+		if err != nil {
+			log.Pr("API", "127.0.0.1", "查询黑名单IP列表失败", err)
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"code": error.ErrSuccessCode,
+			"msg":  error.ErrSuccessMsg,
+			"data": result,
+		})
 	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": result,
-	})
 }
 
 // 获取钓鱼列表 API
 func GetFishInfo(c *gin.Context) {
-	result, err := dbUtil.DB().Table("hfish_info").OrderBy("id desc").Get()
+	key, _ := c.GetQuery("key")
 
-	if err != nil {
-		log.Pr("API", "127.0.0.1", "获取钓鱼列表失败", err)
+	apiSecKey := conf.Get("api", "query_key")
+
+	if key != apiSecKey {
+		c.JSON(http.StatusOK, gin.H{
+			"code": error.ErrFailApiKeyCode,
+			"msg":  error.ErrFailApiKeyMsg,
+		})
+
+		return
+	} else {
+		result, err := dbUtil.DB().Table("hfish_info").OrderBy("id desc").Get()
+
+		if err != nil {
+			log.Pr("API", "127.0.0.1", "获取钓鱼列表失败", err)
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"code": error.ErrSuccessCode,
+			"msg":  error.ErrSuccessMsg,
+			"data": result,
+		})
 	}
+}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": result,
-	})
+// 获取账号密码列表 API
+func GetAccountPasswdInfo(c *gin.Context) {
+	key, _ := c.GetQuery("key")
+
+	apiSecKey := conf.Get("api", "query_key")
+
+	if key != apiSecKey {
+		c.JSON(http.StatusOK, gin.H{
+			"code": error.ErrFailApiKeyCode,
+			"msg":  error.ErrFailApiKeyMsg,
+		})
+
+		return
+	} else {
+		result, err := dbUtil.DB().Table("hfish_passwd").OrderBy("id desc").Get()
+
+		if err != nil {
+			log.Pr("API", "127.0.0.1", "获取账号密码列表失败", err)
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"code": error.ErrSuccessCode,
+			"msg":  error.ErrSuccessMsg,
+			"data": result,
+		})
+	}
 }

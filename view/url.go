@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"HFish/view/login"
 	"HFish/utils/cors"
+	"HFish/view/data"
 )
 
 func LoadUrl(r *gin.Engine) {
@@ -33,8 +34,16 @@ func LoadUrl(r *gin.Engine) {
 	r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
 
 	// 大数据仪表盘
-	//r.GET("/data", login.Jump, data.Html)
-	//r.GET("/data/ws", data.Ws)
+	r.GET("/data", login.Jump, data.Html)
+	r.GET("/data/get/china", login.Jump, data.GetChina)
+	r.GET("/data/get/country", login.Jump, data.GetCountry)
+	r.GET("/data/get/ip", login.Jump, data.GetIp)
+	r.GET("/data/get/type", login.Jump, data.GetType)
+	r.GET("/data/get/info", login.Jump, data.GetNewInfo)
+	r.GET("/data/get/account", login.Jump, data.GetAccountInfo)
+	r.GET("/data/get/password", login.Jump, data.GetPasswdInfo)
+	r.GET("/data/get/word", login.Jump, data.GetWordInfo)
+	r.GET("/data/ws", data.Ws)
 
 	// 分布式集群
 	r.GET("/colony", login.Jump, colony.Html)
@@ -53,10 +62,13 @@ func LoadUrl(r *gin.Engine) {
 	r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
 	r.POST("/post/setting/updateWebHook", login.Jump, setting.UpdateWebHook)
 	r.POST("/post/setting/updateWhiteIp", login.Jump, setting.UpdateWhiteIp)
+	r.POST("/post/setting/updatePasswdTM", login.Jump, setting.UpdatePasswdTM)
+	r.POST("/post/setting/clearData", login.Jump, setting.ClearData)
 
 	// API 接口
 	// 解决跨域问题
 	r.Use(cors.Cors())
 	r.GET("/api/v1/get/ip", api.GetIpList)
 	r.GET("/api/v1/get/fish_info", api.GetFishInfo)
+	r.GET("/api/v1/get/passwd_list", api.GetAccountPasswdInfo)
 }

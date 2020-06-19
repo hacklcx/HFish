@@ -70,6 +70,26 @@
         background-color: #61772d;
     }
 
+    .lb_es {
+        background-color: #0177a3;
+    }
+
+    .lb_tftp {
+        background-color: #452b6d;
+    }
+
+    .lb_vnc {
+        background-color: #3c6f40;
+    }
+
+    .lb_http {
+        background-color: #56a996;
+    }
+
+    .lb_custom {
+        background-color: #8c600e;
+    }
+
     .pre {
         background: #2c2c31;
         color: #4fe21b;
@@ -202,7 +222,7 @@
     </div>
 </div>
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="myFishInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -231,7 +251,7 @@
                 if (e.code == 200) {
                     var data = e.data;
                     var str = data.info.replace(/&&/g, "<br>");
-                    $(".pre").html(str);
+                    $(".pre").html(filterXSS(str));
                 } else {
                 }
             },
@@ -239,7 +259,7 @@
             }
         });
 
-        $('#myModal').modal('show')
+        $('#myFishInfo').modal('show');
     }
 
     function del() {
@@ -281,7 +301,7 @@
                 var _h = '<option value="all">请选择类型</option>';
 
                 for (var i = 0; i < data.length; i++) {
-                    _h += '<option value="' + data[i].type + '">' + data[i].type + '</option>';
+                    _h += '<option value="' + data[i].type + '">' + filterXSS(data[i].type) + '</option>';
                 }
 
                 $("#selectType").html(_h);
@@ -290,7 +310,7 @@
                 var _h1 = '<option value="all">请选择集群</option>';
 
                 for (var i = 0; i < data1.length; i++) {
-                    _h1 += '<option value="' + data1[i].agent + '">' + data1[i].agent + '</option>';
+                    _h1 += '<option value="' + data1[i].agent + '">' + filterXSS(data1[i].agent) + '</option>';
                 }
                 $("#selectColony").html(_h1);
             },
@@ -372,12 +392,22 @@
                         _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
                     } else if (data.result[i].type == "PLUG") {
                         _h += '       <span class="label lb_plug">PLUG</span> ';
+                    } else if (data.result[i].type == "ES") {
+                        _h += '       <span class="label lb_es">ES</span> ';
+                    } else if (data.result[i].type == "TFTP") {
+                        _h += '       <span class="label lb_tftp">TFTP</span> ';
+                    } else if (data.result[i].type == "VNC") {
+                        _h += '       <span class="label lb_vnc">VNC</span> ';
+                    } else if (data.result[i].type == "HTTP") {
+                        _h += '       <span class="label lb_http">HTTP</span> ';
+                    } else if (data.result[i].type == "CUSTOM") {
+                        _h += '       <span class="label lb_custom">CUSTOM</span> ';
                     }
 
-                    _h += '       <span class="project">' + data.result[i].project_name + '</span>';
+                    _h += '       <span class="project">' + filterXSS(data.result[i].project_name) + '</span>';
                     _h += '    </td>';
-                    _h += '    <td class="td"><span class="agent_name">' + data.result[i].agent + '</span></td>';
-                    _h += '    <td class="td" style="font-weight: bold;">' + data.result[i].ip + '</td>';
+                    _h += '    <td class="td"><span class="agent_name">' + filterXSS(data.result[i].agent) + '</span></td>';
+                    _h += '    <td class="td" style="font-weight: bold;">' + filterXSS(data.result[i].ip) + '</td>';
 
                     // country,region,city
                     if (data.result[i].country == "本机地址") {
@@ -386,15 +416,15 @@
                         _h += '    <td class="td"><span class="ipinfo">局域网</span></td>';
                     } else {
                         if (data.result[i].country == "中国") {
-                            _h += '    <td class="td"><span class="ipinfo">' + data.result[i].country + ' ' + data.result[i].region + ' ' + data.result[i].city + '</span></td>';
+                            _h += '    <td class="td"><span class="ipinfo">' + filterXSS(data.result[i].country) + ' ' + filterXSS(data.result[i].region) + ' ' + filterXSS(data.result[i].city) + '</span></td>';
                         } else {
                             // 国外IP只能拿到国家
-                            _h += '    <td class="td"><span class="ipinfo">' + data.result[i].country + '</span></td>';
+                            _h += '    <td class="td"><span class="ipinfo">' + filterXSS(data.result[i].country) + '</span></td>';
                         }
                     }
 
                     _h += '    <td><span class="info" onclick="show(' + data.result[i].id + ')">点击查看</span></td>';
-                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.length + '</span></td>';
+                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.replace("&&", "").length + '</span></td>';
                     _h += '    <td class="td">' + data.result[i].create_time.replace("T", " ").replace("+08:00", " ").replace("Z", "") + '</td>';
                     _h += '</tr>';
                 }
