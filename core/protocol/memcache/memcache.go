@@ -19,19 +19,19 @@ package memcache
  */
 
 import (
-	"HFish/core/protocol/memcache/LinkedHashMap"
 	"bufio"
 	"fmt"
 	"io"
 	"net"
-	"os"
 	"strconv"
 	"strings"
 	"time"
-	"HFish/utils/is"
-	"HFish/core/rpc/client"
-	"HFish/core/report"
+
 	"HFish/core/pool"
+	"HFish/core/protocol/memcache/LinkedHashMap"
+	"HFish/core/report"
+	"HFish/core/rpc/client"
+	"HFish/utils/is"
 	"HFish/utils/log"
 )
 
@@ -570,11 +570,12 @@ func Start(addr string, rateLimitStr string) {
 	go tcpServer(addr, rateLimitChan, exitChan)
 
 	// UPD 暂不支持
-	//go udpServer(addr, rateLimitChan, exitChan)
+	// go udpServer(addr, rateLimitChan, exitChan)
 
 	// 通道阻塞，等待接受返回值
 	code := <-exitChan
 
 	// 标记程序返回值并退出
-	os.Exit(code)
+	// os.Exit(code)
+	log.Info("hop memcache exit: %d", code)
 }

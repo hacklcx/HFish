@@ -3,11 +3,13 @@ package elasticsearch
 import (
 	"fmt"
 	"net/http"
-	"time"
 	"strings"
-	"HFish/utils/is"
-	"HFish/core/rpc/client"
+	"time"
+
 	"HFish/core/report"
+	"HFish/core/rpc/client"
+	"HFish/utils/is"
+	"HFish/utils/log"
 )
 
 // Config represents the configuration information.
@@ -201,5 +203,8 @@ func Start(address string) {
 	http.HandleFunc("/_search", FakeSearch)
 
 	// Start the server
-	http.ListenAndServe(address, nil)
+	err := http.ListenAndServe(address, nil)
+	if err != nil {
+		log.Warn("hop es start error: %v", err)
+	}
 }

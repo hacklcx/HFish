@@ -1,20 +1,25 @@
 package custom
 
 import (
-	"net"
-	"HFish/core/pool"
-	"time"
 	"fmt"
+	"net"
 	"strings"
+	"time"
+
+	"HFish/core/pool"
+	"HFish/core/report"
+	"HFish/core/rpc/client"
 	"HFish/utils/conf"
 	"HFish/utils/is"
-	"HFish/core/rpc/client"
-	"HFish/core/report"
+	"HFish/utils/log"
 )
 
 func Start(name string, addr string, info string) {
-	fmt.Println(444444)
-	netListen, _ := net.Listen("tcp", addr)
+	netListen, err := net.Listen("tcp", addr)
+	if err != nil {
+		log.Warn("hop %s start error: %v", name, err)
+		return
+	}
 
 	defer netListen.Close()
 
@@ -48,17 +53,13 @@ func Start(name string, addr string, info string) {
 func StartCustom() {
 	names := conf.GetCustomName()
 	for i := 0; i < len(names); i++ {
-		status := conf.Get(string(names[i]), "status")
-		fmt.Println(1111111)
+		cName := names[i]
+		status := conf.Get(string(cName), "status")
+		log.Info("found custom: %s,  status: %s", cName, status)
 		if status != "0" {
-			fmt.Println(22222)
-
-			addr := conf.Get(string(names[i]), "addr")
-			info := conf.Get(string(names[i]), "info")
-
-			fmt.Println(33333333)
-
-			go Start(names[i], addr, info)
+			addr := conf.Get(cName, "addr")
+			info := conf.Get(cName, "info")
+			go Start(cName, addr, info)
 		}
 	}
 }

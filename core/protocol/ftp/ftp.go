@@ -2,12 +2,13 @@ package ftp
 
 import (
 	"io"
-	"fmt"
-	"time"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
+	"time"
+
 	"HFish/core/protocol/ftp/graval"
+	"HFish/utils/log"
 )
 
 const (
@@ -18,7 +19,7 @@ const (
 type MemDriver struct{}
 
 func (driver *MemDriver) Authenticate(user string, pass string) bool {
-	//return user == "test" && pass == "1234"
+	// return user == "test" && pass == "1234"
 	return false
 }
 
@@ -94,13 +95,17 @@ func (factory *MemDriverFactory) NewDriver() (graval.FTPDriver, error) {
 
 func Start(addr string) {
 	arr := strings.Split(addr, ":")
-	port, _ := strconv.Atoi(arr[1])
+	port, err := strconv.Atoi(arr[1])
+	if err != nil {
+		log.Warn("ftp port error:%s", arr[1])
+		return
+	}
 
 	factory := &MemDriverFactory{}
 	ftpServer := graval.NewFTPServer(&graval.FTPServerOpts{Factory: factory, Hostname: arr[0], Port: port})
 
-	err := ftpServer.ListenAndServe()
+	err = ftpServer.ListenAndServe()
 	if err != nil {
-		fmt.Print(err)
+		log.Warn("hop ftp start error:%v", err)
 	}
 }

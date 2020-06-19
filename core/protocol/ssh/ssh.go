@@ -1,19 +1,21 @@
 package ssh
 
 import (
-	"HFish/core/protocol/ssh/gliderlabs"
-	"golang.org/x/crypto/ssh/terminal"
 	"io"
-	"strings"
-	"HFish/utils/is"
-	"HFish/core/rpc/client"
-	"HFish/core/report"
-	"HFish/utils/log"
-	"HFish/utils/conf"
-	"HFish/utils/json"
-	"github.com/bitly/go-simplejson"
-	"HFish/utils/file"
 	"strconv"
+	"strings"
+
+	"github.com/bitly/go-simplejson"
+	"golang.org/x/crypto/ssh/terminal"
+
+	"HFish/core/protocol/ssh/gliderlabs"
+	"HFish/core/report"
+	"HFish/core/rpc/client"
+	"HFish/utils/conf"
+	"HFish/utils/file"
+	"HFish/utils/is"
+	"HFish/utils/json"
+	"HFish/utils/log"
 )
 
 var clientData map[string]string
@@ -30,7 +32,7 @@ func getJson() *simplejson.Json {
 func Start(addr string) {
 	clientData = make(map[string]string)
 
-	ssh.ListenAndServe(
+	err := ssh.ListenAndServe(
 		addr,
 		func(s ssh.Session) {
 			res := getJson()
@@ -80,13 +82,13 @@ func Start(addr string) {
 
 			sshStatus := conf.Get("ssh", "status")
 
-			if (sshStatus == "2") {
+			if sshStatus == "2" {
 				// 高交互模式
 				res := getJson()
 				accountx := res.Get("account")
 				passwordx := res.Get("password")
 
-				if (accountx.MustString() == s.User() && passwordx.MustString() == password) {
+				if accountx.MustString() == s.User() && passwordx.MustString() == password {
 					clientData[s.RemoteAddr().String()] = id
 					return true
 				}
@@ -96,4 +98,8 @@ func Start(addr string) {
 			return false
 		}),
 	)
+
+	if err != nil {
+		log.Warn("hop ssh start error: %v", err)
+	}
 }

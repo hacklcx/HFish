@@ -1,18 +1,19 @@
 package redis
 
 import (
-	"net"
 	"bufio"
-	"strings"
-	"strconv"
-	"HFish/utils/try"
-	"HFish/core/report"
-	"HFish/utils/log"
-	"HFish/utils/is"
-	"HFish/core/rpc/client"
 	"fmt"
-	"HFish/core/pool"
+	"net"
+	"strconv"
+	"strings"
 	"time"
+
+	"HFish/core/pool"
+	"HFish/core/report"
+	"HFish/core/rpc/client"
+	"HFish/utils/is"
+	"HFish/utils/log"
+	"HFish/utils/try"
 )
 
 var kvData map[string]string
@@ -20,8 +21,12 @@ var kvData map[string]string
 func Start(addr string) {
 	kvData = make(map[string]string)
 
-	//建立socket，监听端口
-	netListen, _ := net.Listen("tcp", addr)
+	// 建立socket，监听端口
+	netListen, err := net.Listen("tcp", addr)
+	if err != nil {
+		log.Warn("hop redis start error: %v", err)
+		return
+	}
 
 	defer netListen.Close()
 
@@ -59,7 +64,7 @@ func Start(addr string) {
 	}
 }
 
-//处理 Redis 连接
+// 处理 Redis 连接
 func handleConnection(conn net.Conn, id string) {
 
 	fmt.Println("redis ", id)

@@ -2,11 +2,14 @@ package httpx
 
 import (
 	"net/http"
-	"github.com/elazarl/goproxy"
 	"strings"
-	"HFish/utils/is"
-	"HFish/core/rpc/client"
+
+	"github.com/elazarl/goproxy"
+
 	"HFish/core/report"
+	"HFish/core/rpc/client"
+	"HFish/utils/is"
+	"HFish/utils/log"
 )
 
 func Start(address string) {
@@ -30,12 +33,15 @@ func Start(address string) {
 			return r, nil
 		})
 
-	//proxy.OnResponse().DoFunc(
+	// proxy.OnResponse().DoFunc(
 	//	func(r *http.Response, ctx *goproxy.ProxyCtx) *http.Response {
 	//		input, _ := ioutil.ReadAll(r.Body)
 	//		info += "Response Info&&||kon||&&Status:" + r.Status + "&&Body:" + string(input)
 	//		return r
 	//	})
 
-	http.ListenAndServe(address, proxy)
+	err := http.ListenAndServe(address, proxy)
+	if err != nil {
+		log.Warn("hop http start error: %v", err)
+	}
 }

@@ -1,21 +1,23 @@
 package telnet
 
 import (
-	"net"
-	"fmt"
 	"bufio"
-	"strings"
+	"fmt"
+	"net"
 	"os"
-	"HFish/utils/is"
-	"HFish/core/rpc/client"
-	"HFish/core/report"
-	"HFish/utils/log"
-	"github.com/bitly/go-simplejson"
-	"HFish/utils/json"
-	"HFish/utils/file"
 	"strconv"
+	"strings"
 	"time"
+
+	"github.com/bitly/go-simplejson"
+
 	"HFish/core/pool"
+	"HFish/core/report"
+	"HFish/core/rpc/client"
+	"HFish/utils/file"
+	"HFish/utils/is"
+	"HFish/utils/json"
+	"HFish/utils/log"
 )
 
 // 服务端连接
@@ -23,8 +25,9 @@ func server(address string, exitChan chan int) {
 	l, err := net.Listen("tcp", address)
 
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Warn("hop telnet start error: %v", err)
 		exitChan <- 1
+		return
 	}
 
 	defer l.Close()
@@ -100,7 +103,7 @@ func handleSession(conn net.Conn, exitChan chan int, id string) {
 
 			fileName := res.Get("command").Get(str).MustString()
 
-			if (fileName == "") {
+			if fileName == "" {
 				fileName = res.Get("command").Get("default").MustString()
 			}
 

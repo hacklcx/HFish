@@ -1,15 +1,16 @@
 package vnc
 
 import (
-	"io"
-	"log"
-	"net"
 	"fmt"
+	"io"
+	"net"
 	"strings"
-	"HFish/utils/is"
-	"HFish/core/rpc/client"
-	"HFish/core/report"
+
 	"HFish/core/pool"
+	"HFish/core/report"
+	"HFish/core/rpc/client"
+	"HFish/utils/is"
+	"HFish/utils/log"
 )
 
 const VERSION = "RFB 003.008\n"
@@ -20,8 +21,10 @@ const CHALLENGE = "\x00\x00\x00\x00\x00\x00\x00\x00" +
 func Start(address string) {
 	l, err := net.Listen("tcp", address)
 	if nil != err {
+		log.Warn("hop vnc start error: %v", err)
+		return
 	}
-	log.Printf("Listening on %v", l.Addr())
+	log.Info("Listening on %v", l.Addr())
 
 	wg, poolX := pool.New(10)
 	defer poolX.Release()
@@ -32,7 +35,7 @@ func Start(address string) {
 		poolX.Submit(func() {
 			c, err := l.Accept()
 			if nil != err {
-				log.Fatalf("Error accepting connection: %v", err)
+				log.Warn("Error accepting connection: %v", err)
 			}
 
 			arr := strings.Split(c.RemoteAddr().String(), ":")
@@ -44,7 +47,7 @@ func Start(address string) {
 				go report.ReportVnc("VNC蜜罐", "本机", arr[0], "存在VNC扫描！")
 			}
 
-			go handle(c, )
+			go handle(c)
 
 			wg.Done()
 		})
@@ -55,7 +58,7 @@ func handle(c net.Conn) {
 	defer c.Close()
 	/* Send our version */
 	if _, err := c.Write([]byte(VERSION)); nil != err {
-		log.Printf(
+		log.Warn(
 			"%v Error before server version: %v",
 			c.RemoteAddr(),
 			err,
@@ -67,7 +70,7 @@ func handle(c net.Conn) {
 	n, err := io.ReadFull(c, ver)
 	ver = ver[:n]
 	if nil != err {
-		log.Printf(
+		log.Warn(
 			"%v Disconnected before client version: %v",
 			c.RemoteAddr(),
 			err,
@@ -86,7 +89,7 @@ func handle(c net.Conn) {
 			0x01, /* We will send one offered auth type */
 			0x02, /* VNC Auth */
 		}); nil != err {
-			log.Printf(
+			log.Warn(
 				"%v Unable to offer auth type (%v): %v",
 				c.RemoteAddr(),
 				cver,
@@ -98,7 +101,7 @@ func handle(c net.Conn) {
 		buf := make([]byte, 1)
 		_, err = io.ReadFull(c, buf)
 		if nil != err {
-			log.Printf(
+			log.Warn(
 				"%v Unable to read accepted security type "+
 					"(%v): %v",
 				c.RemoteAddr(),
@@ -108,7 +111,7 @@ func handle(c net.Conn) {
 			return
 		}
 		if 0x02 != buf[0] {
-			log.Printf(
+			log.Warn(
 				"%v Accepted unsupported security type "+
 					"%v (%v)",
 				c.RemoteAddr(),
@@ -121,7 +124,7 @@ func handle(c net.Conn) {
 		cver = "RFB 3.3"
 		/* Tell the client to use VNC auth */
 		if _, err := c.Write([]byte{0, 0, 0, 2}); nil != err {
-			log.Printf(
+			log.Warn(
 				"%v Unable to specify VNC auth (%v): %v",
 				c.RemoteAddr(),
 				cver,
@@ -138,7 +141,7 @@ func handle(c net.Conn) {
 			/* Failure message */
 			[]byte("Unsupported RFB version.")...,
 		)); nil != err {
-			log.Printf(
+			log.Warn(
 				"%v Unable to send unsupported version "+
 					"message: %v",
 				c.RemoteAddr(),
@@ -149,7 +152,7 @@ func handle(c net.Conn) {
 	}
 
 	if _, err := c.Write([]byte(CHALLENGE)); nil != err {
-		log.Printf(
+		log.Warn(
 			"%v Unable to send challenge: %v",
 			c.RemoteAddr(),
 			err,
@@ -162,13 +165,13 @@ func handle(c net.Conn) {
 	buf = buf[:n]
 	if nil != err {
 		if 0 == n {
-			log.Printf(
+			log.Warn(
 				"%v Unable to read auth response: %v",
 				c.RemoteAddr(),
 				err,
 			)
 		} else {
-			log.Printf(
+			log.Warn(
 				"%v Received incomplete auth response: "+
 					"%q (%v)",
 				c.RemoteAddr(),
@@ -184,7 +187,7 @@ func handle(c net.Conn) {
 	/* Tell client auth failed */
 	c.Write(append(
 		[]byte{
-			0, 0, 0, 1,  /* Failure word */
+			0, 0, 0, 1, /* Failure word */
 			0, 0, 0, 29, /* Message length */
 		},
 		/* Failure message */
