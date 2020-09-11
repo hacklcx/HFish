@@ -4,12 +4,21 @@ import (
 	"gopkg.in/ini.v1"
 	"HFish/utils/log"
 	"container/list"
+	"path/filepath"
+	"os"
 )
 
 var cfg *ini.File
 
 func init() {
-	c, err := ini.Load("./config.ini")
+	//获取配置文件的正确路径
+	AppPath, errAbs := filepath.Abs(filepath.Dir(os.Args[0]))
+	if errAbs != nil {
+		panic(errAbs)
+	}
+	var filename = "config.ini"
+	appConfigPath := filepath.Join(AppPath, filename)
+	c, err := ini.Load(appConfigPath)
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "打开配置文件失败", err)
 	}
