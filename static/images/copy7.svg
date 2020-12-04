@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Fill 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0 14 0 14 13.9997812 0 13.9997812"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="分组-copy-10">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-2"></g>
+            <path d="M1.75,6.5625 C1.75,3.908625 3.908625,1.75 6.5625,1.75 C9.216375,1.75 11.375,3.908625 11.375,6.5625 C11.375,9.216375 9.216375,11.375 6.5625,11.375 C3.908625,11.375 1.75,9.216375 1.75,6.5625 M13.7445,12.50725 L11.769625,10.532375 C12.61575,9.42725 13.125,8.0535 13.125,6.5625 C13.125,2.953125 10.171875,0 6.5625,0 C2.953125,0 0,2.953125 0,6.5625 C0,10.171875 2.953125,13.125 6.5625,13.125 C8.0535,13.125 9.42725,12.61575 10.532375,11.769625 L12.50725,13.7445 C12.847625,14.084875 13.404125,14.084875 13.7445,13.7445 C14.08575,13.404125 14.08575,12.847625 13.7445,12.50725" id="Fill-1" fill="#FFFFFF" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

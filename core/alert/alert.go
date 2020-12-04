@@ -1,19 +1,68 @@
 package alert
 
 import (
-	"HFish/utils/try"
-	"strings"
-	"HFish/utils/send"
 	"bytes"
-	"net/http"
-	"HFish/utils/log"
 	"encoding/json"
-	"HFish/view/data"
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"net/http"
+	"strings"
 	"HFish/error"
 	"HFish/utils/cache"
+	"HFish/utils/geo"
+	"HFish/utils/log"
 	"HFish/utils/passwd"
+	"HFish/utils/send"
+	"HFish/utils/try"
+	"HFish/view/data"
 )
+
+func AlertSyslog(model string, projectName string, typex string, agent string, ipx string, country string, region string, city string, infox string, time string) {
+	// 判断syslog通知
+	try.Try(func() {
+		// 只有新加入才会发送syslog通知
+		if (model == "new") {
+			status, _ := cache.Get("SyslogConfigStatus")
+
+			// 判断是否启用通知
+			if status == "1" {
+				info, _ := cache.Get("SyslogConfigInfo")
+				configs := strings.Split(info.(string), "&&")
+
+				if (country == "本地地址") {
+					region = ""
+					city = ""
+				} else if (country == "局域网") {
+					region = ""
+					city = ""
+				}
+
+				// 判断是否开启脱敏
+				passwdConfigStatus, _ := cache.Get("PasswdConfigStatus")
+
+				if (passwdConfigStatus == "1") {
+					if (typex == "FTP" || typex == "SSH") {
+						// 获取脱敏加密字符
+						passwdConfigInfo, _ := cache.Get("PasswdConfigInfo")
+
+						arr := strings.Split(infox, "&&")
+
+						infox = arr[0] + "&&" + passwd.Desensitization(arr[1], passwdConfigInfo.(string))
+					}
+				}
+
+				text := fmt.Sprintf("project: %s, type: %s, agent: %s, ip: %s, geo: %s, info: %s, time: %s",
+					projectName, typex, agent, ipx, geo.Format(country, region, city, "-"), infox, time)
+
+				log.Pr("HFish", "127.0.0.1", "alert syslog:", text)
+				for _, v := range configs {
+					config := strings.Split(v, ":")
+					send.SendSyslog(config[0], config[1], config[2], text)
+				}
+			}
+		}
+	}).Catch(func() {
+	})
+}
 
 func AlertMail(model string, typex string, agent string, ipx string, country string, region string, city string, infox string) {
 	// 判断邮件通知
@@ -49,18 +98,19 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 					}
 				}
 
+				geoInfo := geo.Format(country, region, city, " ")
 				text := `
 				<div><b>Hi，上钩了！</b></div>
 				<div><b><br /></b></div>
 				<div><b>集群名称：</b>` + agent + `</div>
 				<div><b>攻击IP：</b>` + ipx + `</div>
-				<div><b>地理信息：</b>` + country + ` ` + region + ` ` + city + `</div>
+				<div><b>地理信息：</b>` + geoInfo + `</div>
 				<div><b>上钩内容：</b>` + infox + `</div>
 				<div><br /></div>
 				<div><span style="color: rgb(128, 128, 128); font-size: 10px;">(HFish 自动发送)</span></div>
 				`
 
-				send.SendMail(config[4:], "[HFish]提醒你，"+typex+"有鱼上钩!", text, config)
+				send.SendMail(config[5:], "[HFish]提醒你，"+typex+"有鱼上钩!", text, config)
 			}
 		}
 	}).Catch(func() {
@@ -128,10 +178,6 @@ func AlertDataWs(model string, typex string, projectName string, agent string, i
 		})
 
 		// 发送到客户端
-		data.Send(gin.H{
-			"code": error.ErrSuccessCode,
-			"msg":  error.ErrSuccessMsg,
-			"data": d,
-		})
+		data.Send(error.ErrSuccessWithData(d))
 	}
 }

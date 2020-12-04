@@ -1,14 +1,14 @@
 package data
 
 import (
+	"fmt"
+	"net/http"
+	"strconv"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"net/http"
-	"fmt"
 	"HFish/core/dbUtil"
-	"strconv"
-	"HFish/utils/log"
 	"HFish/error"
+	"HFish/utils/log"
 	"HFish/utils/conf"
 )
 
@@ -40,11 +40,7 @@ func GetChina(c *gin.Context) {
 		"regionList": regionList,
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": data,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(data))
 }
 
 // 统计国家攻击地区
@@ -68,11 +64,7 @@ func GetCountry(c *gin.Context) {
 		"regionList": regionList,
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": data,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(data))
 }
 
 // 统计攻击IP地区
@@ -97,11 +89,7 @@ func GetIp(c *gin.Context) {
 		"ipList": ipList,
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": data,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(data))
 }
 
 // 统计攻击类型
@@ -126,11 +114,7 @@ func GetType(c *gin.Context) {
 		"typeList": typeList,
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": data,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(data))
 }
 
 // 获取最新数据流
@@ -147,11 +131,7 @@ func GetNewInfo(c *gin.Context) {
 		"result": result,
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": data,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(data))
 }
 
 // 获取统计账号
@@ -172,11 +152,7 @@ func GetAccountInfo(c *gin.Context) {
 		resultMap = append(resultMap, rMap)
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": resultMap,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(resultMap))
 }
 
 // 获取统计密码
@@ -197,11 +173,7 @@ func GetPasswdInfo(c *gin.Context) {
 		resultMap = append(resultMap, rMap)
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": resultMap,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(resultMap))
 }
 
 // 获取全球攻击数量
@@ -222,11 +194,7 @@ func GetWordInfo(c *gin.Context) {
 		resultMap = append(resultMap, rMap)
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": resultMap,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(resultMap))
 }
 
 // 往下是 Web Socket 代码

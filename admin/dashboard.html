@@ -11,7 +11,16 @@
         color: #ff0101;
         margin-right: 5px;
     }
-
+    .title_1 {
+        font-family: MicrosoftYaHeiUI-Bold;
+        font-size: 14px;
+        color: #2B3D51;
+        line-height: 16px;
+        border-left: 3px solid  #2B3D51;
+        padding-left: 3px;
+        margin: 15px 0;
+        margin-left:10px;
+    }
     .openx {
         background: #3dd209;
         width: 10px;
@@ -107,8 +116,11 @@
                 切换大屏 <i class="ion-log-in"></i>
             </a>
         </div>
-        <h4 class="page-title">仪表盘</h4>
+        <div class="row">
+            <h4 class="title_1">仪表盘</h4>
+        </div>
     </div>
+    <!--仪表盘-->
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
         <div class="card-box tilebox-two">
             <i class="icon-ghost  pull-xs-right text-muted"></i>
@@ -214,6 +226,7 @@
         </div>
     </div>
 
+   <!--折线图-->
     <div class="col-md-12">
         <div class="card-box">
             <p class="titlea">最近24小时</p>
@@ -388,6 +401,7 @@
 <script>
     // $('#myRegInfo').modal('show');
 
+    // 数字的初始化
     var m = moment(new Date());
 
     var arr = new Array();
@@ -757,7 +771,7 @@
     ];
 
     var myChart = echarts.init(document.getElementById('myChart'));
-
+    // 获取数据并填充
     $.ajax({
         type: "GET",
         url: "/get/dashboard/data",
@@ -1120,6 +1134,7 @@
         }
     });
 
+    //  echarts中的图标自适应
     window.onresize = function () {
         myChart.resize();
         myChar1.resize();

@@ -38,10 +38,12 @@ CREATE TABLE `hfish_info` (
   `project_name` varchar(20) NOT NULL DEFAULT '',
   `agent` varchar(20) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
+  `intelligence` text NOT NULL DEFAULT '';
   `country` varchar(10) NOT NULL DEFAULT '',
   `region` varchar(10) NOT NULL DEFAULT '',
   `city` varchar(10) NOT NULL,
   `info` text NOT NULL,
+  `info_len` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `info_index_1` (`type`) USING BTREE,
@@ -87,7 +89,7 @@ CREATE TABLE `hfish_setting` (
 --  Records of `hfish_setting`
 -- ----------------------------
 BEGIN;
-INSERT INTO `hfish_setting` VALUES ('1', 'mail', '', '2019-09-02 20:15:00', '0', 'E-mail 群发', '群发邮件SMTP服务器配置'), ('2', 'alertMail', '', '2019-09-02 18:58:12', '0', 'E-mail 通知', '蜜罐告警会通过邮件告知信息'), ('3', 'webHook', '', '2019-09-03 11:49:00', '0', 'WebHook 通知', '蜜罐告警会请求指定API告知信息'), ('4', 'whiteIp', '', '2019-09-02 20:15:00', '0', 'IP 白名单', '蜜罐上钩会过滤掉白名单IP'), ('5', 'passwdTM', '', '2020-02-24 12:04', '0', '密码脱敏', '发送邮件如果有密码内容自动加星');
+INSERT INTO `hfish_setting` VALUES ('1', 'mail', '', '2019-09-02 20:15:00', '0', 'E-mail 群发', '群发邮件SMTP服务器配置'), ('2', 'alertMail', '', '2019-09-02 18:58:12', '0', 'E-mail 通知', '蜜罐告警会通过邮件告知信息'), ('3', 'webHook', '', '2019-09-03 11:49:00', '0', 'WebHook 通知', '蜜罐告警会请求指定API告知信息'), ('4', 'whiteIp', '', '2019-09-02 20:15:00', '0', 'IP 白名单', '蜜罐上钩会过滤掉白名单IP'), ('5', 'passwdTM', '', '2020-02-24 12:04', '0', '密码脱敏', '发送邮件如果有密码内容自动加星'), ('6', 'apikey', '', '2020-11-10 22:45', '0', 'API Key', '微步在线X情报社区API Key'), ('7', 'syslog', '', '2020-11-11 17:02', '0', 'Syslog 通知', '蜜罐告警会通过Syslog告知信息');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

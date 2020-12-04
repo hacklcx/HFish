@@ -155,6 +155,8 @@ func initCahe() {
 	resultHook, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "webHook").First()
 	resultIp, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "whiteIp").First()
 	resultPasswd, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "passwdTM").First()
+	resultApikey, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "apikey").First()
+	resultSyslog, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "syslog").First()
 
 	cache.Setx("MailConfigStatus", strconv.FormatInt(resultMail["status"].(int64), 10))
 	cache.Setx("MailConfigInfo", resultMail["info"])
@@ -167,6 +169,12 @@ func initCahe() {
 
 	cache.Setx("PasswdConfigStatus", strconv.FormatInt(resultPasswd["status"].(int64), 10))
 	cache.Setx("PasswdConfigInfo", resultPasswd["info"])
+
+	cache.Setx("ApikeyStatus", strconv.FormatInt(resultApikey["status"].(int64), 10))
+	cache.Setx("ApikeyInfo", resultApikey["info"])
+
+	cache.Setx("SyslogConfigStatus", strconv.FormatInt(resultSyslog["status"].(int64), 10))
+	cache.Setx("SyslogConfigInfo", resultSyslog["info"])
 }
 
 func Run() {
@@ -406,10 +414,6 @@ func Run() {
 	serverAdmin.ListenAndServe()
 }
 
-func Init() {
-	fmt.Println("test")
-}
-
 func Help() {
 	exec.Execute("clear")
 	logo := ` o
@@ -422,7 +426,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.6.1
+  (__\\   /_//_/_/ /_/___/_//_/ v0.6.4
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))

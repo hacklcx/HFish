@@ -1,12 +1,12 @@
 package dashboard
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
-	"HFish/core/dbUtil"
-	"HFish/utils/conf"
 	"strconv"
+	"github.com/gin-gonic/gin"
+	"HFish/core/dbUtil"
 	"HFish/error"
+	"HFish/utils/conf"
 	"HFish/utils/log"
 	"HFish/utils/cache"
 )
@@ -525,11 +525,7 @@ func GetFishData(c *gin.Context) {
 		cache.Set("DashboardZxDq", data)
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": data,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(data))
 }
 
 // 仪表盘攻击饼图统计
@@ -581,9 +577,5 @@ func GetFishPieData(c *gin.Context) {
 		cache.Set("DashboardBarDq", data)
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrSuccessCode,
-		"msg":  error.ErrSuccessMsg,
-		"data": data,
-	})
+	c.JSON(http.StatusOK, error.ErrSuccessWithData(data))
 }

@@ -1,17 +1,19 @@
 package report
 
 import (
-	"HFish/core/dbUtil"
-	"time"
-	"HFish/utils/log"
-	"HFish/utils/ip"
+	"fmt"
 	"strconv"
-	"HFish/utils/try"
 	"strings"
+	"time"
 	"HFish/core/alert"
-	"HFish/utils/conf"
+	"HFish/core/dbUtil"
 	"HFish/core/pool"
 	"HFish/utils/cache"
+	"HFish/utils/conf"
+	"HFish/utils/geo"
+	"HFish/utils/ip"
+	"HFish/utils/log"
+	"HFish/utils/try"
 )
 
 type HFishInfo struct {
@@ -30,6 +32,9 @@ type HFishInfo struct {
 
 // 通知模块
 func alertx(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, timex string) {
+	// Syslog通知
+	alert.AlertSyslog(model, projectName, typex, agent, ipx, country, region, city, infox, timex)
+
 	// 邮件通知
 	alert.AlertMail(model, typex, agent, ipx, country, region, city, infox)
 
@@ -117,6 +122,16 @@ func isWhiteIp(ip string) bool {
 
 // 通用的插入
 func insertInfo(typex string, projectName string, agent string, ipx string, country string, region string, city string, info string) int64 {
+	timex := time.Now().Format("2006-01-02 15:04:05")
+	text := fmt.Sprintf("project: %s, type: %s, agent: %s, ip: %s, geo: %s, info: %s, time: %s",
+		projectName, typex, agent, ipx, geo.Format(country, region, city, "-"), info, timex)
+	collectIntelligenceData(text)
+
+	intelligence, err := fetchIntelligenceData(ipx)
+	if err != nil {
+		log.Pr("HFish", "127.0.0.1", "fetch intelligence data err", err)
+		intelligence = err.Error()
+	}
 
 	id, err := dbUtil.DB().Table("hfish_info").Data(map[string]interface{}{
 		"type":         typex,
@@ -126,8 +141,10 @@ func insertInfo(typex string, projectName string, agent string, ipx string, coun
 		"country":      country,
 		"region":       region,
 		"city":         city,
+		"intelligence": intelligence,
 		"info":         info,
-		"create_time":  time.Now().Format("2006-01-02 15:04:05"),
+		"info_len":     len(info),
+		"create_time":  timex,
 	}).InsertGetId()
 
 	if err != nil {

@@ -1,515 +1,1736 @@
 {{template "header"}}
 <style>
-    .card-box {
+    input::-webkit-input-placeholder {
+        font-size: 12px;
+        line-height: 14px;
+    }
+.pre {
+        background: #2c2c31;
+        color: #4fe21b;
+        padding: 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .modal-body {
+        position: relative;
         padding: 0px;
+        margin-bottom: -14px;
     }
 
-    thead {
-        background: #f5f5f5;
+    .modal-content {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        margin-top: 20vh;
     }
 
-    .btn-sm {
-        padding: 2px 6px;
+    .modal-header {
+        padding: 10px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .modal-header .close {
+        margin-top: 0px;
+    }
+
+    .title {
+        font-family: MicrosoftYaHeiUI-Bold;
+        font-size: 14px;
+        color: #2B3D51;
+        line-height: 16px;
+        border-left: 3px solid  #2B3D51;
+        padding-left: 3px;
+        margin: 15px 0;
+        margin-left:20px;
+    }
+    .tab-container {
+        display: flex;
+    }
+    .tab-nav {
+        flex:0 0 150px;
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        height: calc(100vh - 140px);
+        margin-right: 10px;
+    }
+    body {
+        overflow: hidden;
+    }
+    .tab-nav li{
+        width: 130px;
+        height: 40px;
+    }
+    .tab-nav li:first-child {
+        margin-top: 10px;
+    }
+    .tab-nav li a {
+        font-family: MicrosoftYaHeiUI;
+        font-size: 14px;
+        line-height: 20px;
+        border-radius: 2px;
+        color: #585964;
+    }
+    /*修改nav-pills的默认选中颜色*/
+    .nav-pills > li > a.active {
+        background-color:  #EAEAEB!important;
+        color: #2B3D51!important;
+    }
+    .tab-content {
+        flex: 1 1 auto;
+        width: 1160px;
+        height: calc(100vh - 140px);
+        background: #FFFFFF;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+    }
+    .tab_small_content {
+        max-height: calc(100vh - 170px - 46px);
+        overflow: auto;
+    }
+    .tab_small_content::-webkit-scrollbar { width: 0 !important }
+
+    .save {
+         width: 100%;
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         height: 46px;
+         background: #E2EFFF;
+         border: 1px solid #1D88FF;
+    }
+    .save_div {
+        position: absolute;
+        right: 0;
+    }
+    .btn-same {
+        width: 54px;
+        height: 26px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 20px;
+    }
+    .save_font {
+        width: 24px;
+        height: 16px;
         font-size: 12px;
+        font-family: PingFangSC-Regular;
+        color: #FFFFFF;
+        line-height: 16px;
+    }
+    .show-contenter{
+        width: 100%;
+        display: flex;
+        text-align: center;
+        line-height: 30px;
+        margin-top: 20px;
+        margin-bottom: 10px;
     }
 
-    .text-danger {
-        color: #ff5d48 !important;
+    .show-contenter-a {
+        margin-right: 10px;
+    }
+    .show-contenter-b span{
+        font-family: MicrosoftYaHeiUI-Bold;
+        font-size: 14px;
+        color: #2B3D51;
+        letter-spacing: 0;
+        text-align: left;
+        line-height: 20px;
+    }
+    .font_info {
+        margin-left: 15px;
+        margin-top: 15px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        line-height: 16px;
+    }
+    .syslog_info {
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        min-height: 123px;
+        margin-right: 20px;
+    }
+
+    .syslog_div_content {
+        display: flex;
+        margin-top: 10px;
+        text-align: center;
+        vertical-align: center;
+    }
+    .form-control {
+        padding: 5px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .syslog_div_address {
+        flex: 0 0 120px;
+        font-size: 12px;
+        height: 26px;
+        margin:0px;
+        margin-left: 15px;
+    }
+    .syslog_div_http{
+        flex:0 0 60px;
+        height: 26px;
+        padding:0;
+        font-size: 12px;
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+    .syslog_div_port {
+        flex:0 0 60px;
+        height: 26px;
+        padding:0;
+        font-size: 12px;
+        margin-right: 10px;
+    }
+    .syslog_dele {
+        border-radius: 100%;
+        margin-top:6px;
+    }
+    #syslog_add {
+        margin-left:15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background: #E2EFFF;
+        border: 1px solid #1D88FF;
+        border-radius: 2px;
+        font-size: 12px;
+        color: #1D88FF;
+        line-height: 14px;
+    }
+    .syslog_test {
+        background: #23272F;
+        border: 1px solid #23272F;
+        border-radius: 2px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #FFFFFF;
+        line-height: 16px;
+        margin-right: 10px;
+        height: 26px;
+    }
+    #email_alert {
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        margin-right: 20px;
+    }
+    .email_div {
+        display: flex;
+        margin-top: 10px;
+        font-size: 12px;
+        color: #2B3D51;
+        line-height: 14px;
+        margin-left: 15px;
+        max-width: 500px;
+    }
+    #email_alert_email, #massset_input{
+        flex: 0 0 300px;
+        height: 26px;
+    }
+    #email_alert_options, #massset_options{
+        flex: 0 0 100px;
+        height: 26px;
+        padding:0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #email_alert_port, #massset_port{
+        flex: 0 0 60px;
+        height: 26px;
+    }
+    #email_alert_id, #massset_account{
+        flex:0 0 300px;
+        height: 26px;
+    }
+    #email_alert_password, #massset_password{
+        flex: 0 0 170px;
+        height: 26px;
+        margin-left: 10px;
+    }
+    #email_alert_textarea {
+        flex: 0 0 480px;
+        width: 50px;
+    }
+    .email_alert_div {
+        width: 480px;
+        margin-left: 15px;
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    #email_alert_callback, #massset_callback{
+        max-width: 300px;
+        height:26px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #282938;
+        line-height: 16px;
+        display: flex;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+        background: #FFFFFF;
+        border-radius: 2px;
+        position: relative;
+        opacity: 0;
+
+    }
+    #email_alert_callback::before{
+        content:"";
+        border:5px solid transparent;
+        border-bottom-color:while;
+        position:absolute;
+        left:12px;
+        top:0;
+        margin-top:-10px;
+    }
+    #email_alert_callback:after{
+          content:"";
+          border:5px solid transparent;
+          border-bottom-color:white;
+          position: absolute;
+          top:0;
+          left:12px;
+          margin-top:-9px;
+      }
+    #massset_callback:before {
+        content:"";
+        border:5px solid transparent;
+        border-bottom-color:white;
+        position:absolute;
+        left:12px;
+        top:0;
+        margin-top:-10px;
+    }
+    #massset_callback:after {
+        content:"";
+        border:5px solid transparent;
+        border-bottom-color:white;
+        position: absolute;
+        top:0;
+        left:12px;
+        margin-top:-9px;
+    }
+    #email_alert_test, #massset_test{
+        flex: 0 0 54px;
+        height: 26px;
+        background-color: black;
+        font-size: 12px;
+        color: #FFFFFF;
+        line-height: 16px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    .email_span {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: 10px;
+    }
+    .email_inco {
+        margin-top: 7px;
+        margin-left: 10px;
         margin-right: 5px;
+        margin-bottom: 5px;
+
+    }
+    #webhook_info {
+        width: 480px;
+        height: 26px;
+        margin-left: 15px;
+        margin-top: 10px;
+    }
+    .span_touch {
+        color: #1D88FF;
+    }
+    .span_touch:hover {
+        border-bottom: 1px solid  #1772D6;
+        color:  #1772D6;
+        cursor: pointer;
+    }
+    #webhook_div {
+        margin-top: 10px;
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        margin-right: 20px;
     }
 
-    .yes_config {
-        border: 1px solid #0f8ce6;
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: #0f8ce6;
+    #massset_div {
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        margin-right: 20px;
+    }
+    .massset_div_content {
+        display: flex;
+        margin-left: 15px;
+        margin-top: 10px;
+    }
+    #intelligence_div1,#intelligence_div2 {
+        margin-left: 20px;
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        height: 230px;
+        margin-right: 20px;
+    }
+    #intelligence_apikey {
+        width: 300px;
+        height: 26px;
+        background: #FFFFFF;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        margin-left: 15px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+    .intelligence_test_div {
+        width: 300px;
+        margin-left: 15px;
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        position: relative;
+
+    }
+    #intelligence_callback {
+        max-width: 200px;
+        height:26px;
+        font-family: MicrosoftYaHeiUI;
         font-size: 12px;
+        color: #282938;
+        line-height: 16px;
+        display: flex;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+        background: #FFFFFF;
+        border-radius: 2px;
+        position: relative;
+        opacity: 0;
     }
 
-    .no_config {
-        border: 1px solid #434e56;
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: #434e56;
-        font-size: 12px;
+    #intelligence_callback:before {
+        content:"";
+        border:5px solid transparent;
+        border-bottom-color:white;
+        position:absolute;
+        left:12px;
+        top:0;
+        margin-top:-10px;
     }
+    #intelligence_callback::after {
+        content:"";
+        border:5px solid transparent;
+        border-bottom-color:white;
+        position:absolute;
+        left:12px;
+        top:0;
+        margin-top:-9px;
+    }
+    #intelligence_test {
+        flex: 0 0 54px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: black;
+        font-size: 12px;
+        color: #FFFFFF;
+        line-height: 16px;
+    }
+    .intelligence_temp {
+        display: flex;
+        position: relative;
+    }
+    .intelligence_info {
+        background: #F1F1F2;
+        border-radius: 2px;
+        margin-right: 15px;
+        padding-right: 20px;
+        padding-left: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        height: 180px;
+        position: absolute;
+        right: 0px;
+    }
+    .intelligence_info p {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+    .btn-intell {
+        height: 16px;
+        font-size: 12px;
+        color: #1D88FF;
+        line-height: 0px;
+        background: #E2EFFF;
+        border-radius: 2px;
+        border: 1px solid #E2EFFF;
+    }
+    .intelligence_apikey_button {
+        background: #E2EFFF;
+        border: 1px solid #1D88FF;
+        border-radius: 2px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #1D88FF;
+        line-height: 16px;
+        margin-left: 65px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .intelligence_apikey_span {
+        background: #E2EFFF;
+        border-radius: 2px;
+        width: 68px;
+        height: 60px;
+    }
+    #intelligence_textarea {
+        width: 300px;
+        min-height: 80px;
+        margin-top: 10px;
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
+    #secret_div {
+        height: 80px;
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    #secret_input {
+        width: 300px;
+        height: 26px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        margin-left: 15px;
+    }
+    .clear_div {
+        height: 171px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 10px;
+        background: #FAFAFB;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+    }
+    .clear_btn {
+        width: 170px;
+        height: 26px;
+        margin-top: 15px;
+        margin-right: 15px;
+        margin-left: 15px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #FFFFFF;
+        line-height: 14px;
+    }
+    .clear_warn {
+        display: flex;
+        background: #FFFFFF;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+        border-radius: 2px 2px 0px 0px;
+        height: 32px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #282938;
+        line-height: 20px;
+    }
+    .about_div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .about_btn {
+        background: #E0E0E2;
+        border-radius: 2px;
+        font-family: MicrosoftYaHeiUI-Bold;
+        font-size: 14px;
+        color: #2B3D51;
+        letter-spacing: 0;
+        line-height: 32px;
+        text-align: center;
+    }
+    .first {
+        width: 148px;
+        height: 32px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .second {
+        width: 76px;
+        height: 32px;
+    }
+    .second_a {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .second_b {
+        margin-bottom: 10px;
+    }
+    .about_div p {
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        letter-spacing: 0;
+        text-align: left;
+        line-height: 16px;
+    }
+    .about_sp {
+        border-radius: 2px;
+        width: 168px;
+        height: 26px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        letter-spacing: 0;
+        text-align: left;
+        line-height: 16px;
+    }
+
+    .message {
+            height: 60px;
+            background-color: white;
+            background: #FFFFFF;
+            box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+            border-radius: 2px;
+            position: fixed;
+            left: 44%;
+            top:30%;
+            transition: translate(-50%,-50%);
+            display: flex;
+            visibility:hidden;
+            z-index: 10;
+        }
+        .message_inco {
+            flex: 0 0 20px;
+            height: 20px;
+            margin-top:20px;
+            margin-left: 25px;
+            margin-bottom: 20px;
+            margin-right: 10px;
+        }
+        .message_info {
+            font-family: MicrosoftYaHeiUI;
+            font-size: 14px;
+            color: #282938;
+            text-align: center;
+        }
+        .message_info_div  {
+            margin-top:20px;
+            margin-bottom: 20px;
+            margin-right: 25px;
+        }
+
+        .modal_temp {
+            width: 1000vw;
+            height: 1000vh;
+            background-color: black;
+            opacity: 0.3;
+            position: fixed;
+            z-index: 10;
+            left: -20vw;
+            top: -10vh;
+            visibility: hidden;
+        }
 </style>
+<div class="modal_temp"></div>
+<div id="myFishInfo" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h6 class="modal-title" id="myModalLabel">告警样例</h6>
+            </div>
+            <div class="modal-body">
+                <pre class="pre">
+{
+    "id": 351828,
+    "model": "new",
+    "project": "SSH蜜罐",
+    "type": "SSH",
+    "agent": "本机",
+    "ip": "141.98.81.141",
+    "country": "荷兰",
+    "region": "荷兰",
+    "city": "",
+    "info": "admin&&admin",
+    "time": "2020-11-27 16:09:36",
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
-    <!-- Page-Title -->
     <div class="row">
-        <div class="col-sm-12">
-            <div class="btn-group pull-right m-t-15">
-                <button type="button" class="btn btn-custom" onclick="showSetting()"><i class="fa fa-cog"></i> 高级设置
-                </button>
-            </div>
-            <h4 class="page-title">系统设置</h4>
+        <h4 class="title">系统设置</h4>
+        <div class="message">
+            <div class="message_inco">123</div>
+            <div class="message_info"><div class="message_info_div">12321</div></div>
         </div>
+    </div>
+    <div class="tab-container col-sm-12">
+        <div class='col-sm-2 tab-nav'>
+            <ul class="nav nav-pills nav-stacked" id="myTab" role="tablist" >
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">告警通知</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">群发设置</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">威胁情报</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">数据合规</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">关于</a>
+                  </li>
+              </ul>
+        </div>
+        <div class="tab-content col-sm-10">
+            <div class="tab-pane" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class = 'tab_small_content'>
+                            <div data-name="syslog告警通知" style="margin-left: 20px;">
+                                <div class="show-contenter">
+                                    <div class="show-contenter-a">
+                                        <input type="checkbox" id="syslog_switch" data-plugin="switchery" data-color="#039cfd" data-size="small"  />
+                                    </div>
+                                    <div class="show-contenter-b"><span>syslog告警通知</span> </div>
+                                </div>
+                                <div class="syslog_info">
+                                    <div class="font_info">syslog日志服务器地址、协议、端口：</div>
+                                    <div id="syslog_div">
+                                        <button class="btn btn-primary" id="syslog_add">添加</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-name="邮件告警通知" style="margin-left: 20px;">
+                                <div class="show-contenter">
+                                    <div class="show-contenter-a">
+                                        <input type="checkbox" id="email_alert_switch" data-plugin="switchery" data-color="#039cfd" data-size="small"/>
+                                    </div>
+                                    <div class="show-contenter-b"><span>邮件告警通知</span></div>
+                                </div>
+                                <div id="email_alert">
+                                        <div>
+                                            <div class="font_info"><span>设置SMTP主机、协议、端口：</span></div>
+                                            <div class="email_div">
+                                                <input type="text" class='form-control' placeholder="例如：smtp.126.com" id='email_alert_email'>
+                                                <select class="form-control syslog_div_http" id="email_alert_options">
+                                                        <option value="SSL/TLS">SSL/TLS</option>
+                                                        <option value="SMTP">SMTP</option>
+                                                </select>
+                                                <input type="text" class='form-control' placeholder="端口号" id="email_alert_port">
+                                        </div>
+                                            <div class="font_info"><span>设置SMTP账号、密码：</span> </div>
+                                            <div class="email_div">
+                                                    <input type="email" class='form-control' placeholder="userna@host.com" id="email_alert_id">
+                                                    <input type="password" class='form-control' placeholder="" id="email_alert_password">
+                                            </div>
 
-        <div class="col-sm-12">
-            <div class="card-box table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th width="15%">名称</th>
-                        <th>介绍</th>
-                        <th>更新时间</th>
-                        <th width="10%;">配置状态</th>
-                        <th width="10%;">状态</th>
-                        <th width="6%">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tableList">
-                    {{range $i, $e := .dataList}}
-                    <tr id="tr{{$e.type}}" data-id="{{$e.id}}">
-                        <td style="font-weight: bold;">{{$e.setting_name}} </td>
-                        <td>{{$e.setting_dis}}</td>
-                        <td id="trx{{$e.type}}">
-                            <script>var t ={{$e.update_time}};
-                            document.getElementById("trx{{$e.type}}").innerHTML = t.replace("T", " ").replace("+08:00", " ").replace("Z", "");</script>
-                        </td>
-                        <td>{{if ne $e.info ""}}
-                            <span class="yes_config">已配置</span>
-                        {{else}}
-                            <span class="no_config">未配置</span>
-                        {{end}}
-                        </td>
-                        <td><input type="checkbox" id="checkbox-{{$e.id}}" data-plugin="switchery"
-                                   onchange="updateStatusFunc('{{$e.id}}',this)" data-color="#039cfd" data-size="small"
-                        {{if eq $e.status 1}}
-                                   checked
-                        {{end}}
-                        />
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary  btn-sm"
-                                    onclick="settingSubFunc('{{$e.id}}','{{$e.type}}')" data-toggle="modal"><i
-                                    class="fa fa-edit"></i> 配置
-                            </button>
-                        </td>
-                    </tr>
-                    {{end}}
-                    </tbody>
-                </table>
+                                            <div>
+                                                    <div class="font_info"><span>告警信息收件信箱：</span></div>
+                                                    <div class="email_div">
+                                                        <textarea type="text" class='form-control' placeholder="每行表示一个收信箱" id="email_alert_textarea"></textarea>
+                                                    </div>
+                                            </div>
+                                            <div class ='email_alert_div'>
+                                                <div id="email_alert_callback"></div>
+                                                <button type="button" class="btn btn-black" id="email_alert_test">测试</button>
+                                            </div>
+                                        </div>
+                                </div>
+
+                            </div>
+                            <div data-name="WebHook告警通知" style="margin-left: 20px;">
+                                <div class="show-contenter">
+                                    <div class="show-contenter-a">
+                                        <input type="checkbox" id="webhook_switch" data-plugin="switchery" data-color="#039cfd" data-size="small"/>
+                                    </div>
+                                    <div class="show-contenter-b"><span>WebHook告警通知</span></div>
+                                </div>
+                                <div >
+                                    <div id="webhook_div">
+                                        <div class="font_info"><span>蜜罐捕获攻击后，请求以下URI推送告警信息：</span> </div>
+                                        <div>
+                                            <div><input type="email" class='form-control' id="webhook_info" placeholder="https://website.com/api/callback"></div>
+                                            <div class="font_info" id='syslog_demo' style="margin-bottom: 15px; width: 50px;">
+                                                <span class="span_touch">告警样例</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                <div class="save">
+                    <div class="save_div">
+                        <button type="button" class="btn  btn-same" id='syslog_reset' style="background: #FFFFFF;"><div class="save_font" style="color: #3A7EEA;">取消</div></button>
+                        <button type="button" class="btn btn-primary btn-same" id="syslog_save" ><div class="save_font">保存</div></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab_small_content">
+                    <div data-name="邮件群发通知" style="margin-left:20px;">
+                        <div class="show-contenter">
+                            <div class="show-contenter-a">
+                                <input type="checkbox" id="massset_switch" data-plugin="switchery"data-color="#039cfd" data-size="small"/>
+                            </div>
+                            <div class="show-contenter-b"><span>邮件群发通知</span></div>
+                        </div>
+                        <div id="massset_div">
+                            <div class="font_info"><span>设置SMTP主机、协议、端口：</span></div>
+                            <div class="massset_div_content">
+                                <input type="text" class='form-control' placeholder="例如：smtp.126.com" id="massset_input">
+                                <select class="form-control syslog_div_http" id="massset_options">
+                                    <option value="SMTP" selected>SMTP</option>
+                                    <option value="SSL/TLS">SSL/TLS</option>
+                                </select>
+                                <input type="text" class='form-control' placeholder="端口号" id="massset_port">
+                            </div>
+                            <div class="font_info"><span>设置SMTP账号、密码：</span></div>
+                            <div class="massset_div_content">
+                                <input type="email" class='form-control' placeholder="userna@host.com" id="massset_account">
+                                <input type="password" class='form-control' placeholder="" id="massset_password">
+                            </div>
+                            <div class ='email_alert_div'>
+                                <div id="massset_callback"></div>
+                                <button type="button" class="btn" id="massset_test">测试</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="save">
+                    <div class="save_div">
+                        <button type="button" class="btn  btn-same" id='messset_reset' style="background: #FFFFFF;"><div class="save_font" style="color: #3A7EEA;">取消</div></button>
+                        <button class="btn btn-primary btn-same" id="massset_save"><div class="save_font">保存</div></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                <div class="tab_small_content">
+                    <div data-name="云端威胁情报">
+                        <div class="show-contenter" style="margin-left:20px;">
+                            <div class="show-contenter-a">
+                                <input type="checkbox" id="intelligence_switch1" data-plugin="switchery"data-color="#039cfd" data-size="small"/>
+                            </div>
+                            <div class="show-contenter-b"><span>云端威胁情报</span></div>
+                        </div>
+                        <div id="intelligence_div1">
+                            <div class="font_info"><span>微步在线 X 情报社区 API Key：</span></div>
+                            <div class='intelligence_temp'>
+                                <div>
+                                    <input type="teet" class='form-control' id="intelligence_apikey">
+                                    <div class="intelligence_test_div">
+                                        <div id="intelligence_callback"></div>
+                                        <button class='btn' id="intelligence_test">测试</button>
+                                    </div>
+                                </div>
+                                <div class="intelligence_info">
+                                    <p style="color: #2B3D51;text-align:center; font-family: MicrosoftYaHeiUI-Bold">情报数据声明</p>
+                                <p style="font-size: 12px;color: #2B3D51;line-height: 16px;">
+                                HFish.io与微步在线（x.threatbook.cn）合作免费提供部分威胁情报</p>
+                                <p>如需情报，请登录微步在线社区获取情报查询API key，点此<button class="btn-intell"><a href="https://passport.threatbook.cn/login?callbackURL=https://x.threatbook.cn&s=hfish">登录</a></button></p>
+                                <p>如果还未注册社区账号，点此<button class="btn-intell"><a href="https://passport.threatbook.cn/signup?service=x&callbackURL=https://x.threatbook.cn&s=hfish">免费注册</a></button></p>
+                                <p>如需更大情报查询额度，请邮件至：<a href="">honeypot@threatbook.cn</a></p>
+                                <p style="font-size: 12px;color: #888890;line-height: 16px;">不填写不影响HFish蜜罐系统运行</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-name='本地白名单'>
+                        <div class="show-contenter" style="margin-left:20px;">
+                            <div class="show-contenter-a">
+                                <input type="checkbox" id="intelligence_switch2" data-plugin="switchery"data-color="#039cfd" data-size="small"/>
+                            </div>
+                            <div class="show-contenter-b"><span>本地白名单</span></div>
+                        </div>
+                        <div id='intelligence_div2'>
+                            <div class="font_info"><span>以下IP不会触犯系统告警</span></div>
+                            <div>
+                                <textarea type="text" class='form-control' placeholder="每行表示一个IP" id="intelligence_textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="save">
+                    <div class="save_div">
+                        <button class="btn  btn-same" id='intelligence_reset' style="background: #FFFFFF;"><div class="save_font" style="color: #3A7EEA;">取消</div></button>
+                        <button class="btn btn-primary btn-same" id="intelligence_save"><div class="save_font">保存</div></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <div class="tab_small_content">
+                  <div data-name="密码脱敏">
+                    <div class="show-contenter" style="margin-left: 20px;">
+                        <div class="show-contenter-a">
+                            <input type="checkbox" id="secret_switch" data-plugin="switchery"data-color="#039cfd" data-size="small"/>
+                        </div>
+                        <div class="show-contenter-b"><span>密码脱敏</span></div>
+                    </div>
+                    <div id="secret_div">
+                        <div class="font_info"><span>告警邮件中如有密码，密码会自动加星，设置加密符号：</span></div>
+                        <div><input type="text" class='form-control' id="secret_input"></div>
+                    </div>
+                </div>
+                <div data-name='数据清理'>
+                    <div class="show-contenter" style="margin-left: 20px;">
+                        <div class="show-contenter-b"><span>数据清理</span></div>
+                    </div>
+                    <div class="clear_div">
+                        <div class="clear_warn"><div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组-copy-5"><circle id="椭圆形" fill="#FFCC00" cx="10" cy="10" r="10"></circle><rect id="Rectangle" fill="#FFFFFF" x="8.57142857" y="13.3333333" width="2.85714286" height="2.85714286"></rect><polygon id="Rectangle备份" fill="#FFFFFF" points="8.2495588 3.80952381 11.838733 3.80952381 11.4285714 12.3809524 8.57142857 12.3809524"></polygon></g></g></svg></div>
+                        <div class="email_span">数据清理后不可恢复，请谨慎操作!</div></div>
+                        <div><button class="btn btn-danger clear_btn" onclick="clearData(1)">清空系统已捕获的上钩数据</button></div>
+                        <div><button class="btn btn-danger clear_btn" onclick="clearData(2)">清空系统已捕获的密码数据</button></div>
+                        <div><button class="btn btn-danger clear_btn" onclick="clearData(3)">清空系统已捕获的集群数据</button></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="save">
+                    <div class="save_div">
+                        <button type="button" class="btn  btn-same" id='secret_reset' style="background: #FFFFFF;"><div class="save_font" style="color: #3A7EEA;">取消</div></button>
+                        <button class="btn btn-primary btn-same" id="secret_save"><div class="save_font">保存</div></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="about" role="tabpanel" aria-labelledby="about-tab">
+                <div class="about_div">
+                    <div class="about_btn first">HFish社区版 v0.6.4</div>
+                    <p>HFish社区版是一款基于 Golang 开发的跨平台多功能主动诱导型开源蜜罐框架系统，为了企业安全防护做出了精心的打造，全程记录黑客攻击手段，实现防护自主化。</p>
+                    <!-- <div class="about_btn second second_a">隐私声明</div> -->
+                    <p></p>
+                    <p></p>
+                    <div class="about_btn second second_b">免责声明</div>
+                    <p>本产品仅供信息安全测试使用，禁止用于非法用途，一切违法行为与作者无关。</p>
+                    <div class="about_sp">Copyright 2020 © HFish.io</div>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">E-mail 通知设置</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>发送人(账号)</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="请填写发送人账号">
-                </div>
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>密码</label>
-                    <input type="password" class="form-control" id="pass" name="pass" placeholder="请填写发送人密码">
-                </div>
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>SMTP</label>
-                    <input type="text" class="form-control" id="host" name="host" placeholder="例:smtp.126.com">
-                </div>
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>端口</label>
-                    <input type="number" class="form-control" id="port" name="port" placeholder="例:465">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" onclick="updateEmailPost()">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="receiveEmailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">E-mail 通知设置</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>发送人(账号)</label>
-                    <input type="email" class="form-control" id="alertEmail" name="alertEmail" placeholder="请填写发送人账号">
-                </div>
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>密码</label>
-                    <input type="password" class="form-control" id="alertPass" name="alertPass" placeholder="请填写发送人密码">
-                </div>
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>SMTP</label>
-                    <input type="text" class="form-control" id="alertHost" name="alertHost"
-                           placeholder="例:smtp.126.com">
-                </div>
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>端口</label>
-                    <input type="number" class="form-control" id="alertPort" name="alertPort" placeholder="例:465">
-                </div>
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>接收人</label>
-                    <textarea class="form-control" id="receive" name="receive" placeholder="接收人(群发请换行)" cols="30"
-                              rows="10"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-primary" onclick="syncStmpConfig()">同步STMP配置</button>
-                <button type="submit" class="btn btn-primary" onclick="updateReceiveEmailPost()">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ip Modal -->
-<div class="modal fade" id="ipWhitelistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">IP 白名单设置</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>IP 列表</label>
-                    <textarea class="form-control" id="whiteIpList" name="whiteIpList" placeholder="请输入ip （多ip请换行）"
-                              cols="30"
-                              rows="10"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" onclick="saveWhiteIp()">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="webHookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">WebHook Api 设置</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>请输入 Url</label>
-                    <input type="url" class="form-control" id="webHookUrl" name="webHookUrl" placeholder="请填写 Url 地址">
-                </div>
-            </div>
-            <div class="modal-footer">
-
-                <button type="submit" class="btn btn-primary" onclick="updateWebHookPost()">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="passwdTMModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">密码脱敏符号设置</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for=""><span class="text-danger">*</span>加密符号</label>
-                    <input type="url" class="form-control" id="passwdTMText" name="webHookUrl" placeholder="请配置加密符号">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" onclick="updatePasswdTM()">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="showSetting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document" style="width: 200px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">高级设置</h4>
-            </div>
-            <div class="modal-body">
-                <button style="width: 100%;margin-bottom: 20px;" type="button" class="btn btn-custom"
-                        onclick="clearData(1)"><i class="fa fa-trash-o"></i>
-                    清空上钩数据
-                </button>
-                <button style="width: 100%;margin-bottom: 20px;" type="button" class="btn btn-custom"
-                        onclick="clearData(2)"><i
-                        class="fa fa-trash-o"></i>
-                    清空集群数据
-                </button>
-                <button style="width: 100%;" type="button" class="btn btn-custom" onclick="clearData(3)"><i
-                        class="fa fa-trash-o"></i>
-                    清空密码数据
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 <input type="hidden" value="" id="settingId">
 {{template "footer" }}
 <script>
-    function settingSubFunc(id, type) {
-        $("#settingId").val(id);
-        getSettingInfo(id);
-        switch (type) {
-            case "mail":
-                $('#myModal').modal('show');
-                break;
-            case "login":
-                $('#settingLoginModal').modal('show');
-                break;
-            case "alertMail":
-                $('#receiveEmailModal').modal('show');
-                break;
-            case "whiteIp":
-                $('#ipWhitelistModal').modal('show');
-                break;
-            case "webHook":
-                $("#webHookModal").modal('show');
-                break;
-            case "passwdTM":
-                $("#passwdTMModal").modal('show');
-                break;
-            default:
-                break
+//      全局变量
+        const mapData = new Map();
+        mapData.set('home-tab',{
+            email_info: "",
+            email_status: 0,
+            syslog_info: "",
+            syslog_status: 0,
+            webhook_info: "",
+            webhook_status: 0
+        });
+        mapData.set('profile-tab',{
+            mail_info: "",
+            mail_status: 0
+        });
+        mapData.set('messages-tab',{
+        "cloud_apikey": "",
+        "cloud_status": 0,
+        "local_iplist": "",
+        "local_status": 0
+});
+        mapData.set('settings-tab',{
+        "passwd_status": 0,
+        "passwd_text": ""
+    });
+        let gModule;
+
+$("document").ready(function() {
+        var url  = window.location.href;
+        var string = url.split("#")[1] ? url.split("#")[1] : '';
+        if(!!string) {
+            $(`#${string}-tab`).addClass('active');
+            $(`#${string}`).addClass('active');
+            $.ajax({
+            type:"get",
+            url:'/get/setting/intelligence',
+            }).success(function(results) {
+            if(results.code === 200) {
+               init_intelligence(results.data);
+               mapData.set('messages-tab', results.data);
+                }
+            })
+        } else {
+            $(`#home-tab`).addClass('active');
+            $(`#home`).addClass('active');
+            $.ajax({
+            type:"get",
+            url:"/get/setting/alert",
+        }).success(function(results) {
+           if(results.code === 200) {
+                init_syslog(results.data);
+                mapData.set('home-tab',results.data);
+           }
+        })
+        }
+});
+
+$('.modal').click(function() {
+    $('#myFishInfo').hide();
+    $('.modal_temp').css('visibility','hidden');
+});
+$("#syslog_demo").click(function(){
+    $('#myFishInfo').show();
+    $('.modal_temp').css('visibility','visible');
+});
+$('.close').click(function() {
+    $('#myFishInfo').hide();
+    $('.modal_temp').css('visibility','hidden');
+});
+
+class SyslogModule {
+    constructor(initArr) {
+        this.maxCount = 3;
+        this.dataArr = initArr || [];
+    }
+    init() {
+       if(this.dataArr.length === 0){
+            this.dataArr = [['','UDP','']];
+       }
+       this.render();
+    }
+    bindClick() {
+
+        if (this.maxCount < 1) {
+            console.log("不能添加");
+        } else {
+            let string = '';
+            string = `<div class="syslog_div_content">
+                                    <input type="text" class='form-control syslog_div_address' id="syslog_address">
+                                    <select class="form-control syslog_div_http" id="syslog_http">
+                                        <option value="UDP" selected>UDP</option>
+                                        <option value="TCP">TCP</option>
+                                    </select>
+                                    <input type="text" class='form-control syslog_div_port' autocomplete="off"  id="syslog_port">
+                                    <button class='btn syslog_test'>测试</button>
+                                    <div class='syslog_dele'><svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="分组-4-copy-16" fill-rule="nonzero"><circle id="椭圆形-copy-2" fill="#E02213" cx="7" cy="7" r="7"></circle><rect id="矩形-copy" fill="#FFFFFF" x="3" y="6" width="8" height="2"></rect></g></g></svg></div>
+                            </div>`;
+            this.maxCount--;
+            $('#syslog_add').before(string);
+            if(this.maxCount < 1) {
+                $('#syslog_add').prop('disabled',true);
+            }
         }
     }
-
-    var syncStmpConfig = function () {
-        var id = $("#trmail ").data("id");
-        getSettingInfo(id, function () {
-            $("#alertEmail").val($("#email").val());
-            $("#alertPass").val($("#pass").val());
-            $("#alertHost").val($("#host").val());
-            $("#alertPort").val($("#port").val());
-        })
-    };
-
-    var getSettingInfo = function (id, cb) {
-        $.ajax({
-            type: "get",
-            url: "/get/setting/info?id=" + id
-        }).success(function (result) {
-            if (result.code == 200) {
-                var typeStr = result.data.type;
-                var arr = result.data.info.split("&&")
-                if (arr.length == 4 && typeStr == "mail") {
-                    $("#email").val(arr[2])
-                    $("#pass").val(arr[3])
-                    $("#host").val(arr[0])
-                    $("#port").val(arr[1])
-                } else if (arr.length == 2 && typeStr == "login") {
-                    $("#loginName").val(arr[0])
-                    $("#loginPwd").val(arr[1])
-                } else if (arr.length >= 4 && typeStr == "alertMail") {
-                    $("#alertEmail").val(arr[2])
-                    $("#alertPass").val(arr[3])
-                    $("#alertHost").val(arr[0])
-                    $("#alertPort").val(arr[1])
-                    var emailArr = arr.splice(4)
-                    var content = emailArr.join("\n")
-                    $("#receive").text(content)
-                } else if (arr.length >= 1 && typeStr == "whiteIp") {
-                    $("#whiteIpList").text(arr.join("\n"));
-                } else if (arr.length >= 1 && typeStr == "webHook") {
-                    $("#webHookUrl").val(arr[0]);
-                } else if (arr.length >= 1 && typeStr == "passwdTM") {
-                    $("#passwdTMText").val(arr[0]);
-                }
-                if (typeof cb == "function") {
-                    cb()
-                }
-            }
-        }).fail(function (err) {
-            console.log(err)
-        })
-    };
-
-    function updateEmailPost() {
-        var params = {
-            email: $("#email").val(),
-            pass: $("#pass").val(),
-            host: $("#host").val(),
-            port: $("#port").val(),
-            id: $("#settingId").val()
-        };
-
-        $.ajax({
-            type: "post",
-            url: "/post/setting/update",
-            data: params
-        }).success(function (result) {
-            if (result.code == 200) {
-                if (!$("#checkbox-" + params.id).prop("checked")) {
-                    $("#checkbox-" + params.id).click()
-                }
-            }
-            $('#myModal').modal('hide')
-
-        }).fail(function (err) {
-            console.log(err)
-        })
+    resetClick(event) {
+        let parent = $(event.target).parents('.syslog_div_content');
+        parent.remove();
+        this.maxCount += 1;
+        if($('#syslog_add').prop('disabled') == true) {
+            $('#syslog_add').prop('disabled',false);
+        }
+        if(this.maxCount>3) {
+            this.maxCount = 3;
+        }
     }
-
-    function updateReceiveEmailPost() {
-
-        var params = {
-            email: $("#alertEmail").val(),
-            pass: $("#alertPass").val(),
-            host: $("#alertHost").val(),
-            port: $("#alertPort").val(),
-            receive: $("#receive").val().split(/[\s\n]/).join(","),
-            id: $("#settingId").val()
-        };
-
+    testClick(event) {
+        let addr = event.target.parentNode.children[0].value;
+        let protocol = event.target.parentNode.children[1].value;
+        let port = event.target.parentNode.children[2].value;
         $.ajax({
-            type: "post",
-            url: "/post/setting/updateAlertMail",
-            data: params
-        }).success(function (result) {
-            if (result.code == 200) {
-                if (!$("#checkbox-" + params.id).prop("checked")) {
-                    $("#checkbox-" + params.id).click()
-                }
-            }
-            $('#receiveEmailModal').modal('hide')
-
-        }).fail(function (err) {
-            console.log(err)
-        })
-    }
-
-    function updateStatusFunc(id, ele) {
-        var params = {
-            "id": id,
-            "status": $(ele).is(":checked") ? 1 : 0
-        };
-
-        $.ajax({
-            type: "post",
-            url: "/post/setting/checkSetting",
-            data: params
-        }).success(function (result) {
-            if (result.code == 10003) {
-                swal(result.msg)
-                $(ele).click()
-            }
-        }).fail(function (err) {
-            console.log(err)
-        })
-    }
-
-    function saveWhiteIp() {
-        var params = {
-            whiteIpList: $("#whiteIpList").val().split(/[\s\n]/).join(","),
-            id: $("#settingId").val()
-        };
-        $.ajax({
-            type: "post",
-            url: "/post/setting/updateWhiteIp",
-            data: params
-        }).success(function (result) {
-            if (result.code == 200) {
-                if (!$("#checkbox-" + params.id).prop("checked")) {
-                    $("#checkbox-" + params.id).click()
-                }
-            }
-            $('#ipWhitelistModal').modal('hide')
-
-        }).fail(function (err) {
-            console.log(err)
-        })
-    }
-
-    function updateWebHookPost() {
-        var params = {
-            webHookUrl: $("#webHookUrl").val(),
-            id: $("#settingId").val()
-        };
-        $.ajax({
-            type: "post",
-            url: "/post/setting/updateWebHook",
-            data: params
-        }).success(function (result) {
-            if (result.code == 200) {
-                if (!$("#checkbox-" + params.id).prop("checked")) {
-                    $("#checkbox-" + params.id).click()
-                }
-            }
-            $('#webHookModal').modal('hide')
-
-        }).fail(function (err) {
-            console.log(err)
-        })
-    }
-
-    function updatePasswdTM() {
-        var params = {
-            text: $("#passwdTMText").val(),
-            id: $("#settingId").val()
-        };
-        $.ajax({
-            type: "post",
-            url: "/post/setting/updatePasswdTM",
-            data: params
-        }).success(function (result) {
-            if (result.code == 200) {
-                if (!$("#checkbox-" + params.id).prop("checked")) {
-                    $("#checkbox-" + params.id).click()
-                }
-            }
-            $('#passwdTMModal').modal('hide');
-
-        }).fail(function (err) {
-            console.log(err)
-        })
-    }
-
-    function showSetting() {
-        $('#showSetting').modal('show');
-    }
-
-    function clearData(type) {
-        swal("success", "正在清空数据...", 'success');
-
-        $.ajax({
-            type: "POST",
-            url: "/post/setting/clearData",
-            dataType: "json",
+            type: 'post',
+            url: '/post/setting/syslog/test',
             data: {
-                "type": type
-            },
-            success: function (e) {
-                if (e.code == 200) {
-                    swal("success", "清空成功", 'success');
-                } else {
-                    swal("清空失败", e.msg, 'error');
-                }
-            },
-            error: function (e) {
-                swal("清空失败", "请 Github 提交 Issues", 'error');
+                addr,
+                protocol,
+                port
             }
+        }).success(results => {
+            alert(results.msg);
         });
+
     }
+
+    render() {
+        let stringDiv = this.dataArr.map(function(item,index) {
+            let string = '';
+                if(index === 0 ) {
+                    string = `<div class="syslog_div_content">
+                                    <input type="text" class='form-control syslog_div_address' id="syslog_address" value = ${!!item[0] ? item[0] : ''} >
+                                    <select class="form-control syslog_div_http" id="syslog_http" value = ${item[1]}>
+                                        <option value="UDP">UDP</option>
+                                        <option value="TCP">TCP</option>
+                                    </select>
+                                    <input type="text" class='form-control syslog_div_port' autocomplete="off"  id="syslog_port" value = ${!!item[2] ? item[2] : ''}>
+                                    <button class='btn syslog_test'>测试</button>
+                        </div>`;
+                } else {
+                    string = `<div class="syslog_div_content">
+                                    <input type="text" class='form-control syslog_div_address' id="syslog_address" value = ${!!item[0] ? item[0] : ''} >
+                                    <select class="form-control syslog_div_http" id="syslog_http" value = ${item[1]}>
+                                        <option value="UDP">UDP</option>
+                                        <option value="TCP">TCP</option>
+                                    </select>
+                                    <input type="text" class='form-control syslog_div_port' autocomplete="off"  id="syslog_port" value = ${!!item[2] ? item[2] : ''}>
+                                    <button class='btn syslog_test'>测试</button>
+                                   <div class='syslog_dele'><svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="分组-4-copy-16" fill-rule="nonzero"><circle id="椭圆形-copy-2" fill="#E02213" cx="7" cy="7" r="7"></circle><rect id="矩形-copy" fill="#FFFFFF" x="3" y="6" width="8" height="2"></rect></g></g></svg></div>  
+                        </div>`;
+                }
+            this.maxCount--;
+            return string;
+        },this);
+        $('#syslog_add').before(stringDiv);
+        $("#syslog_div").on('click','#syslog_add',this.bindClick.bind(this));
+        $("#syslog_div").on('click', '.syslog_test', this.testClick.bind(this));
+        $("#syslog_div").on('click','.syslog_dele',this.resetClick.bind(this));
+
+        if(this.maxCount == 0) {
+            $('#syslog_add').prop('disabled',true);
+        } else {
+            $('#syslog_add').prop('disabled',false);
+        }
+    }
+}
+
+function init_syslog(data) {
+    // 数据处理
+    let syslog_info_arr = data.syslog_info.split("&&");
+    let  { syslog_status } = data;
+
+    syslog_info_arr =  syslog_info_arr.map(item => {
+        var arrTemp =  item.split(":");
+        // 交换位置
+        [ arrTemp[0],arrTemp[1]] =  [ arrTemp[1],arrTemp[0] ];
+        return arrTemp;
+    });
+    var length = syslog_info_arr.length;
+
+    if(data.syslog_status && !$("#syslog_switch").prop('checked') || $("#syslog_switch").prop('checked') && !data.syslog_status) {
+        $("#syslog_switch").click();
+    }
+    if(!gModule) {
+       gModule =  new SyslogModule(syslog_info_arr);
+       gModule.init();
+    }
+
+    //SMTP的数据填充
+    if(data.email_status && !$("#email_alert_switch").prop('checked') || $("#email_alert_switch").prop('checked') && !data.email_status) {
+        $("#email_alert_switch").click();
+    }
+    var email_info_arr = data.email_info.split("&&");
+    var temp = email_info_arr.splice(0,5);
+    $("#email_alert_email").val(filterXSS(temp[0]));
+    $("#email_alert_options").val(!!temp[1] ?filterXSS(temp[1].toUpperCase()) : "SMTP");
+    $("#email_alert_port").val(filterXSS(temp[2]));
+    $("#email_alert_id").val(filterXSS(temp[3]));
+    $("#email_alert_password").val(filterXSS(temp[4]));
+
+    //用户列表的填充
+    var string  = email_info_arr.join("\n");
+    $("#email_alert_textarea").val(string);
+    if(data.webhook_status && !$("#webhook_switch").prop('checked') || $("#webhook_switch").prop('checked') && !data.webhook_status) {
+        $("#webhook_switch").click();
+    }
+    $("#webhook_info").val(data.webhook_info);
+};
+
+function init_massset(data) {
+    let mail_info_arr = data.mail_info.split("&&");
+
+    if(data.mail_status && !$("#massset_switch").prop('checked') || $("#massset_switch").prop('checked') && !data.mail_status) {
+                    $("#massset_switch").click();
+                }
+    $('#massset_input').val(mail_info_arr[0]);
+    $('#massset_options').val(!!mail_info_arr[1]?mail_info_arr[1].toUpperCase():'SMTP')
+    $("#massset_port").val(mail_info_arr[2]);
+    $('#massset_account').val(mail_info_arr[3]);
+    $('#massset_password').val(mail_info_arr[4]);
+}
+
+function init_intelligence(data) {
+    let { cloud_status } = data;
+    let { local_status } = data;
+
+    if(cloud_status && !$("#intelligence_switch1").prop('checked') || $("#intelligence_switch1").prop('checked') && !cloud_status) {
+                    $("#intelligence_switch1").click();
+    }
+    if(local_status && !$("#intelligence_switch2").prop('checked') || $("#intelligence_switch2").prop('checked') && !local_status) {
+                    $("#intelligence_switch2").click();
+                }
+    $("#intelligence_apikey").val(!!data.cloud_apikey ? data.cloud_apikey : '');
+    $("#intelligence_textarea").val( !!data.local_iplist ? data.local_iplist.split("&&").join("\n") : '');
+}
+
+function init_secret(data) {
+    if(data.passwd_status && !$("#secret_switch").prop('checked') || $("#secret_switch").prop('checked') && !data.passwd_status) {
+                    $("#secret_switch").click();
+                }
+    $("#secret_input").val(data.passwd_text);
+}
+
+//告警通知测试
+$("#email_alert_test").click(function() {
+
+    var params = {
+        addr: $("#email_alert_email").val(),
+        protocol:$("#email_alert_options").val().toLowerCase(),
+        port:parseInt($("#email_alert_port").val()),
+        account: $("#email_alert_id").val(),
+        password: $("#email_alert_password").val(),
+        emails: $("#email_alert_textarea").val().split("\n").join()
+    }
+
+    $.ajax({
+        type: "post",
+        url: "/post/setting/email/test",
+        data:params,
+    }).success(function(results) {
+        if(results.code == 200) {
+            $("#email_alert_callback").css('opacity',1);
+            $("#email_alert_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg></div><div class="email_span">测试消息已发送!</div>`);
+        } else {
+            $("#email_alert_callback").css('opacity',1);
+            $("#email_alert_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span" style=''>发送失败,错误信息!</div>`);
+        }
+    }).fail(function(error) {
+        console.err(error);
+    })
+})
+
+//群发邮件测试
+$("#massset_test").click(function() {
+    var params = {
+        addr: $('#massset_input').val(),
+        protocol:$('#massset_options').val().toLowerCase(),
+        port:parseInt($("#massset_port").val()),
+        account: $('#massset_account').val(),
+        password:$('#massset_password').val(),
+        emails: "285329930@qq.com"
+    }
+
+    $.ajax({
+        type: "post",
+        url: "/post/setting/email/test",
+        data:params,
+    }).success(function(results) {
+        if(results.code == 200) {
+            $('#massset_callback').css('opacity', 1);
+            $("#massset_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg></div><div class="email_span">测试消息已发送!</div>`);
+        } else {
+            $('#massset_callback').css('opacity', 1);
+            $("#massset_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span">发送失败,错误信息!</div>`);
+        }
+    }).fail(function(error) {
+        console.err(error);
+    })
+})
+
+//威胁情报测试
+$("#intelligence_test").click(function(){
+    var apikey = $("#intelligence_apikey").val();
+    $.ajax({
+        type: 'post',
+        url: '/post/setting/intelligence/test',
+        data: {
+            apikey
+        }
+    }).success(function(results) {
+       if(results.code === 200) {
+        $("#intelligence_callback").css('opacity', 1);
+        $("#intelligence_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg></div><div class="email_span">成功!</div>`);
+       } else {
+        $("#intelligence_callback").css('opacity', 1);
+        $("#intelligence_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span">错误,正确的key值为64个字符</div>`);
+       }
+    })
+});
+
+
+
+//syslog保存功能
+$("#syslog_save").click(function() {
+
+    let email_status = $("#email_alert_switch").prop('checked') ? 1 : 0;
+    let syslog_status = $("#syslog_switch").prop('checked') ? 1 : 0;
+    let webhook_status = $("#webhook_switch").prop('checked') ? 1 : 0;
+
+    var data = {
+        "email_info": '',
+        "email_status": '',
+        "syslog_info": '',
+        "syslog_status": '',
+        "webhook_info": '',
+        "webhook_status": ''
+    }
+
+    data['email_status'] = email_status;
+    data['syslog_status'] = syslog_status;
+    data['webhook_status'] =  webhook_status;
+    let arr = [];
+    // syslog_info数据获取 和 判空
+    let syslog_address_arr = document.querySelectorAll("#syslog_address");
+    let syslog_http_arr = document.querySelectorAll("#syslog_http");
+    let syslog_port_arr = document.querySelectorAll("#syslog_port");
+    let length = syslog_address_arr.length;
+    let syslog_flag = true;
+    if(!!syslog_status) {
+        arr = [];
+        for(let i = 0; i < length; i++) {
+            if(!!syslog_http_arr[i].value && !!syslog_address_arr[i].value && !!syslog_port_arr[i].value) {
+                let string = `${syslog_http_arr[i].value}:${syslog_address_arr[i].value}:${syslog_port_arr[i].value}`;
+                arr.push(string);
+            } else {
+                syslog_flag = false;
+                break;
+            }
+        }
+        if(arr.length == length) {
+                    syslog_flag = true;
+                }
+        var syslog_info = arr.join("&&");
+            data['syslog_info'] = syslog_info;
+
+    } else {
+        arr = [];
+        for(let i = 0; i < length;i++) {
+                let string = `${syslog_http_arr[i].value}:${syslog_address_arr[i].value}:${syslog_port_arr[i].value}`;
+                arr.push(string);
+            }
+            var syslog_info = arr.join("&&");
+            if(syslog_info === 'UDP::' || syslog_info === 'TCP::') {
+                syslog_info = '';
+            }
+            data['syslog_info'] = syslog_info;
+    }
+
+    // email的检测
+    let email_info = '';
+    let email_flag = true;
+    if(!!email_status) {
+        if(!!$("#email_alert_email").val()  && !!$("#email_alert_options").val() && !! $("#email_alert_port").val() && !!$("#email_alert_id").val() && $("#email_alert_password").val() && !!$("#email_alert_textarea").val()) {
+            email_info = `${$("#email_alert_email").val()}&&${$("#email_alert_options").val().toLowerCase()}&&${$("#email_alert_port").val()}&&${$("#email_alert_id").val()}&&${$("#email_alert_password").val()}&&${$("#email_alert_textarea").val().split("\n").join("&&")}`;
+            data['email_info'] = email_info;
+            email_flag = true;
+        } else {
+            email_flag = false;
+        }
+    } else {
+         email_info = `${$("#email_alert_email").val()}&&${$("#email_alert_options").val().toLowerCase()}&&${$("#email_alert_port").val()}&&${$("#email_alert_id").val()}&&${$("#email_alert_password").val()}&&${$("#email_alert_textarea").val().split("\n").join("&&")}`;
+         if(email_info === '&&smtp&&&&&&&&' || email_info === '&&ssl/tls&&&&&&&&') {
+            email_info = '';
+            }
+        data['email_info'] = email_info;
+    }
+
+
+    //webhook_info数据获取
+    let webhook_info;
+    let webhook_flag = true;
+
+    if(!!webhook_status) {
+        if(!!$("#webhook_info").val()) {
+            webhook_info = $("#webhook_info").val();
+            data['webhook_info'] = webhook_info;
+            webhook_flag = true;
+        } else {
+            webhook_flag = false;
+        }
+    } else {
+        webhook_info =  $("#webhook_info").val();
+        data['webhook_info'] = webhook_info;
+    }
+    if((!!webhook_flag  && !!syslog_flag && !!email_flag)) {
+        $.ajax({
+            type:"post",
+            url:'/post/setting/alert',
+            data:data
+        }).success(function(results) {
+            $(".message_inco").html(`<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg>`);
+                    $('.message_info_div').text(`数据保存成功`);
+                    $('.message').css('visibility','visible');
+                   let  a =  setTimeout(function() {
+                    $('.message').css('visibility','hidden');
+                        clearTimeout(a);
+                   },2000);
+            $.ajax({
+            type:"get",
+            url:"/get/setting/alert",
+        }).success(function(results) {
+           if(results.code === 200) {
+                init_syslog(results.data);
+                mapData.set('home-tab', results.data);
+           }
+        })
+        })
+    } else {
+        alert("启用的项中有未填写的数据,请重试");
+    }
+});
+
+//群发设置的保存
+$("#massset_save").click(function() {
+
+    let mail_status = $("#massset_switch").prop('checked') ? 1 : 0;
+    let data = {};
+    let mail_info = '';
+    let mail_flag = true;
+    if(!!mail_status) {
+        if(!!$('#massset_input').val() && !!$("#massset_port").val() && !!$('#massset_options').val() && !!$('#massset_account').val() && !!$('#massset_password').val()) {
+            mail_info = `${$('#massset_input').val()}&&${$('#massset_options').val().toLowerCase()}&&${$("#massset_port").val()}&&${$('#massset_account').val()}&&${$('#massset_password').val()}`;
+            mail_flag = true;
+        } else {
+            mail_flag = false;
+        }
+    } else {
+            mail_info = `${$('#massset_input').val()}&&${$('#massset_options').val().toLowerCase()}&&${$("#massset_port").val()}&&${$('#massset_account').val()}&&${$('#massset_password').val()}`;
+            if(mail_info === '&&smtp&&&&&&'||mail_info === '&&ssl/tls&&&&&&' ) {
+                mail_info = '';
+            }
+    }
+
+    if(!!mail_flag) {
+
+        $.ajax({
+        type:"post",
+        url:"/post/setting/massset",
+        data:{
+            mail_info,
+            mail_status
+        }
+    }).success(function(results) {
+        $(".message_inco").html(`<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg>`);
+                    $('.message_info_div').text(`数据保存成功`);
+                    $('.message').css('visibility','visible');
+                   let  a =  setTimeout(function() {
+                    $('.message').css('visibility','hidden');
+                        clearTimeout(a);
+                   },2000);
+        $.ajax({
+                type:"get",
+                url:'/get/setting/massset',
+            }).success(function(results) {
+                if(results.code === 200) {
+               init_massset(results.data);
+               mapData.set('profile-tab', results.data);
+           }
+        })
+    });
+    } else {
+        alert("选中的项的某些字段未填写");
+    }
+})
+
+//威胁情报的save
+$('#intelligence_save').click(function(){
+
+    let cloud_status = $("#intelligence_switch1").prop('checked') ? 1 : 0;
+    let local_status = $("#intelligence_switch2").prop('checked') ? 1 : 0;
+    let cloud_apikey = '';
+    let local_iplist = '';
+    let cloud_flag = true;
+    let local_flag = true;
+
+    if(!!cloud_status) {
+        if(!!$("#intelligence_apikey").val()) {
+            cloud_apikey = $("#intelligence_apikey").val();
+            cloud_flag = true;
+        } else {
+            cloud_flag = false;
+        }
+    } else {
+         cloud_apikey = $("#intelligence_apikey").val();
+    }
+
+    if(!!local_status) {
+        if(!!$("#intelligence_textarea").val()) {
+            local_iplist = $("#intelligence_textarea").val().split("\n").join("&&");
+        } else {
+            local_flag = false;
+        }
+    } else {
+       local_iplist = $("#intelligence_textarea").val().split("\n").join("&&");
+    }
+    let data = {
+            cloud_apikey,
+            cloud_status,
+            local_status,
+            local_iplist
+    }
+    if(!!local_flag && !!cloud_flag) {
+        $.ajax({
+        type: 'post',
+        url: "/post/setting/intelligence",
+        data
+    }).success(function(results) {
+        $(".message_inco").html(`<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg>`);
+                    $('.message_info_div').text(`数据保存成功`);
+                    $('.message').css('visibility','visible');
+                   let  a =  setTimeout(function() {
+                    $('.message').css('visibility','hidden');
+                        clearTimeout(a);
+                   },2000);
+        // 保存后再次请求，并存入
+        $.ajax({
+            type:"get",
+            url:'/get/setting/intelligence',
+            }).success(function(results) {
+            if(results.code === 200) {
+               init_intelligence(results.data);
+               mapData.set('messages-tab', results.data);
+                }
+            })
+
+    })
+    .fail(function(err){console.log(console.error(err))});
+    } else {
+        alert("选中的项的某些字段未填写");
+    }
+})
+
+
+//  密码拖敏的save
+    $("#secret_save").click(function() {
+
+        let passwd_text = '';
+        let passwd_status = $("#secret_switch").prop('checked') ? 1 : 0;
+        let passwd_flag = true;
+        if(!!passwd_status) {
+            if(!!$("#secret_input").val()) {
+                passwd_flag = true;
+                passwd_text = $("#secret_input").val();
+            } else {
+                passwd_flag = false;
+            }
+        } else {
+            passwd_text = $("#secret_input").val();
+        }
+
+        if(!!passwd_flag) {
+            $.ajax({
+            type: 'post',
+            url: '/post/setting/secret',
+            data: {
+                passwd_text,
+                passwd_status
+            }
+        }).success(function(results) {
+            $(".message_inco").html(`<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg>`);
+                    $('.message_info_div').text(`数据保存成功`);
+                    $('.message').css('visibility','visible');
+                   let  a =  setTimeout(function() {
+                    $('.message').css('visibility','hidden');
+                        clearTimeout(a);
+                   },2000);
+            $.ajax({
+            type: "get",
+            url: '/get/setting/secret'
+        }).success(function(results) {
+            if(results.code === 200) {
+                init_secret(results.data);
+                mapData.set('settings-tab',results.data);
+            }
+        })
+        })
+        } else {
+            alert("选中的项的某些字段未填写");
+        }
+    })
+
+// 取消的按钮
+$('#syslog_reset').click(function() {
+    let data = mapData.get('home-tab');
+    init_syslog(data);
+});
+
+$('#messset_reset').click(function() {
+    let data = mapData.get('profile-tab');
+    init_massset(data);
+});
+
+$('#intelligence_reset').click(function() {
+    let data = mapData.get('messages-tab');
+    init_intelligence(data);
+});
+$('#secret_reset').click(function() {
+    let data = mapData.get('settings-tab');
+    init_secret(data);
+})
+// 警告通知,当未选中的时候才去get数据
+$("#home-tab").on('click',function() {
+    if(!$("#home-tab").hasClass("active")) {
+        if(!!mapData.get('home-tab')) {
+            var data = mapData.get('home-tab');
+            init_syslog(data);
+        } else {
+            $.ajax({
+            type:"get",
+            url:"/get/setting/alert",
+        }).success(function(results) {
+           if(results.code === 200) {
+                init_syslog(results.data);
+                mapData.set('home-tab', results.data);
+           }
+        })
+        }
+    }
+    });
+
+$("#profile-tab").on('click', function() {
+    if(!$("#profile-tab").hasClass("active")) {
+        if(!!mapData.get('profile-tab')) {
+            var data = mapData.get('profile-tab');
+            init_massset(data);
+        } else {
+            $.ajax({
+                type:"get",
+                url:'/get/setting/massset',
+            }).success(function(results) {
+                if(results.code === 200) {
+               init_massset(results.data);
+               mapData.set('profile-tab', results.data);
+           }
+        })
+        }
+    }
+});
+
+$("#messages-tab").on('click', function() {
+    if(!$("#messages-tab").hasClass("active")) {
+        if(!!mapData.get('messages-tab')) {
+           var data = mapData.get('messages-tab');
+           init_intelligence(data);
+        } else {
+            $.ajax({
+            type:"get",
+            url:'/get/setting/intelligence',
+            }).success(function(results) {
+            if(results.code === 200) {
+               init_intelligence(results.data);
+               mapData.set('messages-tab', results.data);
+                }
+            })
+        }
+    }
+});
+
+$("#settings-tab").on('click', function() {
+    if(!$("#settings-tab").hasClass("active")) {
+        if(!!mapData.get('settings-tab')) {
+            var data = mapData.get('settings-tab');
+            init_secret(data);
+        } else {
+            $.ajax({
+            type: "get",
+            url: '/get/setting/secret'
+        }).success(function(results) {
+            if(results.code === 200) {
+                init_secret(results.data);
+                mapData.set('settings-tab',results.data);
+            }
+        }).fail(function(error) {
+            console.error(error);
+        })
+        }
+    }
+});
+$("#home-tab").on('hide.bs.tab', function(e) {
+    // alert('syslog_log跳出测试');
+    let tempData = mapData.get('home-tab');
+    let email_status = $("#email_alert_switch").prop('checked') ? 1 : 0;
+    let syslog_status = $("#syslog_switch").prop('checked') ? 1 : 0;
+    let webhook_status = $("#webhook_switch").prop('checked') ? 1 : 0;
+    let syslog_address_arr = document.querySelectorAll("#syslog_address");
+    let syslog_http_arr = document.querySelectorAll("#syslog_http");
+    let syslog_port_arr = document.querySelectorAll("#syslog_port");
+    let length = syslog_address_arr.length;
+    let arr = [];
+        for(let i = 0; i < length;i++) {
+                let string = `${syslog_http_arr[i].value}:${syslog_address_arr[i].value}:${syslog_port_arr[i].value}`;
+                arr.push(string);
+            }
+    let syslog_info = arr.join("&&");
+
+    let email_info = `${$("#email_alert_email").val()}&&${$("#email_alert_options").val().toLowerCase()}&&${$("#email_alert_port").val()}&&${$("#email_alert_id").val()}&&${$("#email_alert_password").val()}&&${$("#email_alert_textarea").val().split("\n").join("&&")}`;
+    let webhook_info =  $("#webhook_info").val();
+    if(syslog_info === 'UDP::' || syslog_info === 'TCP::') {
+        syslog_info = '';
+    }
+    if(email_info === '&&smtp&&&&&&&&' || email_info === '&&ssl/tls&&&&&&&&') {
+        email_info = '';
+    }
+    if(tempData.email_status !== email_status || tempData.syslog_status !== syslog_status|| tempData.webhook_status !==webhook_status ||  tempData.syslog_info !== syslog_info || tempData.email_info !== email_info || tempData.webhook_info !== webhook_info) {
+        let flag = confirm("告警通知数据未保存,数据可能会丢失,确定要离开吗");
+        if(!flag) {
+            return false;
+        }
+    }
+})
+$("#profile-tab").on('hide.bs.tab', function(e) {
+    let tempData = mapData.get('profile-tab');
+    let mail_status = $("#massset_switch").prop('checked') ? 1 : 0;
+    let  mail_info = `${$('#massset_input').val()}&&${$('#massset_options').val().toLowerCase()}&&${$("#massset_port").val()}&&${$('#massset_account').val()}&&${$('#massset_password').val()}`;
+   if(mail_info === '&&smtp&&&&&&'||mail_info === '&&ssl/tls&&&&&&') {
+    mail_info = '';
+   }
+    if(tempData.mail_info !== mail_info || tempData.mail_status !== mail_status) {
+        let flag = confirm("群发设置数据未保存,数据可能会丢失,确定要离开吗");
+        if(!flag) {
+            return false;
+        }
+    }
+})
+$("#messages-tab").on('hide.bs.tab', function(e) {
+    let tempData = mapData.get('messages-tab');
+    let cloud_status = $("#intelligence_switch1").prop('checked') ? 1 : 0;
+    let local_status = $("#intelligence_switch2").prop('checked') ? 1 : 0;
+    let cloud_apikey = '';
+    let local_iplist = '';
+    cloud_apikey = $("#intelligence_apikey").val();
+    local_iplist = $("#intelligence_textarea").val().split("\n").join("&&");
+    if(tempData.cloud_apikey !== cloud_apikey || tempData.local_status !== local_status || tempData.local_iplist !== local_iplist || tempData.cloud_status !== cloud_status) {
+        let flag = confirm('威胁情报数据未保存，数据可能会丢失，确定要离开吗');
+        if(!flag) {
+            return false;
+        }
+    }
+})
+$('#settings-tab').on('hide.bs.tab', function (e) {
+    let tempData =  mapData.get('settings-tab');
+    let passwd_text = $("#secret_input").val();
+    let passwd_status = $("#secret_switch").prop('checked') ? 1 : 0;
+    if(tempData.passwd_text !== passwd_text || tempData.passwd_status !== passwd_status) {
+        let flag = confirm('数据合规数据未保存，数据可能丢失，确定要离开吗');
+        if(!flag) {
+            return false;
+        }
+    }
+});
+
+function clearData(type) {
+    swal("success", "正在清空数据...", 'success');
+
+    $.ajax({
+        type: "POST",
+        url: "/post/setting/clearData",
+        dataType: "json",
+        data: {
+            "type": type
+        },
+        success: function (e) {
+            if (e.code == 200) {
+                swal("success", "清空成功", 'success');
+            } else {
+                swal("清空失败", e.msg, 'error');
+            }
+        },
+        error: function (e) {
+            swal("清空失败", "请 Github 提交 Issues", 'error');
+        }
+    });
+    return false;
+}
+
 </script>

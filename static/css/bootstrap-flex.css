@@ -2271,9 +2271,11 @@ input[type="button"].btn-block {
 
 .fade {
   opacity: 0;
-  transition: opacity .15s linear; }
-  .fade.in {
-    opacity: 1; }
+  transition: opacity .15s linear;
+ }
+.fade.in {
+    opacity: 1;
+}
 
 .collapse {
   display: none; }

@@ -1,6 +1,21 @@
 {{template "header"}}
 <link href="/static/libs/page/jquery.sPage.css" rel="stylesheet"/>
 <style>
+    .title {
+        font-family: MicrosoftYaHeiUI-Bold;
+        font-size: 14px;
+        color: #2B3D51;
+        line-height: 16px;
+        border-left: 3px solid  #2B3D51;
+        padding-left: 3px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        margin-left:10px;
+    }
+    input::-webkit-input-placeholder {
+        font-size: 12px;
+        line-height: 14px;
+    }
     .card-box {
         padding: 0px;
     }
@@ -19,11 +34,6 @@
         background: #f5f5f5;
     }
 
-    .project {
-        font-weight: bold;
-        padding-left: 5px;
-    }
-
     .fa-trash-o {
         margin-right: 5px;
     }
@@ -32,62 +42,6 @@
         color: #039cfd;
         cursor: pointer;
         font-weight: bold;
-    }
-
-    .label {
-        line-height: 11px;
-    }
-
-    .lb_ssh {
-        background-color: #953fb9;
-    }
-
-    .lb_redis {
-        background-color: #e44242;
-    }
-
-    .lb_mysql {
-        background-color: #cabd23;
-    }
-
-    .lb_ftp {
-        background-color: #32cc16;
-    }
-
-    .lb_telnet {
-        background-color: #6b79c1;
-    }
-
-    .lb_deep {
-        background-color: #000000;
-    }
-
-    .lb_mem_cache {
-        background-color: #3d9671;
-    }
-
-    .lb_plug {
-        background-color: #61772d;
-    }
-
-    .lb_es {
-        background-color: #0177a3;
-    }
-
-    .lb_tftp {
-        background-color: #452b6d;
-    }
-
-    .lb_vnc {
-        background-color: #3c6f40;
-    }
-
-    .lb_http {
-        background-color: #56a996;
-    }
-
-    .lb_custom {
-        background-color: #8c600e;
     }
 
     .pre {
@@ -107,6 +61,7 @@
     .modal-content {
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
+        margin-top: 20vh;
     }
 
     .modal-header {
@@ -118,19 +73,6 @@
         margin-top: 0px;
     }
 
-    .sos {
-        margin-bottom: 10px;
-        height: 100px;
-    }
-
-    .agent_name {
-        border: 1px solid #079dfd;
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: #079dfd;
-        font-size: 12px;
-    }
-
     .ipinfo {
         border: 1px solid #434e56;
         padding: 2px 5px;
@@ -138,74 +80,396 @@
         color: #434e56;
         font-size: 12px;
     }
-
     .cinfo {
-        border: 1px solid #1eaec1;
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: #1eaec1;
+        font-family: MicrosoftYaHeiUI;
         font-size: 12px;
+        color: #2B3D51;
+        line-height: 16px;
+        cursor: pointer;
     }
-
     #myPage {
         text-align: center;
         margin-bottom: 20px;
+        margin-top: -10px;
     }
-
     .checkbox {
         padding-left: 20px;
         margin-bottom: -2px;
     }
-</style>
-<div class="row">
-    <div class="col-sm-12">
-    {{/*<div class="btn-group pull-right m-t-15">*/}}
-    {{/*<a type="button" class="btn btn-custom" href="#">导出 <span class="m-l-5"><i*/}}
-    {{/*class="zmdi zmdi-alarm-plus"></i></span>*/}}
-    {{/*</a>*/}}
-    {{/*</div>*/}}
-        <h4 class="page-title">上钩列表</h4>
-    </div>
+    .checkbox label {
+        margin-right: -10px;
+    }
+    .checkbox label::before {
+        background: #FFFFFF;
+        border: 1px solid #B7B7BC;
+        border-radius: 1px;
+        height: 12px;
+        width: 12px;
+        margin: 0 auto;
+        margin-top: 4px;
+        margin-right: 20px;
+    }
+    .checkbox input[type="checkbox"]  {
+        margin-left: -3px;
+    }
+    .checkbox input[type="checkbox"]:checked + label::after {
+        margin-left: -3px;
+    }
+    .btn-info {
+        color: #3186f5;
+        background-color: #d9eefd;
+    }
+    .btn-info:hover {
+        color: #3186f5;
+        background-color: #d9eefd;
+    }
+    .btn-danger {
+        color: #d82525;
+        background-color: #fbe9e9;
+    }
+    .btn-danger:hover{
+        color: #d82525;
+        background-color: #fbe9e9;
+    }
+    .btn-white {
+        color: #7ace0d;
+        background-color: #e4f5cf;
+    }
+    .btn-white:hover{
+        color: #7ace0d;
+        background-color: #e4f5cf;
+    }
+    .btn-tag {
+        color:#fff;
+        background-color: #f7931e;
+    }
+    .btn-tag:hover{
+        color:#fff;
+        background-color: #f7931e;
+    }
+    .buttonSelect {
+        position: relative;
+        height: 26px;
+    }
+    .divSelection {
+        height:82px;
+        width: 199px;
+        position:absolute;
+        z-index:99;
+        background: #FFFFFF;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.50);
+        border-radius: 2px;
+        display: flex;
+        visibility: hidden;
+    }
+    .divSelection_select {
+        flex:0 0 80px;
+        height: 26px;
+        padding: 0;
+        margin:10px;
+        margin-bottom: 0;
+    }
+    .divSelection_input {
+        flex: 0 0 60px;
+        height:26px;
+        padding: 0;
+        margin-top:10px;
+        margin-right: 5px;
+    }
+    .select_span {
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        line-height: 14px;
+    }
+    .selectDiv {
+        flex: 0 0 24px;
+        height: 26px;
+        margin-top:10px;
+        font-size: 12px;
+        text-align: center;
+        line-height: 26px;
+    }
+    #search {
+        padding: 0;
+        width:44px;
+        height: 26px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #FFFFFF;
+        background: #23272F;
+        position:absolute;
+        right:10px;
+        bottom: 10px;
+    }
+    .date_timepicker {
+        flex: 0 0 300px;
+        position: absolute;
+        right: 98px;
+        height:26px;
+        display: flex;
+    }
+    #date_timepicker_start {
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+    #date_timepicker_end {
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .page-title {
+        font-family: MicrosoftYaHeiUI-Bold;
+        width:56px;
+        height: 16px;
+        font-weight:bold;
+        font-size: 14px;
+        color: #2B3D51;
+        line-height: 16px;
+        margin-top: 15px;
+    }
+    .select_div {
+        display: flex;
+        margin-top: 15px;
+        margin-bottom:10px;
+    }
+    .input {
+        background: #FFFFFF;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        height: 26px;
+        padding: 0;
+        line-height: 16px;
+        padding-left: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+    .select_content {
+        flex: 0 0 200px;
+        margin-right: 5px;
+        display: flex;
+        position: relative;
+    }
+    .search_inco {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        width: 26px;
+        height:26px;
+        background-image: url(../static/images/copy6.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 2px;
+    }
+    #so_text:focus + .search_inco {
+        background-color: black;
+        background-image: url(../static/images/copy7.svg);
+        border-radius: 2px;
+        border-top-left-radius:0;
+        border-bottom-left-radius:0;
+    }
+    .select_option {
+        flex: 0 0 120px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .td_font {
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        line-height: 16px;
+    }
+    .td_city {
+        background: #FFFFFF;
+        border: 1px solid #888890;
+        padding:2px;
+        border-radius: 2px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #888890;
+        line-height: 16px;
+    }
+    .fail_info {
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #B7B7BC;
+        line-height: 16px;
+        padding-left: 15px;;
+    }
+    .fail_inco {
+        position: relative;
+    }
+    .fail_reason {
+        position: absolute;
+        left: 10px;
+        top: -10px;
+        margin-left: 20px;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.50);
+        width: 172px;
+        background-color: white;
+        display: none;
+        /* height: 40px; */
+    }
+    .fail_reason:before {
+          content:"";
+          border:10px solid transparent;
+          border-right-color:white;
+          position:absolute;
+          left:0;
+          top: 10px;
+         margin-left:-20px;
+          /* margin-top:-20px; */
+    }
+    .fail_inco:hover .fail_reason {
+        display:block
+    }
+    .fail_span {
+        margin: 10px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #282938;
+        letter-spacing: 0;
+        line-height: 20px;
+    }
+    .spage-number span[data-page] {
+        margin-right: 5px;
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        font-size: 14px;
+        line-height: 26px;
+        color: #282938;
+    }
+    .spage-number span.active {
+        background: #23272F;
+        border: 1px solid #23272F;
+        border-radius: 2px;
+        color: white;
+    }
+    .spage-number span.active:hover {
+        background: #23272F;
+        border: 1px solid #23272F;
+        border-radius: 2px;
+        color: white;
+    }
+    .spage-total {
+        font-size: 12px;
+        color: #888890;
+        line-height: 15px;
+    }
+    .td_btn {
+        height:20px;
+        font-size:12px;
+        line-height:8px;
+        margin-right:10px;
+        margin-top:5px;
+        margin-bottom: 5px;
+        border: 0;
+    }
+    #btn_info {
+        width: 14px;
+        height: 14px;
+        border-radius: 100%;
+        background-image: url('../static/images/copy1.svg');
+        margin-top: 2px;
+    }
+    .message {
+        height: 60px;
+        background-color: white;
+        background: #FFFFFF;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+        border-radius: 2px;
+        position: fixed;
+        left: 44%;
+        top:30%;
+        transition: translate(-50%,-50%);
+        display: flex;
+       visibility:hidden;
+       translate: 1s;
+    }
+    .message_inco {
+        flex: 0 0 20px;
+        height: 20px;
+        margin-top:20px;
+        margin-left: 25px;
+        margin-bottom: 20px;
+        margin-right: 10px;
+    }
+    .message_info {
+        font-family: MicrosoftYaHeiUI;
+        font-size: 14px;
+        color: #282938;
+        text-align: center;
+    }
+    .message_info_div  {
+        margin-top:20px;
+        margin-bottom: 20px;
+        margin-right: 25px;
+    }
 
-    <div class="sos">
-        <div class="col-sm-2">
-            <select class="form-control" id="selectType" style="height: 34px;" onchange="so()"></select>
+</style>
+<div class="row" style="height: 16px;">
+    <h4 class="title">上钩列表</h4>
+    <div class="message">
+        <div class="message_inco"></div>
+        <div class="message_info"><div class="message_info_div"></div></div>
+    </div>
+</div>
+<div class="">
+    <div class="select_div">
+        <div class="select_content">
+            <input type="text" class="form-control input" id="so_text" placeholder="输入搜索内容" oninput="so()">
+            <span class='search_inco'></span>
         </div>
-        <div class="col-sm-2">
-            <select class="form-control" id="selectColony" style="height: 34px;" onchange="so()"></select>
+        <div class="select_option">
+            <select class="form-control input select_span" id="selectType"  onchange="so()"></select>
         </div>
-        <div class="col-sm-2">
+        <div class="select_option">
+            <select class="form-control input select_span" id="selectColony"  onchange="so()"></select>
         </div>
-        <div class="col-sm-2">
-        </div>
-        <div class="col-sm-4">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa  fa-search"></i></span>
-                <input type="text" class="form-control" id="so_text"
-                       placeholder="请输入搜索内容" oninput="so()">
+        <div class="select_option">
+            <button class="form-control buttonSelect select_span">选择数据长度 <div style="float: right; margin-top: 2px;"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></div></button>
+            <div class="divSelection">
+                    <select class="form-control  divSelection_select select_span" id="selectLength" >
+                        <option value="$gt" selected>大于</option>
+                        <option value="$eq">等于</option>
+                        <option value="$lt">小于</option>
+                        <option value="$ge">大于等于</option>
+                        <option value="$le">小于等于</option>
+                    </select>
+                    <input type="text" class="form-control divSelection_input select_span" placeholder="123" id='number'>
+                    <div class="selectDiv">字节</div>
+            <button class="form-control" id="search">过滤</button>
             </div>
         </div>
+
+        <div class="date_timepicker">
+               <input id="date_timepicker_start" type="text" class="form-control" placeholder="初始时间">
+               <input id="date_timepicker_end" type="text" class="form-control" placeholder="结束时间">
+        </div>
     </div>
+</div>
 
-
-    <div class="col-sm-12">
+    <div class="">
         <div class="card-box table-responsive">
             <table class="table table-hover">
                 <thead>
-                <tr>
+                <tr style="background: #23272F; color:#FFFFFF">
                     <th width="1%">
                         <div class="checkbox checkbox-single checkbox-danger">
                             <input type="checkbox" value="all" id="check_all">
                             <label></label>
                         </div>
                     </th>
-                    <th width="11%">项目</th>
+                    <th width="8%">蜜罐服务</th>
                     <th width="8%">集群名称</th>
-                    <th width="8%">来源 IP</th>
-                    <th width="9%">地理信息</th>
-                    <th width="5%">信息</th>
-                    <th width="5%">长度</th>
-                    <th width="8%">上钩时间</th>
+                    <th width="9%">攻击IP</th>
+                    <th width="9%">威胁情报</th>
+                    <th width="7%">详情</th>
+                    <th width="8%">攻击时间</th>
                 </tr>
                 </thead>
                 <tbody id="tableList">
@@ -216,11 +480,16 @@
             </table>
         </div>
         <button type="button" id="delbtn" class="btn btn-danger waves-effect waves-light btn-sm"
-                style="float: left;margin-top: 5px;" onclick="del()" disabled><i class="fa fa-trash-o"></i>删除
+                style="float: left;margin-top: -10px;" onclick="del()" disabled><i class="fa fa-trash-o"></i>删除
         </button>
-        <div id="myPage"></div>
+
+        <button type="button" id="export" class="btn  waves-effect waves-light btn-sm"
+                style="float: left;margin-top: -10px;margin-left: 5px; background-color: #23272F; color:#FFFFFF; border:1px solid #23272F;" 
+                onclick="export_info()"><i class="fa fa-trash-o"></i>批量导出
+        </button>
+        <div id="myPage" style="float: right;"></div>
     </div>
-</div>
+ </div>
 
 <div id="myFishInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -236,9 +505,132 @@
     </div>
 </div>
 
+
 {{template "footer" }}
 <script src="/static/libs/page/jquery.sPage.js"></script>
+
 <script>
+let start_time = '';
+let end_time = '';
+let conditions = {
+    '$gt': '>',
+    '$lt' : '<',
+    '$eq' : '=',
+    '$ge' : '>=',
+    '$le' : '<='
+}
+
+let transObject = {
+ "C2": "远控",
+ "Botnet": "僵尸网络",
+ "Hijacked": "劫持",
+ "Phishing": "钓鱼",
+ "Malware": "恶意软件",
+ "Exploit": "漏洞利用",
+ "Scanner": "扫描",
+ "Zombie": "傀儡机",
+ "Spam": "垃圾邮件",
+ "Suspicious": "可疑",
+ "Compromised": "失陷主机",
+ "Whitelist": "白名单",
+ "Brute Force": "暴力破解",
+ "Proxy": "代理",
+ "Info": "基础信息",
+ "MiningPool": "矿池",
+ "CoinMiner": "私有矿池",
+ "Sinkhole C2": "安全机构接管C2",
+ "SSH Brute Force": "SSH 暴力破解",
+ "FTP Brute Force": "FTP 暴力破解",
+ "SMTP Brute Force": "SMTP 暴力破解",
+ "Http Brute Force": "HTTP AUTH 暴力破解",
+ "Web Login Brute Force": "撞库",
+ "HTTP Proxy": "HTTP Proxy",
+ "HTTP Proxy In": "HTTP 代理入口",
+ "HTTP Proxy Out": "HTTP 代理出口",
+ "Socks Proxy": "Socks 代理",
+ "Socks Proxy In": "Socks 代理入口",
+ "Socks Proxy Out": "Socks 代理出口",
+ "VPN": "VPN 代理",
+ "VPN In": "VPN 代理入口",
+ "VPN Out": "VPN 代理出口",
+ "Tor": "Tor 代理",
+ "Tor Proxy In": "Tor入口",
+ "Tor Proxy Out": "Tor出口",
+ "Bogon": "保留地址",
+ "FullBogon": "未启用IP",
+ "Gateway": "网关",
+ "IDC": "IDC 服务器",
+ "Dynamic IP": "动态IP",
+ "Edu": "教育",
+ "DDNS": "动态域名",
+ "Mobile": "移动基站",
+ "Search Engine Crawler": "搜索引擎爬虫",
+ "CDN": "CDN 服务器",
+ "Advertisement": "广告",
+ "DNS": "DNS 服务器",
+ "BTtracker": "BT 服务器",
+ "Backbone": "骨干网",
+};
+let whitelist = ['Whitelist'];
+let danger = ['C2','Botnet','Hijacked','Phishing','Malware','Exploit','Scanner','Zombie','Spam','Suspicious','Compromised','Brute Force','MiningPool','CoinMiner','Sinkhole C2','SSH Brute Force','FTP Brute Force','SMTP Brute Force','Web Login Brute Force'];
+let info = ['Proxy',"HTTP Proxy", "HTTP Proxy In", "HTTP Proxy Out", "Socks Proxy", "Socks Proxy In", "Socks Proxy Out", "VPN", "VPN In", "VPN Out", "Tor", "Tor Proxy In", "Tor Proxy Out", "Bogon", "FullBogon", "Gateway", "IDC", "Dynamic IP", "Edu", "DDNS", "Mobile", "Search Engine Crawler", "CDN", "Advertisement", "DNS", "BTtracker", "Backbone"]
+let transErr = {
+    "ERR_IP": '攻击IP为空',
+    "ERR_APIKEY": "未启用获取威胁情报",//settings
+    "ERR_HTTP": "网络异常",
+    "ERR_JSON": "JSON序列化错误",
+}
+//ERR_RESP:%d:%s 云端返回的错误，ERR_RESP:非0的错误码：错误信息
+
+ jQuery('#date_timepicker_start').datetimepicker({
+  onShow:function( ct ){
+   this.setOptions({
+    maxDate:jQuery('#date_timepicker_end').val() ? jQuery('#date_timepicker_end').val() : new Date(),
+   })
+  },
+  onClose: function() {
+    start_time = $('#date_timepicker_start').val() ? $(date_timepicker_start).datetimepicker('getValue').getTime().toString().substr(0,10) : "";
+  }
+ });
+ jQuery('#date_timepicker_end').datetimepicker({
+  onShow:function( ct ){
+   this.setOptions({
+    minDate:$('#date_timepicker_start').val()?$('#date_timepicker_start').val():false,
+    maxDate:new Date()
+   })
+  },
+  onClose: function () {
+    end_time = $(date_timepicker_end).val() ? $(date_timepicker_end).datetimepicker('getValue').getTime().toString().substr(0,10) : "";
+      so();
+   }
+ });
+
+ //在失去焦点的时候获取数据
+$("#date_timepicker_end").blur(function() {
+    so();
+})
+// 字段选择的控制
+
+    $(".buttonSelect").click(function() {
+        $(".divSelection").css('visibility',"visible");
+        $('#number').focus();
+    });
+
+    $('#selectLength').change(function() {
+        $('#number').focus();
+    });
+    $("#search").click(function() {
+        $('#number').blur();
+        $(".divSelection").css('visibility','hidden');
+        if(!!$('#number').val()) {
+          $('.buttonSelect').html(`${conditions[$('#selectLength').val()]}${$('#number').val()}字节`);
+        } else {
+            $('.buttonSelect').html(`选择数据长度 <div style="float: right; margin-top: 2px;"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></div>`);
+        }
+        so();
+    });
+
+    //显示设置
     function show(id) {
         $.ajax({
             type: "GET",
@@ -256,6 +648,7 @@
                 }
             },
             error: function (e) {
+                console.error(e);
             }
         });
 
@@ -270,7 +663,6 @@
             }
         });
         val = val.substring(0, val.length - 1);
-
         $.ajax({
             type: "POST",
             url: "/post/fish/del",
@@ -280,9 +672,24 @@
             },
             success: function (e) {
                 if (e.code == 200) {
-                    window.location.href = "/fish";
+                    $(".message_inco").html(`<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg>`);
+                    $('.message_info_div').text(`删除成功`);
+                    $('.message').css('visibility','visible');
+                   let  a =  setTimeout(function() {
+                    $('.message').css('visibility','hidden');
+                        window.location.href = "/fish";
+                        clearTimeout(a);
+                   },2000);
                 } else {
-                    swal("删除失败", e.msg, 'error');
+                    //弹窗样式
+                    //swal("删除失败", e.msg, 'error');
+                    $(".message_inco").html(`<svg width="20px" height="20px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg>`);
+                    $('.message_info_div').text(`数据删除失败,${e.msg}`);
+                    $('.message').css('visibility','visible');
+                    let a = setTimeout( function() {
+                        $('.message').css('visibility','hidden');
+                        clearTimeout(a);
+                    },1000);
                 }
             },
             error: function (e) {
@@ -300,6 +707,7 @@
                 var data = e.data.resultInfoType;
                 var _h = '<option value="all">请选择类型</option>';
 
+                // 动态添加options
                 for (var i = 0; i < data.length; i++) {
                     _h += '<option value="' + data[i].type + '">' + filterXSS(data[i].type) + '</option>';
                 }
@@ -319,9 +727,9 @@
         });
     }
 
+    // 全选时删除按钮的使用
     $("#check_all").click(function () {
         var status = 0;
-
         $('input[name="check_x"]').each(function () {
             if ($("#check_all").prop('checked') == true) {
                 status++;
@@ -330,7 +738,6 @@
                 this.checked = false;
             }
         });
-
         if (status > 0) {
             $("#delbtn").attr("disabled", false);
         } else {
@@ -338,6 +745,7 @@
         }
     });
 
+    // 单选时删除按钮的使用
     function changedel() {
         var status = 0;
         $('input[name="check_x"]').each(function () {
@@ -354,84 +762,187 @@
         }
     }
 
-    function init(page, type, colony, so_text) {
+    function go_settings() {
+        window.location.href = "/setting#messages";
+    }
+    function init(page, type, colony, so_text,start_time = '',end_time = '',condition = '',length='') {
+        let data = {
+                "page_no": page,
+                "page_size": 10,
+                type,
+                colony,
+                so_text,
+                start_time,
+                end_time,
+                condition,
+                length,
+            };
         $.ajax({
             type: "GET",
             url: "/get/fish/list",
             dataType: "json",
-            data: {
-                "page": page,
-                "pageSize": 10,
-                "type": type,
-                "colony": colony,
-                "so_text": so_text
-            },
+            data,
             success: function (e) {
                 var data = e.data;
                 var _h = '';
 
+                if(!!data.result.length) {
+
                 for (var i = 0; i < data.result.length; i++) {
                     _h += '<tr>';
+
                     _h += '    <td class="td"><div class="checkbox checkbox-single checkbox-danger"><input type="checkbox"  value="' + data.result[i].id + '" name="check_x" onchange="changedel()"><label></label></div></td>'
-                    _h += '    <td class="td">';
-                    if (data.result[i].type == "WEB") {
-                        _h += '       <span class="label label-primary">WEB</span> ';
-                    } else if (data.result[i].type == "SSH") {
-                        _h += '       <span class="label lb_ssh">SSH</span> ';
-                    } else if (data.result[i].type == "REDIS") {
-                        _h += '       <span class="label lb_redis">REDIS</span> ';
-                    } else if (data.result[i].type == "MYSQL") {
-                        _h += '       <span class="label lb_mysql">MYSQL</span> ';
-                    } else if (data.result[i].type == "FTP") {
-                        _h += '       <span class="label lb_ftp">FTP</span> ';
-                    } else if (data.result[i].type == "TELNET") {
-                        _h += '       <span class="label lb_telnet">TELNET</span> ';
-                    } else if (data.result[i].type == "DEEP") {
-                        _h += '       <span class="label lb_deep">DEEP</span> ';
-                    } else if (data.result[i].type == "MEMCACHE") {
-                        _h += '       <span class="label lb_mem_cache">MEMCACHE</span> ';
-                    } else if (data.result[i].type == "PLUG") {
-                        _h += '       <span class="label lb_plug">PLUG</span> ';
-                    } else if (data.result[i].type == "ES") {
-                        _h += '       <span class="label lb_es">ES</span> ';
-                    } else if (data.result[i].type == "TFTP") {
-                        _h += '       <span class="label lb_tftp">TFTP</span> ';
-                    } else if (data.result[i].type == "VNC") {
-                        _h += '       <span class="label lb_vnc">VNC</span> ';
-                    } else if (data.result[i].type == "HTTP") {
-                        _h += '       <span class="label lb_http">HTTP</span> ';
-                    } else if (data.result[i].type == "CUSTOM") {
-                        _h += '       <span class="label lb_custom">CUSTOM</span> ';
-                    }
-
-                    _h += '       <span class="project">' + filterXSS(data.result[i].project_name) + '</span>';
-                    _h += '    </td>';
-                    _h += '    <td class="td"><span class="agent_name">' + filterXSS(data.result[i].agent) + '</span></td>';
-                    _h += '    <td class="td" style="font-weight: bold;">' + filterXSS(data.result[i].ip) + '</td>';
-
-                    // country,region,city
+                    //蜜罐服务
+                    _h += `<td class="td"><span class="td_font">${filterXSS(data.result[i].project_name)}</span></td>;`;
+                    //集群名称
+                    _h += `<td class="td"><span class="td_font">${filterXSS(data.result[i].agent)}</span></td>`;
+                    // 攻击IP
                     if (data.result[i].country == "本机地址") {
-                        _h += '    <td class="td"><span class="ipinfo">本机地址</span></td>';
+                        // _h += '    <td>' + filterXSS(data.result[i].ip) + '<br/>' + '<span class="td_city">本机地址</span></td>';
+                        _h += `<td class="td"><span class='td_font'>${filterXSS(data.result[i].ip)}</span><br/><span class="td_city">本机地址</span></td>`
                     } else if (data.result[i].country == "局域网") {
-                        _h += '    <td class="td"><span class="ipinfo">局域网</span></td>';
+                           _h += `<td class="td"><span>${filterXSS(data.result[i].ip)}</span><br/><span class="td_city"">局域网</span></td>`
+                    }
+                    else if(data.result[i].country == "未识别地址") {
+                        _h += `<td class="td"><span class='td_font'>${filterXSS(data.result[i].ip)}</span><br/><span class="td_city"">未识别地址</span></td>`
                     } else {
-                        if (data.result[i].country == "中国") {
-                            _h += '    <td class="td"><span class="ipinfo">' + filterXSS(data.result[i].country) + ' ' + filterXSS(data.result[i].region) + ' ' + filterXSS(data.result[i].city) + '</span></td>';
+                        if(!data.result[i].ip &&!data.result[i].country&& !data.result[i].region&& !data.result[i].city) {
+                            _h+=`<td class='td fail_info'>暂无数据</td>`;
                         } else {
-                            // 国外IP只能拿到国家
-                            _h += '    <td class="td"><span class="ipinfo">' + filterXSS(data.result[i].country) + '</span></td>';
+                            var string = [...new Set([data.result[i].country,data.result[i].region,data.result[i].city])].filter(item => {
+                                return !!item;
+                            }).join("-");
+                        _h += `<td class="td"><span class='td_font'>${filterXSS(data.result[i].ip)}</span><br/><span class="td_city">${filterXSS(string)}</span></td>`;
                         }
                     }
+                    //威胁情报
+                    let intelligence = data.result[i].intelligence;
+                    if(!!intelligence) {
+                        if(typeof intelligence === "string") {
+                            if(intelligence === 'ERR_APIKEY') {
+                                _h+= `<td class='td'>
+                                <div style='display:flex'>
+                                    <div class='fail_info' style='margin-right:5px;'>获取情报失败</div>
+                                    <div class='fail_inco'>
+                                        <div id='btn_info'></div>
+                                        <div class='fail_reason'>
+                                            <div class='fail_span'>${transErr[intelligence]}</div>
+                                            <button onclick ='go_settings()'
+                                            style="float: right;margin-bottom: 5px;margin-right: 5px; background-color: #23272F; color:#FFFFFF; border:1px solid #23272F;width:68px;height:26px;font-size:12px;line-height:26px;">系统设置</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </td>`
+                            } else if(!!transErr[intelligence]) {
+                                _h+= `<td class='td'>
+                                <div style='display:flex'>
+                                    <div class='fail_info' style='margin-right:5px;'>获取情报失败</div>
+                                    <div class='fail_inco'>
+                                        <div id='btn_info'></div>
+                                        <div class='fail_reason'><div class='fail_span'>${transErr[intelligence]}</div></div>
+                                    </div>
+                                </div>
+                                </td>`
+                            } else {
+                                let temp;
+                                temp = intelligence.split(':');
+                                if( parseInt(temp[1]) !== -4) {
+                                _h+=`<td class='td'>
+                                <div style='display:flex'>
+                                    <div class='fail_info' style='margin-right:5px;'>获取情报失败</div>
+                                    <div class='fail_inco'>
+                                        <div id='btn_info'></div>
+                                        <div class='fail_reason'>
+                                            <div class='fail_span'>${temp[2]}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </td>`; 
+                                } else {
+                                _h+=`<td class='td'>
+                                    <div style='display:flex'>
+                                        <div class='fail_info' style='margin-right:5px;'>获取情报失败</div>
+                                        <div class='fail_inco'>
+                                            <div id='btn_info'></div>
+                                            <div class='fail_reason'>
+                                                <div class='fail_span'>${temp[2]}</div>
+                                                <button onclick ='go_settings()'
+                                            style="float: right;margin-bottom: 5px;margin-right: 5px; background-color: #23272F; color:#FFFFFF; border:1px solid #23272F;width:68px;height:26px;font-size:12px;line-height:26px;">系统设置</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>`;
+                                }
+                            }
+                        } else {
+                            // 排序
+                            if(intelligence[data.result[i].ip].judgments.length > 0 || intelligence[data.result[i].ip].tags_classes.length > 0) {
+                                let tempArr = [];
+                                let dangerArr = [];
+                                let tagsArr = [];
+                                let infoArr = [];
+                                let whiteArr = [];
+                                let judgments = intelligence[data.result[i].ip].judgments;
+                                let tags_classes = intelligence[data.result[i].ip].tags_classes;
+                                //whitelist,danger,info
+                                if(judgments.length > 0) {
+                                    judgments.forEach(item => {
+                                       if(danger.includes(item)) {dangerArr.push(item)};
+                                       if(info.includes(item)) {infoArr.push(item)}
+                                       if(whitelist.includes(item)) {whiteArr.push(item)};
+                                        //whitelist.includes(item) ? flag = 'white' : info.includes(item) ? flag = 'info' : danger.includes(item) ? flag = 'danger' : '';
+                                        // tempArr.push(`<button class = 'btn btn-${flag} td_btn'>${transObject[item]}</button>`);
+                                    })
+                                }
+                                if(tags_classes.length > 0) {
+                                    console.log(tags_classes);
+                                    tags_classes.forEach(item => {
+                                        item.tags.forEach(i => {
+                                         //tempArr.push(`<button class = 'btn btn-tag td_btn'>${i}-${item.tags_type}</button>`);
+                                         tagsArr.push(`${i}-${item.tags_type}`);
+                                        })
+                                    });
+                                }
+                                dangerArr = dangerArr.map(item => {
+                                    return `<button class = 'btn btn-danger td_btn'>${transObject[item]}</button>`;
+                                });
+                                // tagsArr = tagsArr.map(item => {
+                                //    return  `<button class = 'btn btn-tag td_btn'>${item}</button>`
+                                // });
+                                infoArr = infoArr.map(item => {
+                                    return `<button class = 'btn btn-info td_btn'>${transObject[item]}</button>`;
+                                });
+                                whiteArr = whiteArr.map(item => `<button class = 'btn btn-white td_btn'>${transObject[item]}</button>`)
+                            // tempArr.push(...dangerArr,...tagsArr,...infoArr,...whiteArr);
+                            tempArr.push(...dangerArr,...infoArr,...whiteArr);
+                              _h += '<td class="td">' + tempArr.join("") +'</td>';
+                            } else {
+                                _h += `<td class="td fail_info">暂无情报</td>`
+                            }
+                       }
+                    } else {
+                        _h += `<td class="td fail_info">暂无情报</td>`
+                    }
 
-                    _h += '    <td><span class="info" onclick="show(' + data.result[i].id + ')">点击查看</span></td>';
-                    _h += '    <td class="td"><span class="cinfo">' + data.result[i].info.replace("&&", "").length + '</span></td>';
-                    _h += '    <td class="td">' + data.result[i].create_time.replace("T", " ").replace("+08:00", " ").replace("Z", "") + '</td>';
+                    //详情
+                    if(!!data.result[i].info.replace("&&", "").length) {
+                        _h +=`<td class="td"> <span class='cinfo'></span><span class='cinfo' onclick="show(${data.result[i].id})">${data.result[i].info_len}字节</span></td>`;
+                    } else {
+                        _h += '<td class="td fail_info"><span>暂无数据</span></td>';
+                    }
+                    //攻击时间
+                    if(!!data.result[i].create_time) {
+                        _h += '<td class="td" style = "font-family: MicrosoftYaHeiUI;font-size: 12px;color: #2B3D51;line-height: 16px;">' + data.result[i].create_time.split(" ").join("<br/>")+'</td>';
+                    } else {
+                        _h += `<td class="td fail_info"><span>暂无数据</span></td>`;
+                    }
                     _h += '</tr>';
                 }
-
+            }else{
                 if (_h == "") {
                     _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="8">暂无数据</td></tr>'
                 }
+            }
 
                 $("#tableList").html(_h);
 
@@ -439,40 +950,84 @@
                 var totalCount = data.totalCount;
                 var page = data.page;
 
-
                 $("#myPage").sPage({
                     page: page,
                     pageSize: 10,
                     total: totalCount,
-                    totalTxt: "共{total}条",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
+                    totalTxt: "共{total}条数据",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
                     noData: true,//没有数据时是否显示分页，默认false不显示，true显示第一页
                     showTotal: true,//是否显示总条数，默认关闭：false
-                    showSkip: true,
                     showPN: true,
-                    prevPage: "上一页",
-                    nextPage: "下一页",
+                    activeClass:{
+                        width:"40px",
+                        height:"30px",
+                        margin:"10px",
+                    },
+                    prevPage: `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>`,
+                    nextPage: `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>`,
                     backFun: function (p) {
-                        var selectType = $("#selectType").val();
-                        var selectColony = $("#selectColony").val();
+                        var type = $("#selectType").val();
+                        var colony = $("#selectColony").val();
                         var so_text = $("#so_text").val();
-                        init(p, selectType, selectColony, so_text);
+                        var condition = conditions[$("#selectLength").val()];
+                        var length = $("#number").val();
+                        init(p, type, colony, so_text,start_time,end_time,condition,length);
                     }
                 });
             },
             error: function (e) {
+                console.error(e);
             }
         });
     }
 
-    init(1, "all", "all", "");
+    init(1, "all", "all", "","","","");
     init_type();
 
     function so() {
-        var selectType = $("#selectType").val();
-        var selectColony = $("#selectColony").val();
+        var type = $("#selectType").val();
+        var colony = $("#selectColony").val();
         var so_text = $("#so_text").val();
+        var condition = conditions[$("#selectLength").val()];
+        var length = $("#number").val();
+        init(1, type, colony, so_text,start_time,end_time,condition,length);
+    }
 
-
-        init(1, selectType, selectColony, so_text);
+    function export_info() {
+        var type = $("#selectType").val() ? $("#selectType").val() : 'all';
+        var colony = $("#selectColony").val() ? $("#selectColony").val(): 'all';
+        var so_text = $("#so_text").val() ? $("#so_text").val() : '';
+        var condition = $("#selectLength").val() ? conditions[$("#selectLength").val()] : '';
+        var length = $("#number").val() ? $("#number").val() : '';
+        let data = {
+            type,
+            colony,
+            so_text,
+            condition,
+            length,
+            start_time,
+            end_time
+        }
+        $.ajax({
+            type: 'get',
+            url: '/get/fish/export',
+            data,
+        }).success((results) => {
+            $(".message_inco").html(`<svg width="20px" height="20px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg>`);
+                    $('.message_info_div').text(`数据导出成功`);
+                    $('.message').css('visibility','visible');
+                   let  a =  setTimeout(function() {
+                    $('.message').css('visibility','hidden');
+                        clearTimeout(a);
+                   },2000);
+            let uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(results);
+      //通过创建a标签实现
+      let link = document.createElement("a");
+      link.href = uri;
+      link.download =  "HFish.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+        });
     }
 </script>

@@ -1,16 +1,15 @@
 package api
 
 import (
+	"net/http"
 	"github.com/gin-gonic/gin"
 	"HFish/core/report"
-	"net/http"
-	"HFish/error"
-	"HFish/utils/conf"
 	"HFish/core/dbUtil"
 	"HFish/core/rpc/client"
+	"HFish/error"
+	"HFish/utils/conf"
 	"HFish/utils/is"
 	"HFish/utils/log"
-	"fmt"
 )
 
 // 上报WEB蜜罐
@@ -27,11 +26,7 @@ func ReportWeb(c *gin.Context) {
 	apiSecKey := conf.Get("api", "report_key")
 
 	if secKey != apiSecKey {
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrFailApiKeyCode,
-			"msg":  error.ErrFailApiKeyMsg,
-		})
-
+		c.JSON(http.StatusOK, error.ErrFailApiKey)
 		return
 	} else {
 
@@ -42,10 +37,7 @@ func ReportWeb(c *gin.Context) {
 			go report.ReportWeb(name, "本机", ip, info)
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrSuccessCode,
-			"msg":  error.ErrSuccessMsg,
-		})
+		c.JSON(http.StatusOK, error.ErrSuccess)
 	}
 }
 
@@ -63,11 +55,7 @@ func ReportDeepWeb(c *gin.Context) {
 	apiSecKey := conf.Get("api", "report_key")
 
 	if secKey != apiSecKey {
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrFailApiKeyCode,
-			"msg":  error.ErrFailApiKeyMsg,
-		})
-
+		c.JSON(http.StatusOK, error.ErrFailApiKey)
 		return
 	} else {
 
@@ -78,10 +66,7 @@ func ReportDeepWeb(c *gin.Context) {
 			go report.ReportDeepWeb(name, "本机", ip, info)
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrSuccessCode,
-			"msg":  error.ErrSuccessMsg,
-		})
+		c.JSON(http.StatusOK, error.ErrSuccess)
 	}
 }
 
@@ -98,12 +83,11 @@ func ReportPlugWeb(c *gin.Context) {
 	err := c.BindJSON(&info)
 
 	if err != nil {
-		fmt.Println(err)
 		log.Pr("HFish", "127.0.0.1", "插件上报信息错误", err)
 
 		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrFailPlugCode,
-			"msg":  error.ErrFailPlugMsg,
+			"code": error.ErrFailPlug["code"],
+			"msg":  error.ErrFailPlug["msg"],
 			"data": err,
 		})
 		return
@@ -126,11 +110,7 @@ func ReportPlugWeb(c *gin.Context) {
 	apiSecKey := conf.Get("api", "report_key")
 
 	if info.SecKey != apiSecKey {
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrFailApiKeyCode,
-			"msg":  error.ErrFailApiKeyMsg,
-		})
-
+		c.JSON(http.StatusOK, error.ErrFailApiKey)
 		return
 	} else {
 
@@ -141,10 +121,7 @@ func ReportPlugWeb(c *gin.Context) {
 			go report.ReportPlugWeb(info.Name, "本机", info.Ip, data)
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrSuccessCode,
-			"msg":  error.ErrSuccessMsg,
-		})
+		c.JSON(http.StatusOK, error.ErrSuccess)
 	}
 }
 
@@ -155,11 +132,7 @@ func GetIpList(c *gin.Context) {
 	apiSecKey := conf.Get("api", "query_key")
 
 	if key != apiSecKey {
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrFailApiKeyCode,
-			"msg":  error.ErrFailApiKeyMsg,
-		})
-
+		c.JSON(http.StatusOK, error.ErrFailApiKey)
 		return
 	} else {
 		result, err := dbUtil.DB().Table("hfish_info").Fields("ip").GroupBy("ip").Get()
@@ -168,11 +141,7 @@ func GetIpList(c *gin.Context) {
 			log.Pr("API", "127.0.0.1", "查询黑名单IP列表失败", err)
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrSuccessCode,
-			"msg":  error.ErrSuccessMsg,
-			"data": result,
-		})
+		c.JSON(http.StatusOK, error.ErrSuccessWithData(result))
 	}
 }
 
@@ -183,11 +152,7 @@ func GetFishInfo(c *gin.Context) {
 	apiSecKey := conf.Get("api", "query_key")
 
 	if key != apiSecKey {
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrFailApiKeyCode,
-			"msg":  error.ErrFailApiKeyMsg,
-		})
-
+		c.JSON(http.StatusOK, error.ErrFailApiKey)
 		return
 	} else {
 		result, err := dbUtil.DB().Table("hfish_info").OrderBy("id desc").Get()
@@ -196,11 +161,7 @@ func GetFishInfo(c *gin.Context) {
 			log.Pr("API", "127.0.0.1", "获取钓鱼列表失败", err)
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrSuccessCode,
-			"msg":  error.ErrSuccessMsg,
-			"data": result,
-		})
+		c.JSON(http.StatusOK, error.ErrSuccessWithData(result))
 	}
 }
 
@@ -211,11 +172,7 @@ func GetAccountPasswdInfo(c *gin.Context) {
 	apiSecKey := conf.Get("api", "query_key")
 
 	if key != apiSecKey {
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrFailApiKeyCode,
-			"msg":  error.ErrFailApiKeyMsg,
-		})
-
+		c.JSON(http.StatusOK, error.ErrFailApiKey)
 		return
 	} else {
 		result, err := dbUtil.DB().Table("hfish_passwd").OrderBy("id desc").Get()
@@ -224,10 +181,6 @@ func GetAccountPasswdInfo(c *gin.Context) {
 			log.Pr("API", "127.0.0.1", "获取账号密码列表失败", err)
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"code": error.ErrSuccessCode,
-			"msg":  error.ErrSuccessMsg,
-			"data": result,
-		})
+		c.JSON(http.StatusOK, error.ErrSuccessWithData(result))
 	}
 }

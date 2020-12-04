@@ -1,16 +1,20 @@
 package view
 
 import (
+	"github.com/gin-gonic/gin"
+
+	"HFish/utils/cors"
 	"HFish/view/api"
+	"HFish/view/colony"
+	"HFish/view/data"
 	"HFish/view/dashboard"
 	"HFish/view/fish"
-	"HFish/view/mail"
-	"HFish/view/colony"
-	"HFish/view/setting"
-	"github.com/gin-gonic/gin"
 	"HFish/view/login"
-	"HFish/utils/cors"
-	"HFish/view/data"
+	"HFish/view/mail"
+	"HFish/view/setting/alert"
+	"HFish/view/setting/intelligence"
+	"HFish/view/setting/massset"
+	"HFish/view/setting/secret"
 )
 
 func LoadUrl(r *gin.Engine) {
@@ -29,6 +33,7 @@ func LoadUrl(r *gin.Engine) {
 	// 蜜罐列表
 	r.GET("/fish", login.Jump, fish.Html)
 	r.GET("/get/fish/list", login.Jump, fish.GetFishList)
+	r.GET("/get/fish/export", login.Jump, fish.ExportFishList)
 	r.GET("/get/fish/info", login.Jump, fish.GetFishInfo)
 	r.GET("/get/fish/typeList", login.Jump, fish.GetFishTypeInfo)
 	r.POST("/post/fish/del", login.Jump, fish.PostFishDel)
@@ -54,16 +59,26 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/mail", login.Jump, mail.Html)
 	r.POST("/post/mail/sendEmail", login.Jump, mail.SendEmailToUsers)
 
-	// 设置
-	r.GET("/setting", login.Jump, setting.Html)
-	r.GET("/get/setting/info", login.Jump, setting.GetSettingInfo)
-	r.POST("/post/setting/update", login.Jump, setting.UpdateEmailInfo)
-	r.POST("/post/setting/updateAlertMail", login.Jump, setting.UpdateAlertMail)
-	r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
-	r.POST("/post/setting/updateWebHook", login.Jump, setting.UpdateWebHook)
-	r.POST("/post/setting/updateWhiteIp", login.Jump, setting.UpdateWhiteIp)
-	r.POST("/post/setting/updatePasswdTM", login.Jump, setting.UpdatePasswdTM)
-	r.POST("/post/setting/clearData", login.Jump, setting.ClearData)
+	// 系统设置->告警通知
+	r.GET("/setting", login.Jump, alert.Html)
+	r.GET("/get/setting/alert", login.Jump, alert.GetAlertData)
+	r.POST("/post/setting/alert", login.Jump, alert.UpdateAlertData)
+	r.POST("/post/setting/syslog/test", login.Jump, alert.TestSyslog)
+	r.POST("/post/setting/email/test", login.Jump, alert.TestEmail)
+
+	// 系统设置->群发设置
+	r.GET("/get/setting/massset", login.Jump, massset.GetMassSet)
+	r.POST("/post/setting/massset", login.Jump, massset.UpdateMassSet)
+
+	// 系统设置->威胁情报
+	r.GET("/get/setting/intelligence", login.Jump, intelligence.GetIntelligence)
+	r.POST("/post/setting/intelligence", login.Jump, intelligence.UpdateIntelligence)
+	r.POST("/post/setting/intelligence/test", login.Jump, intelligence.TestIntelligence)
+
+	// 系统设置->数据合规
+	r.GET("/get/setting/secret", login.Jump, secret.GetSecretData)
+	r.POST("/post/setting/secret", login.Jump, secret.UpdateSecretData)
+	r.POST("/post/setting/cleardata", login.Jump, secret.ClearData)
 
 	// API 接口
 	// 解决跨域问题

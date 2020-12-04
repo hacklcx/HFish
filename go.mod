@@ -16,6 +16,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gohouse/gorose v0.0.0-20190830103550-ad3ce0985b9e
 	github.com/gorilla/websocket v1.4.1
+	github.com/hashicorp/go-syslog v1.0.0
 	github.com/ipipdotnet/ipdb-go v1.2.0
 	github.com/jehiah/go-strftime v0.0.0-20171201141054-1d33003b3869
 	github.com/kr/pretty v0.1.0 // indirect

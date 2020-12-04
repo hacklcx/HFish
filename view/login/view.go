@@ -1,12 +1,12 @@
 package login
 
 import (
+	"net/http"
+	"time"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/sessions"
-	"net/http"
 	"HFish/error"
 	"HFish/utils/conf"
-	"time"
 )
 
 func Html(c *gin.Context) {
@@ -41,19 +41,12 @@ func Login(c *gin.Context) {
 			session.Set("time", time.Now().Format("2006-01-02 15:04:05"))
 			session.Save()
 
-			c.JSON(http.StatusOK, gin.H{
-				"code": error.ErrSuccessCode,
-				"msg":  error.ErrSuccessMsg,
-			})
-
+			c.JSON(http.StatusOK, error.ErrSuccess)
 			return
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": error.ErrFailLoginCode,
-		"msg":  error.ErrFailLoginMsg,
-	})
+	c.JSON(http.StatusOK, error.ErrFailLogin)
 }
 
 func Logout(c *gin.Context) {
