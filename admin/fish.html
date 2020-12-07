@@ -18,6 +18,7 @@
     }
     .card-box {
         padding: 0px;
+        overflow:initial;
     }
 
     .table {
@@ -324,7 +325,7 @@
           /* margin-top:-20px; */
     }
     .fail_inco:hover .fail_reason {
-        display:block
+        display:block;
     }
     .fail_span {
         margin: 10px;
@@ -336,7 +337,7 @@
     }
     .spage-number span[data-page] {
         margin-right: 5px;
-        width: 26px;
+        min-width: 26px;
         height: 26px;
         padding: 0;
         font-size: 14px;
@@ -484,7 +485,7 @@
         </button>
 
         <button type="button" id="export" class="btn  waves-effect waves-light btn-sm"
-                style="float: left;margin-top: -10px;margin-left: 5px; background-color: #23272F; color:#FFFFFF; border:1px solid #23272F;" 
+                style="float: left;margin-top: -10px;margin-left: 5px; background-color: #23272F; color:#FFFFFF; border:1px solid #23272F;"
                 onclick="export_info()"><i class="fa fa-trash-o"></i>批量导出
         </button>
         <div id="myPage" style="float: right;"></div>
@@ -857,7 +858,7 @@ $("#date_timepicker_end").blur(function() {
                                         </div>
                                     </div>
                                 </div>
-                                </td>`; 
+                                </td>`;
                                 } else {
                                 _h+=`<td class='td'>
                                     <div style='display:flex'>

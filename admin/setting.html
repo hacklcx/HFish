@@ -924,28 +924,10 @@
 <script>
 //      全局变量
         const mapData = new Map();
-        mapData.set('home-tab',{
-            email_info: "",
-            email_status: 0,
-            syslog_info: "",
-            syslog_status: 0,
-            webhook_info: "",
-            webhook_status: 0
-        });
-        mapData.set('profile-tab',{
-            mail_info: "",
-            mail_status: 0
-        });
-        mapData.set('messages-tab',{
-        "cloud_apikey": "",
-        "cloud_status": 0,
-        "local_iplist": "",
-        "local_status": 0
-});
-        mapData.set('settings-tab',{
-        "passwd_status": 0,
-        "passwd_text": ""
-    });
+        mapData.set('home-tab','');
+        mapData.set('profile-tab','');
+        mapData.set('messages-tab','');
+        mapData.set('settings-tab','');
         let gModule;
 
 $("document").ready(function() {
@@ -1226,7 +1208,7 @@ $("#massset_test").click(function() {
     }).fail(function(error) {
         console.err(error);
     })
-})
+});
 
 //威胁情报测试
 $("#intelligence_test").click(function(){
@@ -1242,13 +1224,19 @@ $("#intelligence_test").click(function(){
         $("#intelligence_callback").css('opacity', 1);
         $("#intelligence_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg></div><div class="email_span">成功!</div>`);
        } else {
+        let msg = results.msg || '错误,正确的key值为64个字符';
         $("#intelligence_callback").css('opacity', 1);
-        $("#intelligence_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span">错误,正确的key值为64个字符</div>`);
+        $("#intelligence_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span">${msg}</div>`);
        }
     })
 });
 
-
+$("#intelligence_apikey").on('blur', function() {
+    if($("#intelligence_apikey").val().length !== 64) {
+        $("#intelligence_callback").css('opacity', 1);
+        $("#intelligence_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span">错误,正确的key值为64个字符</div>`);
+    }
+});
 
 //syslog保存功能
 $("#syslog_save").click(function() {
@@ -1324,7 +1312,6 @@ $("#syslog_save").click(function() {
             }
         data['email_info'] = email_info;
     }
-
 
     //webhook_info数据获取
     let webhook_info;

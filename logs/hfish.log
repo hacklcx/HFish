@@ -1,32 +1,42 @@
-[HFish] ::1 - [2020-12-04 10:45:34] "GET / HTTP/1.1 200 5.9847ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:34 | 200 |      5.9847ms |             ::1 | GET      /
-[HFish] ::1 - [2020-12-04 10:45:34] "GET /static/css/jquery.datetimepicker.css HTTP/1.1 200 66.8223ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:34 | 200 |     66.8223ms |             ::1 | GET      /static/css/jquery.datetimepicker.css
-[HFish] ::1 - [2020-12-04 10:45:34] "GET /static/js/jquery.datetimepicker.full.min.js HTTP/1.1 200 22.9247ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:34 | 200 |     22.9247ms |             ::1 | GET      /static/js/jquery.datetimepicker.full.min.js
-[HFish] ::1 - [2020-12-04 10:45:34] "GET /get/dashboard/pie_data HTTP/1.1 200 1.9876ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:34 | 200 |      1.9876ms |             ::1 | GET      /get/dashboard/pie_data
-[HFish] ::1 - [2020-12-04 10:45:34] "GET /data/get/account HTTP/1.1 200 1.996ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:34 | 200 |       1.996ms |             ::1 | GET      /data/get/account
-[HFish] ::1 - [2020-12-04 10:45:34] "GET /data/get/password HTTP/1.1 200 997.2µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:34 | 200 |       997.2µs |             ::1 | GET      /data/get/password
-[HFish] ::1 - [2020-12-04 10:45:34] "GET /get/dashboard/data HTTP/1.1 200 3.9832ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:34 | 200 |      3.9832ms |             ::1 | GET      /get/dashboard/data
-[HFish] ::1 - [2020-12-04 10:45:35] "GET /fish HTTP/1.1 200 4.9883ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:35 | 200 |      4.9883ms |             ::1 | GET      /fish
-[HFish] ::1 - [2020-12-04 10:45:35] "GET /static/images/copy6.svg HTTP/1.1 200 4.9855ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:35 | 200 |      4.9855ms |             ::1 | GET      /static/images/copy6.svg
-[HFish] ::1 - [2020-12-04 10:45:35] "GET /get/fish/list?page_no=1&page_size=10&type=all&colony=all&so_text=&start_time=&end_time=&condition=&length= HTTP/1.1 200 1.9957ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:35 | 200 |      1.9957ms |             ::1 | GET      /get/fish/list?page_no=1&page_size=10&type=all&colony=all&so_text=&start_time=&end_time=&condition=&length=
-[HFish] ::1 - [2020-12-04 10:45:35] "GET /get/fish/typeList HTTP/1.1 200 1.9952ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:35 | 200 |      1.9952ms |             ::1 | GET      /get/fish/typeList
-[HFish] ::1 - [2020-12-04 10:45:36] "GET /colony HTTP/1.1 200 4.0255ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:36 | 200 |      4.0255ms |             ::1 | GET      /colony
-[HFish] ::1 - [2020-12-04 10:45:36] "GET /get/colony/list HTTP/1.1 200 997.8µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:36 | 200 |       997.8µs |             ::1 | GET      /get/colony/list
-[HFish] ::1 - [2020-12-04 10:45:37] "GET /mail HTTP/1.1 200 2.9915ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:37 | 200 |      2.9915ms |             ::1 | GET      /mail
-[HFish] ::1 - [2020-12-04 10:45:38] "GET /setting HTTP/1.1 200 4.9855ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:38 | 200 |      4.9855ms |             ::1 | GET      /setting
-[HFish] ::1 - [2020-12-04 10:45:38] "GET /get/setting/alert HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
-[GIN] 2020/12/04 - 10:45:38 | 200 |            0s |             ::1 | GET      /get/setting/alert
+[HFish] ::1 - [2020-12-03 10:33:41] "GET / HTTP/1.1 200 5.9825ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:41 | 200 |      5.9825ms |             ::1 | GET      /
+[HFish] ::1 - [2020-12-03 10:33:41] "GET /static/css/jquery.datetimepicker.css HTTP/1.1 304 996.6µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:41 | 304 |       996.6µs |             ::1 | GET      /static/css/jquery.datetimepicker.css
+[HFish] ::1 - [2020-12-03 10:33:41] "GET /static/js/jquery.datetimepicker.full.min.js HTTP/1.1 304 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:41 | 304 |            0s |             ::1 | GET      /static/js/jquery.datetimepicker.full.min.js
+[HFish] ::1 - [2020-12-03 10:33:42] "GET /data/get/account HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:42 | 200 |            0s |             ::1 | GET      /data/get/account
+[HFish] ::1 - [2020-12-03 10:33:42] "GET /get/dashboard/pie_data HTTP/1.1 200 1.9949ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:42 | 200 |      1.9949ms |             ::1 | GET      /get/dashboard/pie_data
+[HFish] ::1 - [2020-12-03 10:33:42] "GET /data/get/password HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:42 | 200 |            0s |             ::1 | GET      /data/get/password
+[HFish] ::1 - [2020-12-03 10:33:42] "GET /get/dashboard/data HTTP/1.1 200 4.9229ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:42 | 200 |      4.9229ms |             ::1 | GET      /get/dashboard/data
+[HFish] ::1 - [2020-12-03 10:33:43] "GET /dashboard HTTP/1.1 200 5.9824ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:43 | 200 |      5.9824ms |             ::1 | GET      /dashboard
+[HFish] ::1 - [2020-12-03 10:33:43] "GET /get/dashboard/data HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:43 | 200 |            0s |             ::1 | GET      /get/dashboard/data
+[HFish] ::1 - [2020-12-03 10:33:43] "GET /get/dashboard/pie_data HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:43 | 200 |            0s |             ::1 | GET      /get/dashboard/pie_data
+[HFish] ::1 - [2020-12-03 10:33:43] "GET /data/get/account HTTP/1.1 200 997.5µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:43 | 200 |       997.5µs |             ::1 | GET      /data/get/account
+[HFish] ::1 - [2020-12-03 10:33:43] "GET /data/get/password HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:43 | 200 |            0s |             ::1 | GET      /data/get/password
+[HFish] ::1 - [2020-12-03 10:33:44] "GET /fish HTTP/1.1 200 4.9871ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:44 | 200 |      4.9871ms |             ::1 | GET      /fish
+[HFish] ::1 - [2020-12-03 10:33:44] "GET /static/images/copy6.svg HTTP/1.1 304 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:44 | 304 |            0s |             ::1 | GET      /static/images/copy6.svg
+[HFish] ::1 - [2020-12-03 10:33:44] "GET /get/fish/typeList HTTP/1.1 200 1.9928ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[HFish] ::1 - [2020-12-03 10:33:44] "GET /get/fish/list?page_no=1&page_size=10&type=all&colony=all&so_text=&start_time=&end_time=&condition=&length= HTTP/1.1 200 1.9928ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:44 | 200 |      1.9928ms |             ::1 | GET      /get/fish/list?page_no=1&page_size=10&type=all&colony=all&so_text=&start_time=&end_time=&condition=&length=
+[GIN] 2020/12/03 - 10:33:44 | 200 |      1.9928ms |             ::1 | GET      /get/fish/typeList
+[HFish] ::1 - [2020-12-03 10:33:45] "GET /colony HTTP/1.1 200 2.9938ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:45 | 200 |      2.9938ms |             ::1 | GET      /colony
+[HFish] ::1 - [2020-12-03 10:33:45] "GET /get/colony/list HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:45 | 200 |            0s |             ::1 | GET      /get/colony/list
+[HFish] ::1 - [2020-12-03 10:33:45] "GET /mail HTTP/1.1 200 2.9922ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:45 | 200 |      2.9922ms |             ::1 | GET      /mail
+[HFish] ::1 - [2020-12-03 10:33:46] "GET /setting HTTP/1.1 200 5.984ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:46 | 200 |       5.984ms |             ::1 | GET      /setting
+[HFish] ::1 - [2020-12-03 10:33:46] "GET /get/setting/alert HTTP/1.1 200 997.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" "
+[GIN] 2020/12/03 - 10:33:46 | 200 |       997.4µs |             ::1 | GET      /get/setting/alert
