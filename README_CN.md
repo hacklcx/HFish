@@ -126,18 +126,9 @@
 > 目前只有我一个人
 
 
-**Team：** HackLC
-
-
-**官网：** https://hack.lc
-
 
 **专注安全行业，一心打造好产品**
 
-
-## 联系我
-
-**E-mail:** **`lauixData#gmail.com`**
 
 
 ## 反馈群
