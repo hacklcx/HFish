@@ -12,7 +12,7 @@ func init() {
 	file, err := ioutil.ReadFile("./libs/ssh/config.json")
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "读取文件失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to read file", err)
 	}
 
 	sshJson = file
