@@ -39,22 +39,22 @@ func RunWeb(template string, index string, static string, url string) http.Handl
 	r := gin.New()
 	r.Use(gin.Recovery())
 
-	// 引入html资源
+	// Import html resources
 	r.LoadHTMLGlob("web/" + template + "/*")
 
-	// 引入静态资源
+	// Introduce static resources
 	r.Static("/static", "./web/"+static)
 
 	r.GET(url, func(c *gin.Context) {
 		c.HTML(http.StatusOK, index, gin.H{})
 	})
 
-	// API 启用状态
+	// API Enabled state
 	apiStatus := conf.Get("api", "status")
 
-	// 判断 API 是否启用
+	// Determine whether the API is enabled
 	if apiStatus == "1" {
-		// 启动 WEB蜜罐 API
+		// Start WEB honeypot API
 		r.Use(cors.Cors())
 		webUrl := conf.Get("api", "web_url")
 		r.POST(webUrl, api.ReportWeb)
@@ -67,22 +67,22 @@ func RunDeep(template string, index string, static string, url string) http.Hand
 	r := gin.New()
 	r.Use(gin.Recovery())
 
-	// 引入html资源
+	// Import html resources
 	r.LoadHTMLGlob("web/" + template + "/*")
 
-	// 引入静态资源
+	// Introduce static resources
 	r.Static("/static", "./web/"+static)
 
 	r.GET(url, func(c *gin.Context) {
 		c.HTML(http.StatusOK, index, gin.H{})
 	})
 
-	// API 启用状态
+	// API Enabled state
 	apiStatus := conf.Get("api", "status")
 
-	// 判断 API 是否启用
+	// Determine whether the API is enabled
 	if apiStatus == "1" {
-		// 启动 暗网蜜罐 API
+		// Start Darknet Honeypot API
 		r.Use(cors.Cors())
 		deepUrl := conf.Get("api", "deep_url")
 		r.POST(deepUrl, api.ReportDeepWeb)
@@ -95,12 +95,12 @@ func RunPlug() http.Handler {
 	r := gin.New()
 	r.Use(gin.Recovery())
 
-	// API 启用状态
+	// API Enabled state
 	apiStatus := conf.Get("api", "status")
 
-	// 判断 API 是否启用
+	// Determine whether the API is enabled
 	if apiStatus == "1" {
-		// 启动 蜜罐插件 API
+		// Start the honeypot plugin API
 		r.Use(cors.Cors())
 		plugUrl := conf.Get("api", "plug_url")
 		r.POST(plugUrl, api.ReportPlugWeb)
@@ -115,7 +115,7 @@ func RunAdmin() http.Handler {
 	f, _ := os.Create("./logs/hfish.log")
 	gin.DefaultWriter = io.MultiWriter(f)
 
-	// 引入gin
+	// Introduce gin
 	r := gin.Default()
 
 	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
@@ -137,19 +137,19 @@ func RunAdmin() http.Handler {
 
 	r.Use(gin.Recovery())
 
-	// 引入html资源
+	// Import html resources
 	r.LoadHTMLGlob("admin/*")
 
-	// 引入静态资源
+	// Introduce static resources
 	r.Static("/static", "./static")
 
-	// 加载路由
+	// Load route
 	view.LoadUrl(r)
 
 	return r
 }
 
-// 初始化缓存
+// Initialize the cache
 func initCahe() {
 	resultMail, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "alertMail").First()
 	resultHook, _ := dbUtil.DB().Table("hfish_setting").Fields("status", "info").Where("type", "=", "webHook").First()
@@ -180,13 +180,13 @@ func initCahe() {
 func Run() {
 	ping.Ping()
 
-	// 启动 自定义 蜜罐
+	// Start custom honeypot
 	custom.StartCustom()
 
-	// 启动 vnc  蜜罐
+	// Start vnc honeypot
 	vncStatus := conf.Get("vnc", "status")
 
-	// 判断 vnc 蜜罐 是否开启
+	// Determine whether the vnc honeypot is open
 	if vncStatus == "1" {
 		vncAddr := conf.Get("vnc", "addr")
 		go vnc.Start(vncAddr)
@@ -195,10 +195,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 elasticsearch 蜜罐
+	// Active elasticsearch honeypot
 	esStatus := conf.Get("elasticsearch", "status")
 
-	// 判断 elasticsearch 蜜罐 是否开启
+	// Whether to enable elasticsearch honeypot
 	if esStatus == "1" {
 		esAddr := conf.Get("elasticsearch", "addr")
 		go elasticsearch.Start(esAddr)
@@ -206,10 +206,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 TFTP 蜜罐
+	// Start TFTP honeypot
 	tftpStatus := conf.Get("tftp", "status")
 
-	// 判断 TFTP 蜜罐 是否开启
+	// Wheather to enable Start TFTP honeypot
 	if tftpStatus == "1" {
 		tftpAddr := conf.Get("tftp", "addr")
 		go tftp.Start(tftpAddr)
@@ -217,10 +217,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 MemCache 蜜罐
+	// Start MemCache honeypot
 	memCacheStatus := conf.Get("mem_cache", "status")
 
-	// 判断 MemCache 蜜罐 是否开启
+	// Weather to enale Start MemCache honeypot
 	if memCacheStatus == "1" {
 		memCacheAddr := conf.Get("mem_cache", "addr")
 		go memcache.Start(memCacheAddr, "4")
@@ -228,10 +228,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 FTP 蜜罐
+	// Start FTP honeypot
 	ftpStatus := conf.Get("ftp", "status")
 
-	// 判断 FTP 蜜罐 是否开启
+	// Weather to enable Start FTP honeypot
 	if ftpStatus != "0" {
 		ftpAddr := conf.Get("ftp", "addr")
 		go ftp.Start(ftpAddr)
@@ -239,10 +239,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 Telnet 蜜罐
+	// Start Telnet honeypot
 	telnetStatus := conf.Get("telnet", "status")
 
-	// 判断 Telnet 蜜罐 是否开启
+	// Weather to enable Start Telnet honeypot
 	if telnetStatus != "0" {
 		telnetAddr := conf.Get("telnet", "addr")
 		go telnet.Start(telnetAddr)
@@ -250,10 +250,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 HTTP 正向代理
+	// Start HTTP forward proxy
 	httpStatus := conf.Get("http", "status")
 
-	// 判断 HTTP 正向代理 是否开启
+	// Weather to enable Start HTTP forward proxy
 	if httpStatus == "1" {
 		httpAddr := conf.Get("http", "addr")
 		go httpx.Start(httpAddr)
@@ -261,14 +261,14 @@ func Run() {
 
 	//=========================//
 
-	// 启动 Mysql 蜜罐
+	// Start Mysql honeypot
 	mysqlStatus := conf.Get("mysql", "status")
 
-	// 判断 Mysql 蜜罐 是否开启
+	// Weather to enable Start Mysql honeypot
 	if mysqlStatus != "0" {
 		mysqlAddr := conf.Get("mysql", "addr")
 
-		// 利用 Mysql 服务端 任意文件读取漏洞
+		// Exploiting arbitrary file reading vulnerability on Mysql server
 		mysqlFiles := conf.Get("mysql", "files")
 
 		go mysql.Start(mysqlAddr, mysqlFiles)
@@ -276,10 +276,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 Redis 蜜罐
+	// Start Redis honeypot
 	redisStatus := conf.Get("redis", "status")
 
-	// 判断 Redis 蜜罐 是否开启
+	// Weather to enable Start Redis honeypot
 	if redisStatus != "0" {
 		redisAddr := conf.Get("redis", "addr")
 		go redis.Start(redisAddr)
@@ -287,10 +287,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 SSH 蜜罐
+	// Start SSH honeypot
 	sshStatus := conf.Get("ssh", "status")
 
-	// 判断 SSG 蜜罐 是否开启
+	// Determine whether the SSG honeypot is open
 	if sshStatus != "0" {
 		sshAddr := conf.Get("ssh", "addr")
 		go ssh.Start(sshAddr)
@@ -298,10 +298,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 Web 蜜罐
+	// Start the web honeypot
 	webStatus := conf.Get("web", "status")
 
-	// 判断 Web 蜜罐 是否开启
+	// Determine whether the web honeypot is open
 	if webStatus != "0" {
 		webAddr := conf.Get("web", "addr")
 		webTemplate := conf.Get("web", "template")
@@ -321,10 +321,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 暗网 蜜罐
+	// Start dark web honeypot
 	deepStatus := conf.Get("deep", "status")
 
-	// 判断 暗网 Web 蜜罐 是否开启
+	// Determine whether the dark web honeypot is open
 	if deepStatus != "0" {
 		deepAddr := conf.Get("deep", "addr")
 		deepTemplate := conf.Get("deep", "template")
@@ -344,10 +344,10 @@ func Run() {
 
 	//=========================//
 
-	// 启动 蜜罐插件
+	// Start the honeypot plugin
 	plugStatus := conf.Get("plug", "status")
 
-	// 判断 蜜罐插件 是否开启
+	// Determine whether the honeypot plugin is enabled
 	if plugStatus != "0" {
 		plugAddr := conf.Get("plug", "addr")
 
@@ -363,24 +363,24 @@ func Run() {
 
 	//=========================//
 
-	// 启动 RPC
+	// start up RPC
 	rpcStatus := conf.Get("rpc", "status")
 
-	// 判断 RPC 是否开启 1 RPC 服务端 2 RPC 客户端
+	// Determine whether RPC is enabled 1 RPC server 2 RPC client
 	if rpcStatus == "1" {
-		// 服务端监听地址
+		// Server listening address
 		rpcAddr := conf.Get("rpc", "addr")
 		go server.Start(rpcAddr)
 	} else if rpcStatus == "2" {
-		// 客户端连接服务端
-		// 阻止进程，不启动 admin
+		// Client connects to server
+		// Block the process, do not start admin
 
 		rpcName := conf.Get("rpc", "name")
 
 		client.RpcInit()
 
 		for {
-			// 判断自定义蜜罐是否启动
+			// Determine whether the custom honeypot is activated
 			customStatus := "0"
 
 			customNames := conf.GetCustomName()
@@ -388,7 +388,7 @@ func Run() {
 				customStatus = "1"
 			}
 
-			// 这样写 提高IO读写性能
+			// Write like this to improve IO read and write performance
 			go client.Start(rpcName, ftpStatus, telnetStatus, httpStatus, mysqlStatus, redisStatus, sshStatus, webStatus, deepStatus, memCacheStatus, plugStatus, esStatus, tftpStatus, vncStatus, customStatus)
 
 			time.Sleep(time.Duration(1) * time.Minute)
@@ -396,10 +396,10 @@ func Run() {
 	}
 
 	//=========================//
-	// 初始化缓存
+	// Initialize the cache
 	initCahe()
 
-	// 启动 admin 管理后台
+	// Start admin management background
 	adminAddr := conf.Get("admin", "addr")
 
 	serverAdmin := &http.Server{
