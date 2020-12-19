@@ -28,7 +28,7 @@ func Start(name string, addr string, info string) {
 			conn, err := netListen.Accept()
 
 			if err != nil {
-				fmt.Println("Redis", "127.0.0.1", "自定义蜜罐创建失败", err)
+				fmt.Println("Redis", "127.0.0.1", "Failed to create custom honeypot", err)
 			}
 
 			arr := strings.Split(conn.RemoteAddr().String(), ":")
