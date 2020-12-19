@@ -12,17 +12,17 @@ func init() {
 }
 
 func Get(key string) (interface{}, bool) {
-	// 读取缓存
+	// Read cache
 	vaule, is := c.Get(key)
 	return vaule, is
 }
 
 func Set(key string, vaule interface{}) {
-	// 写入缓存 默认过期时间
+	// Write cache default expiration time
 	c.Set(key, vaule, cache.DefaultExpiration)
 }
 
 func Setx(key string, vaule interface{}) {
-	// 写入缓存 永不过期
+	// Write to the cache and never expire
 	c.Set(key, vaule, cache.NoExpiration)
 }
