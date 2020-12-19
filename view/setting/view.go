@@ -12,11 +12,11 @@ import (
 )
 
 func Html(c *gin.Context) {
-	// 获取配置列表
+	// Get configuration list
 	result, err := dbUtil.DB().Table("hfish_setting").Fields("id", "type", "info", "setting_name", "setting_dis", "update_time", "status").Get()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "获取配置列表失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to get configuration list", err)
 	}
 
 	c.HTML(http.StatusOK, "setting.html", gin.H{
@@ -24,12 +24,12 @@ func Html(c *gin.Context) {
 	})
 }
 
-// 检查是否配置信息
+// Check whether the configuration information
 func checkInfo(id string) bool {
 	result, err := dbUtil.DB().Table("hfish_setting").Fields("id", "type", "info").Where("id", "=", id).First()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "检查是否配置信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Check whether the configuration information failed", err)
 	}
 
 	info := result["info"].(string)
@@ -58,7 +58,7 @@ func checkInfo(id string) bool {
 	return false
 }
 
-// 拼接字符串
+// Concatenated string
 func joinInfo(args ...string) string {
 	and := "&&"
 	info := ""
@@ -72,7 +72,7 @@ func joinInfo(args ...string) string {
 	return info
 }
 
-// 更新配置信息
+// Update configuration information
 func updateInfoBase(info string, id string) {
 	_, err := dbUtil.DB().
 		Table("hfish_setting").
@@ -81,11 +81,11 @@ func updateInfoBase(info string, id string) {
 		Update()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "更新配置信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to update configuration information", err)
 	}
 }
 
-// 更新邮件群发配置
+// Update mass mailing configuration
 func UpdateEmailInfo(c *gin.Context) {
 	email := c.PostForm("email")
 	id := c.PostForm("id")
@@ -93,10 +93,10 @@ func UpdateEmailInfo(c *gin.Context) {
 	host := c.PostForm("host")
 	port := c.PostForm("port")
 
-	// 拼接字符串
+	// Concatenated string
 	info := joinInfo(host, port, email, pass)
 
-	// 更新
+	// Update
 	updateInfoBase(info, id)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -105,7 +105,7 @@ func UpdateEmailInfo(c *gin.Context) {
 	})
 }
 
-// 更新警告邮件配置
+// Update warning email configuration
 func UpdateAlertMail(c *gin.Context) {
 	email := c.PostForm("email")
 	id := c.PostForm("id")
@@ -114,12 +114,12 @@ func UpdateAlertMail(c *gin.Context) {
 	host := c.PostForm("host")
 	port := c.PostForm("port")
 
-	// 拼接字符串
+	// Concatenated string
 	receiveArr := strings.Split(receive, ",")
 	receiveInfo := joinInfo(receiveArr...)
 	info := joinInfo(host, port, email, pass, receiveInfo)
 
-	// 更新
+	// Update
 	cache.Setx("MailConfigInfo", info)
 	updateInfoBase(info, id)
 
@@ -129,16 +129,16 @@ func UpdateAlertMail(c *gin.Context) {
 	})
 }
 
-// 更新ip白名单
+// Update ip whitelist
 func UpdateWhiteIp(c *gin.Context) {
 	id := c.PostForm("id")
 	whiteIpList := c.PostForm("whiteIpList")
 
-	// 拼接字符串
+	// Concatenated string
 	Arr := strings.Split(whiteIpList, ",")
 	info := joinInfo(Arr...)
 
-	// 更新
+	// Update
 	cache.Setx("IpConfigInfo", info)
 	updateInfoBase(info, id)
 
@@ -148,12 +148,12 @@ func UpdateWhiteIp(c *gin.Context) {
 	})
 }
 
-// 更新 webHook
+// Update webHook
 func UpdateWebHook(c *gin.Context) {
 	id := c.PostForm("id")
 	webHookUrl := c.PostForm("webHookUrl")
 
-	// 更新
+	// Update
 	cache.Setx("HookConfigInfo", webHookUrl)
 	updateInfoBase(webHookUrl, id)
 
@@ -163,12 +163,12 @@ func UpdateWebHook(c *gin.Context) {
 	})
 }
 
-// 更新 密码加密符号
+// Update password encryption symbol
 func UpdatePasswdTM(c *gin.Context) {
 	id := c.PostForm("id")
 	text := c.PostForm("text")
 
-	// 更新
+	// Update
 	cache.Setx("PasswdConfigInfo", text)
 	updateInfoBase(text, id)
 
@@ -178,7 +178,7 @@ func UpdatePasswdTM(c *gin.Context) {
 	})
 }
 
-// 更新设置状态
+// Update setting status
 func UpdateStatusSetting(c *gin.Context) {
 	id := c.PostForm("id")
 	status := c.PostForm("status")
@@ -209,7 +209,7 @@ func UpdateStatusSetting(c *gin.Context) {
 	}
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "更新设置状态失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to update setting status", err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -218,14 +218,14 @@ func UpdateStatusSetting(c *gin.Context) {
 	})
 }
 
-// 根据id获取设置详情
+// Get setting details according to id
 func GetSettingInfo(c *gin.Context) {
 	id, _ := c.GetQuery("id")
 
 	result, err := dbUtil.DB().Table("hfish_setting").Fields("id", "type", "info", "status").Where("id", "=", id).First()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "获取设置详情失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to get setting details", err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -235,7 +235,7 @@ func GetSettingInfo(c *gin.Context) {
 	})
 }
 
-// 清空数据
+// Clear data
 func ClearData(c *gin.Context) {
 	tyep := c.PostForm("type")
 
@@ -243,19 +243,19 @@ func ClearData(c *gin.Context) {
 		_, err := dbUtil.DB().Table("hfish_info").Force().Delete()
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "清空上钩数据失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to clear the hook data", err)
 		}
 	} else if tyep == "2" {
 		_, err := dbUtil.DB().Table("hfish_colony").Force().Delete()
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "清空集群数据失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to clear cluster data", err)
 		}
 	} else if tyep == "3" {
 		_, err := dbUtil.DB().Table("hfish_passwd").Force().Delete()
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "清空密码数据失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to clear password data", err)
 		}
 	}
 
