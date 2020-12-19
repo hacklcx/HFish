@@ -57,7 +57,7 @@ func fetchIntelligenceData(ip string) (string, error) {
 		return "", fmt.Errorf("ERR_IP")
 	}
 	status, _ := cache.Get("ApikeyStatus")
-	// 判断是否启用获取云端威胁情报
+	// Determine whether to enable access to cloud threat intelligence
 	if status == "0" {
 		return "", fmt.Errorf("ERR_APIKEY")
 	}
