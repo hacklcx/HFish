@@ -11,7 +11,7 @@ var cfg *ini.File
 func init() {
 	c, err := ini.Load("./config.ini")
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "打开配置文件失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to open configuration file", err)
 	}
 	c.BlockMode = false
 	cfg = c
@@ -42,7 +42,7 @@ func GetCustomName() []string {
 
 	rpcStatus := Get("rpc", "status")
 
-	// 判断 RPC 是否开启 1 RPC 服务端 2 RPC 客户端
+	// Determine whether RPC is enabled 1 RPC server 2 RPC client
 	if rpcStatus == "1" || rpcStatus == "0" {
 		existConfig = []string{
 			"DEFAULT",
