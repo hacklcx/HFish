@@ -8,14 +8,14 @@ import (
 	"fmt"
 )
 
-// 上报状态结构
+// Report status structure
 type Status struct {
 	AgentIp                                                                               string
 	AgentName                                                                             string
 	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug, ES, TFtp, Vnc, Custom string
 }
 
-// 上报结果结构
+// Report result structure
 type Result struct {
 	AgentIp     string
 	AgentName   string
@@ -23,7 +23,7 @@ type Result struct {
 	ProjectName string
 	SourceIp    string
 	Info        string
-	Id          string // 数据库ID，更新用 0 为新插入数据
+	Id          string // Database ID, update with 0 for newly inserted data
 }
 
 var rpcClient *rpc.Client
@@ -35,12 +35,12 @@ func RpcInit() {
 
 	if err != nil {
 		rpcClient = nil
-		log.Pr("RPC", "127.0.0.1", "连接 RPC Server 失败")
+		log.Pr("RPC", "127.0.0.1", "Failed to connect to RPC Server")
 		ipAddr = ""
 	} else {
 		rpcClient = c
 		ipAddr = strings.Split(conn.LocalAddr().String(), ":")[0]
-		fmt.Println("连接RPC Server 成功")
+		fmt.Println("Successfully connected to RPC Server")
 	}
 }
 
@@ -69,10 +69,10 @@ func reportStatus(rpcName string, ftpStatus string, telnetStatus string, httpSta
 		err := rpcClient.Call("HFishRPCService.ReportStatus", status, &reply)
 
 		if err != nil {
-			log.Pr("RPC", "127.0.0.1", "上报服务状态失败", err)
+			log.Pr("RPC", "127.0.0.1", "Failed to report service status", err)
 			RpcInit()
 		} else {
-			fmt.Println("上报服务状态成功")
+			fmt.Println("Report service status successfully")
 		}
 	} else {
 		RpcInit()
@@ -83,9 +83,9 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 	var reply string
 
 	if (rpcClient != nil) {
-		// projectName 只有 WEB 才需要传项目名 其他协议空即可
-		// id 0 为 新插入数据，非 0 都是更新数据
-		// id 非 0 的时候 sourceIp 为空
+		// projectName Only WEB need to pass the project name, other protocols can be empty
+		// id 0 is newly inserted data, non-zero is updated data
+		// sourceIp is empty when id is not 0
 		rpcName := conf.Get("rpc", "name")
 
 		result := Result{
@@ -101,10 +101,10 @@ func ReportResult(typex string, projectName string, sourceIp string, info string
 		err := rpcClient.Call("HFishRPCService.ReportResult", result, &reply)
 
 		if err != nil {
-			log.Pr("RPC", "127.0.0.1", "上报上钩结果失败")
+			log.Pr("RPC", "127.0.0.1", "Failed to report the hook result")
 			RpcInit()
 		} else {
-			fmt.Println("上报上钩结果成功")
+			fmt.Println("Successfully reported the hook result")
 		}
 
 		return reply
