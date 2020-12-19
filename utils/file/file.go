@@ -9,15 +9,15 @@ import (
 	"fmt"
 )
 
-// 防止高并发下 打开过多
+// Prevent excessive opening under high concurrency
 var sshMap map[string]string
 var telnetMap map[string]string
 
 func init() {
-	// 把 SSH 命令配置 放到内存
+	// Put SSH command configuration into memory
 	resSsh, errSsh := json.GetSsh()
 	if errSsh != nil {
-		log.Pr("HFish", "127.0.0.1", "打开配置文件失败", errSsh)
+		log.Pr("HFish", "127.0.0.1", "Failed to open configuration file", errSsh)
 	}
 
 	sshCmdList, _ := resSsh.Get("command").Map()
@@ -29,10 +29,10 @@ func init() {
 		sshMap[value.(string)] = str
 	}
 
-	// 把 TELNET 命令配置 放到内存
+	// Put the TELNET command configuration in the memory
 	resTelnet, errTelnet := json.GetSsh()
 	if errTelnet != nil {
-		log.Pr("HFish", "127.0.0.1", "打开配置文件失败", errTelnet)
+		log.Pr("HFish", "127.0.0.1", "Failed to open configuration file", errTelnet)
 	}
 
 	telnetCmdList, _ := resTelnet.Get("command").Map()
@@ -66,7 +66,7 @@ func ReadLibs(typex string, name string) string {
 	text, err := ioutil.ReadFile("./libs/" + typex + "/" + name + ".hf")
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "读取文件失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to read file", err)
 	}
 
 	return string(text[:])
