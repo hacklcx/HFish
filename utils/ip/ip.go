@@ -19,8 +19,8 @@ func init() {
 	ipipDB, _ = ipdb.NewCity("./db/ipip.ipdb")
 }
 
-// 爬虫 ip138 获取 ip 地理信息
-// ~~~~~~ 暂时废弃，采用 IPIP
+// crawler ip138 to get ip geographic information
+// ~~~~~~ Temporarily abandoned, use IPIP
 func GetIp138(ip string) string {
 	result := ""
 	try.Try(func() {
@@ -33,18 +33,18 @@ func GetIp138(ip string) string {
 
 		reg := regexp.MustCompile(`<ul class="ul1"><li>\W*`)
 		arr := reg.FindAllString(string(out), -1)
-		str1 := strings.Replace(arr[0], `<ul class="ul1"><li>本站数据：`, "", -1)
+		str1 := strings.Replace(arr[0], `<ul class="ul1"><li>Site data：`, "", -1)
 		str2 := strings.Replace(str1, `</`, "", -1)
 		str3 := strings.Replace(str2, `  `, "", -1)
 		str4 := strings.Replace(str3, " ", "", -1)
 		result = strings.Replace(str4, "\n", "", -1)
 
-		if result == "保留地址" {
-			result = "本地IP"
+		if result == "Reserved address" {
+			result = "Local IP"
 		}
 
 	}).Catch(func() {
-		log.Pr("IP138", "127.0.0.1", "读取 ip138 内容异常")
+		log.Pr("IP138", "127.0.0.1", "Abnormal reading of ip138 content")
 	})
 
 	return result
