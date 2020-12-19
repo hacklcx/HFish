@@ -10,16 +10,16 @@ import (
 	"HFish/utils/log"
 )
 
-// 渲染群发设置页面
+// Render the group setting page
 func Html(c *gin.Context) {
-	// 获取配置列表
+// Get configuration list
 	result, err := dbUtil.DB().Table("hfish_setting").
 		Fields("info", "status").
 		Where("type", "mail").
 		First()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "获取群发设置配置信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to get the configuration information of group sending", err)
 		c.HTML(http.StatusOK, "setting.html", gin.H{
 			"email_status": 0,
 			"email_info": "",
@@ -33,16 +33,16 @@ func Html(c *gin.Context) {
 	})
 }
 
-// 获取群发设置配置信息
+// Get the configuration information of the group sending setting
 func GetMassSet(c *gin.Context) {
-	// 获取配置列表
+	// Get configuration list
 	result, err := dbUtil.DB().Table("hfish_setting").
 		Fields("info", "status").
 		Where("type", "mail").
 		First()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "获取群发设置配置信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to get the configuration information of group sending", err)
 		c.JSON(http.StatusOK, gin.H{ 
 			"mail_status": 0,
 			"mail_info": "",
@@ -56,19 +56,19 @@ func GetMassSet(c *gin.Context) {
 	}))
 }
 
-// 更新群发设置配置信息
+// Update the configuration information of group sending settings
 func UpdateMassSet(c *gin.Context) {
 	status := c.PostForm("mail_status")
 	info := c.PostForm("mail_info")
 
 	infos := strings.Split(info, "&&")
 	if (status != "0" && status != "1") || (status == "1" && len(infos) != 5){
-		log.Pr("HFish", "127.0.0.1", "请求数据非法", info)
+		log.Pr("HFish", "127.0.0.1", "Illegal request data", info)
 		c.JSON(http.StatusOK, error.ErrInputData)
 		return
 	}
 
-	// 更新
+	// Update
 	nowTime := time.Now().Format("2006-01-02 15:04")
 	_, err := dbUtil.DB().
 		Table("hfish_setting").
@@ -77,7 +77,7 @@ func UpdateMassSet(c *gin.Context) {
 		Update()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "更新群发设置配置信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to update configuration information of group sending", err)
 		c.JSON(http.StatusOK, error.ErrUpdateData)
 		return
 	}
