@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/static/favicon.ico">
-    <title>HFish - 扩展企业安全测试主动诱导型开源蜜罐框架系统</title>
+    <title>HFish - Expanding enterprise security testing active inducing open source honeypot framework system</title>
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/static/libs/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css"/>
     <style>
@@ -35,20 +35,20 @@
             <div class="m-t-10 p-20">
                 <div class="form-group row">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" id="loginName" required="" placeholder="账号">
+                        <input class="form-control" type="text" id="loginName" required="" placeholder="account number">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" id="loginPwd" required="" placeholder="密码">
+                        <input class="form-control" type="password" id="loginPwd" required="" placeholder="password">
                     </div>
                 </div>
 
                 <div class="form-group text-center row m-t-10">
                     <div class="col-xs-12">
                         <button class="btn btn-primary btn-block waves-effect waves-light" onclick="loginFunc()"
-                                type="submit">登 录
+                                type="submit">log in
                         </button>
                     </div>
                 </div>
@@ -70,16 +70,16 @@
     window.onload = function () {
         //配置
         var config = {
-            vx: 4, //小球x轴速度,正为右，负为左
-            vy: 4, //小球y轴速度
-            height: 2, //小球高宽，其实为正方形，所以不宜太大
+            vx: 4, //Ball x-axis speed, positive means right, negative means left
+            vy: 4, //Ball y axis speed
+            height: 2, //The height and width of the ball is actually square, so it should not be too big
             width: 2,
-            count: 200, //点个数
-            color: "255, 255, 255", //点颜色
-            stroke: "26,129,197", //线条颜色
-            dist: 6000, //点吸附距离
-            e_dist: 20000, //鼠标吸附加速距离
-            max_conn: 10 //点到点最大连接数
+            count: 200, //Points
+            color: "255, 255, 255", //Point color
+            stroke: "26,129,197", //Line color
+            dist: 6000, //Point adsorption distance
+            e_dist: 20000, //Mouse adsorption acceleration distance
+            max_conn: 10 //Maximum number of point-to-point connections
         };
 
         //调用
@@ -102,11 +102,11 @@
                 if (e.code == "200") {
                     window.location.href = "/dashboard";
                 } else {
-                    swal("登录失败", e.msg, 'error');
+                    swal("Login failed", e.msg, 'error');
                 }
             },
             error: function (e) {
-                swal("登录失败", "请 Github 提交 Issues", 'error');
+                swal("Login failed", "Please submit a Github Issues", 'error');
             }
         });
     }
