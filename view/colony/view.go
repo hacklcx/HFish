@@ -12,25 +12,25 @@ func Html(c *gin.Context) {
 	c.HTML(http.StatusOK, "colony.html", gin.H{})
 }
 
-// 获取蜜罐集群列表
+// Get a list of honeypot clusters
 func GetColony(c *gin.Context) {
 	result, err := dbUtil.DB().Table("hfish_colony").OrderBy("id desc").Get()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "获取蜜罐集群列表失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to get the honeypot cluster list", err)
 	}
 
 	c.JSON(http.StatusOK, error.ErrSuccessWithData(result))
 }
 
-// 删除集群
+// Delete cluster
 func PostColonyDel(c *gin.Context) {
 	id := c.PostForm("id")
 
 	_, err := dbUtil.DB().Table("hfish_colony").Where("id", "=", id).Delete()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "删除集群失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to delete cluster", err)
 	}
 
 	c.JSON(http.StatusOK, error.ErrSuccess)
