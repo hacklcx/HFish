@@ -17,31 +17,31 @@ import (
 )
 
 func AlertSyslog(model string, projectName string, typex string, agent string, ipx string, country string, region string, city string, infox string, time string) {
-	// 判断syslog通知
+	// Judge syslog notification
 	try.Try(func() {
-		// 只有新加入才会发送syslog通知
+		// Only new members will send syslog notifications
 		if (model == "new") {
 			status, _ := cache.Get("SyslogConfigStatus")
 
-			// 判断是否启用通知
+			// Determine whether to enable notification
 			if status == "1" {
 				info, _ := cache.Get("SyslogConfigInfo")
 				configs := strings.Split(info.(string), "&&")
 
-				if (country == "本地地址") {
+				if (country == "Local address") {
 					region = ""
 					city = ""
-				} else if (country == "局域网") {
+				} else if (country == "local area network") {
 					region = ""
 					city = ""
 				}
 
-				// 判断是否开启脱敏
+				// Determine whether to turn on desensitization
 				passwdConfigStatus, _ := cache.Get("PasswdConfigStatus")
 
 				if (passwdConfigStatus == "1") {
 					if (typex == "FTP" || typex == "SSH") {
-						// 获取脱敏加密字符
+						// Get masked encrypted characters
 						passwdConfigInfo, _ := cache.Get("PasswdConfigInfo")
 
 						arr := strings.Split(infox, "&&")
@@ -65,26 +65,26 @@ func AlertSyslog(model string, projectName string, typex string, agent string, i
 }
 
 func AlertMail(model string, typex string, agent string, ipx string, country string, region string, city string, infox string) {
-	// 判断邮件通知
+	// Judgment email notification
 	try.Try(func() {
-		// 只有新加入才会发送邮件通知
+		// Only new members will send email notifications
 		if (model == "new") {
 			status, _ := cache.Get("MailConfigStatus")
 
-			// 判断是否启用通知
+			// Determine whether to enable notification
 			if status == "1" {
 				info, _ := cache.Get("MailConfigInfo")
 				config := strings.Split(info.(string), "&&")
 
-				if (country == "本地地址") {
+				if (country == "Local address") {
 					region = ""
 					city = ""
-				} else if (country == "局域网") {
+				} else if (country == "local area network") {
 					region = ""
 					city = ""
 				}
 
-				// 判断是否开启脱敏
+				// Determine whether to turn on desensitization
 				passwdConfigStatus, _ := cache.Get("PasswdConfigStatus")
 
 				if (passwdConfigStatus == "1") {
@@ -100,17 +100,17 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 
 				geoInfo := geo.Format(country, region, city, " ")
 				text := `
-				<div><b>Hi，上钩了！</b></div>
+				<div><b>Hi, you got the bait! </b></div>
 				<div><b><br /></b></div>
-				<div><b>集群名称：</b>` + agent + `</div>
-				<div><b>攻击IP：</b>` + ipx + `</div>
-				<div><b>地理信息：</b>` + geoInfo + `</div>
-				<div><b>上钩内容：</b>` + infox + `</div>
+				<div><b>Cluster name:</b>` + agent + `</div>
+				<div><b>Attack IP:</b>` + ipx + `</div>
+				<div><b>Geographic information:</b>` + geoInfo + `</div>
+				<div><b>Hook content:</b>` + infox + `</div>
 				<div><br /></div>
-				<div><span style="color: rgb(128, 128, 128); font-size: 10px;">(HFish 自动发送)</span></div>
+				<div><span style="color: rgb(128, 128, 128); font-size: 10px;">(HFish auto delivery)</span></div>
 				`
 
-				send.SendMail(config[5:], "[HFish]提醒你，"+typex+"有鱼上钩!", text, config)
+				send.SendMail(config[5:], "[HFish] Remind you, "+typex+" A fish is on the bait!", text, config)
 			}
 		}
 	}).Catch(func() {
@@ -118,11 +118,11 @@ func AlertMail(model string, typex string, agent string, ipx string, country str
 }
 
 func AlertWebHook(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, time string) {
-	// 判断 WebHook 通知
+	// Judge WebHook notification
 	try.Try(func() {
 		status, _ := cache.Get("HookConfigStatus")
 
-		// 判断是否启用通知
+		// Determine whether to enable notification
 		if status == "1" {
 			info, _ := cache.Get("HookConfigInfo")
 
@@ -150,9 +150,9 @@ func AlertWebHook(id string, model string, typex string, projectName string, age
 			resp, err := client.Do(request)
 
 			if err != nil {
-				log.Pr("HFish", "127.0.0.1", "WebHook 调用失败", err)
+				log.Pr("HFish", "127.0.0.1", "WebHook Call failed", err)
 			} else {
-				log.Pr("HFish", "127.0.0.1", "WebHook 调用成功")
+				log.Pr("HFish", "127.0.0.1", "WebHook Successful call")
 			}
 
 			defer resp.Body.Close()
@@ -162,10 +162,10 @@ func AlertWebHook(id string, model string, typex string, projectName string, age
 	})
 }
 
-// 大数据展示
+// Big data display
 func AlertDataWs(model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, time string) {
 	if (model == "new") {
-		// 拼接字典
+		// Splicing dictionary
 		d := data.MakeDataJson("center_data", map[string]interface{}{
 			"type":        typex,
 			"projectName": projectName,
@@ -177,7 +177,7 @@ func AlertDataWs(model string, typex string, projectName string, agent string, i
 			"time":        time,
 		})
 
-		// 发送到客户端
+		// Send to client
 		data.Send(error.ErrSuccessWithData(d))
 	}
 }
