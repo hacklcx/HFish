@@ -16,7 +16,7 @@
 <span>|</span>
 <a href="https://github.com/hacklcx/HFish/releases" target="_bank">Download</a>
 <span>|</span>
-<a href="README_CN.md" target="_bank">中文</a>
+<a href="README_CN.md" target="_bank">Chinese</a>
 </p>
 
 
