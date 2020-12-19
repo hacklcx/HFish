@@ -10,16 +10,16 @@ import (
 	"HFish/utils/log"
 )
 
-// 渲染数据合规页面
+// Render data compliance page
 func Html(c *gin.Context) {
-	// 获取配置列表
+// Get configuration list
 	result, err := dbUtil.DB().Table("hfish_setting").
 		Fields("info", "status").
 		Where("type", "passwdTM").
 		First()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "获取配置列表失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to get configuration list", err)
 		c.HTML(http.StatusOK, "setting.html", gin.H{
 			"passwd_status": 0,
 			"passwd_text": "",
@@ -33,16 +33,16 @@ func Html(c *gin.Context) {
 	})
 }
 
-// 获取数据合规配置信息
+// Obtain data compliance configuration information
 func GetSecretData(c *gin.Context) {
-	// 获取配置列表
+// Get configuration list
 	result, err := dbUtil.DB().Table("hfish_setting").
 		Fields("info", "status").
 		Where("type", "passwdTM").
 		First()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "获取配置列表失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to get configuration list", err)
 		c.JSON(http.StatusOK, gin.H{
 			"passwd_status": 0,
 			"passwd_text": "",
@@ -56,18 +56,18 @@ func GetSecretData(c *gin.Context) {
 	}))
 }
 
-// 更新数据合规配置信息
+// Update data compliance configuration information
 func UpdateSecretData(c *gin.Context) {
 	status := c.PostForm("passwd_status")
 	text := c.PostForm("passwd_text")
 
 	if (status != "0" && status != "1") || (status == "1" && len(text) == 0) {
-		log.Pr("HFish", "127.0.0.1", "请求数据非法", text)
+		log.Pr("HFish", "127.0.0.1", "Illegal request data", text)
 		c.JSON(http.StatusOK, error.ErrInputData)
 		return
 	}
 
-	// 更新
+	// Update
 	nowTime := time.Now().Format("2006-01-02 15:04")
 	_, err := dbUtil.DB().
 		Table("hfish_setting").
@@ -76,7 +76,7 @@ func UpdateSecretData(c *gin.Context) {
 		Update()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "更新数据合规配置信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to update data compliance configuration information", err)
 		c.JSON(http.StatusOK, error.ErrUpdateData)
 		return
 	}
@@ -87,7 +87,7 @@ func UpdateSecretData(c *gin.Context) {
 	c.JSON(http.StatusOK, error.ErrSuccess)
 }
 
-// 清空数据
+// Clear data
 func ClearData(c *gin.Context) {
 	tyep := c.PostForm("type")
 
@@ -95,7 +95,7 @@ func ClearData(c *gin.Context) {
 		_, err := dbUtil.DB().Table("hfish_info").Force().Delete()
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "清空上钩数据失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to clear the hook data", err)
 			c.JSON(http.StatusOK, error.ErrDeleteData)
 			return
 		}
@@ -103,7 +103,7 @@ func ClearData(c *gin.Context) {
 		_, err := dbUtil.DB().Table("hfish_colony").Force().Delete()
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "清空集群数据失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to clear cluster data", err)
 			c.JSON(http.StatusOK, error.ErrDeleteData)
 			return
 		}
@@ -111,7 +111,7 @@ func ClearData(c *gin.Context) {
 		_, err := dbUtil.DB().Table("hfish_passwd").Force().Delete()
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "清空密码数据失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to clear password data", err)
 			c.JSON(http.StatusOK, error.ErrDeleteData)
 			return
 		}
