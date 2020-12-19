@@ -63,7 +63,7 @@
 </style>
 <div class="row">
     <div class="row">
-        <h4 class="title">分布式集群</h4>
+        <h4 class="title">Distributed cluster</h4>
 </div>
 
     <div class="col-sm-12">
@@ -71,11 +71,11 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th width="10%">集群名称</th>
-                    <th width="8%">集群 IP</th>
-                    <th width="6%" style="text-align: center;">插件</th>
+                    <th width="10%">Cluster name</th>
+                    <th width="8%">Cluster IP</th>
+                    <th width="6%" style="text-align: center;">Plug-in</th>
                     <th width="6%" style="text-align: center;">WEB</th>
-                    <th width="6%" style="text-align: center;">暗网</th>
+                    <th width="6%" style="text-align: center;">Dark Web</th>
                     <th width="6%" style="text-align: center;">SSH</th>
                     <th width="6%" style="text-align: center;">Redis</th>
                     <th width="6%" style="text-align: center;">Mysql</th>
@@ -92,7 +92,7 @@
                 </thead>
                 <tbody id="tableList">
                 <tr style="text-align: center;">
-                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="16">暂无数据</td>
+                    <td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="16">No Data</td>
                 </tr>
                 </tbody>
             </table>
@@ -115,11 +115,11 @@
                 if (e.code == 200) {
                     window.location.href = "/colony";
                 } else {
-                    swal("删除失败", e.msg, 'error');
+                    swal("failed to delete", e.msg, 'error');
                 }
             },
             error: function (e) {
-                swal("删除失败", "请 Github 提交 Issues", 'error');
+                swal("failed to delete", "Please make submit a Github Issues", 'error');
             }
         });
     }
@@ -268,7 +268,7 @@
             }
 
             if (_h == "") {
-                _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="15">暂无数据</td></tr>'
+                _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="15">No data</td></tr>'
             }
 
             $("#tableList").html(_h);
