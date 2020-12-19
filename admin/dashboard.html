@@ -117,10 +117,10 @@
             </a>
         </div>
         <div class="row">
-            <h4 class="title_1">仪表盘</h4>
+            <h4 class="title_1">Dashboard</h4>
         </div>
     </div>
-    <!--仪表盘-->
+    <!--Dashboard-->
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-2">
         <div class="card-box tilebox-two">
             <i class="icon-ghost  pull-xs-right text-muted"></i>
@@ -189,7 +189,7 @@
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-two">
             <i class="icon-plane pull-xs-right text-muted"></i>
-            <h6 class="lb_http text-uppercase m-b-15 m-t-10">HTTP代理</h6>
+            <h6 class="lb_http text-uppercase m-b-15 m-t-10">HTTP Proxy</h6>
             <h2 class="m-b-10"><span data-plugin="counterup">{{.httpSum}}</span></h2>
         </div>
     </div>
@@ -226,17 +226,17 @@
         </div>
     </div>
 
-   <!--折线图-->
+   <!--Line Chart-->
     <div class="col-md-12">
         <div class="card-box">
-            <p class="titlea">最近24小时</p>
+            <p class="titlea">Last 24 hrs</p>
             <div id="myChart" style="width:100%;height:200px;"></div>
         </div>
     </div>
 
     <div class="col-md-2">
         <div class="card-box" style="height: 676px;">
-            <p class="title">服务状态</p>
+            <p class="title">Service Status</p>
         {{if eq .apiStatus "1"}}
             <p><span class="openx"></span>API</p>
         {{else}}
@@ -335,27 +335,27 @@
 
     <div class="col-md-5">
         <div class="card-box">
-            <p class="titlea">[攻击地区] TOP10</p>
+            <p class="titlea">[Attack Area] TOP10</p>
             <div id="myChart1" style="width:100%;height:300px;"></div>
         </div>
     </div>
     <div class="col-md-5">
         <div class="card-box">
-            <p class="titlea">[攻击IP] TOP10</p>
+            <p class="titlea">[Attack IP] TOP10</p>
             <div id="myChart2" style="width:100%;height:300px;"></div>
         </div>
     </div>
 
     <div class="col-md-5">
         <div class="card-box">
-            <p class="titlea">账号统计</p>
+            <p class="titlea">Account statistics</p>
             <div id="myChart3" style="width:100%;height:200px;"></div>
         </div>
     </div>
 
     <div class="col-md-5">
         <div class="card-box">
-            <p class="titlea">密码统计</p>
+            <p class="titlea">Password statistics</p>
             <div id="myChart4" style="width:100%;height:200px;"></div>
         </div>
     </div>
@@ -366,30 +366,30 @@
 {{/*<div class="modal-content">*/}}
 {{/*<div class="modal-header">*/}}
 {{/*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>*/}}
-{{/*<h6 class="modal-title" id="myModalLabel">请填写 - 收集需求为了更好的 HFish</h6>*/}}
+{{/*<h6 class="modal-title" id="myModalLabel">Please fill in-collect requirements for better HFish</h6>*/}}
 {{/*</div>*/}}
 {{/*<div class="modal-body">*/}}
 {{/*<div class="form-horizontal">*/}}
 
 {{/*<div class="form-group form-x">*/}}
 {{/*<label for="inputPassword3" class="col-sm-2 control-label"><span*/}}
-{{/*class="xing">*</span>使用者</label>*/}}
+{{/*class="xing">*</span>user</label>*/}}
 {{/*<div class="col-sm-10">*/}}
-{{/*<input type="text" class="form-control" id="reg_use" placeholder="请输入企业名或个人网名(真名)">*/}}
+{{/*<input type="text" class="form-control" id="reg_use" placeholder="Please enter the company name or personal screen name (real name)">*/}}
 {{/*</div>*/}}
 {{/*</div>*/}}
 
 {{/*<div class="form-group form-x">*/}}
-{{/*<label for="reg_mail" class="col-sm-2 control-label"><span class="xing">*</span>邮箱</label>*/}}
+{{/*<label for="reg_mail" class="col-sm-2 control-label"><span class="xing">*</span>mailbox</label>*/}}
 {{/*<div class="col-sm-10">*/}}
-{{/*<input type="email" class="form-control" id="reg_mail" placeholder="请输入公司或个人邮箱">*/}}
+{{/*<input type="email" class="form-control" id="reg_mail" placeholder="Please enter company or personal email">*/}}
 {{/*</div>*/}}
 {{/*</div>*/}}
 {{/*</div>*/}}
 {{/*<div style="clear: both"></div>*/}}
 {{/*</div>*/}}
 {{/*<div class="modal-footer">*/}}
-{{/*<button type="button" class="btn btn-primary">提交信息</button>*/}}
+{{/*<button type="button" class="btn btn-primary">Submit Information</button>*/}}
 {{/*</div>*/}}
 {{/*</div>*/}}
 {{/*</div>*/}}
@@ -401,7 +401,7 @@
 <script>
     // $('#myRegInfo').modal('show');
 
-    // 数字的初始化
+    // Initialization of numbers
     var m = moment(new Date());
 
     var arr = new Array();
@@ -771,7 +771,7 @@
     ];
 
     var myChart = echarts.init(document.getElementById('myChart'));
-    // 获取数据并填充
+    // Get data and fill
     $.ajax({
         type: "GET",
         url: "/get/dashboard/data",
@@ -882,91 +882,91 @@
                         {
                             name: 'WEB',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: webData
                         },
                         {
                             name: 'DEEP',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: deepData
                         },
                         {
                             name: 'SSH',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: sshData
                         },
                         {
                             name: 'REDIS',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: redisData
                         },
                         {
                             name: 'MYSQL',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: mysqlData
                         },
                         {
                             name: 'TELNET',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: telnetData
                         },
                         {
                             name: 'FTP',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: ftpData
                         },
                         {
                             name: 'MEMCACHE',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: memCacheData
                         },
                         {
                             name: 'HTTP',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: httpData
                         },
                         {
                             name: 'TFTP',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: tftpData
                         },
                         {
                             name: 'VNC',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: vncData
                         },
                         {
                             name: 'ES',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: esData
                         },
                         {
                             name: 'CUSTOM',
                             type: 'line',
-                            stack: '总量',
+                            stack: 'Total',
                             areaStyle: {normal: {}},
                             data: customData
                         }
@@ -998,7 +998,7 @@
                 },
                 series: [
                     {
-                        name: '来源地区',
+                        name: 'Source area',
                         type: 'pie',
                         radius: '70%',
                         center: ['50%', '60%'],
@@ -1024,7 +1024,7 @@
                 },
                 series: [
                     {
-                        name: '攻击者IP',
+                        name: 'Attacker IP',
                         type: 'pie',
                         radius: '70%',
                         center: ['50%', '60%'],
@@ -1058,7 +1058,7 @@
                     show: true
                 },
                 series: [{
-                    name: '账号',
+                    name: 'account number',
                     type: "wordCloud",
                     gridSize: 6,
                     shape: 'circle',
@@ -1134,7 +1134,7 @@
         }
     });
 
-    //  echarts中的图标自适应
+    //  adaptive icon
     window.onresize = function () {
         myChart.resize();
         myChar1.resize();
