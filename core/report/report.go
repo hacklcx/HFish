@@ -30,22 +30,22 @@ type HFishInfo struct {
 	time    string
 }
 
-// 通知模块
+// Notification module
 func alertx(id string, model string, typex string, projectName string, agent string, ipx string, country string, region string, city string, infox string, timex string) {
-	// Syslog通知
+	// Syslog notification
 	alert.AlertSyslog(model, projectName, typex, agent, ipx, country, region, city, infox, timex)
 
-	// 邮件通知
+	// E-mail notification
 	alert.AlertMail(model, typex, agent, ipx, country, region, city, infox)
 
 	// WebHook
 	alert.AlertWebHook(id, model, typex, projectName, agent, ipx, country, region, city, infox, timex)
 
-	// 大数据展示
+	// Big data display
 	alert.AlertDataWs(model, typex, projectName, agent, ipx, country, region, city, timex)
 }
 
-// 上报 集群 状态
+// Report cluster status
 func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepStatus string, sshStatus string, redisStatus string, mysqlStatus string, httpStatus string, telnetStatus string, ftpStatus string, memCacheStatus string, plugStatus string, esStatus string, tftpStatus string, vncStatus string, customStatus string) {
 	_, err := dbUtil.DB().Table("hfish_colony").Data(map[string]interface{}{
 		"agent_name":       agentName,
@@ -68,7 +68,7 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 	}).InsertGetId()
 
 	if err != nil {
-		// 如果异常，代表触发了唯一索引，直接走更新操作
+		// If it is abnormal, it means that the unique index is triggered and go directly to the update operation
 		_, err := dbUtil.DB().
 			Table("hfish_colony").Data(map[string]interface{}{
 			"agent_ip":         agentIp,
@@ -90,19 +90,19 @@ func ReportAgentStatus(agentName string, agentIp string, webStatus string, deepS
 		}).Where("agent_name", agentName).Update()
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "更新集群信息失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to update cluster information", err)
 		}
 	}
 }
 
-// 判断是否为白名单IP
+// Determine whether it is a whitelisted IP
 func isWhiteIp(ip string) bool {
 	var isWhite = false
 
 	try.Try(func() {
 		status, _ := cache.Get("IpConfigStatus")
 
-		// 判断是否启用通知
+		// Determine whether to enable notification
 		if status == "1" {
 			info, _ := cache.Get("IpConfigInfo")
 			ipArr := strings.Split(info.(string), "&&")
@@ -120,7 +120,7 @@ func isWhiteIp(ip string) bool {
 	return isWhite
 }
 
-// 通用的插入
+// Universal insert
 func insertInfo(typex string, projectName string, agent string, ipx string, country string, region string, city string, info string) int64 {
 	timex := time.Now().Format("2006-01-02 15:04:05")
 	text := fmt.Sprintf("project: %s, type: %s, agent: %s, ip: %s, geo: %s, info: %s, time: %s",
@@ -148,13 +148,13 @@ func insertInfo(typex string, projectName string, agent string, ipx string, coun
 	}).InsertGetId()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "插入上钩信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to insert hook information", err)
 	}
 
 	return id
 }
 
-// 账号密码的插入
+// Insert account password
 func insertAccountPasswd(typex string, account string, passwd string) {
 	_, err := dbUtil.DB().Table("hfish_passwd").Data(map[string]interface{}{
 		"type":        typex,
@@ -164,16 +164,16 @@ func insertAccountPasswd(typex string, account string, passwd string) {
 	}).Insert()
 
 	if err != nil {
-		log.Pr("HFish", "127.0.0.1", "插入账号密码信息失败", err)
+		log.Pr("HFish", "127.0.0.1", "Failed to insert account password information", err)
 	}
 }
 
-// 更新
+// Update
 func updateInfoCore(id string, info string) {
 	try.Try(func() {
 		var sql string
 
-		// 此处为了兼容 Mysql + Sqlite
+		// Here for compatibility Mysql + Sqlite
 		dbType := conf.Get("admin", "db_type")
 
 		if dbType == "sqlite" {
@@ -195,13 +195,13 @@ func updateInfoCore(id string, info string) {
 		_, err := dbUtil.DB().Execute(sql, info, id)
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "更新上钩信息失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to update hook information", err)
 		}
 	}).Catch(func() {
 	})
 }
 
-// 通用的更新
+// General update
 func updateInfo(id string, info string) {
 	wgUpdate, poolUpdateX := pool.New(10)
 
@@ -215,14 +215,14 @@ func updateInfo(id string, info string) {
 	})
 }
 
-// 上报 WEB
+// Report WEB
 func ReportWeb(projectName string, agent string, ipx string, info string) {
-	// IP 不在白名单，进行上报
+	// IP Not in the whitelist, report
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("WEB", projectName, agent, ipx, country, region, city, info)
 
-		// 插入账号密码
+		// Insert account password
 		arr := strings.Split(info, "&&")
 		insertAccountPasswd("WEB", arr[0], arr[1])
 
@@ -230,13 +230,13 @@ func ReportWeb(projectName string, agent string, ipx string, info string) {
 	}
 }
 
-// 上报 暗网 WEB
+// Report Dark Web WEB
 func ReportDeepWeb(projectName string, agent string, ipx string, info string) {
-	// IP 不在白名单，进行上报
+	// IP Not in the whitelist, report
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 
-		// 插入账号密码
+		// Insert account password
 		arr := strings.Split(info, "&&")
 		insertAccountPasswd("DEEP", arr[0], arr[1])
 
@@ -245,9 +245,9 @@ func ReportDeepWeb(projectName string, agent string, ipx string, info string) {
 	}
 }
 
-// 上报 蜜罐插件
+// Report honeypot plugin
 func ReportPlugWeb(projectName string, agent string, ipx string, info string) {
-	// IP 不在白名单，进行上报
+	// IP is not in the whitelist, report it
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("PLUG", projectName, agent, ipx, country, region, city, info)
@@ -255,7 +255,7 @@ func ReportPlugWeb(projectName string, agent string, ipx string, info string) {
 	}
 }
 
-// 上报 SSH
+// Report SSH
 func ReportSSH(ipx string, agent string, info string) int64 {
 	defer func() {
 		if err := recover(); err != nil {
@@ -263,12 +263,12 @@ func ReportSSH(ipx string, agent string, info string) int64 {
 		}
 	}()
 
-	// IP 不在白名单，进行上报
+	// IP is not in the whitelist, report it
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("SSH", "SSH蜜罐", agent, ipx, country, region, city, info)
 
-		// 插入账号密码
+		// Insert account password
 		arr := strings.Split(info, "&&")
 		insertAccountPasswd("SSH", arr[0], arr[1])
 
@@ -278,21 +278,21 @@ func ReportSSH(ipx string, agent string, info string) int64 {
 	return 0
 }
 
-// 更新 SSH 操作
+// Update SSH operation
 func ReportUpdateSSH(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
-		go alertx(id, "update", "SSH", "SSH蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+		go alertx(id, "update", "SSH", "SSH honeypot", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
 
-// 上报 Redis
+// Report Redis
 func ReportRedis(ipx string, agent string, info string) int64 {
-	// IP 不在白名单，进行上报
+	// IP is not in the whitelist, report it
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
-		id := insertInfo("REDIS", "Redis蜜罐", agent, ipx, country, region, city, info)
-		go alertx(strconv.FormatInt(id, 10), "new", "REDIS", "Redis蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		id := insertInfo("REDIS", "Redis honeypot", agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "REDIS", "Redis honeypot", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 		return id
 	}
 	return 0
@@ -302,85 +302,85 @@ func ReportRedis(ipx string, agent string, info string) int64 {
 func ReportUpdateRedis(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
-		go alertx(id, "update", "REDIS", "Redis蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+		go alertx(id, "update", "REDIS", "Redis honeypot", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
 
-// 上报 Mysql
+// Report Mysql
 func ReportMysql(ipx string, agent string, info string) int64 {
 	// IP 不在白名单，进行上报
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
-		id := insertInfo("MYSQL", "Mysql蜜罐", agent, ipx, country, region, city, info)
-		go alertx(strconv.FormatInt(id, 10), "new", "MYSQL", "Mysql蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		id := insertInfo("MYSQL", "Mysql honeypot", agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "MYSQL", "Mysql honeypot", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 		return id
 	}
 	return 0
 }
 
-// 更新 Mysql 操作
+// Update Mysql operation
 func ReportUpdateMysql(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
-		go alertx(id, "update", "MYSQL", "Mysql蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+		go alertx(id, "update", "MYSQL", "Mysql honeypot", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
 
-// 上报 FTP
+// Report FTP
 func ReportFTP(ipx string, agent string, info string) {
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
-		id := insertInfo("FTP", "FTP蜜罐", agent, ipx, country, region, city, info)
+		id := insertInfo("FTP", "FTP Honeypot", agent, ipx, country, region, city, info)
 
-		// 插入账号密码
+		// Insert account password
 		arr := strings.Split(info, "&&")
 		insertAccountPasswd("FTP", arr[0], arr[1])
 
-		go alertx(strconv.FormatInt(id, 10), "new", "FTP", "FTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		go alertx(strconv.FormatInt(id, 10), "new", "FTP", "FTP honeypot", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
 
-// 上报 Telnet
+// Report Telnet
 func ReportTelnet(ipx string, agent string, info string) int64 {
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
-		id := insertInfo("TELNET", "Telnet蜜罐", agent, ipx, country, region, city, info)
-		go alertx(strconv.FormatInt(id, 10), "new", "TELNET", "Telnet蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		id := insertInfo("TELNET", "Telnet Honeypot", agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "TELNET", "Telnet honeypot", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 		return id
 	}
 	return 0
 }
 
-// 更新 Telnet 操作
+// Update Telnet operation
 func ReportUpdateTelnet(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
-		go alertx(id, "update", "TELNET", "Telnet蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+		go alertx(id, "update", "TELNET", "Telnet Honeypot", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
 
-// 上报 MemCache
+// Report MemCache
 func ReportMemCche(ipx string, agent string, info string) int64 {
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
-		id := insertInfo("MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info)
-		go alertx(strconv.FormatInt(id, 10), "new", "MEMCACHE", "MemCache蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		id := insertInfo("MEMCACHE", "MemCache honeypot", agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "MEMCACHE", "MemCache honeypot", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 		return id
 	}
 	return 0
 }
 
-// 更新 MemCache 操作
+// Update MemCache operation
 func ReportUpdateMemCche(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
-		go alertx(id, "update", "MEMCACHE", "MemCache蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+		go alertx(id, "update", "MEMCACHE", "MemCache honeypot", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
 
-// 上报 HTTP 代理
+// Report HTTP proxy
 func ReportHttp(projectName string, agent string, ipx string, info string) {
-	// IP 不在白名单，进行上报
+	// IP Not in the whitelist, report
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("HTTP", projectName, agent, ipx, country, region, city, info)
@@ -388,9 +388,9 @@ func ReportHttp(projectName string, agent string, ipx string, info string) {
 	}
 }
 
-// 上报 ES
+// Report ES
 func ReportEs(projectName string, agent string, ipx string, info string) {
-	// IP 不在白名单，进行上报
+	// IP Not in the whitelist, report
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("ES", projectName, agent, ipx, country, region, city, info)
@@ -398,9 +398,9 @@ func ReportEs(projectName string, agent string, ipx string, info string) {
 	}
 }
 
-// 上报 VNC
+// Report VNC
 func ReportVnc(projectName string, agent string, ipx string, info string) {
-	// IP 不在白名单，进行上报
+	// IP Not in the whitelist, report
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("VNC", projectName, agent, ipx, country, region, city, info)
@@ -408,28 +408,28 @@ func ReportVnc(projectName string, agent string, ipx string, info string) {
 	}
 }
 
-// 上报 TFTP
+// Report TFTP
 func ReportTFtp(ipx string, agent string, info string) int64 {
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
-		id := insertInfo("TFTP", "TFTP蜜罐", agent, ipx, country, region, city, info)
-		go alertx(strconv.FormatInt(id, 10), "new", "TFTP", "TFTP蜜罐", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
+		id := insertInfo("TFTP", "TFTP honeypot", agent, ipx, country, region, city, info)
+		go alertx(strconv.FormatInt(id, 10), "new", "TFTP", "TFTP honeypot", agent, ipx, country, region, city, info, time.Now().Format("2006-01-02 15:04:05"))
 		return id
 	}
 	return 0
 }
 
-// 更新 TFTP 操作
+// Update TFTP operation
 func ReportUpdateTFtp(id string, info string) {
 	if (id != "0") {
 		go updateInfo(id, info)
-		go alertx(id, "update", "TFTP", "TFTP蜜罐", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
+		go alertx(id, "update", "TFTP", "TFTP honeypot", "", "", "", "", "", info, time.Now().Format("2006-01-02 15:04:05"))
 	}
 }
 
-// 上报 自定义蜜罐
+// Report custom honeypot
 func ReportCustom(projectName string, agent string, ipx string, info string) {
-	// IP 不在白名单，进行上报
+	// IP Not in the whitelist, report
 	if (isWhiteIp(ipx) == false) {
 		country, region, city := ip.GetIp(ipx)
 		id := insertInfo("CUSTOM", projectName, agent, ipx, country, region, city, info)
