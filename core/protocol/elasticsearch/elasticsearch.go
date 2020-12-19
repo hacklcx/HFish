@@ -186,11 +186,11 @@ func printInfo(r *http.Request) {
 
 	arr := strings.Split(r.RemoteAddr, ":")
 
-	// 判断是否为 RPC 客户端
+	// Determine whether it is an RPC client
 	if is.Rpc() {
-		go client.ReportResult("ES", "ES蜜罐", arr[0], info, "0")
+		go client.ReportResult("ES", "ES honeypot", arr[0], info, "0")
 	} else {
-		go report.ReportEs("ES蜜罐", "本机", arr[0], info)
+		go report.ReportEs("ES Honeypot", "Local", arr[0], info)
 	}
 }
 
