@@ -10,14 +10,14 @@ import (
 	"HFish/core/pool"
 )
 
-// 上报状态结构
+// Report status structure
 type Status struct {
 	AgentIp                                                                               string
 	AgentName                                                                             string
 	Web, Deep, Ssh, Redis, Mysql, Http, Telnet, Ftp, MemCahe, Plug, ES, TFtp, Vnc, Custom string
 }
 
-// 上报结果结构
+// Report result structure
 type Result struct {
 	AgentIp     string
 	AgentName   string
@@ -25,14 +25,14 @@ type Result struct {
 	ProjectName string
 	SourceIp    string
 	Info        string
-	Id          string // 数据库ID，更新用 0 为新插入数据
+	Id          string // Database ID, update with 0 for newly inserted data
 }
 
 type HFishRPCService int
 
-// 上报状态 RPC 方法
+// Report status RPC method
 func (t *HFishRPCService) ReportStatus(s *Status, reply *string) error {
-	// 上报 客户端 状态
+	// Report client status
 	go report.ReportAgentStatus(
 		s.AgentName,
 		s.AgentIp,
@@ -55,7 +55,7 @@ func (t *HFishRPCService) ReportStatus(s *Status, reply *string) error {
 	return nil
 }
 
-// 上报结果 RPC 方法
+// Report result RPC method
 func (t *HFishRPCService) ReportResult(r *Result, reply *string) error {
 	var idx string
 
@@ -124,19 +124,19 @@ func (t *HFishRPCService) ReportResult(r *Result, reply *string) error {
 	return nil
 }
 
-// 启动 RPC 服务端
+// Start the RPC server
 func Start(addr string) {
 	rpcService := new(HFishRPCService)
 	rpc.Register(rpcService)
 
 	tcpAddr, err := net.ResolveTCPAddr("tcp", addr)
 	if err != nil {
-		log.Pr("RPC", "127.0.0.1", "RPC Server 启动失败", err)
+		log.Pr("RPC", "127.0.0.1", "RPC Server failed to activate", err)
 	}
 
 	listener, err := net.ListenTCP("tcp", tcpAddr)
 	if err != nil {
-		log.Pr("RPC", "127.0.0.1", "RPC Server 监听地址失败", err)
+		log.Pr("RPC", "127.0.0.1", "RPC Server Failed to listen to the address", err)
 	}
 
 	wg, poolX := pool.New(500)
@@ -148,7 +148,7 @@ func Start(addr string) {
 			conn, err := listener.Accept()
 
 			if err != nil {
-				log.Pr("RPC", "127.0.0.1", "客户端连接 RPC Server 失败", err)
+				log.Pr("RPC", "127.0.0.1", "The client failed to connect to the RPC Server", err)
 			}
 
 			fmt.Println(conn.RemoteAddr())
