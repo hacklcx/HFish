@@ -22,13 +22,13 @@ func init() {
 		engin, err = gorose.Open(&gorose.Config{Driver: "sqlite3", Dsn: dbStr, SetMaxOpenConns: dbMaxOpen, SetMaxIdleConns: dbMaxIdle})
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "连接 Sqlite 数据库失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to connect to Sqlite database", err)
 		}
 	} else if dbType == "mysql" {
 		engin, err = gorose.Open(&gorose.Config{Driver: "mysql", Dsn: dbStr, SetMaxOpenConns: dbMaxOpen, SetMaxIdleConns: dbMaxIdle})
 
 		if err != nil {
-			log.Pr("HFish", "127.0.0.1", "连接 Mysql 数据库失败", err)
+			log.Pr("HFish", "127.0.0.1", "Failed to connect to Mysql database", err)
 		}
 	}
 }
