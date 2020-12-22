@@ -5,13 +5,296 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Expires" CONTENT="0">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
     <link rel="shortcut icon" href="/static/favicon.ico">
     <title>HFish - 扩展企业安全测试主动诱导型开源蜜罐框架系统</title>
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/static/libs/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css"/>
     <link href="/static/libs/switchery/switchery.min.css" rel="stylesheet"/>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" /> -->
     <link rel="stylesheet" href="/static/css/jquery.datetimepicker.css">
+    <style>
+        .version_inco {
+            margin-top: 22px;
+            margin-left: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+        .version_hint {
+            position: absolute;
+            top: -4px;
+            right: 0;
+            width: 4px;
+            height: 4px;
+            background-color: red;
+            border-radius: 2px;
+            display: none;
+        }
+        .change_password,.version_div {
+            width: 300px;
+            min-height: 359px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+            border-radius: 2px;
+            position: fixed;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%,-50%);
+            z-index: 10000;
+            padding-left: 15px;
+            padding-right: 15px;
+            visibility: hidden;
+        }
+        .version_div {
+            width: 400px;
+            visibility: hidden;
+        }
+        .change_password p {
+            font-family: MicrosoftYaHeiUI;
+            font-size: 12px;
+            color: #282938;
+            line-height: 16px;
+            margin: 0;
+            padding: 0;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .change_password input {
+            width: 270px;
+            height: 26px;
+            font-size: 12px;
+            padding: 5px;
+            line-height: 14px;
+        }
+        .change_password .buttonControl {
+            position:absolute;
+            right: 15px;
+            bottom: 10px;
+        }
+        .change_password .buttonControl button {
+            width: 54px;
+            height: 26px;
+            font-family: MicrosoftYaHei;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 2px;
+        }
+        .version_div .version_content {
+            width: 370px;
+            min-height: 175px;
+            background-color: #FAFAFB;
+            border: 1px solid #E0E0E2;
+            border-radius: 2px;
+            margin-bottom: 50px;
+        }
+        .version_footer {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            height: 46px;
+            background-color:#F8F8F8;
+            z-index: -1;
+            margin-left: -15px;
+        }
+        .version_footer .buttonControl {
+            position:absolute;
+            right: 15px;
+            bottom: 10px;
+        }
+        .version_footer .buttonControl button {
+            width: 54px;
+            height: 26px;
+            font-family: MicrosoftYaHei;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 5px 15px;
+            margin-left: 10px;
+            border-radius: 2px;
+        }
+        .affButton {
+            background-color: #343543;
+            color: #ffffff;
+        }
+        .canButton {
+            background-color: #ffffff;
+            color: #343543;
+            border: 1px solid #343543;
+        }
+        #title_h,#title_v {
+            font-family: MicrosoftYaHeiUI-Bold;
+            color: #282938;
+            line-height: 20px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        #admin {
+            margin-bottom: 20px;
+        }
+        .close_h, .close_v {
+            width: 20px;
+            height: 0px;
+            position: absolute;
+            right: 15px;
+            top: 25px;
+            cursor: pointer;
+        }
+        .close_h::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            position: absolute;
+            background-color: black;
+            transform: rotate(45deg);
+        }
+        .close_h::after {
+            content: '';
+            width: 20px;
+            height: 2px;
+            position: absolute;
+            background-color: black;
+            transform: rotate(-45deg);
+        }
+        .close_v::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            position: absolute;
+            background-color: black;
+            transform: rotate(45deg);
+        }
+        .close_v::after {
+            content: '';
+            width: 20px;
+            height: 2px;
+            position: absolute;
+            background-color: black;
+            transform: rotate(-45deg);
+        }
+        .change_info {
+            position: relative;
+        }
+        .change_alert {
+            display: flex;
+            position: absolute;
+            top: 5px;
+            width: 270px;
+            height: 26px;
+            border-radius: 2px;
+            font-family: MicrosoftYaHeiUI;
+            color: #282938;
+            line-height: 16px;
+            box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+            background: #FFFFFF;
+            font-size: 12px;
+        }
+        .change_alert svg {
+            margin-top: 7px;
+            margin-left: 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .change_alert div {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-right: 10px;
+        }
+        .change_bg {
+            position: absolute;
+            bottom: 0;
+            height: 46px;
+            background-color:#F8F8F8;
+            width: inherit;
+            z-index: -1;
+            margin-left: -15px;
+        }
+        .model {
+            width: 1000vh;
+            height: 1000vh;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: black;
+            opacity: 0.3;
+            visibility: hidden;
+        }
+        .version_list {
+            display: flex;
+            margin-left: 10px;
+            align-items: center;
+        }
+        .version_list:last-child {
+            margin-bottom: 30px;
+        }
+        .version_content .inco {
+            width: 4px;
+            height: 4px;
+            border-radius: 2px;
+            background-color:  #282938;
+            margin-right: 5px;
+        }
+        .fixation {
+            overflow: hidden;
+        }
+
+        .update_div{
+            position: fixed;
+            left: 50%;
+            top: 30%;
+            transform: translate(-50%,-50%);
+            width: 300px;
+            background-color: white;
+            box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
+            font-size: 16px;
+            padding:5px;
+        }
+        .update_info {
+            display: flex;
+            font-size:25px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100px;
+        }
+
+@-webkit-keyframes spinner-border {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-border {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border .75s linear infinite;
+  animation: spinner-border .75s linear infinite;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+    </style>
 </head>
 
 <body>
@@ -49,9 +332,10 @@
             <div class="menu-extras">
                 <ul class="nav navbar-nav pull-right">
                     <li class="nav-item dropdown notification-list">
-                        <!-- <a class="nav-link waves-effect waves-light right-bar-toggle" href="javascript:void(0);">
-                            <i class="zmdi zmdi-format-subject noti-icon"></i>
-                        </a> -->
+                        <div class="version_inco">
+                            <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="分组-copy-6" fill="#FFFFFF"><path d="M19,16.25 L1,16.25 C0.45,16.25 0,15.8 0,15.25 C0,14.7 0.45,14.25 1,14.25 L19,14.25 C19.55,14.25 20,14.7 20,15.25 C20,15.8 19.55,16.25 19,16.25" id="Fill-1"></path><path d="M9.999,0 C5.874,0 2.499,3.375 2.499,7.5 L2.499,15 L4.999,15 L4.999,7.5 C4.999,4.75 7.249,2.5 9.999,2.5 C12.749,2.5 14.999,4.75 14.999,7.5 L14.999,15 L17.499,15 L17.499,7.5 C17.499,3.375 14.124,0 9.999,0" id="Fill-3"></path><path d="M10,20 C8.965,20 8.125,19.16 8.125,18.125 L8.125,17.5 L11.875,17.5 L11.875,18.125 C11.875,19.16 11.035,20 10,20" id="Fill-5"></path></g></g></svg>
+                            <div class="version_hint"></div>
+                        </div>
                     </li>
                     <li class="nav-item dropdown notification-list">
                         <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user"
@@ -66,13 +350,17 @@
                                     <small>Welcome ! You</small>
                                 </h5>
                             </div>
+                            <span class="dropdown-item notify-item change_pwd" style="cursor: pointer;display: flex;">
+                            <div style="margin-right: 10px;"><svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="path-1" points="8.96424666e-17 0 14 0 14 15 8.96424666e-17 15"></polygon></defs><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="分组-copy"><mask id="mask-2" fill="white"><use xlink:href="#path-1"></use></mask><g id="Clip-2"></g><path d="M7.22579373,8.21460641 C6.75961349,8.21460641 6.34864918,8.50381622 6.21337014,8.92696797 C6.07848551,9.35011972 6.2504437,9.80731817 6.63813843,10.0531278 L6.63813843,11.7094433 C6.63813843,11.9088596 6.7497535,12.0925621 6.93196608,12.1924573 C7.11378426,12.2916043 7.33780319,12.2916043 7.51962138,12.1924573 C7.70143956,12.0925621 7.81305462,11.9088596 7.81305462,11.7094433 L7.81305462,10.0531278 C8.20074936,9.80731817 8.37310195,9.35011972 8.23782291,8.92696797 C8.10293828,8.50419036 7.69197397,8.21498054 7.22579373,8.21460641 Z M12.824295,13.1775666 C12.824295,13.5677941 12.4910274,13.8839419 12.0800631,13.8843161 L1.9199369,13.8843161 C1.50897259,13.8835678 1.17570499,13.5677941 1.17531059,13.1775666 L1.17531059,7.29609398 C1.17570499,6.90586651 1.50857819,6.58971865 1.9199369,6.58897037 L12.0800631,6.58897037 C12.4914218,6.58934451 12.824295,6.90586651 12.8246894,7.29571984 L12.8246894,13.1775666 L12.824295,13.1775666 Z M3.51843818,4.35947321 C3.51843818,2.56771925 5.04949714,1.11493565 6.93827647,1.11493565 C8.82745021,1.11493565 10.3585092,2.56771925 10.3585092,4.35947321 L10.3585092,5.47403472 L3.51843818,5.47403472 L3.51843818,4.35947321 Z M12.0800631,5.47403472 L11.5338198,5.47403472 L11.5338198,4.35947321 C11.5338198,1.95188566 9.47623743,0 6.93827647,0 C4.40031552,0 2.34312759,1.95188566 2.34312759,4.35947321 L2.34312759,5.47403472 L1.9199369,5.47403472 C0.859790968,5.47553128 0.00118319858,6.29040706 0,7.29609398 L0,13.1775666 C0.00118319858,14.1832535 0.859790968,14.9985034 1.9199369,15 L12.0800631,15 C13.140209,14.9985034 13.9992112,14.1832535 14,13.1775666 L14,7.29609398 C13.9988168,6.29040706 13.1398146,5.47553128 12.0800631,5.47403472 Z" id="Fill-1" fill="#23272F" mask="url(#mask-2)"></path>
+</g></g></svg></div><span>修改密码</span>
+                            </span>
                             <a href="https://hfish.io/docs" target="_blank" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-help-outline"></i> <span>帮助文档</span>
                             </a>
 
                             <!-- item-->
-                            <a href="/logout" class="dropdown-item notify-item">
-                                <i class="zmdi zmdi-power"></i> <span>注销</span>
+                            <a href="/logout" class="dropdown-item notify-item" onclick="logout()">
+                                <i class="zmdi zmdi-power"></i> <span >注销</span>
                             </a>
                         </div>
                     </li>
@@ -80,11 +368,48 @@
             </div> <!-- end menu-extras -->
             <div class="clearfix"></div>
         </div> <!-- end container -->
+        <div class="change_password">
+            <div class="close_h"></div>
+            <p id="title_h">修改密码</p>
+            <p id='admin'>用户名: <span style="margin-left: 5px;">admin</span></p>
+            <p>当前密码:</p>
+            <input type="password" class='form-control' placeholder="输入admin当前密码验证权限" id="now_pwd" maxlength="20">
+            <p>修改密码:</p>
+            <input type="password" class='form-control' placeholder="最短8个字符" id="new_pwd" maxlength="20">
+            <p>重复密码:</p>
+            <input type="password" class="form-control" placeholder="最短8个字符" id='dup_pwd' maxlength="20">
+            <div class="change_info">
+            </div>
+            <div class="buttonControl">
+                <button class="btn canButton" id="click_cancel">取消</button>
+                <button class="btn affButton" id="click_submit">确认</button>
+            </div>
+            <div class="change_bg"></div>
+        </div>
+        <div class="version_div">
+            <div class="close_v"></div>
+            <div class="version_showOne" style="display: none;">
+                <p id="title_v">升级到最新版</p>
+                <p>当前版本： <span class="version">v0.6.5</span></p>
+                <div class="version_content">
+                    <div class="font_title" style="margin-top:10px; margin-left: 10px;">HFish<span id='version_number' style="margin-left:5px;"></span>升级说明</div>
+                    <div class="font_title" style="margin-left: 10px; margin-bottom: 10px;"> 发布时间:<span id="date" style="margin-left:10px;"></span></div>
+                        <!-- <div class="version_list"><div class="inco"></div> 发布时间:<span id="date"></span></div> -->
+                </div>
+                <div class="version_footer">
+                    <div class="buttonControl">
+                        <button class="btn canButton" id="click_cancel_update">取消</button>
+                        <button class="btn affButton" id='upgrade'>升级</button>
+                    </div>
+                </div>
+            </div>
+            <div class="version_showTwo" style="justify-content: center;align-items: center;height: 360px;display: none;"></div>
+        </div>
+        <div class="model"></div>
     </div>
     <!-- end topbar-main -->
     <div class="navbar-custom">
         <div class="container">
-
         </div>
     </div>
 </header>
@@ -92,4 +417,189 @@
 <div class="wrapper">
     <div class="container">
         <!-- Page-Title -->
+<script src="../static/js/jquery.min.js"></script>
+<script>
+    $(".change_pwd").click(function() {
+        $('.change_password').css('visibility','visible');
+        $('.model').css('visibility','visible');
+        $('body').css('overflow','hidden');
+    });
+   $('.close_h').click(function() {
+       $('.change_password').css('visibility','hidden');
+       $('.model').css('visibility','hidden');
+       $('body').css('overflow','auto');
+    });
+    $('.version_inco').click(function() {
+        $(".version_div").css('visibility','visible');
+        $('.model').css('visibility','visible');
+        $('body').css('overflow','hidden');
+    });
+    $('.close_v').click(function() {
+        $(".version_div").css('visibility','hidden');
+        $('.model').css('visibility','hidden');
+        $('body').css('overflow','auto');
+    });
+
+    $('#click_cancel').click(function() {
+        $('.change_password').css('visibility','hidden');
+        $('.model').css('visibility','hidden');
+        $('body').css('overflow','auto');
+    })
+
+    $('#click_cancel_update').click(function() {
+        $('.version_div').css('visibility','hidden');
+        $('.model').css('visibility','hidden');
+        $('body').css('overflow','auto');
+    });
+
+    let flag = true;
+
+    $('#new_pwd').blur(function() {
+       if( $('#new_pwd').val().length<8 && $('#new_pwd').val().length > 0) {
+           $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">密码最短8字符</div></div>`)
+           flag = false;
+           return ;
+        } else {
+            $(".change_info").empty();
+       }
+       if($('#new_pwd').val().length == 0) {
+        $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">密码不能为空</div></div>`)
+           flag = false;
+           return;
+       }
+
+       if(!!$('#dup_pwd').val()) {
+        if($('#new_pwd').val() !== $('#dup_pwd').val()) {
+            $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">两次密码不一致</div></div>`);
+            flag = false;
+            return;
+    };
+       }
+       flag = true;
+    });
+
+    $('#dup_pwd').blur(function() {
+
+       if( $('#dup_pwd').val().length< 8 && $('#dup_pwd').val().length > 0) {
+           $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">重复密码最短8字符</div></div>`)
+           flag = false;
+           return;
+        } else {
+            $(".change_info").empty();
+       };
+
+       if( $('#dup_pwd').val().length === 0) {
+        $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">密码重复不能为空</div></div>`)
+           flag = false;
+           return;
+       }
+
+       if($('#new_pwd').val() !== $('#dup_pwd').val()) {
+        $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">两次密码不一致</div></div>`);
+        flag = false;
+         return;
+    };
+       flag = true;
+    })
+
+    $("#click_submit").on('click',function() {
+        if(!!flag) {
+            let formData = {};
+            let now_pwd = $('#now_pwd').val();
+            let new_pwd = $('#new_pwd').val();
+            let dup_pwd = $('#dup_pwd').val();
+
+            if(new_pwd !== dup_pwd || new_pwd.length < 8 || dup_pwd.length < 8 || now_pwd.length == 0) {
+                $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">不符合提交条件，请认真修改</div></div>`);
+                return ;
+            }
+            formData['now_pwd'] = now_pwd;
+            formData['new_pwd'] = new_pwd;
+            formData['dup_pwd'] = dup_pwd;
+
+            let url = '/changePwd';
+            $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            cache:false
+            }).success(results => {
+                console.log(results);
+                if(results.code === 200) {
+                   $.cookie('HFish',null);
+                window.location.replace("/login");
+                } else {
+                    $(".change_info").append(`<div class="change_alert"> <svg width="14px" height="14px" viewBox="0 0 20 20"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg><div class="error_info">${results.msg}</div></div>`);
+                }
+            }).fail(error => {
+                console.error(error);
+            })
+            } else {
+                return ;
+            }
+    });
+    function logout() {
+        $.cookie('HFish',null);
+        window.history.replaceState('/login');
+    }
+    $('document').ready(function() {
+        $.ajax({
+            url: '/check',
+            type: 'get',
+        }).success((results) => {
+            console.log(results);
+            if(results.code == 200) {
+                $(".version_hint").show();
+                $(".version_showTwo").hide();
+                $(".version_showOne").show();
+                let data = results.data;
+                let {date, version} = data;
+                $("#version_number").html('v'+version);
+                $("#date").html(date);
+                let array = data.desc.split('\n');
+                array = array.map(item => {
+                    return `<div class="version_list"><div class="inco"></div>${item}</div>`;
+                });
+                $(".version_content").append(array);
+            } else {
+                $(".version_hint").hide();
+                $(".version_showTwo").html(results.msg);
+                $(".version_showTwo").css('display','flex');
+            }
+        }).fail(error => console.error(error));
+    })
+
+    $('#upgrade').on('click', function() {
+        let version = $("#version_number").html();
+        var flag = true;
+        version = version.slice(1);
+        if(!version) {
+            return false;
+        } else {
+            flag = false;
+            alert('系统后台正在升级，请稍后...');
+            $.ajax({
+                type:'post',
+                url:'/upgrade',
+                data:{
+                    version
+                },
+                beforeSend:function() {
+                    $('#upgrade').attr('disabled', 'true');
+                }
+            }).success(results => {
+                console.log(results);
+                if(results.code == 200) {
+                    alert("升级成功");
+                    window.location.reload();
+                } else {
+                    alert(results.msg);
+                    $('#upgrade').attr('disabled', false);
+                }
+            }).fail(error => {
+                window.location.reload();
+            })
+        }
+    });
+</script>
 {{end}}

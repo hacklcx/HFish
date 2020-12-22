@@ -481,12 +481,12 @@
             </table>
         </div>
         <button type="button" id="delbtn" class="btn btn-danger waves-effect waves-light btn-sm"
-                style="float: left;margin-top: -10px;" onclick="del()" disabled><i class="fa fa-trash-o"></i>删除
+                style="float: left;margin-top: -10px;" onclick="del()" disabled>删除
         </button>
 
         <button type="button" id="export" class="btn  waves-effect waves-light btn-sm"
                 style="float: left;margin-top: -10px;margin-left: 5px; background-color: #23272F; color:#FFFFFF; border:1px solid #23272F;"
-                onclick="export_info()"><i class="fa fa-trash-o"></i>批量导出
+                onclick="export_info()">批量导出
         </button>
         <div id="myPage" style="float: right;"></div>
     </div>
@@ -612,11 +612,18 @@ $("#date_timepicker_end").blur(function() {
 })
 // 字段选择的控制
 
-    $(".buttonSelect").click(function() {
+    $(".buttonSelect").click(function(event) {
+        event.stopPropagation;
         $(".divSelection").css('visibility',"visible");
         $('#number').focus();
     });
 
+    $(document).click(function(e){
+        var target = $(e.target);
+        if(target.closest(".buttonSelect").length != 0) return;
+        if(target.closest(".divSelection").length != 0) return;
+        $(".divSelection").css('visibility',"hidden");
+    });
     $('#selectLength').change(function() {
         $('#number').focus();
     });
@@ -818,6 +825,7 @@ $("#date_timepicker_end").blur(function() {
                     }
                     //威胁情报
                     let intelligence = data.result[i].intelligence;
+                    let source = data.result[i].source ? data.result[i].source :'xplt';
                     if(!!intelligence) {
                         if(typeof intelligence === "string") {
                             if(intelligence === 'ERR_APIKEY') {
@@ -847,6 +855,7 @@ $("#date_timepicker_end").blur(function() {
                             } else {
                                 let temp;
                                 temp = intelligence.split(':');
+                                temp[2] = !!temp[2] ? temp[2] : '暂无情报';
                                 if( parseInt(temp[1]) !== -4) {
                                 _h+=`<td class='td'>
                                 <div style='display:flex'>
@@ -876,49 +885,69 @@ $("#date_timepicker_end").blur(function() {
                                 }
                             }
                         } else {
-                            // 排序
-                            if(intelligence[data.result[i].ip].judgments.length > 0 || intelligence[data.result[i].ip].tags_classes.length > 0) {
-                                let tempArr = [];
-                                let dangerArr = [];
-                                let tagsArr = [];
-                                let infoArr = [];
-                                let whiteArr = [];
-                                let judgments = intelligence[data.result[i].ip].judgments;
-                                let tags_classes = intelligence[data.result[i].ip].tags_classes;
-                                //whitelist,danger,info
-                                if(judgments.length > 0) {
-                                    judgments.forEach(item => {
-                                       if(danger.includes(item)) {dangerArr.push(item)};
-                                       if(info.includes(item)) {infoArr.push(item)}
-                                       if(whitelist.includes(item)) {whiteArr.push(item)};
-                                        //whitelist.includes(item) ? flag = 'white' : info.includes(item) ? flag = 'info' : danger.includes(item) ? flag = 'danger' : '';
-                                        // tempArr.push(`<button class = 'btn btn-${flag} td_btn'>${transObject[item]}</button>`);
-                                    })
-                                }
-                                if(tags_classes.length > 0) {
-                                    console.log(tags_classes);
-                                    tags_classes.forEach(item => {
-                                        item.tags.forEach(i => {
-                                         //tempArr.push(`<button class = 'btn btn-tag td_btn'>${i}-${item.tags_type}</button>`);
-                                         tagsArr.push(`${i}-${item.tags_type}`);
-                                        })
+                            if(source === 'xplt') {
+                                // 排序
+                                if(intelligence[data.result[i].ip].judgments.length > 0 || intelligence[data.result[i].ip].tags_classes.length > 0) {
+                                    let tempArr = [];
+                                    let dangerArr = [];
+                                    let tagsArr = [];
+                                    let infoArr = [];
+                                    let whiteArr = [];
+                                    let judgments = intelligence[data.result[i].ip].judgments;
+                                    let tags_classes = intelligence[data.result[i].ip].tags_classes;
+                                    //whitelist,danger,info
+                                    if(judgments.length > 0) {
+                                        judgments.forEach(item => {
+                                           if(danger.includes(item)) {dangerArr.push(item)};
+                                           if(info.includes(item)) {infoArr.push(item)}
+                                           if(whitelist.includes(item)) {whiteArr.push(item)};
+                                        });
+                                    }
+                                    // if(tags_classes.length > 0) {
+                                    //     console.log(tags_classes);
+                                    //     tags_classes.forEach(item => {
+                                    //         item.tags.forEach(i => {
+                                    //          tempArr.push(`<button class = 'btn btn-tag td_btn'>${i}-${item.tags_type}</button>`);
+                                    //          tagsArr.push(`${i}-${item.tags_type}`);
+                                    //         })
+                                    //     });
+                                    // }
+                                    dangerArr = dangerArr.map(item => {
+                                        return `<button class = 'btn btn-danger td_btn'>${transObject[item]}</button>`;
                                     });
+                                    infoArr = infoArr.map(item => {
+                                        return `<button class = 'btn btn-info td_btn'>${transObject[item]}</button>`;
+                                    });
+                                    whiteArr = whiteArr.map(item => `<button class = 'btn btn-white td_btn'>${transObject[item]}</button>`)
+                                tempArr.push(...dangerArr,...infoArr,...whiteArr);
+                                  _h += '<td class="td">' + tempArr.join("") +'</td>';
+                                } else {
+                                    _h += `<td class="td fail_info">暂无情报</td>`
                                 }
-                                dangerArr = dangerArr.map(item => {
-                                    return `<button class = 'btn btn-danger td_btn'>${transObject[item]}</button>`;
-                                });
-                                // tagsArr = tagsArr.map(item => {
-                                //    return  `<button class = 'btn btn-tag td_btn'>${item}</button>`
-                                // });
-                                infoArr = infoArr.map(item => {
-                                    return `<button class = 'btn btn-info td_btn'>${transObject[item]}</button>`;
-                                });
-                                whiteArr = whiteArr.map(item => `<button class = 'btn btn-white td_btn'>${transObject[item]}</button>`)
-                            // tempArr.push(...dangerArr,...tagsArr,...infoArr,...whiteArr);
-                            tempArr.push(...dangerArr,...infoArr,...whiteArr);
-                              _h += '<td class="td">' + tempArr.join("") +'</td>';
-                            } else {
-                                _h += `<td class="td fail_info">暂无情报</td>`
+                            } else if(source === 'tip') {
+                                if(intelligence[0].now.length > 0) {
+                                    let tempArr = [];
+                                    let dangerArr = [];
+                                    let infoArr = [];
+                                    let whiteArr = [];
+                                    let judgments = intelligence[0].now;
+                                    judgments.forEach(item => {
+                                       if(danger.includes(item.type)) {dangerArr.push(item.type)};
+                                       if(info.includes(item.type)) {infoArr.push(item.type)}
+                                       if(whitelist.includes(item.type)) {whiteArr.push(item.type)};
+                                       });
+                                    dangerArr = dangerArr.map(item => {
+                                        return `<button class = 'btn btn-danger td_btn'>${transObject[item]}</button>`;
+                                    });
+                                    infoArr = infoArr.map(item => {
+                                        return `<button class = 'btn btn-info td_btn'>${transObject[item]}</button>`;
+                                    });
+                                    whiteArr = whiteArr.map(item => `<button class = 'btn btn-white td_btn'>${transObject[item]}</button>`)
+                                    tempArr.push(...dangerArr,...infoArr,...whiteArr);
+                                     _h += '<td class="td">' + tempArr.join("") +'</td>';
+                                }else{
+                                    _h+='<td class="td fail_info">暂无情报</td>';
+                                }
                             }
                        }
                     } else {
@@ -944,7 +973,6 @@ $("#date_timepicker_end").blur(function() {
                     _h = '<tr style="text-align: center;"><td style="line-height: 200px;font-size: 20px;color: #a9a9a9;" colspan="8">暂无数据</td></tr>'
                 }
             }
-
                 $("#tableList").html(_h);
 
                 var pageCount = data.pageCount;

@@ -1,14 +1,12 @@
 package intelligence
 
 import (
-	"fmt"
-	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"strings"
 	"time"
 	"github.com/gin-gonic/gin"
 	"HFish/core/dbUtil"
+	"HFish/core/report"
 	merror "HFish/error"
 	"HFish/utils/cache"
 	"HFish/utils/log"
@@ -99,14 +97,15 @@ func UpdateIntelligence(c *gin.Context) {
 	localStatus := c.PostForm("local_status")
 	localIpList := c.PostForm("local_iplist")
 
-	if (cloudStatus != "0" && cloudStatus != "1") || (cloudStatus == "1" && len(cloudApikey) != 64) {
+	cloudApikeys := strings.Split(cloudApikey, "&&")
+	if (cloudStatus != "0" && cloudStatus != "1") || (cloudStatus == "1" && len(cloudApikeys) != 3) || len(cloudApikey) > 200 {
 		log.Pr("HFish", "127.0.0.1", "请求数据非法", cloudApikey)
 		c.JSON(http.StatusOK, merror.ErrInputData)
 		return
 	}
 
 	localIpLists := strings.Split(localIpList, "&&")
-	if (localStatus != "0" && localStatus != "1") || (localStatus == "1" && len(localIpLists) == 0) {
+	if (localStatus != "0" && localStatus != "1") || (localStatus == "1" && len(localIpLists) == 0) || len(localIpList) > 200 {
 		log.Pr("HFish", "127.0.0.1", "请求数据非法", localIpList)
 		c.JSON(http.StatusOK, merror.ErrInputData)
 		return
@@ -146,36 +145,23 @@ func UpdateIntelligence(c *gin.Context) {
 	c.JSON(http.StatusOK, merror.ErrSuccess)
 }
 
-func httpGet(apikey string) error {
-	url := fmt.Sprintf("https://api.threatbook.cn/v3/scene/ip_reputation?apikey=%s&resource=159.203.93.255", apikey)
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-
-	var result struct {
-		ResponseCode int    `json:"response_code"`
-		VerboseMsg   string `json:"verbose_msg"`
-	}
-	if err := json.Unmarshal(body, &result); err != nil {
-		return err
-	}
-	if result.ResponseCode != 0 {
-		return fmt.Errorf("%s:%d", result.VerboseMsg, result.ResponseCode)
-	}
-	return nil
-}
-
 // 测试获取云端威胁情报apikey是否有效
 func TestIntelligence(c *gin.Context) {
+	source := c.PostForm("source")
+	server := c.PostForm("server")
 	apikey := c.PostForm("apikey")
 
-	err := httpGet(apikey)
+	if source == "" || server == "" || apikey == "" {
+		response := gin.H{
+			"code": merror.ErrTestIntelligence["code"],
+			"msg": merror.ErrTestIntelligence["msg"],
+			"data": "请求数据非法",
+		}
+		c.JSON(http.StatusOK, response)
+		return
+	}
+
+	_, err := report.FetchIntelligenceData(source, server, apikey, "159.203.93.255")
 	if err != nil {
 		log.Pr("HFish", "127.0.0.1", "测试获取云端威胁情报失败", err)
 		response := gin.H{

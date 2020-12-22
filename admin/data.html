@@ -81,7 +81,7 @@
 </header>
 <a href="/dashboard"><span class="glyphicon glyphicon-home homex" aria-hidden="true"></span></a>
 <div class="timex">
-    <span>当前时间: </span><span id="timex">2020-04-28 21:31:01</span>
+    <span>当前时间: </span><span id="timex"></span>
 </div>
 <div class="wrapper">
     <div class="container-fluid">
@@ -164,6 +164,12 @@
 <script type="text/javascript" src="/static/js/xss.min.js"></script>
 <script type="text/javascript">
     var attckCity = $("#dataAttack").val();
+    let timeout = setInterval(() => {
+        $('#timex').val(new Date());
+    }, 1000);
+    window.onbeforeunload(function() {
+        clearInterval(timeout);
+    })
 </script>
 <script type="text/javascript" src="/static/data/js/data.js"></script>
 </body>

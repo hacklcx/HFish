@@ -101,6 +101,30 @@ func convertJudgment(judgmentArray []interface{}) string {
 	return judgments
 }
 
+func convertNowDatas(nowArray []interface{}) string {
+	var judgments string
+	for _, now := range nowArray {
+		nowData, ok := now.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		st, ok := nowData["type"].(string)
+		if !ok {
+			continue
+		}
+		judgment, ok := judgmentMap[st]
+		if !ok {
+			judgment = st
+		}
+		if len(judgments) == 0 {
+			judgments = judgment
+		} else {
+			judgments += " " + judgment
+		}
+	}
+	return judgments
+}
+
 // 获取上钩列表
 func GetFishList(c *gin.Context) {
 	pageNo, _ := c.GetQuery("page_no")
@@ -178,8 +202,13 @@ func GetFishList(c *gin.Context) {
 		if !ok || len(intelligence) == 0 {
 			continue
 		}
+		intelligences := strings.Split(intelligence, "&&")
+		if len(intelligences) < 2 {
+			continue
+		}
+		result[i]["source"] = intelligences[0]
 		var intelligenceData json.RawMessage
-		err := json.Unmarshal([]byte(intelligence), &intelligenceData)
+		err := json.Unmarshal([]byte(intelligences[1]), &intelligenceData)
 		if err != nil {
 			log.Pr("HFish", "127.0.0.1", "json unmarshal err", err)
 			continue
@@ -259,18 +288,31 @@ func ExportFishList(c *gin.Context) {
 		}
 
 		var intelligenceResult string
-		intelligenceData := make(map[string]map[string]interface{})
+
 		intelligence, _ := info["intelligence"].(string)
-		if len(intelligence) > 20 { // 没有威胁情报的就不用反序列化了
-			if err := json.Unmarshal([]byte(intelligence), &intelligenceData); err != nil {
-				log.Pr("HFish", "127.0.0.1", "intelligence json unmarshal err", err)
-				intelligenceResult = intelligence
-			} else {
-				judgments, ok := intelligenceData[ip]["judgments"].([]interface{})
-				if ok {
-					intelligenceResult = convertJudgment(judgments)
+
+		intelligences := strings.Split(intelligence, "&&")
+		if len(intelligences) >= 2 { // 没有威胁情报的就不用反序列化了
+			intelligenceResult = intelligences[1]
+			if intelligences[0] == "xplt" {
+				intelligenceData := make(map[string]map[string]interface{})
+				if err := json.Unmarshal([]byte(intelligences[1]), &intelligenceData); err != nil {
+					log.Pr("HFish", "127.0.0.1", "xplt intelligence json unmarshal err", err)
 				} else {
-					intelligenceResult = intelligence
+					judgments, ok := intelligenceData[ip]["judgments"].([]interface{})
+					if ok {
+						intelligenceResult = convertJudgment(judgments)
+					}
+				}
+			} else if intelligences[0] == "tip" {
+				intelligenceData := make([]map[string]interface{}, 0)
+				if err := json.Unmarshal([]byte(intelligences[1]), &intelligenceData); err != nil {
+					log.Pr("HFish", "127.0.0.1", "tip intelligence json unmarshal err", err)
+				} else {
+					judgments, ok := intelligenceData[0]["now"].([]interface{})
+					if ok {
+						intelligenceResult = convertNowDatas(judgments)
+					}
 				}
 			}
 		} else {
