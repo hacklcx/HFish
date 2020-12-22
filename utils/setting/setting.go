@@ -9,6 +9,7 @@ import (
 	"io"
 	"os"
 	"net/http"
+	"runtime"
 	"time"
 	"HFish/utils/cache"
 	"HFish/utils/conf"
@@ -32,7 +33,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"syscall"
-	"HFish/utils/ping"
+	"HFish/utils/log"
 )
 
 func RunWeb(template string, index string, static string, url string) http.Handler {
@@ -178,7 +179,8 @@ func initCahe() {
 }
 
 func Run() {
-	ping.Ping()
+	go heart()
+	go clear()
 
 	// 启动 自定义 蜜罐
 	custom.StartCustom()
@@ -190,7 +192,6 @@ func Run() {
 	if vncStatus == "1" {
 		vncAddr := conf.Get("vnc", "addr")
 		go vnc.Start(vncAddr)
-
 	}
 
 	//=========================//
@@ -405,7 +406,7 @@ func Run() {
 	serverAdmin := &http.Server{
 		Addr:         adminAddr,
 		Handler:      RunAdmin(),
-		ReadTimeout:  5 * time.Second,
+		ReadTimeout:  10 * time.Minute,
 		WriteTimeout: 10 * time.Second,
 	}
 
@@ -426,7 +427,7 @@ func Help() {
  {K ||       __ _______     __
   | PP      / // / __(_)__ / /
   | ||     / _  / _// (_-</ _ \
-  (__\\   /_//_/_/ /_/___/_//_/ v0.6.4
+  (__\\   /_//_/_/ /_/___/_//_/ v0.6.5
 `
 	fmt.Println(color.Yellow(logo))
 	fmt.Println(color.White(" A Safe and Active Attack Honeypot Fishing Framework System for Enterprises."))
@@ -444,4 +445,41 @@ func Help() {
 	fmt.Println("")
 	fmt.Println(color.Yellow(" + -------------------------------------------------------------------- +"))
 	fmt.Println("")
+}
+
+func heart() {
+	for {
+		status := conf.Get("rpc", "status")
+		url := fmt.Sprintf("https://hfish.io/info?version=0.6.5&status=%s&os=%s", status, runtime.GOOS +"-"+runtime.GOARCH)
+		if status == "1" { // 集群服务端需要获取接入的客户端数量
+			count, err := dbUtil.DB().Table("hfish_colony").Count()
+			if err != nil {
+				log.Pr("HFish", "127.0.0.1", "获取蜜罐集群列表失败", err)
+			}
+			url = fmt.Sprintf("%s&count=%d", url, count)
+		}
+		fmt.Println("heart url:", url)
+		resp, _ := http.Get(url)
+		if resp != nil {
+			resp.Body.Close()
+		}
+		time.Sleep(time.Hour *24)
+	}
+}
+
+func clear() {
+	for {
+		expireday := conf.Get("admin", "expireday")
+		expireDay, err := strconv.Atoi(expireday)
+		if err != nil {
+			expireDay = 3  // 默认3天过期
+		}
+		expireTime := time.Now().AddDate(0, 0, -expireDay).Format("2006-01-02 15:04:05")
+		num, err := dbUtil.DB().Table("hfish_intelligence").Where("update_time", "<", expireTime).Delete()
+		if err != nil {
+			log.Pr("HFish", "127.0.0.1", "删除过期的威胁情报数据失败", err)
+		}
+		log.Pr("HFish", "127.0.0.1", "删除过期的威胁情报数据成功", num)
+		time.Sleep(time.Hour)
+	}
 }

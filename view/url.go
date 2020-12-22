@@ -22,7 +22,12 @@ func LoadUrl(r *gin.Engine) {
 	// 登录
 	r.GET("/login", login.Html)
 	r.POST("/login", login.Login)
-	r.GET("/logout", login.Logout)
+	r.GET("/session", login.Jump, login.Session)
+	r.POST("/changePwd", login.Jump, login.ChangePwd)
+	r.POST("/resetPwd", login.Jump, login.ResetPwd)
+	r.GET("/check", login.Jump, login.CheckUpdate)
+	r.POST("/upgrade", login.Jump, login.Upgrade)
+	r.GET("/logout", login.Jump, login.Logout)
 
 	// 仪表盘
 	r.GET("/", login.Jump, dashboard.Html)
@@ -78,7 +83,7 @@ func LoadUrl(r *gin.Engine) {
 	// 系统设置->数据合规
 	r.GET("/get/setting/secret", login.Jump, secret.GetSecretData)
 	r.POST("/post/setting/secret", login.Jump, secret.UpdateSecretData)
-	r.POST("/post/setting/cleardata", login.Jump, secret.ClearData)
+	r.POST("/post/setting/clearData", login.Jump, secret.ClearData)
 
 	// API 接口
 	// 解决跨域问题

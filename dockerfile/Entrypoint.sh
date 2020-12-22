@@ -33,4 +33,7 @@ if [ ! -z "$MYSQL_USER" ] && [ ! -z "$MYSQL_PASSWORD" ] && [ ! -z "$MYSQL_IP" ] 
   fi
 fi
 
-cd $HFISH_DIR && ./HFish run
+cd $HFISH_DIR
+nohup ./upgrade &
+./HFish run
+

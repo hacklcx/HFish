@@ -282,7 +282,7 @@
     #email_alert_callback::before{
         content:"";
         border:5px solid transparent;
-        border-bottom-color:while;
+        border-bottom-color:white;
         position:absolute;
         left:12px;
         top:0;
@@ -379,32 +379,32 @@
         height: 230px;
         margin-right: 20px;
     }
-    #intelligence_apikey {
+    #intelligence_div2 {
+        height: 136px;
+    }
+    #intelligence_apikey,#intelligence_tip_apikey, #intelligence_serve,#intelligence_tip_serve{
         width: 300px;
         height: 26px;
         background: #FFFFFF;
         border: 1px solid #E0E0E2;
         border-radius: 2px;
-        margin-left: 15px;
-        margin-top: 10px;
-        margin-bottom: 15px;
+        margin-top: 15px;
     }
     .intelligence_test_div {
-        width: 300px;
-        margin-left: 15px;
+        width: 400px;
         display: flex;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin-top: 19px;
         position: relative;
 
     }
-    #intelligence_callback {
+    #intelligence_callback,#intelligence_callback_tip {
         max-width: 200px;
         height:26px;
         font-family: MicrosoftYaHeiUI;
         font-size: 12px;
         color: #282938;
         line-height: 16px;
+        margin-left: 90px;
         display: flex;
         box-shadow: 0 2px 10px 0 rgba(0,0,0,0.20);
         background: #FFFFFF;
@@ -431,11 +431,29 @@
         top:0;
         margin-top:-9px;
     }
-    #intelligence_test {
+    #intelligence_callback_tip::before {
+        content:"";
+        border:5px solid transparent;
+        border-bottom-color:white;
+        position:absolute;
+        left:12px;
+        top:0;
+        margin-top:-10px;
+    }
+    #intelligence_callback_tip::after {
+        content:"";
+        border:5px solid transparent;
+        border-bottom-color:white;
+        position:absolute;
+        left:12px;
+        top:0;
+        margin-top:-9px;
+    }
+    #intelligence_test, #intelligence_api_test{
         flex: 0 0 54px;
         position: absolute;
         bottom: 0;
-        right: 0;
+        right: 11px;
         background-color: black;
         font-size: 12px;
         color: #FFFFFF;
@@ -456,6 +474,7 @@
         height: 180px;
         position: absolute;
         right: 0px;
+        top: -26px;
     }
     .intelligence_info p {
         font-size: 12px;
@@ -470,30 +489,53 @@
         border-radius: 2px;
         border: 1px solid #E2EFFF;
     }
-    .intelligence_apikey_button {
-        background: #E2EFFF;
-        border: 1px solid #1D88FF;
-        border-radius: 2px;
-        font-family: MicrosoftYaHeiUI;
-        font-size: 12px;
-        color: #1D88FF;
-        line-height: 16px;
-        margin-left: 65px;
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-    .intelligence_apikey_span {
-        background: #E2EFFF;
-        border-radius: 2px;
-        width: 68px;
-        height: 60px;
-    }
-    #intelligence_textarea {
+    #intelligence_textarea{
         width: 300px;
         min-height: 80px;
         margin-top: 10px;
         margin-left: 15px;
         margin-bottom: 15px;
+    }
+    .intelligence_select_div {
+        margin-top: 15px;
+        margin-left: 15px;
+    }
+    .intelligence_select_div  span{
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        line-height: 16px;
+        width: 85px;
+        display: inline-block;
+        text-align: right;
+    }
+    .intelligence_select_div #intelligence_select {
+        width: 300px;
+        height: 26px;
+        background: #FFFFFF;
+        border: 1px solid #E0E0E2;
+        border-radius: 2px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        line-height: 12px;
+        padding: 2px 5px;
+        display: inline;
+    }
+    .xplt_div,.tip_div{
+        margin-left: 15px;
+        font-family: MicrosoftYaHeiUI;
+        font-size: 12px;
+        color: #2B3D51;
+        line-height: 16px;
+    }
+    .xplt_div label,.tip_div label{
+        margin-right: 5px;
+        width: 84px;
+        text-align: right;
+    }
+    .xplt_div input, .tip_div input{
+       display: inline;
     }
     #secret_div {
         height: 80px;
@@ -826,20 +868,36 @@
                             <div class="show-contenter-b"><span>云端威胁情报</span></div>
                         </div>
                         <div id="intelligence_div1">
-                            <div class="font_info"><span>微步在线 X 情报社区 API Key：</span></div>
+                            <div class="intelligence_select_div">
+                                <span>威胁情报来源:</span>
+                               <select  class="form-control" id="intelligence_select">
+                                    <option value="xplt">微步在线云API（IP信誉接口）</option>
+                                    <option value="tip">微步本地威胁情报管理平台（TIP）</option>
+                            </select>
+                            </div>
                             <div class='intelligence_temp'>
-                                <div>
-                                    <input type="teet" class='form-control' id="intelligence_apikey">
+                                <div class='xplt_div'>
+                                    <div><label for="intelligence_serve">API接口地址:</label><input type="text" class="form-control" disabled value="https://api.threatbook.cn" id='intelligence_serve'></div>
+                                    <div><label for="intelligence_apikey">API Key:</label><input type="text" class='form-control' id="intelligence_apikey"></div>
                                     <div class="intelligence_test_div">
                                         <div id="intelligence_callback"></div>
                                         <button class='btn' id="intelligence_test">测试</button>
+                                    </div>
+                                </div>
+                                <div class="tip_div" style="display: none;">
+                                    <div> <label for="">API接口地址:</label><input type="text" class="form-control" id='intelligence_tip_serve'></div>
+                                    <div> <label for="">API Key:</label><input type="text" class='form-control' id="intelligence_tip_apikey"></div>
+                                    <div></div>
+                                    <div class="intelligence_test_div">
+                                        <div id="intelligence_callback_tip"></div>
+                                        <button class='btn' id="intelligence_api_test">测试</button>
                                     </div>
                                 </div>
                                 <div class="intelligence_info">
                                     <p style="color: #2B3D51;text-align:center; font-family: MicrosoftYaHeiUI-Bold">情报数据声明</p>
                                 <p style="font-size: 12px;color: #2B3D51;line-height: 16px;">
                                 HFish.io与微步在线（x.threatbook.cn）合作免费提供部分威胁情报</p>
-                                <p>如需情报，请登录微步在线社区获取情报查询API key，点此<button class="btn-intell"><a href="https://passport.threatbook.cn/login?callbackURL=https://x.threatbook.cn&s=hfish">登录</a></button></p>
+                                <p>如需情报，请登录微步在线社区获取情报查询API key，点此<button class="btn-intell"><a href="https://passport.threatbook.cn/login?callbackURL=https://x.threatbook.cn/nodev4/vb4/myAPI&s=hfish">登录</a></button></p>
                                 <p>如果还未注册社区账号，点此<button class="btn-intell"><a href="https://passport.threatbook.cn/signup?service=x&callbackURL=https://x.threatbook.cn&s=hfish">免费注册</a></button></p>
                                 <p>如需更大情报查询额度，请邮件至：<a href="">honeypot@threatbook.cn</a></p>
                                 <p style="font-size: 12px;color: #888890;line-height: 16px;">不填写不影响HFish蜜罐系统运行</p>
@@ -905,7 +963,7 @@
             </div>
             <div class="tab-pane" id="about" role="tabpanel" aria-labelledby="about-tab">
                 <div class="about_div">
-                    <div class="about_btn first">HFish社区版 v0.6.4</div>
+                    <div class="about_btn first">HFish社区版 v0.6.5</div>
                     <p>HFish社区版是一款基于 Golang 开发的跨平台多功能主动诱导型开源蜜罐框架系统，为了企业安全防护做出了精心的打造，全程记录黑客攻击手段，实现防护自主化。</p>
                     <!-- <div class="about_btn second second_a">隐私声明</div> -->
                     <p></p>
@@ -929,6 +987,7 @@
         mapData.set('messages-tab','');
         mapData.set('settings-tab','');
         let gModule;
+        let _msg = ['',''];
 
 $("document").ready(function() {
         var url  = window.location.href;
@@ -939,6 +998,7 @@ $("document").ready(function() {
             $.ajax({
             type:"get",
             url:'/get/setting/intelligence',
+            cache:false,
             }).success(function(results) {
             if(results.code === 200) {
                init_intelligence(results.data);
@@ -951,6 +1011,7 @@ $("document").ready(function() {
             $.ajax({
             type:"get",
             url:"/get/setting/alert",
+            cache:false,
         }).success(function(results) {
            if(results.code === 200) {
                 init_syslog(results.data);
@@ -1025,6 +1086,7 @@ class SyslogModule {
         $.ajax({
             type: 'post',
             url: '/post/setting/syslog/test',
+            cache:false,
             data: {
                 addr,
                 protocol,
@@ -1142,7 +1204,37 @@ function init_intelligence(data) {
     if(local_status && !$("#intelligence_switch2").prop('checked') || $("#intelligence_switch2").prop('checked') && !local_status) {
                     $("#intelligence_switch2").click();
                 }
-    $("#intelligence_apikey").val(!!data.cloud_apikey ? data.cloud_apikey : '');
+    let tempApiKey = !!data.cloud_apikey ? data.cloud_apikey : '';
+    // 处理和分割
+    if(tempApiKey.length > 0) {
+        let array = tempApiKey.split("&&");
+        if(array[2]?.length == 64) {
+            let tempArr = array[2].split('');
+            _msg[0] = tempArr.splice(8,48,`*`.repeat(16)).join('');
+            tempApiKey = tempArr.join('');
+            if(array[1].length == 0) {
+                array[1] = `https://api.threatbook.cn`;
+            }
+            $("#intelligence_apikey").val(tempApiKey);
+            $("#intelligence_serve").val(array[1]);
+            $('#intelligence_select').val(array[0]);
+            $('.tip_div').hide();
+            $('.xplt_div').show();
+        } else if(array[2]?.length == 36) {
+            console.log(array[2]);
+            let tempArr = array[2].split('');
+            _msg[1] = tempArr.splice(8,24,`*`.repeat(16)).join('');
+            tempApiKey = tempArr.join('');
+            $("#intelligence_tip_apikey").val(tempApiKey);
+            $("#intelligence_tip_serve").val(array[1]);
+            $('#intelligence_select').val(array[0]);
+            $('.xplt_div').hide();
+            $('.tip_div').show();
+        }
+    } else {
+        $("#intelligence_apikey").val("");
+        $("#intelligence_serve").val("https://api.threatbook.cn");
+    }
     $("#intelligence_textarea").val( !!data.local_iplist ? data.local_iplist.split("&&").join("\n") : '');
 }
 
@@ -1210,14 +1302,26 @@ $("#massset_test").click(function() {
     })
 });
 
-//威胁情报测试
+//威胁情报xplt测试
 $("#intelligence_test").click(function(){
-    var apikey = $("#intelligence_apikey").val();
+    let apikey = $("#intelligence_apikey").val();
+    let server = $("#intelligence_serve").val();
+            if(apikey.includes("*")){
+                let tempArr = apikey.split("*").filter(item => !!item);
+                apikey = tempArr[0] + _msg[0] + tempArr[1];
+            }
+            console.log({
+            apikey,
+            server,
+            source:'xplt',
+        });
     $.ajax({
         type: 'post',
         url: '/post/setting/intelligence/test',
         data: {
-            apikey
+            apikey,
+            server,
+            source:'xplt',
         }
     }).success(function(results) {
        if(results.code === 200) {
@@ -1230,11 +1334,46 @@ $("#intelligence_test").click(function(){
        }
     })
 });
-
-$("#intelligence_apikey").on('blur', function() {
-    if($("#intelligence_apikey").val().length !== 64) {
-        $("#intelligence_callback").css('opacity', 1);
-        $("#intelligence_callback").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span">错误,正确的key值为64个字符</div>`);
+// 威胁情报tip测试
+$("#intelligence_api_test").click(function() {
+    let apikey = $('#intelligence_tip_apikey').val();
+    let server = $('#intelligence_tip_serve').val();
+    if(apikey.includes("*")){
+                let tempArr = apikey.split("*").filter(item => !!item);
+                apikey = tempArr[0] + _msg[1] + tempArr[1];
+            }
+    $.ajax({
+        type:'post',
+        url: '/post/setting/intelligence/test',
+        data: {
+            source:'tip',
+            server,
+            apikey
+        }
+    }).success(results => {
+        if(results.code === 200) {
+        $("#intelligence_callback_tip").css('opacity', 1);
+        $("#intelligence_callback_tip").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-copy-12"><circle id="椭圆形" fill="#62B929" cx="10" cy="10" r="10"></circle><polyline id="路径" stroke="#FFFFFF" stroke-width="2" points="4.75347188 9.55842607 8.58952288 13.3655953 15.2585633 6.66666667"></polyline></g></g></svg></div><div class="email_span">成功!</div>`);
+       } else {
+           console.log(results);
+        let msg = results.msg || '错误,正确的key值为64个字符';
+        $("#intelligence_callback_tip").css('opacity', 1);
+        $("#intelligence_callback_tip").html(`<div class="email_inco"><svg width="14px" height="14px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="编组备份-2-copy-2"><circle id="椭圆形" fill="#FF2716" cx="10" cy="10" r="10"></circle><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) "></path><path d="M6.19047619,6.19047619 L13.8095238,13.8095238" id="直线备份-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g></g></svg></div><div class="email_span">${msg}</div>`);
+       }
+    }).fail(error => console.log(error));
+})
+$('#intelligence_select').on('change',function() {
+    switch($(this).val()) {
+        case 'xplt' : {
+            $('.tip_div').hide();
+            $('.xplt_div').show();
+            break;
+        }
+        case 'tip' : {
+            $('.xplt_div').hide();
+            $('.tip_div').show();
+            break;
+        }
     }
 });
 
@@ -1264,6 +1403,7 @@ $("#syslog_save").click(function() {
     let syslog_port_arr = document.querySelectorAll("#syslog_port");
     let length = syslog_address_arr.length;
     let syslog_flag = true;
+    // 当syslog_status选择时，字段不能填写为空
     if(!!syslog_status) {
         arr = [];
         for(let i = 0; i < length; i++) {
@@ -1345,6 +1485,7 @@ $("#syslog_save").click(function() {
             $.ajax({
             type:"get",
             url:"/get/setting/alert",
+            cache:false
         }).success(function(results) {
            if(results.code === 200) {
                 init_syslog(results.data);
@@ -1398,6 +1539,7 @@ $("#massset_save").click(function() {
         $.ajax({
                 type:"get",
                 url:'/get/setting/massset',
+                cache:false
             }).success(function(results) {
                 if(results.code === 200) {
                init_massset(results.data);
@@ -1419,18 +1561,42 @@ $('#intelligence_save').click(function(){
     let local_iplist = '';
     let cloud_flag = true;
     let local_flag = true;
-
+    let source = $("#intelligence_select").val();
+    let apikey = '';
+    let server = '';
+    if(source == 'xplt') {
+        apikey = $('#intelligence_apikey').val();
+        server = $('#intelligence_serve').val();
+    } else {
+        apikey = $('#intelligence_tip_apikey').val();
+        server = $('#intelligence_tip_serve').val();
+    }
+    // 威胁情报
     if(!!cloud_status) {
-        if(!!$("#intelligence_apikey").val()) {
-            cloud_apikey = $("#intelligence_apikey").val();
+        if(!!apikey && !!server) {
+            let string = apikey;
+            if(string.includes("*")){
+                let msg = source === 'xplt' ? _msg[0] : _msg[1];
+                let tempArr = string.split("*").filter(item => !!item);
+                cloud_apikey = `${source}&&${server}&&${tempArr[0]}${msg}${tempArr[1]}`;
+            } else {
+                cloud_apikey = `${source}&&${server}&&${apikey}`;
+            }
             cloud_flag = true;
         } else {
             cloud_flag = false;
         }
     } else {
-         cloud_apikey = $("#intelligence_apikey").val();
+        let string = apikey;
+        if(string.includes("*")){
+            let msg = source === 'xplt' ? _msg[0] : _msg[1];
+            let tempArr = string.split("*").filter(item => !!item);
+            cloud_apikey = `${source}&&${server}&&${tempArr[0]}${msg}${tempArr[1]}`;
+        } else {
+            cloud_apikey = `${source}&&${server}&&${apikey}`;
+        }
     }
-
+    // 白名单
     if(!!local_status) {
         if(!!$("#intelligence_textarea").val()) {
             local_iplist = $("#intelligence_textarea").val().split("\n").join("&&");
@@ -1444,7 +1610,7 @@ $('#intelligence_save').click(function(){
             cloud_apikey,
             cloud_status,
             local_status,
-            local_iplist
+            local_iplist,
     }
     if(!!local_flag && !!cloud_flag) {
         $.ajax({
@@ -1463,13 +1629,13 @@ $('#intelligence_save').click(function(){
         $.ajax({
             type:"get",
             url:'/get/setting/intelligence',
+            cache:false
             }).success(function(results) {
             if(results.code === 200) {
                init_intelligence(results.data);
                mapData.set('messages-tab', results.data);
                 }
             })
-
     })
     .fail(function(err){console.log(console.error(err))});
     } else {
@@ -1513,7 +1679,8 @@ $('#intelligence_save').click(function(){
                    },2000);
             $.ajax({
             type: "get",
-            url: '/get/setting/secret'
+            url: '/get/setting/secret',
+            cache:false
         }).success(function(results) {
             if(results.code === 200) {
                 init_secret(results.data);
@@ -1555,6 +1722,7 @@ $("#home-tab").on('click',function() {
             $.ajax({
             type:"get",
             url:"/get/setting/alert",
+            cache:false,
         }).success(function(results) {
            if(results.code === 200) {
                 init_syslog(results.data);
@@ -1574,6 +1742,7 @@ $("#profile-tab").on('click', function() {
             $.ajax({
                 type:"get",
                 url:'/get/setting/massset',
+                cache:false
             }).success(function(results) {
                 if(results.code === 200) {
                init_massset(results.data);
@@ -1593,6 +1762,7 @@ $("#messages-tab").on('click', function() {
             $.ajax({
             type:"get",
             url:'/get/setting/intelligence',
+            cache:false,
             }).success(function(results) {
             if(results.code === 200) {
                init_intelligence(results.data);
@@ -1611,7 +1781,8 @@ $("#settings-tab").on('click', function() {
         } else {
             $.ajax({
             type: "get",
-            url: '/get/setting/secret'
+            url: '/get/setting/secret',
+            cache:false
         }).success(function(results) {
             if(results.code === 200) {
                 init_secret(results.data);
@@ -1675,15 +1846,30 @@ $("#messages-tab").on('hide.bs.tab', function(e) {
     let local_status = $("#intelligence_switch2").prop('checked') ? 1 : 0;
     let cloud_apikey = '';
     let local_iplist = '';
-    cloud_apikey = $("#intelligence_apikey").val();
+    let source = $("#intelligence_select").val();
+    let apikey = '';
+    let server = '';
+    if(source == 'xplt') {
+        apikey = $('#intelligence_apikey').val();
+        server = $('#intelligence_serve').val();
+    } else {
+        apikey = $('#intelligence_tip_apikey').val();
+        server = $('#intelligence_tip_serve').val();
+    }
     local_iplist = $("#intelligence_textarea").val().split("\n").join("&&");
+    if(apikey.includes('*')){
+        let msg = source == 'xplt' ? _msg[0] : _msg[1];
+        let tempArr = apikey.split("*").filter(item => !!item);
+        apikey = tempArr[0] + msg + tempArr[1];
+    }
+    cloud_apikey = `${source}&&${server}&&${apikey}`;
     if(tempData.cloud_apikey !== cloud_apikey || tempData.local_status !== local_status || tempData.local_iplist !== local_iplist || tempData.cloud_status !== cloud_status) {
         let flag = confirm('威胁情报数据未保存，数据可能会丢失，确定要离开吗');
         if(!flag) {
             return false;
         }
     }
-})
+});
 $('#settings-tab').on('hide.bs.tab', function (e) {
     let tempData =  mapData.get('settings-tab');
     let passwd_text = $("#secret_input").val();
@@ -1703,8 +1889,9 @@ function clearData(type) {
         type: "POST",
         url: "/post/setting/clearData",
         dataType: "json",
+        cache:false,
         data: {
-            "type": type
+            "type": type,
         },
         success: function (e) {
             if (e.code == 200) {
