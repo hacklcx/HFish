@@ -52,6 +52,7 @@
 - **`cd`** To program root , Update **`config.ini`** file
 - Implement **`./HFish run`** Start service
 - Browser input **http://localhost:9001** open
+- Default ID/PASS :  **`admin / =HFish@2020=`**
 
 
 ## Partial interface display
@@ -112,13 +113,7 @@
 ## About
 
 
-> I'm the only one right now
-
-
-**Team：** HackLC
-
-
-**Website：** https://hack.lc
+**Website：** https://hfish.io
 
 
 **Focus on the safety industry, focus on building good products**
@@ -126,4 +121,4 @@
 
 ## Contact me
 
-**E-mail:** **`lauixData#gmail.com`**
+**E-mail:** **`water@hfish.io`**
