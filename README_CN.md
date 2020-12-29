@@ -7,7 +7,7 @@
 
 
 <h1 align="center">HFish </h1>
-<p align="center">一个最便捷的蜜罐平台</p>
+<p align="center">一个轻巧稳定的网络蜜罐</p>
 
 
 <p  align="center">
@@ -27,9 +27,8 @@
 ## 介绍
 
 
-> 本项目使用 **GPL** 协议，未经授权，禁止使用商业用途。
->
-> *本 Team 研发此平台，仅为企业安全测试使用，禁止其他人员使用非法用途！一切行为与本 Team 无关。*
+> 本项目使用 **GPL V3** 协议，并将提供持续的社区更新和技术支持，个人和企业用户可以自行。
+> Licensed under the GNU General Public License (GPL) v3.
 
 **HFish** 是一款基于 Golang 开发的跨平台蜜罐平台，为了企业安全做出了精心的打造
 
@@ -61,6 +60,7 @@
 - **`cd`** 到程序根目录，修改 **`config.ini`** 配置文件
 - 执行 **`./HFish run`** 启动服务
 - 浏览器输入 **http://localhost:9001** 打开
+- 默认用户名/密码：**admin / =HFish@2020=**
 
 
 ## 部分界面展示
@@ -123,21 +123,12 @@
 ## 关于
 
 
-> 目前只有我一个人
-
-
-**Team：** HackLC
-
-
-**官网：** https://hack.lc
-
-
-**专注安全行业，一心打造好产品**
+**官网：** https://hfish.io
 
 
 ## 联系我
 
-**E-mail:** **`lauixData#gmail.com`**
+**E-mail:** **`water@hfish.io`**
 
 
 ## 反馈群
