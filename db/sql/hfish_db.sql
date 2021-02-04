@@ -38,7 +38,7 @@ CREATE TABLE `hfish_info` (
     `project_name` varchar(20) NOT NULL DEFAULT '',
     `agent` varchar(20) NOT NULL DEFAULT '',
     `ip` varchar(20) NOT NULL DEFAULT '',
-    `intelligence` text NOT NULL DEFAULT '';
+    `intelligence` text NOT NULL DEFAULT '',
     `country` varchar(10) NOT NULL DEFAULT '',
     `region` varchar(10) NOT NULL DEFAULT '',
     `city` varchar(10) NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE `hfish_admin` (
     `last_login_time` datetime,
     PRIMARY KEY (`id`),
     UNIQUE KEY `index_key` (`username`)
-) NGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `hfish_intelligence`;
 CREATE TABLE `hfish_intelligence` (
@@ -107,7 +107,7 @@ CREATE TABLE `hfish_intelligence` (
     `update_time` datetime NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `index_key` (`ip`)
-) NGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Records of `hfish_setting`
