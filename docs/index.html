@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Description">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+    <style type="text/css">
+        .cover-main {
+            color: #ffffff;
+        }
+
+        .cover-main .anchor span {
+            color: #ffffff;
+        }
+
+        section.cover.has-mask .mask {
+            background-color: initial;
+            opacity: .8;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        nav {
+            color: #ffffff;
+        }
+
+        section.cover .cover-main>p:last-child a:last-child:hover {
+            --theme-color: #ff5656;
+        }
+
+        section.cover .cover-main>p:last-child a:hover {
+            color: #ff5656;
+        }
+
+        .version {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="https://hfish.io/new/" target="_bank">首页</a>
+        <a href="https://hfish.io//new/#/download" target="_bank">下载</a>
+        <a href="https://github.com/hacklcx/HFish" target="_bank">GitHub</a>
+        <a href="https://gitee.com/lauix/HFish" target="_bank">Gitee</a>
+    </nav>
+    <div id="app"></div>
+    <script>
+        window.$docsify = {
+            name: 'HFish',
+            loadSidebar: true,
+            subMaxLevel: 2,
+            coverpage: true,
+            themeColor: '#e93636',
+            search: {
+                paths: 'auto',
+                maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+                placeholder: '请输入搜索内容',
+                noData: '找不到结果!',
+                depth: 2
+            },
+            // repo: 'https://github.com/hacklcx/HFish',
+        }
+    </script>
+    <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+    <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+    <script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+</body>
+
+</html>
