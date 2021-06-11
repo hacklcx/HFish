@@ -1,6 +1,21 @@
-# HFish
+<p align="center">
+  <a href="https://hfish.io/" target="_blank">
+    <img width="200" src="http://img.threatbook.cn/hfish/logo.png">
+  </a>
+</p>
 
-HFish是一款安全、简单可信赖的跨平台蜜罐软件，允许商业和个人用户免费使用。
+<h1 align="center">HFish </h1>
+<p align="center">HFish是一款安全、简单可信赖的跨平台蜜罐软件，允许商业和个人用户免费使用。</p>
+
+<p  align="center">
+<a href="https://hfish.io/docs/#/" target="_bank">官网</a>
+<span>|</span>
+<a href="https://github.com/hacklcx/HFish" target="_bank">Github</a>
+<span>|</span>
+<a href="https://gitee.com/lauix/HFish" target="_bank">Gitee</a>
+<span>|</span>
+<a href="https://hfish.io/#/download" target="_bank">下载部署</a>
+</p>
 
 ## 特点
 
@@ -9,7 +24,7 @@ HFish是一款安全、简单可信赖的跨平台蜜罐软件，允许商业和
 + 蜜罐丰富：支持SSH、FTP、TFTP、MySQL、Redis、MySQL、Telnet、VNC、Gitlab、Exchange、Memcache、Elasticsearch、打印机、视像头、交换机、Wordpress、OA系统等20多种蜜罐服务，支持用户制作自定义Web蜜罐；
 
 + 开放透明：支持对接微步在线X社区API、五路syslog输出、支持邮件、钉钉、企业威胁、飞书、自定义WebHook告警输出；
-+ + 快捷管理：支持单个安装包批量部署，支持批量修改端口和服务；
++ 快捷管理：支持单个安装包批量部署，支持批量修改端口和服务；
 
 + 跨平台：支持Linux x32/x64/ARM、Windows x32/x64平台；
 
@@ -27,7 +42,13 @@ HFish是一款安全、简单可信赖的跨平台蜜罐软件，允许商业和
 
 HFish由控制端和节点端组成，控制端用来生成和管理节点端，并接收、分析和展示节点端回传的数据，节点端接受控制端的控制并负责构建蜜罐服务。
 
+![image-20210611130621311](http://img.threatbook.cn/hfish/20210611130622.png)
 
+
+
+当它融合与企业网络中的时候：
+
+![image-20210611130733084](http://img.threatbook.cn/hfish/20210611130734.png)
 
 ## 注意
 
@@ -43,34 +64,26 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 
 ## 部署控制端
 
-先部署控制端，再通过控制端的Web页面配置节点端，安装包仅包含控制端和节点端，蜜罐服务包需要部署控制端后从 **`服务管理**` 页面联网下载或离线上传
+先部署控制端，再通过控制端的Web页面配置节点端，安装包仅包含控制端和节点端，蜜罐服务包需要部署控制端后从 **`服务管理`** 页面联网下载或离线上传
 
 
 
 可联网环境：如果用户的环境允许联网，建议使用以下快速部署步骤：
 
-+ Linux x64 环境：
++ Linux 环境：
   + 在shell中运行命令：**`sh | curl https://hfish.io/install.sh`**
-  + 请转到下面的配置段落继续阅读
 
-
-
-\+ Windows x64 环境：
-
-- 下载控制端安装包：从Github https://github.com/hacklcx/HFish/releases 或码云 https://gitee.com/lauix/HFish 下载最新安装包
-- 解压缩后双击 **`server.exe`**
-- 请转到下面的【配置控制端】段落继续阅读
-
-
++ Windows x64 环境：
+  + 下载控制端安装包：请访问下载页面下载相应版本 https://hfish.io/#/download
+  + 解压缩后双击 **`server.exe`**
 
 离线部署：如果用户为隔离网络环境，请使用以下部署方式
 
 + Linux x64 环境：
-  + 下载控制端安装包：从Github https://github.com/hacklcx/HFish/releases 或码云 https://gitee.com/lauix/HFish 下载最新安装包
-  + 解压缩安装包：**`tar zxvf ./hfish-*-linux-*.tar.gz -C hfish`**
+  + 下载控制端安装包：请访问下载页面下载相应版本 https://hfish.io/#/download
+  + 解压缩安装包：**`tar zxvf ./hfish-*-linux-*.tar.gz`**
   + 进入安装目录：**`cd hfish`**
   + 启动控制端：**`nohup ./server &`**
-  + 请转到下面的【配置控制端】段落继续阅读
 
 
 
@@ -81,15 +94,15 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 
 
 + 新增服务
-  + 浏览器中输入 **`https://`**，登录控制端
-  + 进入 **`服务管理**` 页面
+  + 浏览器中输入 **`https://server_ip:4433/web/`**，登录控制端
+  + 进入 **`服务管理`** 页面
   + 如果当前控制端可联网，点击服务表格右侧的下载按钮，并等待服务下载完成
-  + 如果当前控制端不可联网，点击右上角 **`新增服务`** 按钮，上传服务包，服务包下载地址： **`https://hfish.io/services.html`**
+  + 如果当前控制端不可联网，点击右上角 **`新增服务`** 按钮，上传服务包，服务包下载地址： **`http://img.threatbook.cn/hfish/services/services-2.4.0.tar.gz`**
 
 
 
 + 新增节点
-  + 浏览器中输入 **`https://`**，登录控制端
+  + 浏览器中输入 **`https://server_ip:4433/web/`**，登录控制端
   + 进入 **`节点管理`** 页面，点击右上角新增节点按钮，根据节点操作系统和CPU架构动态创建安装包
   + Linux可以选择命令安装或下载节点程序运行，Windows只能选择下载节点程序运行
 
@@ -129,6 +142,10 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 
 ![image2021-6-7_19-4-10](http://img.threatbook.cn/hfish/20210611115224.png)
 
-## 微信群
+## wx群
+
+如何大家有更多的建议希望能够更便捷的交流，可以添加我们的wx群。
+
+
 
 ![HFish官方群的qr](http://img.threatbook.cn/hfish/20210611115258.png)
