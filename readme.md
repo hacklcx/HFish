@@ -1,8 +1,9 @@
 <p align="center">
   <a href="https://hfish.io/" target="_blank">
-    <img width="200" src="http://img.threatbook.cn/hfish/logo.png">
+    <img width="200" src="images/logo.png">
   </a>
 </p>
+
 
 <h1 align="center">HFish </h1>
 <p align="center">HFish是一款安全、简单可信赖的跨平台蜜罐软件，允许商业和个人用户免费使用。</p>
@@ -42,13 +43,17 @@
 
 HFish由控制端和节点端组成，控制端用来生成和管理节点端，并接收、分析和展示节点端回传的数据，节点端接受控制端的控制并负责构建蜜罐服务。
 
-![image-20210611130621311](http://img.threatbook.cn/hfish/20210611130622.png)
+> 蜜罐工作原理
+
+![image-20210611130621311](images/20210611130622.png)
 
 
 
-当它融合与企业网络中的时候：
 
-![image-20210611130733084](http://img.threatbook.cn/hfish/20210611130734.png)
+
+> 融合在企业网络中
+
+![image-20210611130733084](images/20210611130734.png)
 
 ## 注意
 
@@ -112,35 +117,35 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 
 + 攻击详情：记录所有对蜜罐的访问请求，包括正常请求、攻击行为、暴力破解
 
-![image2021-6-7_13-57-19](http://img.threatbook.cn/hfish/20210611114902.png)
+![image2021-6-7_13-57-19](images/20210611114902.png)
 
 
 
 + 扫描详情：记录对所有节点主机的UDP和SYN扫描
 
-![image2021-6-7_17-18-11](http://img.threatbook.cn/hfish/20210611114934.png)
+![image2021-6-7_17-18-11](images/20210611114934.png)
 
 + 蜜饵管理
 
-![image2021-6-7_19-6-21](http://img.threatbook.cn/hfish/20210611115053.png)
+![image2021-6-7_19-6-21](images/20210611115053.png)
 
 + 节点信息
 
-![image2021-6-7_18-0-36](http://img.threatbook.cn/hfish/20210611115118.png)
+![image2021-6-7_18-0-36](images/20210611115118.png)
 
 + 模板管理
 
-![image2021-6-7_18-56-55](http://img.threatbook.cn/hfish/20210611115140.png)
+![image2021-6-7_18-56-55](images/20210611115140.png)
 
 
 
 + 威胁情报对接
 
-![image2021-6-7_19-0-11](http://img.threatbook.cn/hfish/20210611115158.png)
+![image2021-6-7_19-0-11](images/20210611115158.png)
 
 + 告警配置
 
-![image2021-6-7_19-4-10](http://img.threatbook.cn/hfish/20210611115224.png)
+![image2021-6-7_19-4-10](images/20210611115224.png)
 
 ## wx群
 
@@ -148,4 +153,4 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 
 
 
-![HFish官方群的qr](http://img.threatbook.cn/hfish/20210611115258.png)
+![HFish官方群的qr](images/20210611115258.png)
