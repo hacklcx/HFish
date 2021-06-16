@@ -48,7 +48,7 @@
 
 ### WEB蜜罐
 
-WEB蜜罐用浏览器访问相应的端口，并尝试输入user name和password后
+WEB蜜罐用浏览器访问相应的端口，并尝试输入【用户名】和【密码】后
 
 <img src="https://hfish.cn-bj.ufileos.com/images/image-20210319112136937.png" alt="image-20210319112136937" style="zoom:50%;" />
 

@@ -34,7 +34,7 @@
 
 
 
-- 我们支持对接两种来自微步在线的威胁情报
+我们支持对接两种来自微步在线的威胁情报
 
 > 对接微步在线云API（IP信誉接口）
 
@@ -50,7 +50,7 @@
 
 使用该接口需要购买微步在线的TIP本地情报系统
 
-<img src="/Users/maqian/Library/Application%2520Support/typora-user-images/image-20210318221558637.png" alt="image-20210318221558637" style="zoom:50%;" />
+![image-20210616181828767](http://img.threatbook.cn/hfish/20210616181830.png)
 
 > 通知功能是蜜罐的核心功能之一
 
