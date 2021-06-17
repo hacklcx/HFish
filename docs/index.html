@@ -31,6 +31,10 @@
             color: #ffffff;
         }
 
+        .sticky nav {
+            color: #34495e;
+        }
+
         section.cover .cover-main>p:last-child a:last-child:hover {
             --theme-color: #ff5656;
         }
@@ -46,17 +50,14 @@
 </head>
 
 <body>
-    <nav>
-        <a href="https://hfish.io/" target="_bank">首页</a>
-        <a href="https://hfish.io/#/download" target="_bank">下载</a>
-        <a href="https://github.com/hacklcx/HFish" target="_bank">GitHub</a>
-        <a href="https://gitee.com/lauix/HFish" target="_bank">Gitee</a>
-    </nav>
     <div id="app"></div>
     <script>
         window.$docsify = {
             name: 'HFish',
             loadSidebar: true,
+            loadNavbar: true,
+            mergeNavbar: true,
+            auto2top: true,
             subMaxLevel: 2,
             coverpage: true,
             themeColor: '#e93636',
