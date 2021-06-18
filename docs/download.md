@@ -52,7 +52,7 @@ HFish
 │   │   install.sh  #节点部署时安装脚本
 │   │   node_account.conf  #蜜饵源文件
 │   │
-│   └───linux-amd64  #Linux 64位服务包
+│   └───linux-x86  #Linux 服务包
 │       │   client
 │       │   service-*.tar.gz
 │   

@@ -51,8 +51,8 @@
    #节点端日志在安装目录下client/logs文件夹内，文件名称为
    client.log
    
-   #蜜罐服务的日志在节点端安装目录下client/service/蜜罐id 文件夹，文件名称为
-   蜜罐id.log
+   #蜜罐服务的日志在节点端安装目录下client/service/蜜罐服务名称 文件夹，文件名称为
+   蜜罐服务名称.log
    ```
 
 2. 检查堡垒机是否开放了对server4433端口的访问

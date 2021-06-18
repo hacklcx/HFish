@@ -10,7 +10,7 @@
 
 
 
-[Linux版](https://hfish.io/#/deploy?id=%e4%b8%80%e9%94%ae%e5%ae%89%e8%a3%85)
+[Linux版](https://hfish.io/#/deploy?id=linux%e5%ae%89%e8%a3%85%e8%af%b4%e6%98%8e)
 [Windows版](https://hfish.io/#/deploy?id=windows%e5%ae%89%e8%a3%85%e8%af%b4%e6%98%8e)
 [使用手册](#什么是蜜罐)
 

@@ -54,9 +54,19 @@
 
 <img src="https://hfish.cn-bj.ufileos.com/images/image-20210506155628363.png" alt="image-20210506155628363" style="zoom:50%;" />
 
+
+
 ### WEB蜜罐自定义开发
 
+
+
 为了方便企业的定制业务，管理段提供了上传自定义web服务的内容，可根据微步在线的开发规范和原则，自己对web界面进行开发，修改，并上传，使其成为真正的蜜罐服务。
+
+我们为大家准备了一个样例，请先下载我们的web模板样例。
+
+http://threatbook-user-img.cn-bj.ufileos.com/hfish/svc/web-demo.zip
+
+
 
 > 1.web蜜罐文件所在目录
 
