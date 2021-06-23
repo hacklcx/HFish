@@ -1,6 +1,6 @@
 # 下载
 
-### HFish <% version %>
+### HFish v<% version %>
 
 ```wiki
 2021年6月16日发布
@@ -19,9 +19,9 @@
 
 ### 控制端安装包
 
-- [HFish-Linux-amd64](http://hfish.cn-bj.ufileos.com/hfish-2.4.0-linux-amd64.tar.gz) 为 Linux x86 架构 64 位系统使用
-- [HFish-Windows-amd64](http://hfish.cn-bj.ufileos.com/hfish-2.4.0-windows-amd64.tar.gz) 为 Windows x86 架构 64 位系统使用
-- [HFish-Linux-arm64](http://hfish.cn-bj.ufileos.com/hfish-2.4.0-linux-arm64.tar.gz) 为 Linux Arm 架构 64 位系统使用，常见于 NAS、路由器、树莓派等……
+- [HFish-Linux-amd64](http://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-amd64.tar.gz) 为 Linux x86 架构 64 位系统使用
+- [HFish-Windows-amd64](http://hfish.cn-bj.ufileos.com/hfish-<% version %>-windows-amd64.tar.gz) 为 Windows x86 架构 64 位系统使用
+- [HFish-Linux-arm64](http://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-arm64.tar.gz) 为 Linux Arm 架构 64 位系统使用，常见于 NAS、路由器、树莓派等……
 
 ## 文件结构
 
@@ -41,10 +41,10 @@ HFish
 │   │
 │   └───sql
 │       └───mysql
-│       │   V2.4.0__mysql.sql  #mysql数据库用户升级文件
+│       │   V<% version %>__mysql.sql  #mysql数据库用户升级文件
 │       │
 │       └───sqlite
-│       │   V2.4.0__sqlite.sql  #sqlite数据库用户升级文件
+│       │   V<% version %>__sqlite.sql  #sqlite数据库用户升级文件
 │
 └───logs
 │   │   server-年-月-日.log  #server日志文件
