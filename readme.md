@@ -26,7 +26,7 @@
 
 + 安全可靠：主打低中交互蜜罐，简单有效；
 
-+ 蜜罐丰富：支持SSH、FTP、TFTP、MySQL、Redis、Telnet、VNC、、Memcache、Elasticsearch、Wordpress、OA系统等10多种蜜罐服务，支持用户制作自定义Web蜜罐；
++ 蜜罐丰富：支持SSH、FTP、TFTP、MySQL、Redis、Telnet、VNC、Memcache、Elasticsearch、Wordpress、OA系统等10多种蜜罐服务，支持用户制作自定义Web蜜罐；
 
 + 开放透明：支持对接微步在线X社区API、五路syslog输出、支持邮件、钉钉、企业威胁、飞书、自定义WebHook告警输出；
 + 快捷管理：支持单个安装包批量部署，支持批量修改端口和服务；
@@ -49,7 +49,7 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 
 > 蜜罐工作原理
 
-![image-20210611130621311](http://img.threatbook.cn/hfish/20210616174908.png)
+![image-20210611130621311](images/20210616174908.png)
 
 
 
@@ -57,7 +57,7 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 
 > 融合在企业网络中
 
-![image-20210611130733084](http://img.threatbook.cn/hfish/20210616174930.png)
+![image-20210611130733084](images/20210616174930.png)
 
 ## 注意
 
