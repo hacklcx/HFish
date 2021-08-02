@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://localhost:4000</id>
+    <title>HFish</title>
+    <updated>2021-07-05T09:49:37.010Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <subtitle>做一款大家喜欢的产品，是一件很开心的事情。</subtitle>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
+    <rights>All rights reserved 2021, HFish</rights>
+    <entry>
+        <title type="html"><![CDATA[我们开始写博客了]]></title>
+        <id>http://localhost:4000/post/first-blog/</id>
+        <link href="http://localhost:4000/post/first-blog/">
+        </link>
+        <updated>2021-07-05T01:21:15.000Z</updated>
+    </entry>
+</feed>

@@ -63,7 +63,7 @@
             themeColor: '#e93636',
             dv: {
                 model: {
-                    version: '2.4.1',
+                    version: '2.5.0',
                 }
             },
             search: {
@@ -73,13 +73,22 @@
                 noData: '找不到结果!',
                 depth: 2
             },
+            tabs: {
+            persist    : true,      // 刷新后是否同步状态
+            sync       : true,      // 如果有多个选项卡是否同步变化
+            theme      : 'classic', // default
+            tabComments: true,      // default
+            tabHeadings: true       // default
+            }
             // repo: 'https://github.com/hacklcx/HFish',
         }
     </script>
     <script src="https://cdn.jsdelivr.net/gh/yklydxtt/docsify-version@2.0.1/dv.min.js"></script>
-    <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-    <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
-    <script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
 </body>
 
 </html>

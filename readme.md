@@ -9,7 +9,9 @@
 <p align="center">HFish是一款安全、简单可信赖的跨平台蜜罐软件，允许商业和个人用户免费使用。</p>
 
 <p  align="center">
-<a href="https://hfish.io/docs/#/" target="_bank">官网</a>
+<a href="https://hfish.io/" target="_bank">官网</a>
+<span>|</span>
+<a href="https://hfish.io/#/" target="_bank">使用手册</a>
 <span>|</span>
 <a href="https://github.com/hacklcx/HFish" target="_bank">Github</a>
 <span>|</span>
@@ -17,6 +19,8 @@
 <span>|</span>
 <a href="https://hfish.io/docs/#/download" target="_bank">下载部署</a>
 </p>
+
+## 二维码
 
 ## 特点
 
@@ -31,7 +35,7 @@
 
 
 
-## 链接
+## 快速开始
 
 [官方网站](https://hfish.io/)：更多使用蜜罐、使用场景和玩法详见官网
 
@@ -146,6 +150,8 @@ HFish由控制端和节点端组成，控制端用来生成和管理节点端，
 + 告警配置
 
 ![image2021-6-7_19-4-10](images/20210611115224.png)
+
+## 致谢
 
 ## wx群
 
