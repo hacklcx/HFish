@@ -2,7 +2,11 @@
 
 > 添加钉钉机器人
 
+<<<<<<< HEAD
 1. ###### 进入钉钉群，点击设置选，选择添加群助手
+=======
+1. ###### 添加群助手
+>>>>>>> d037af8d861e44b1cd013c5f68e81da352b68fad
 
 <img src="http://img.threatbook.cn/hfish/image-20210803203953937.png" alt="image-20210803203953937" style="zoom: 50%;" />
 
