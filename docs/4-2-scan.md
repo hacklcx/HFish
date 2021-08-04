@@ -16,3 +16,9 @@
   7. 节点位置
   8. 扫描开始时间
   9. 扫描持续时间
+  
+  
+
+**注意！Windows节点的扫描感知依赖WinPcap，需要手动进行下载安装！**
+
+WinPcap官方链接：https://www.winpcap.org/
