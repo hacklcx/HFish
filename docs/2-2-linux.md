@@ -3,7 +3,7 @@
 如果您部署的环境为Linux，且可以访问互联网。我们为您准备了一键部署脚本进行安装和配置，请用root用户，运行下面的脚本。
 
 ```
-bash <(curl -sS -L https://hfish.io/install)
+bash <(curl -sS -L https://hfish.io/install.sh)
 ```
 
 [![image-20210616163833456](https://camo.githubusercontent.com/138f103b1cf034b7e493f298b453a43af20628a712f75c80a58d95a3a54b94ee/687474703a2f2f696d672e746872656174626f6f6b2e636e2f68666973682f32303231303631363136333833342e706e67)](https://camo.githubusercontent.com/138f103b1cf034b7e493f298b453a43af20628a712f75c80a58d95a3a54b94ee/687474703a2f2f696d672e746872656174626f6f6b2e636e2f68666973682f32303231303631363136333833342e706e67)
