@@ -6,6 +6,7 @@ initVar() {
 	removeType='yum -y remove'
 	upgrade="yum -y update"
 	echoType='echo -e'
+	version='2.5.0'
 }
 initVar
 export LANG=en_US.UTF-8
@@ -40,12 +41,11 @@ echoContent() {
 	esac
 }
 
-cd /opt
 
 #首页菜单
 menu() {
 	echoContent red "\n==============================================================\n"
-	echoContent green "当前版本：v2.4.2"
+	echoContent green "当前版本：v${version}"
 	echoContent green "HFish官网 https://hfish.io "
 	echoContent red "\n==============================================================\n"
 	echoContent skyBlue "-------------------------安装部署-----------------------------\n"
@@ -81,31 +81,33 @@ menu() {
 }
 
 standaloneInstall(){
+  cd /opt
     if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-2.4.2-linux-amd64.tar.gz
+    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-amd64.tar.gz
 	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-2.4.2-linux-arm64.tar.gz
+    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-arm64.tar.gz
 	else
     echoContent red "未检测到系统版本，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
 	fi
 	
-	tar -zxvf hfish-standalone*.tar.gz
+	tar -zxvf /opt/hfish-standalone*.tar.gz
 	cd /opt/hfish && nohup ./server &
 	sleep 2
     cd /opt/hfish/client && nohup ./client &
 }
 
 serverInstall() {
+  cd /opt
 	if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-2.4.2-linux-amd64.tar.gz
+    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-amd64.tar.gz
 	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-2.4.2-linux-arm64.tar.gz
+    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-arm64.tar.gz
 	else
     echoContent red "未检测到系统版本，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
 	fi
 
 	mkdir -p hfish
-	tar -zxvf hfish*.tar.gz -C hfish
+	tar -zxvf /opt/hfish*.tar.gz -C hfish
 	cd hfish
 	nohup ./server &
 }
@@ -124,5 +126,5 @@ exitInstall() {
 #         echoContent red "未检测到安装目录，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
 #     fi 
 # }
-
+cd /opt
 menu
