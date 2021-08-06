@@ -1,4 +1,4 @@
-!> 点击增加节点，选择相应版本的【节点安装包】，确定
+### 点击增加节点，选择相应版本的【节点安装包】，确定
 
 <img src="http://img.threatbook.cn/hfish/20210616171500.png" alt="image-20210616171459269" style="zoom:50%;" />
 
@@ -12,6 +12,26 @@
 ```
 
 <img src="http://img.threatbook.cn/hfish/20210616172029.png" alt="image-20210616172027825" style="zoom:50%;" />
+
+
+
+### 节点关机自启动配置
+
+#### Linux：
+
+进入client的安装目录，执行：
+
+```
+sh <(curl -sSL https://hfish.io/autorun.sh)
+```
+
+
+
+#### Windows：
+
+- 下载压缩包https://hfish.io/autorun.zip 
+- 把autorun.bat和cron.xml解压，移到到client文件目录中
+- 执行au- torun.bat即可。
 
 
 

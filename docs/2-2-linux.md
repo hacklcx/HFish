@@ -28,6 +28,20 @@ bash <(curl -sS -L https://hfish.io/install)
 
 
 
+### 配置开机自启动
+
+进入管理端（server端）安装目录，执行
+
+```
+sh <(curl -sSL https://hfish.io/autorun.sh)
+```
+
+即可配置开机自启动。
+
+（该方法通用于节点端自启动）
+
+
+
 ### 手动安装
 
 如果上述的安装脚本您无法使用，您可以尝试用手动安装完成部署。
