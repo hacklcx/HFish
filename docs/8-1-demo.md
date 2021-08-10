@@ -30,6 +30,8 @@
 
 <img src="https://hfish.cn-bj.ufileos.com/images/image-20210319113211933.png" alt="image-20210319113211933" style="zoom:50%;" />
 
+
+
 ### TELNET蜜罐
 
 > 利用TELNET应用连接蜜罐端口
@@ -40,11 +42,21 @@
 
 <img src="https://hfish.cn-bj.ufileos.com/images/image-20210319113101608.png" alt="image-20210319113101608" style="zoom:50%;" />
 
+
+
 ### MYSQL蜜罐
 
-> 用MYSQL工具连接蜜罐对应端口
+> 用MYSQL工具连接蜜罐对应端口，可输入指令。
 
-![image-20210311174259758](https://hfish.cn-bj.ufileos.com/images/20210311174259.png)
+<img src="http://img.threatbook.cn/hfish/1521628589153_.pic_hd.jpg" alt="1521628589153_.pic_hd" style="zoom:50%;" />
+
+
+
+> 在管理端，可以看到攻击者的攻击记录以及其本地的etc/group信息
+
+<img src="http://img.threatbook.cn/hfish/1531628589485_.pic_hd.jpg" alt="1531628589485_.pic_hd" style="zoom: 33%;" />
+
+
 
 ### WEB蜜罐
 
@@ -61,4 +73,62 @@ WEB蜜罐用浏览器访问相应的端口，并尝试输入【用户名】和�
 服务端后台会获取攻击者用于尝试的用户名和密码
 
 <img src="https://hfish.cn-bj.ufileos.com/images/image-20210319112739513.png" alt="image-20210319112739513" style="zoom: 50%;" />
+
+
+
+### VNC蜜罐
+
+> 通过VNC viewer进行登陆常识，输入IP和端口
+
+<img src="http://img.threatbook.cn/hfish/1591628590040_.pic_hd.jpg" alt="1591628590040_.pic_hd" style="zoom:33%;" />
+
+<img src="http://img.threatbook.cn/hfish/1611628590115_.pic_hd.jpg" alt="1611628590115_.pic_hd" style="zoom:33%;" />
+
+
+
+> 在管理端，可以看到相关攻击记录
+
+<img src="http://img.threatbook.cn/hfish/image-20210810195923459.png" alt="image-20210810195923459" style="zoom:33%;" />
+
+
+
+### REDIS蜜罐
+
+> 使用redis命令，远程登录redis
+
+<img src="http://img.threatbook.cn/hfish/image-20210810200645587.png" alt="image-20210810200645587" style="zoom: 33%;" />
+
+> 进入管理端，可以看到攻击详情
+
+<img src="http://img.threatbook.cn/hfish/1641628594371_.pic_hd.jpg" alt="1641628594371_.pic_hd" style="zoom: 33%;">
+
+
+
+### MEMCACHE蜜罐
+
+> 通过Telnet（或其他方式）尝试连接MEMCACHE
+
+<img src="http://img.threatbook.cn/hfish/image-20210810202312677.png" alt="image-20210810202312677" style="zoom: 33%;" />
+
+> 进入管理端，可以查看攻击详情
+
+<img src="http://img.threatbook.cn/hfish/1741628595751_.pic_hd.jpg" alt="1741628595751_.pic_hd" style="zoom:50%;" />
+
+
+
+
+
+### Elasticsearch蜜罐
+
+> 通过IP和端口，可以登陆查看Elasticsearch蜜罐
+
+![1701628595182_.pic](http://img.threatbook.cn/hfish/1701628595182_.pic.jpg)、
+
+
+
+> 进入管理端，可以看到攻击的请求详情
+
+![1721628595216_.pic_hd](/Users/maqian/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/d4fd4109804e4614bec96b26017afad7/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/Image/1721628595216_.pic_hd.jpg)
+
+
 
