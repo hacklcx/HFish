@@ -60,17 +60,20 @@
 
 ### WEB蜜罐
 
-WEB蜜罐用浏览器访问相应的端口，并尝试输入【用户名】和【密码】后
+> WEB蜜罐用浏览器访问相应的端口，并尝试输入【用户名】和【密码】后
+>
 
-<img src="https://hfish.cn-bj.ufileos.com/images/image-20210319112136937.png" alt="image-20210319112136937" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20210810203232153.png" alt="image-20210810203232153" style="zoom:50%;" />
 
-会提示用户名和密码错误
+> 会提示用户名和密码错误
+>
 
 <img src="https://hfish.cn-bj.ufileos.com/images/image-20210319112522399.png" alt="image-20210319112522399" style="zoom:50%;" />
 
 
 
-服务端后台会获取攻击者用于尝试的用户名和密码
+> 服务端后台会获取攻击者用于尝试的用户名和密码
+>
 
 <img src="https://hfish.cn-bj.ufileos.com/images/image-20210319112739513.png" alt="image-20210319112739513" style="zoom: 33%;" />
 
