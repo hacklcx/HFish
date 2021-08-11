@@ -38,6 +38,7 @@ sh <(curl -sSL https://hfish.io/autorun.sh)
 ### 为节点选择服务模板
 
 > 展开蜜罐节点，选择上面创建的蜜罐模板
+> 在配置新节点的时候，建议当前Windows用户，在杀毒软件报警的情况下，暂时关闭
 
 <img src="http://img.threatbook.cn/hfish/20210616173018.png" alt="image-20210616173015062" style="zoom:50%;" />
 
