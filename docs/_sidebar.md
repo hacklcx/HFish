@@ -4,9 +4,9 @@
   - [HFish原理](1-3-workflow)
 - 快速开始
   - [环境要求](2-1-env)
-  - [Docker](2-1-docker)
   - [Linux](2-2-linux)
   - [Windows](2-3-windows)
+  - [Docker](2-1-docker)
   - [数据库相关](2-4-mariadb)
 - 环境管理
   - [添加服务](3-2-services)
