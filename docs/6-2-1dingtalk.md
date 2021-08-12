@@ -4,14 +4,13 @@
 
 1. ###### 进入钉钉群，点击设置选，选择添加群助手
 
-
 <img src="http://img.threatbook.cn/hfish/image-20210803203953937.png" alt="image-20210803203953937" style="zoom: 50%;" />
 
 2. ###### 选择自定义机器人
 
 <img src="http://img.threatbook.cn/hfish/image-20210803204029159.png" alt="image-20210803204029159" style="zoom:50%;" />
 
-###### 3.确认添加
+3.确认添加
 
 <img src="http://img.threatbook.cn/hfish/1301627983256_.pic_hd.jpg" alt="1301627983256_.pic_hd" style="zoom:33%;" />
 

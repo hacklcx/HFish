@@ -2,7 +2,7 @@
 
 > 节点状态为红色离线，蜜罐服务却是绿色启用？
 
-![](https://hfish.cn-bj.ufileos.com/images/WechatIMG3065.jpg)
+![](http://img.threatbook.cn/hfish/20210812135754.jpg)
 
 
 

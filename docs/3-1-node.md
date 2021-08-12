@@ -64,11 +64,11 @@ sh <(curl -sSL https://hfish.io/autorun.sh)
 
 命令在主机运行后，会在本地生成一份虚假的“账号密码备份文件”。 当该主机被攻陷时，攻击者将被诱导，使用文件中的账号信息进行登录。借此，安全人员发现主机失陷情况。
 
-<img src="https://hfish.cn-bj.ufileos.com/images/image-20210506162347469.png" alt="image-20210506162347469" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/20210812135104.png" alt="image-20210506162347469" style="zoom:50%;" />
 
 
 
-![image-20210506162447618](https://hfish.cn-bj.ufileos.com/images/image-20210506162447618.png)
+![image-20210506162447618](http://img.threatbook.cn/hfish/20210812135114.png)
 
 
 

@@ -8,5 +8,5 @@
 
 针对Web应用仿真、网络设备服务、安全设备服务以及IOT服务，可以根据自身业务场景和网络情况，选择其具体的传输协议（HTTP或者HTTPS），从而让蜜罐更符合当前网络结构，更好吸引攻击者视线。
 
-<img src="https://hfish.cn-bj.ufileos.com/images/image-20210506155628363.png" alt="image-20210506155628363" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/20210812135158.png" alt="image-20210506155628363" style="zoom:50%;" />
 

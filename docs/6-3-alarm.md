@@ -4,13 +4,13 @@
 
 > 添加一个新的策略
 
-![image-20210209202316155](https://hfish.cn-bj.ufileos.com/images/image-20210209202316155.png)
+![image-20210209202316155](http://img.threatbook.cn/hfish/20210812135455.png)
 
 
 
 > 对策略进行配置
 
-![image-20210209202737224](https://hfish.cn-bj.ufileos.com/images/image-20210209202737224.png)
+![image-20210209202737224](http://img.threatbook.cn/hfish/20210812135501.png)
 
 
 
