@@ -11,7 +11,7 @@
 <p  align="center">
 <a href="https://hfish.io/" target="_bank">官网</a>
 <span>|</span>
-<a href="https://hfish.io/#/" target="_bank">使用手册</a>
+<a href="https://hfish.io/#/?id=hfish%e8%ae%be%e8%ae%a1%e7%90%86%e5%bf%b5" target="_bank">使用手册</a>
 <span>|</span>
 <a href="https://github.com/hacklcx/HFish" target="_bank">Github</a>
 <span>|</span>
