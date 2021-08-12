@@ -3,6 +3,7 @@
   - [HFish特点](1-2-spec)
   - [HFish原理](1-3-workflow)
   - [应用场景](1-4-scene)
+  - [下载HFish](download)
 - 快速开始
   - [环境要求](2-1-env)
   - [Linux](2-3-linux)

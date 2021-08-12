@@ -21,4 +21,4 @@
 
 > **注意！Windows节点的扫描感知依赖WinPcap，需要手动进行下载安装！**
 
-WinPcap官方链接：https://www.winpcap.org/
+WinPcap官方链接：https://www.winpcap.org/install/bin/WinPcap_4_1_3.exe
