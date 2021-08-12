@@ -1,8 +1,8 @@
 - HFish介绍
   - [什么是蜜罐](1-1-honeypot)
-  - [使用场景](1-4-honeypot)
   - [HFish特点](1-2-spec)
   - [HFish原理](1-3-workflow)
+  - [应用场景](1-4-scene)
 - 快速开始
   - [环境要求](2-1-env)
   - [Linux](2-2-linux)
@@ -31,6 +31,7 @@
   - [系统信息](7-2-info)
 - 进阶应用
   - [测试样例](8-1-demo)
+  - [密码重置](8-3-resetpwd)
   - [错误排查](8-2-debug)
 - [卸载蜜罐](uninstall)
 - [已知问题](known)
