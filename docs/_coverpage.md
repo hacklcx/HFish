@@ -10,8 +10,8 @@
 
 
 
-[Linux版](https://hfish.io/#/2-2-linux)
-[Windows版](https://hfish.io/#/2-3-windows)
+[Linux版](https://hfish.io/#/2-3-linux)
+[Windows版](https://hfish.io/#/2-4-windows)
 [使用手册](#HFish设计理念)
 
 <!-- 背景图片 -->
