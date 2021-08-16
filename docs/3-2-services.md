@@ -31,7 +31,7 @@
 **当您处于离线环境不方便在线安装情况下，您可以使用手动上传安装的方式。**
 
 ```wiki
-1. 下载最新官方服务包 http://img.threatbook.cn/hfish/svc/services-<% version %>.tar.gz
+1. 下载最新官方服务包 [services包](http://img.threatbook.cn/hfish/svc/services-<% version %>.tar.gz)
 2. 在新增服务页面上选择该服务包上传。
 ```
 

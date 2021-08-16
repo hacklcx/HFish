@@ -1,6 +1,6 @@
 # 下载
 
-### HFish v<% version %>
+### 当前最新版本 HFish v<% version %>
 
 ```wiki
 2021年7月25日发布
@@ -17,14 +17,13 @@
 ```
 
 
-
 ## 下载安装
 
 ### 控制端安装包
 
 - [HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-amd64.tar.gz) 为 Linux x86 架构 64 位系统使用
 - [HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-windows-amd64.tar.gz) 为 Windows x86 架构 64 位系统使用
-- [HFish-Linux-arm64](https://hfish.cn-bj.ufileos.com/hfish-2.5.0-linux-arm64.tar.gz) 为 Linux Arm 架构 64 位系统使用，常见于 NAS、路由器、树莓派等……
+- [HFish-Linux-arm64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-arm64.tar.gz) 为 Linux Arm 架构 64 位系统使用，常见于 NAS、路由器、树莓派等……
 
 ## 文件结构
 
@@ -66,5 +65,4 @@ HFish
 │
 └───web                                 #控制台web文件
 │   │   ……
-
 ```
