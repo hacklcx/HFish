@@ -38,11 +38,9 @@
 <img src="http://img.threatbook.cn/hfish/20210616165216.png" alt="image-20210616165214921" style="zoom:50%;" />
 
 
+> 上传自定义web蜜罐
 
-> *上传自定义web蜜罐
-
-​	如果您有自定义web蜜罐的需求，我们为您准备了开发样例，您可以参考我们的[文档](https://hfish.io/#/function?id=web%e8%9c%9c%e7%bd%90%e8%87%aa%e5%ae%9a%e4%b9%89%e5%bc%80%e5%8f%91)完成蜜罐的开发工作后，进行上传。
-​	当然您也可以在社区中寻找其它用户开发好的蜜罐上传后使用。
+​	如果您有自定义web蜜罐的需求，我们为您准备了开发样例，您可以参考下面的文档完成蜜罐的开发工作后，进行上传，也可以在社区中寻找其它用户开发好的蜜罐上传后使用。
 
 
 
@@ -57,27 +55,16 @@
 http://img.threatbook.cn/hfish/svc/web-demo.zip
 ```
 
-
-
-> 解压后获得两个文件
-
-```wiki
-# index.html
-# portrait.js
-```
-
+> 解压后获得index.html和portrait.js两个文件
 
 
 > index.html文件中的代码功能
 
 ```wiki
-<form>中的代码明确了页面上账密表单的提交方式。
-具体利用方式参考下文[制作全新的登陆页面]
+<form>中的代码明确了页面上账密表单的提交方式，具体利用方式参考下文“制作全新的登陆页面”
 
-<script>中的代码明确了调用jsonp的方式。
+<script>中的代码明确了调用jsonp的方式
 ```
-
-
 
 > portrait.js 文件中的代码功能
 
@@ -113,13 +100,13 @@ http://img.threatbook.cn/hfish/svc/web-demo.zip
 
 把所有的静态文件文件打包名为“service-xxx.zip”文件。包括但不限于index.html 、portrait.js 和其它格式的静态文件、文件夹。
 
-注意：文件命名为规范格式前缀必须为“service-” ； “xxx”可以自定义，但不能为“web”和“root”；必须压缩为.zip格式文件
+注意：文件命名为规范格式前缀 **必须** 为“service-” ； “xxx”可以自定义，但不能为“web”和“root”，且压缩包 **必须** 压缩为.zip格式文件。
 
 ![image-20210508222121613](http://img.threatbook.cn/hfish/20210728213740.png)
 
 
 
-> 打开server后台
+> 打开控制端后台
 
 ![image-20210508213915879](http://img.threatbook.cn/hfish/20210728213815.png)
 

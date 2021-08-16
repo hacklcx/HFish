@@ -1,4 +1,5 @@
-- ### 数据库相关
+
+### 数据库相关
 
 HFish系统默认使用的sqlite数据库，具体见 db/hfish.db（自带的已经初始化好的db），相关的初始化脚本见 db/sql/sqlite/V<% version %>__sqlite.sql 
 
