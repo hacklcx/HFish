@@ -33,6 +33,7 @@ if [ -n $(find /bin /usr/bin -name "systemctl") ]; then
 
     systemctl daemon-reload
     systemctl start ${DESC}
+    systemctl enable ${DESC}
 
 else
 echo "未发现systemctl程序，服务脚本无法工作，请参阅 https://hfish.io 官网文档手动配置！\n" && exit 1
