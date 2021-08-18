@@ -40,6 +40,3 @@ url = ./db/hfish.db?cache=shared&mode=rwc
 # type = mysql
 # url = root:HFish312@tcp(:3306)/hfish?charset=utf8&parseTime=true&loc=Local
 ```
-
-
-
