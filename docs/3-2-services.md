@@ -52,7 +52,7 @@
 
 ```wiki
 # 下载自定义web蜜罐样例
-http://img.threatbook.cn/hfish/svc/web-demo.zip
+http://img.threatbook.cn/hfish/svc/service-demo.zip
 ```
 
 > 解压后获得index.html和portrait.js两个文件
