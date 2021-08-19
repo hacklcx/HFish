@@ -34,7 +34,8 @@ sh <(curl -sSL https://hfish.io/autorun.sh)
 - 下载压缩包https://hfish.io/autorun.zip 
 - 把autorun.bat和cron.xml解压，复制到client文件目录中
 - client-xxxx.exe 重新命名为 client.exe
-- 执行autorun.bat即可
+- 执行autorun.bat
+- 执行client.exe
 
 
 
