@@ -26,5 +26,5 @@ docker run -d -p 4433:4433 -p 4434:4434 --name=hfish --restart=always dskyz/hfis
 
 例：如果控制端的ip是192.168.1.1，登陆链接为：https://192.168.1.1:4433/web/
 
-控制端部署完成后，请继续参考下面的【控制端配置】完成配置
+
 
