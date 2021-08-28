@@ -38,5 +38,10 @@ max_open = 50
 max_idle = 50
 url = ./db/hfish.db?cache=shared&mode=rwc
 # type = mysql
-# url = root:HFish312@tcp(:3306)/hfish?charset=utf8&parseTime=true&loc=Local
+# url = mysql用户名::密码@tcp(:3306)/hfish?charset=utf8&parseTime=true&loc=Local
 ```
+
+**如果mysql想要加ip，则使用**：
+
+url = mysql用户名:密码@tcp(ip:3306)/hfish?charset=utf8&parseTime=true&loc=Local
+
