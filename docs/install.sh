@@ -6,7 +6,7 @@ initVar() {
 	removeType='yum -y remove'
 	upgrade="yum -y update"
 	echoType='echo -e'
-	version='2.5.0'
+	version='2.6.0'
 }
 initVar
 export LANG=en_US.UTF-8
@@ -49,9 +49,9 @@ menu() {
 	echoContent green "HFish官网 https://hfish.io "
 	echoContent red "\n==============================================================\n"
 	echoContent skyBlue "-------------------------安装部署-----------------------------\n"
-	echoContent yellow "1.安装并运行HFish单机版"
-	echoContent yellow "2.安装并运行HFish集群版控制端"
-	echoContent yellow "3.退出安装"
+	echoContent yellow "1.安装并运行HFish"
+#	echoContent yellow "2.安装并运行HFish集群版控制端"
+	echoContent yellow "2.退出安装"
 	# echoContent yellow "4.用Docker运行HFish控制端"
 	# echoContent skyBlue "\n-------------------------配置管理-----------------------------\n"
 	# echoContent yellow "5.防火墙放通控制端端口（coming soon）"
@@ -64,13 +64,10 @@ menu() {
 
 	read -r -p "请选择:" selectMenuType
 	case ${selectMenuType} in
-    1):
-        standaloneInstall
-        ;;
-	2):
+	1):
 		serverInstall
 		;;
-	3)
+	2)
 		exitInstall
 		;;
 	*)
@@ -80,21 +77,21 @@ menu() {
 	esac
 }
 
-standaloneInstall(){
-  cd /opt
-    if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-amd64.tar.gz
-	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-arm64.tar.gz
-	else
-    echoContent red "未检测到系统版本，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
-	fi
-	
-	tar -zxvf /opt/hfish-standalone*.tar.gz
-	cd /opt/hfish && nohup ./server &
-	sleep 2
-    cd /opt/hfish/client && nohup ./client &
-}
+#standaloneInstall(){
+#  cd /opt
+#    if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
+#    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-amd64.tar.gz
+#	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
+#    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-arm64.tar.gz
+#	else
+#    echoContent red "未检测到系统版本，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
+#	fi
+#
+#	tar -zxvf /opt/hfish-standalone*.tar.gz
+#	cd /opt/hfish && nohup ./server &
+#	sleep 2
+#    cd /opt/hfish/client && nohup ./client &
+#}
 
 serverInstall() {
   cd /opt
