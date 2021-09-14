@@ -56,12 +56,16 @@
         window.$docsify = {
             name: 'HFish',
             loadSidebar: true,
+            alias: {
+              '/.*/_sidebar.md': '/_sidebar.md',
+            },
             loadNavbar: true,
             mergeNavbar: true,
             auto2top: true,
-            subMaxLevel: 2,
+            subMaxLevel: 3,
             coverpage: true,
             themeColor: '#e93636',
+            sidebarDisplayLevel: 0, // set sidebar display level
             dv: {
                 model: {
                     version: '2.5.0',
@@ -69,7 +73,7 @@
             },
             search: {
                 paths: 'auto',
-                maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+                maxAge: 26400000, // 过期时间，单位毫秒，默认一天
                 placeholder: '请输入搜索内容',
                 noData: '找不到结果!',
                 depth: 2
@@ -89,7 +93,10 @@
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>  
+
+    <!-- plugins -->
+    <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
 </body>
 
 </html>
