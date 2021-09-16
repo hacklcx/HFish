@@ -2,7 +2,7 @@
 
 ![logo](http://img.threatbook.cn/hfish/logo.png ":size=200x202")
 
-# HFish <sup class="version">2.6.0</sup>
+# HFish <sup class="version">2.6.1</sup>
 
 # 安全、简单、有效的蜜罐平台 <sup class="version">永久免费</sup>
 
