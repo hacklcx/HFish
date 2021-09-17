@@ -18,7 +18,7 @@ firewall-cmd --reload
 bash <(curl -sS -L https://hfish.io/install.sh)
 ```
 
-<img src="http://img.threatbook.cn/hfish/20210812135015.png" alt="image-20210812135013716" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20210917162839603.png" alt="image-20210917162839603" style="zoom:50%;" />
 
 > 完成安装安装
 
