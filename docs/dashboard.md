@@ -4,11 +4,11 @@
 
 ### 系统运行状态
 
-针对HFish系统的运行状况，我们对节点状态和蜜罐状态提供了可视化查看能力
+针对HFish系统的运行状况，我们对节点状态和蜜罐状态提供了可视化查看能力.
 
 针对管理端的运行情况，我们提供了状态栏进行查看
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20210914160036385.png" alt="image-20210914160036385" style="zoom:67%;" />
+<img src="http://img.threatbook.cn/hfish/image-20210914160036385.png" alt="image-20210914160036385" style="zoom:67%;" />
 
 
 
