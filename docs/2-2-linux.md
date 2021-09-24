@@ -9,7 +9,6 @@
 ```
 firewall-cmd --add-port=4433/tcp --permanent   （用于web界面启动）
 firewall-cmd --add-port=4434/tcp --permanent   （用于节点与server端通信）
-firewall-cmd --add-port=7879/tcp --permanent   （用于启动server本地的蜜罐服务）
 firewall-cmd --reload
 ```
 
@@ -68,7 +67,6 @@ tar zxvf hfish-*-linux-amd64.tar.gz -C hfish
 ```
 firewall-cmd --add-port=4433/tcp --permanent   （用于web界面启动）
 firewall-cmd --add-port=4434/tcp --permanent   （用于节点与server端通信）
-firewall-cmd --add-port=7879/tcp --permanent   （用于启动server本地的蜜罐服务）
 firewall-cmd --reload
 ```
 
