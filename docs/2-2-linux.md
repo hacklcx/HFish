@@ -4,11 +4,12 @@
 
 在使用一键脚本前，请先配置防火墙
 
-> 请防火墙开启4433或者4434，确认返回success（如之后蜜罐服务需要占用其他端口，可使用相同命令打开。）
+> 请防火墙开启4433、4434和7879，确认返回success（如之后蜜罐服务需要占用其他端口，可使用相同命令打开。）
 
 ```
-firewall-cmd --add-port=4433/tcp --permanent
-firewall-cmd --add-port=4434/tcp --permanent
+firewall-cmd --add-port=4433/tcp --permanent   （用于web界面启动）
+firewall-cmd --add-port=4434/tcp --permanent   （用于节点与server端通信）
+firewall-cmd --add-port=7879/tcp --permanent   （用于启动server本地的蜜罐服务）
 firewall-cmd --reload
 ```
 
@@ -62,11 +63,12 @@ mkdir hfish
 tar zxvf hfish-*-linux-amd64.tar.gz -C hfish
 ```
 
-> 第四步：请防火墙开启4433或者4434，确认返回success（如果有其他服务需要打开端口，使用相同命令打开。
+> 第四步：请防火墙开启4433、4434和7879，确认返回success（如果有其他服务需要打开端口，使用相同命令打开。
 
 ```
-firewall-cmd --add-port=4433/tcp --permanent
-firewall-cmd --add-port=4434/tcp --permanent
+firewall-cmd --add-port=4433/tcp --permanent   （用于web界面启动）
+firewall-cmd --add-port=4434/tcp --permanent   （用于节点与server端通信）
+firewall-cmd --add-port=7879/tcp --permanent   （用于启动server本地的蜜罐服务）
 firewall-cmd --reload
 ```
 
