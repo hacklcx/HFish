@@ -22,11 +22,11 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 
 
-> 步骤2:在dockercompose.yml中，按需修改MySql的映射端口和密码
+> 步骤2:在dockercompose.yml中，按需修改MySql容器的对外映射端口和登陆密码
 
 `注意，无论是修改端口还是密码，都需要将箭头所指的两个位置同步做修改`
 
-<img src="http://img.threatbook.cn/hfish/image-20211012222209522.png" alt="image-20211012222209522" style="zoom:43%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211013175549337.png" alt="image-20211013175549337" style="zoom:40%;" />
 
 
 
