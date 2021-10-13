@@ -1,4 +1,4 @@
-#### Docker版本简介
+### Docker版本简介
 
 Docker是我们推荐的部署方式，当前在2.6.2版本，我们增加了以下特性
 
@@ -12,7 +12,7 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 
 
-#### Docker使用说明
+### Docker安装说明
 
 **<u>请确认自己的环境已经安装docker和docker compose</u>**
 
@@ -26,7 +26,7 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 `注意，无论是修改端口还是密码，都需要将箭头所指的两个位置同步做修改`
 
-<img src="http://img.threatbook.cn/hfish/image-20211012222209522.png" alt="image-20211012222209522" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211012222209522.png" alt="image-20211012222209522" style="zoom:43%;" />
 
 
 
@@ -40,9 +40,9 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 > 注意:在docker启动后，会有几分钟的mysql容器初始化，请耐心等待
 
-<img src="http://img.threatbook.cn/hfish/image-20211012222554572.png" alt="image-20211012222554572" style="zoom: 25%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211012222554572.png" alt="image-20211012222554572" style="zoom: 20%;" />
 
-<img src="http://img.threatbook.cn/hfish/image-20211013163538978.png" alt="image-20211013163538978" style="zoom:25%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211013163538978.png" alt="image-20211013163538978" style="zoom:20%;" />
 
 
 
@@ -56,8 +56,19 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 
 
-> 数据持久化查询
+### 查看HFish日志
 
 docker-compose.yml同目录下，会生成一个data文件夹，用于存放当前的所有攻击数据。另外，会生成一个logs文件夹，存放当前的所有日志。
 
 ![image-20211012223326542](http://img.threatbook.cn/hfish/image-20211012223326542.png)
+
+
+
+### 查看Docker日志
+
+进入docker-compose.yml的目录，执行
+
+```shell
+docker-compose logs
+```
+
