@@ -18,7 +18,7 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 > 步骤1:将docker-compose.yml放置到需要启动HFish的服务器
 
-下载:[docker_compose.yml](http://hfish.cn-bj.ufileos.com/docker-compose/2.6.2/docker-compose.yml)
+下载:[docker_compose.yml](https://hfish.cn-bj.ufileos.com/docker-compose/2.6.2/docker-compose.yml)
 
 
 
