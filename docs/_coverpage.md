@@ -8,11 +8,12 @@
 
 
 
-
-
-[Linux版](https://hfish.io/#/2-2-linux)
-[Windows版](https://hfish.io/#/2-3-windows)
+[Linux下载](https://hfish.io/#/2-2-linux)
+[Windows下载](https://hfish.io/#/2-3-windows)
+[Docker下载](https://hfish.io/#/2-1-docker)
 [使用手册](#HFish设计理念)
+
+
 
 <!-- 背景图片 -->
 
