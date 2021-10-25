@@ -4,11 +4,11 @@
 
 在使用一键脚本前，请先配置防火墙
 
-> 请防火墙开启4433、4434和7879，确认返回success（如之后蜜罐服务需要占用其他端口，可使用相同命令打开。）
+> 请防火墙开启4433、4434，确认返回success（如之后蜜罐服务需要占用其他端口，可使用相同命令打开。）
 
 ```
-firewall-cmd --add-port=4433/tcp --permanent   （用于web界面启动）
-firewall-cmd --add-port=4434/tcp --permanent   （用于节点与server端通信）
+firewall-cmd --add-port=4433/tcp --permanent   #（用于web界面启动）
+firewall-cmd --add-port=4434/tcp --permanent   #（用于节点与server端通信）
 firewall-cmd --reload
 ```
 
@@ -20,9 +20,17 @@ bash <(curl -sS -L https://hfish.io/install.sh)
 
 <img src="http://img.threatbook.cn/hfish/image-20210917162839603.png" alt="image-20210917162839603" style="zoom:50%;" />
 
-> 完成安装安装
+> 完成安装
 
-在安装完成后，HFish会自动在控制端上创建一个节点。可在节点管理进行查看。
+```
+登陆链接：https://[ip]:4433/web/
+账号：admin
+密码：HFish2021
+```
+
+`例：如果管理端的ip是192.168.1.1，登陆链接为：https://192.168.1.1:4433/web/`
+
+在安装完成后，HFish会自动在管理端上创建一个节点。可进行登录后，在「节点管理」列表中进行查看。
 
 <img src="http://img.threatbook.cn/hfish/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
 
@@ -35,6 +43,8 @@ bash <(curl -sS -L https://hfish.io/install.sh)
 ```
 sh <(curl -sSL https://hfish.io/autorun.sh)
 ```
+
+`如果是使用一键脚本进行安装，安装目录在 /opt目录下。`
 
 即可配置开机自启动。
 
@@ -85,5 +95,13 @@ nohup ./server &
 密码：HFish2021
 ```
 
-例：如果控制端的ip是192.168.1.1，登陆链接为：https://192.168.1.1:4433/web/
+`例：如果管理端的ip是192.168.1.1，登陆链接为：https://192.168.1.1:4433/web/`
+
+在安装完成后，HFish会自动在管理端上创建一个节点。可在节点管理进行查看。
+
+<img src="http://img.threatbook.cn/hfish/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
+
+
+
+### 
 
