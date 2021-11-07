@@ -14,6 +14,8 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 ### Docker安装说明
 
+#### 在docker中安装控制端：
+
 **<u>请确认自己的环境已经安装docker和docker compose</u>**
 
 > 步骤1:将docker-compose.yml放置到需要启动HFish的服务器
@@ -53,6 +55,48 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 初始用户名:admin
 
 初始密码:HFish2021
+
+
+
+#### 在docker中安装节点端：
+
+> 先在控制端中正常添加节点：
+
+![image-20211107152418598](http://img.threatbook.cn/hfish/202111071524218.png)
+
+
+
+> 记录下主机执行命令中的sh文件的url：
+
+~~~wiki
+如上图示例，url为：https://10.53.7.96:4434/tmp/jibrZM5VHMVN.sh
+~~~
+
+> 把该url拼接在如下的命令之后：
+
+~~~dockerfile
+docker run -d --net=host --name hfish-client --restart=always threatbook/hfishnode-amd64
+
+如上图示例，拼接后的完整命令如下：
+docker run -d --net=host --name hfish-client --restart=always threatbook/hfishnode-amd64 https://10.53.7.96:4434/tmp/jibrZM5VHMVN.sh
+~~~
+
+> 如节点运行环境为64位arm则拼接如下命令
+
+~~~dockerfile
+docker run -d --net=host --name hfish-client --restart=always threatbook/hfishnode-arm64
+
+如上图示例，拼接后的完整命令如下：
+docker run -d --net=host --name hfish-client --restart=always threatbook/hfishnode-arm64 https://10.53.7.96:4434/tmp/jibrZM5VHMVN.sh
+~~~
+
+> 执行上面的完整命令即可在docker容器中启动节点
+
+~~~wiki
+注意：本启动方式使用了host网络模式，容器内的开放的端口会同样在宿主机上开放，需要注意跟宿主机上端口是否冲突。
+~~~
+
+
 
 
 
