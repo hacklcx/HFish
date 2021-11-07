@@ -62,7 +62,7 @@ docker-compose.yml同目录下，会生成一个data文件夹，用于存放当�
 
 > 先在控制端中正常添加节点：
 
-![image-20211107152418598](http://img.threatbook.cn/hfish/202111071524218.png)
+<img src="/Users/water/Library/Application%20Support/typora-user-images/image-20211107152418598.png" alt="image-20211107152418598" style="zoom:50%;" />
 
 
 
