@@ -5,7 +5,7 @@
 1. 杀死server进程
 
 ```shell
-# 结束server进程
+# 结束serverhe进程
 root@HFish~# ps ax | grep ./server | grep -v grep
  8435 ?        Sl    97:59 ./server
 
@@ -16,7 +16,7 @@ root@HFish:~# kill -9 8435
 
 ```shell
 # 使用install.sh安装的HFish会被部署到/opt/hfish目标，删除即可
-root@HFish~# rm -rf /opt/hfish
+root@HFish~# rm -rf /usr/share/
 ```
 
 3. 清理数据库（如果使用的是SQLite数据库请忽略）
@@ -54,19 +54,14 @@ root@HFish~# systemctl restart firewalld
 
 > 卸载节点端
 
-1. 杀死client和services进程
+1. 杀死clien
 
 ```shell
 # 结束 client 和 services 进程
 root@HFish~# ps ax | grep -E 'services|./client' | grep -v grep
   10506 ?        Sl   134:20 ./client
-1685739 ?        Sl     0:00 services/mysql/mysql 0.0.0.0:3306 true
-1685743 ?        Sl     0:00 services/redis/redis 0.0.0.0:6379 true
-1685747 ?        Sl     0:00 services/telnet/telnet 0.0.0.0:23 true
-1685751 ?        Sl     0:00 services/ftp/ftp 0.0.0.0:21 true
-1685755 ?        Sl     0:00 services/es/es 0.0.0.0:9200 true
 
-root@HFish:~# kill -9 10506 1685739 1685743 1685747 1685751 1685755
+root@HFish:~# kill -9 10506
 ```
 
 2. 删除client文件夹

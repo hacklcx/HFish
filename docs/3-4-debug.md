@@ -31,25 +31,14 @@
 
 ### 节点问题
 
-> 在机器上执行了节点脚本，但是「节点管理」处没有信息
-
-检查管理端防火墙以及ACL策略是否放行了节点对server 4434端口的访问
-
-```shell
-# 可以从节点主机发起wget测试
-wget [服务器地址]:4434
-```
-
 > 节点状态为红色离线
-
-![](http://img.threatbook.cn/hfish/20210812135754.jpg)
 
 解决办法：
 
 1. 检查节点到管理端的网络连通情况，并等待……
 
    ```shell
-   节点每90秒连接server的TCP/4433端口一次，180秒内连接不上，即显示离线。
+   节点每60秒连接server的TCP/4433端口一次，180秒内连接不上，即显示离线。
    在刚刚完成部署或网络不稳定的时候会出现这种情况。
    通常情况，等待2~3分钟，如果节点恢复绿色在线，那蜜罐服务也会从绿色启用，变成绿色在线。
    ```
@@ -59,10 +48,15 @@ wget [服务器地址]:4434
 
    ```shell
    # 检查./client的进程是否运行正常
-   ps ax | grep -E 'services|./client' | grep -v grep
-   
-   # 检查./service的进程是否运行正常	
-   ps ax | grep ./server | grep -v grep
+   ps ax | grep -E 'services|./client' | grep -v grep		
+   ```
+
+3. 如果以上都没有问题，请将server和client日志提供给我们
+
+   ```shell
+   # 节点端日志在安装目录的logs文件夹内，文件名为client.log
+   # Linux控制端日志在usr/share/hfish/log文件夹内，文件名为server.log
+   # Linux控制端日志在C:\\Users\\Public\\hfish\\log文件夹内，文件名为serve.log
    ```
 
    

@@ -5,7 +5,6 @@
   - [版本说明](download)
   - [Linux下载部署](2-2-linux)
   - [Windows下载部署](2-3-windows)
-  - [Docker下载部署](2-1-docker)
   - [提高数据库性能](2-4-mariadb)
   - [企业部署策略](2-5-env)
 - [快速上手](1-3-workflow)

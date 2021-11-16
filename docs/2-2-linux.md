@@ -2,6 +2,10 @@
 
 如果您部署的环境为Linux，且可以访问互联网。我们为您准备了一键部署脚本进行安装和配置。
 
+`当前hfish分为两个进程,"hfish"进程为管理进程，负责监测、拉起和升级蜜罐主程序。"server"进程为蜜罐主程序进程，其执行蜜罐软件程序。因此，安装时候，请务必按照要求，执行hfish进程；如果直接执行server程序，可能会导致程序不稳定，升级失败等情况。`
+
+`hfish-Linux的数据库文件当前存储在 usr/share/hfish 下，在当前机器进行重装时候，会自动默认读取文件下配置和数据。`
+
 在使用一键脚本前，请先配置防火墙
 
 > 请防火墙开启4433、4434，确认返回success（如之后蜜罐服务需要占用其他端口，可使用相同命令打开。）
@@ -36,27 +40,15 @@ bash <(curl -sS -L https://hfish.io/install.sh)
 
 
 
-### 配置开机自启动
-
-进入管理端（server端）安装目录，执行
-
-```
-sh <(curl -sSL https://hfish.io/autorun.sh)
-```
-
-`如果是使用一键脚本进行安装，安装目录在 /opt目录下。`
-
-即可配置开机自启动。
-
-（该方法通用于节点端自启动）
-
-
-
 ### 无法联网，手动安装
+
+`当前hfish分为两个进程,"hfish"进程为管理进程，负责监测、拉起和升级蜜罐主程序。"server"进程为蜜罐主程序进程，其执行蜜罐软件程序。因此，安装时候，请务必按照要求，执行hfish进程；如果直接执行server程序，可能会导致程序不稳定，升级失败等情况。`
+
+`hfish-Linux的数据库文件当前存储在 usr/share/hfish 下，在当前机器进行重装时候，会自动默认读取文件下配置和数据。`
 
 如果上述的安装脚本您无法使用，您可以尝试用手动安装完成部署。
 
-> ##### **第一步：下载安装包**：[HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-amd64.tar.gz) （ Linux x86 架构 64 位系统）
+> ##### **第一步：下载安装包**：[HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-amd64.tgz) （ Linux x86 架构 64 位系统）
 
 使用按如下步骤进行安装 （以linux64位系统为例）：
 
@@ -69,7 +61,7 @@ mkdir hfish
 > 第三步：将安装文件包解压到hfish目录下
 
 ```
-tar zxvf hfish-*-linux-amd64.tar.gz -C hfish
+tar zxvf hfish-2.7.0-linux-amd64.tar.gz
 ```
 
 > 第四步：请防火墙开启4433、4434和7879，确认返回success（如果有其他服务需要打开端口，使用相同命令打开。
@@ -80,11 +72,11 @@ firewall-cmd --add-port=4434/tcp --permanent   （用于节点与server端通信
 firewall-cmd --reload
 ```
 
-> 第五步：进入安装目录直接运行server，或者后台运行 nohup ./server &
+> 第五步：进入安装目录直接运行install.sh
 
 ```
 cd hfish
-nohup ./server &
+sudo ./install.sh
 ```
 
 > 第六步：登陆web界面
