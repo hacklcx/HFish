@@ -6,7 +6,7 @@ initVar() {
 	removeType='yum -y remove'
 	upgrade="yum -y update"
 	echoType='echo -e'
-	version='2.6.2'
+	version='2.7.0'
 }
 initVar
 export LANG=en_US.UTF-8
@@ -77,28 +77,12 @@ menu() {
 	esac
 }
 
-#standaloneInstall(){
-#  cd /opt
-#    if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-#    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-amd64.tar.gz
-#	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-#    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-standalone-${version}-linux-arm64.tar.gz
-#	else
-#    echoContent red "未检测到系统版本，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
-#	fi
-#
-#	tar -zxvf /opt/hfish-standalone*.tar.gz
-#	cd /opt/hfish && nohup ./server &
-#	sleep 2
-#    cd /opt/hfish/client && nohup ./client &
-#}
-
 serverInstall() {
-  cd /opt
+    cd /opt
 	if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-amd64.tar.gz
+    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-amd64.tgz
 	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-arm64.tar.gz
+    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-arm64.tgz
 	else
     echoContent red "未检测到系统版本，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
 	fi
@@ -106,22 +90,12 @@ serverInstall() {
 	mkdir -p hfish
 	tar -zxvf /opt/hfish*.tar.gz -C hfish
 	cd hfish
-	nohup ./server &
+	sudo ./install.sh
 }
 
 exitInstall() {
 	exit 1
 }
 
-# selectServiceInstall() {
-# 	if [ -d "/opt/hfish/packages" ]; then
-#         cd /opt/hfish/packages
-#         wget http://img.threatbook.cn/hfish/svc/services-2.4.0.tar.gz
-#         tar zxvf services*.tar.gz
-#         rm -f services-2.4.0.tar.gz
-#     else 
-#         echoContent red "未检测到安装目录，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
-#     fi 
-# }
 cd /opt
 menu
