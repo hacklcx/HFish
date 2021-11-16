@@ -8,7 +8,7 @@
 
 > 1.下载安装包至2.6.2目录中
 
-
+[HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-amd64.tgz) （ Linux x86 架构 64 位系统）
 
 > 2.进入2.6.2安装目录解压安装包
 
@@ -30,7 +30,7 @@ sudo ./install.sh
 
 > 1.下载安装包至2.6.2目录中
 
-
+[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-windows-amd64.tgz) （Windows x86 架构 64 位系统）
 
 > 2.进入2.6.2安装目录解压安装包
 

@@ -3,6 +3,7 @@
   - [HFish结构](1-2-spec)
 - [快速下载及部署](2-deploy)
   - [版本说明](download)
+  - [老版本升级](update)
   - [Linux下载部署](2-2-linux)
   - [Windows下载部署](2-3-windows)
   - [提高数据库性能](2-4-mariadb)
