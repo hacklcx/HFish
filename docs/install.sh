@@ -88,7 +88,7 @@ serverInstall() {
 	fi
 
 	mkdir -p hfish
-	tar -zxvf /opt/hfish*.tar.gz -C hfish
+	tar -zxvf /opt/hfish*.tgz -C hfish
 	cd hfish
 	sudo ./install.sh
 }
