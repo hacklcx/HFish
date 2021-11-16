@@ -17,7 +17,7 @@
 - [进阶应用](5-apply)
   - [自定义Web蜜罐](5-1-selfdesign)
   - [企业信息监控](5-2-asset)
-  - [蜜饵配置](5-3-lures)
+  - [蜜饵配置](4-4-internetdecoy)
   - [测试样例](5-4-demo)
   - [卸载HFish](uninstall)
 - 详细功能说明
