@@ -15,7 +15,7 @@
 > 2.进入2.6.2安装目录解压安装包
 
 ```
-tar zxvf hfish-2.7.0-linux-amd64.tar.gz
+tar zxvf hfish-2.7.0-linux-amd64.tgz
 ```
 
 
