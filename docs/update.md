@@ -58,9 +58,15 @@ sudo ./install.sh
 
  按照这个顺序依次填写 新数据库链接、新数据库类型（sqlite/mysql）、新版本号（2.7.0），旧数据库链接、旧数据库类型（sqlite/mysql）、旧版本号，就可以了
 
-##### 填写样例：
+##### Mysql填写样例：
 
 ```shell
 . /server -mode migrate -newlink root:1234567@tcp(127.0.0.1:3306)/hfish?charset=utf8mb4&parseTime=true&loc=Local -newtype mysql -newversion 2.7.0 -oldlink root:1234567@tcp(127.0.0.1:3306)/hfish?charset=utf8mb4&parseTime=true&loc=Local -oldtype mysql -oldversion 2.6.2
+```
+
+Sqlite填写样例：
+
+```shell
+. /server -mode migrate -newlink /Users/Shared/.hfish/database/hfish.db?cache=shared&mode=rwc -newtype sqlite -newversion 2.7.0 -oldlink /Users/Shared/.hfish/database/hfish.db?cache=shared&mode=rwc -oldtype sqlite -oldversion 2.6.2
 ```
 
