@@ -48,7 +48,7 @@ sudo ./install.sh
 
 ./hfish-server --help看一下，当前的hfish-server这个软件我们提供了一个mode参数，一个是重置密码（resetpwd），一个是数据迁移（migrate）
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211117105331269.png" alt="image-20211117105331269" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211117105331269.png" alt="image-20211117105331269" style="zoom:50%;" />
 
 ##### ./server -mode migrate时候，为数据迁移工具，使用填写方法为：
 
