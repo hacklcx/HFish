@@ -61,7 +61,7 @@ mkdir hfish
 > 第三步：将安装文件包解压到hfish目录下
 
 ```
-tar zxvf hfish-2.7.0-linux-amd64.tar.gz -C hfish
+tar zxvf hfish-2.7.0-linux-amd64.tgz -C hfish
 ```
 
 > 第四步：请防火墙开启4433、4434和7879，确认返回success（如果有其他服务需要打开端口，使用相同命令打开。
