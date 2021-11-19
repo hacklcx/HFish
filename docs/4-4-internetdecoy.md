@@ -39,7 +39,7 @@ $username$变量如果未填写账号字典，则默认用root作为所有蜜饵
 $password$变量按照选取的位数，自动生成蜜饵的密码。
 $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端口。
 
-<img src="/Users/maqian/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/d4fd4109804e4614bec96b26017afad7/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/Image/2801635164451_.pic.jpg" alt="2801635164451_.pic" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/2801635164451_.pic.jpg" alt="2801635164451_.pic" style="zoom:33%;" />
 
 点击预览，可以查看当前的蜜饵内容，在实际被下拉时的显示内容
 
@@ -57,13 +57,13 @@ $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端�
 
 任何一台节点都可以作为节点分发服务器使用，如下图：
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211116213058329.png" alt="image-20211116213058329" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211116213058329.png" alt="image-20211116213058329" style="zoom:33%;" />
 
 启用后，用户可以从需要部署蜜饵的主机上访问如下地址，得到一个唯一的蜜饵文件：
 
 启用后，用户可以从需要部署蜜饵的主机上访问如下地址，得到一个唯一的蜜饵文件：
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211025205700560.png" alt="image-20211025205700560" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211025205700560.png" alt="image-20211025205700560" style="zoom:33%;" />
 
 复制该下发指令后，前往需进行布防的业务机器，执行即可。
 
@@ -81,4 +81,4 @@ $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端�
 
 如果您当前部署的蜜饵文件中的内容被进行尝试登陆，我们将会向您告警，展示已失陷节点主机和失陷流程。
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211116213801346.png" alt="image-20211116213801346" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211116213801346.png" alt="image-20211116213801346" style="zoom:50%;" />
