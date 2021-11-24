@@ -78,11 +78,11 @@ menu() {
 }
 
 serverInstall() {
-    cd /opt
+  cd /opt
 	if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-amd64.tgz
+    curl -k http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-amd64.tgz -o hfish-${version}-linux-amd64.tgz
 	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-    wget -N --no-check-certificate http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-arm64.tgz
+    curl -k http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-arm64.tgz hfish-${version}-linux-arm64.tgz
 	else
     echoContent red "未检测到系统版本，请参阅 https://hfish.io 官网文档手动安装！\n" && exit 1
 	fi
