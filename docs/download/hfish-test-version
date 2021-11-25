@@ -1,6 +1,6 @@
 {
-    "version":"2.7.0",
-    "date":"2021-11-16",
+    "version":"2.8.0",
+    "date":"2021-12-16",
     "desc":[
         "特别注意：当前版本并不支持顺滑升级，请前往https://hfish.io/#/update 查看升级文档。升级过程中，我们会自动帮您迁移所有数据。",
         "1. 新增 5个web类蜜罐，包括webmin、weblogic、jspspy、joomla和jenkins",
