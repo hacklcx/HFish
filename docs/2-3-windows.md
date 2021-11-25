@@ -1,10 +1,10 @@
-> **第一步：下载安装包**[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-windows-amd64.tgz) （Windows x86 架构 64 位系统）
+> **第一步：下载安装包**[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-windows-amd64.tgz) （Windows x86 架构 64 位系统），解压缩
 
 > 第二步：防火墙上进出站双向打开TCP4433、4434端口放行（如果需要使用其他服务，也对应打开端口）
 
-> 第二步：运行文件目录下的install.bat （脚本会在当前目录进行安装HFish，建议创建单独目录执行该脚本）
+> 第三步：进入HFish-Windows-amd64文件夹内，运行文件目录下的install.bat （脚本会在当前目录进行安装HFish）
 
-> 第三步：登陆web界面
+> 第四步：登陆web界面
 
 ```
 登陆链接：https://[ip]:4433/web/
