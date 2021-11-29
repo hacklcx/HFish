@@ -10,7 +10,7 @@
 
 [Linux下载](https://hfish.io/#/2-2-linux)
 [Windows下载](https://hfish.io/#/2-3-windows)
-[老版本升级](https://hfish.io/#/update)
+[Docker下载](https://hfish.io/#/2-1-docker)
 [使用手册](#HFish设计理念)
 
 
