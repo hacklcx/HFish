@@ -26,6 +26,7 @@ Docker是我们推荐的部署方式，当前在2.7.0版本，我们增加了以
 docker run -itd --name hfish \
 -v /usr/share/hfish:/usr/share/hfish \
 --network host \
+--privileged=true \
 threatbook/hfish-server:latest
 ```
 
@@ -41,6 +42,7 @@ docker run -d    \
  --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock  \
   --label=com.centurylinklabs.watchtower.enable=false \
+--privileged=true \
   containrrr/watchtower  \
   --cleanup  \
   hfish \
