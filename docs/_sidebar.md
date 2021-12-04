@@ -9,6 +9,7 @@
   - [Windows下载部署](2-3-windows)
   - [提高数据库性能](2-4-mariadb)
   - [企业部署策略](2-5-env)
+  - [Nginx反向代理](2-6-nginx)
 - [快速上手](1-3-workflow)
   - [添加/删除节点](3-1-addnode)
   - [添加/删除蜜罐](3-2-manage)
