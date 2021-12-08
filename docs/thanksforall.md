@@ -16,6 +16,8 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 <img src="http://img.threatbook.cn/hfish/image-20211208094219281.png" alt="image-20211208094219281" style="zoom:33%;" />
 
+**说书人（帅哥）**：愿意将自己的开发成果赋能到社区，为HFish提供了5种全新的web蜜罐，非常感谢～
+
 
 
 > 我们期待各位的意见
@@ -25,6 +27,8 @@ Github项目地址：https://github.com/hacklcx/HFish
 **十一**
 
 **@loca1h0st&lt;i&gt;**
+
+
 
 **我是爱吃橙子的牛**
 
