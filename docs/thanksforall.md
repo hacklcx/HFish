@@ -12,7 +12,7 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 ###### 在此我们特别感谢：
 
-**Github用户 JamCh01 **：为HFish提供了完善的nginx配置文档，感谢～
+**Github用户 JamCh01**：为HFish提供了完善的nginx配置文档，感谢～
 
 <img src="http://img.threatbook.cn/hfish/image-20211208094219281.png" alt="image-20211208094219281" style="zoom:33%;" />
 
@@ -30,7 +30,7 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 
 
-**另外，也有非常多的用户在这个过程中给过我们非常多的意见和建议，帮助hfish做得更好，在此我们对所有人致谢：    **
+**另外，也有非常多的用户在这个过程中给过我们非常多的意见和建议，帮助hfish做得更好，在此我们对所有人致谢：**
 
 （这不是空行，是一个名字为空白的用户）
 
