@@ -14,11 +14,11 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 **Github用户 JamCh01**：为HFish提供了完善的nginx配置文档，感谢～
 
-<img src="http://img.threatbook.cn/hfish/image-20211208094219281.png" alt="image-20211208094219281" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211208094219281.png" alt="image-20211208094219281" style="zoom:28%;" />
 
 **说书人（帅哥）**：愿意将自己的开发成果赋能到社区，为HFish提供了5种全新的web蜜罐，非常感谢～
 
-
+<img src="http://img.threatbook.cn/hfish/image-20211208194059175.png" alt="image-20211208194059175" style="zoom:33%;" />
 
 > 我们期待各位的意见
 
