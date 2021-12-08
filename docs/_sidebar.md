@@ -48,5 +48,4 @@
     - [登陆管理](7-1-login)
     - [系统信息](7-2-info)
     - [忘记密码](setting/passwd-1)
-- [已知问题](known)
 - [致谢](thankforall)
