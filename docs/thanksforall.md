@@ -14,7 +14,7 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 **Github用户 JamCh01 **：为HFish提供了完善的nginx配置文档，感谢～
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211208094219281.png" alt="image-20211208094219281" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211208094219281.png" alt="image-20211208094219281" style="zoom:33%;" />
 
 
 
@@ -26,7 +26,7 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 **我是爱吃橙子的牛**
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211208095138935.png" alt="image-20211208095138935" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211208095138935.png" alt="image-20211208095138935" style="zoom:50%;" />
 
 
 
@@ -74,6 +74,6 @@ Hasauei
 
 
 
-最后，欢迎加入Hfish社区
+最后，欢迎加入Hfish社区。
 
 ![20210728203437](http://img.threatbook.cn/hfish/20210728203437.png)
