@@ -78,7 +78,7 @@
 
 ### VNC蜜罐
 
-> 通过VNC viewer进行登陆常识，输入IP和端口
+> 通过VNC viewer进行登陆尝试，输入IP和端口
 
 <img src="http://img.threatbook.cn/hfish/1591628590040_.pic_hd.jpg" alt="1591628590040_.pic_hd" style="zoom: 33%;" />
 
