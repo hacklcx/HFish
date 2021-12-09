@@ -24,6 +24,18 @@ HFish是社区型免费蜜罐，承载了全新的架构理念和实现方案，
 
 
 
+#### 快速预览
+
+当前，我们提供Demo账号，您可以直接登录，并查看hfish可收到的攻击。
+
+预览地址：https://demo.hfish.net:4433/web/
+
+用户名：hfishguest
+
+密码：HFish2021
+
+
+
 #### 联系我们
 
 ![HFish官方群的qr](http://img.threatbook.cn/hfish/20210728203437.png)
