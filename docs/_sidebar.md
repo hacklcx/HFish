@@ -22,6 +22,7 @@
   - [蜜饵配置](4-4-internetdecoy)
   - [自定义蜜罐](5-5-custom)
   - [测试样例](5-4-demo)
+  - [忘记密码](setting/passwd-1)
   - [卸载HFish](uninstall)
 - 详细功能说明
   - 威胁态势
@@ -47,6 +48,5 @@
   - 平台管理
     - [登陆管理](7-1-login)
     - [系统信息](7-2-info)
-    - [忘记密码](setting/passwd-1)
 - [已知问题](known)
 - [致谢](thanksforall)
