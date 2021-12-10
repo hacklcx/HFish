@@ -1,12 +1,6 @@
 #### Linux
 
-> 进入HFish安装目录，执行resetpwd  -u admin
-
-```shell
-resetpwd -u admin
-```
-
-![image-20211021205653677](http://img.threatbook.cn/hfish/image-20211021205653677.png)
+> 进入HFish安装目录，执行./hfish-server -mode resetpwd
 
 > 使用admin/HFish2021进行登录
 
@@ -14,6 +8,6 @@ resetpwd -u admin
 
 #### Windows
 
-> 进入HFish安装目录，执行resetpwd.exe
+> 进入HFish安装目录，打开cmd，执行hfish-server -mode resetpwd
 
 > 使用admin/HFish2021进行登录
