@@ -56,7 +56,9 @@ docker run -d    \
 > 步骤4：登陆HFish
 
 登陆地址：https://ip:4433/web/
+
 初始用户名：admin
+
 初始密码：HFish2021
 
 
@@ -120,8 +122,6 @@ docker run -d --net=host --name hfish-client --restart=always threatbook/hfishno
 
 
 ### 查看Docker日志
-
-执行
 
 ```shell
 docker logs hfish
