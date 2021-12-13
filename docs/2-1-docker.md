@@ -16,7 +16,7 @@ Docker是我们推荐的部署方式，当前在2.7.0版本，我们增加了以
 
 ### Docker安装说明
 
-#### 在docker中安装控制端：
+#### 在docker中安装管理端：
 
 **<u>请确认自己的环境已经安装并启动docker</u>**
 
@@ -65,7 +65,7 @@ docker run -d    \
 
 #### 在docker中安装节点端：
 
-> 先在控制端中正常添加节点：
+> 先在管理端中正常添加节点：
 
 <img src="http://img.threatbook.cn/hfish/202111071541552.png" alt="image-20211107152418598" style="zoom:50%;" />
 

@@ -58,7 +58,7 @@ http://img.threatbook.cn/hfish/svc/service-demo.zip
 
 
 
-> 打开控制端后台
+> 打开管理端后台
 
 ![image-20210508213915879](http://img.threatbook.cn/hfish/20210728213815.png)
 

@@ -24,18 +24,6 @@ HFish具有超过40种蜜罐环境、提供免费的云蜜网、可高度自定�
 
 
 
-#### 快速预览
-
-百闻不如一见，您可以随时登录我们的Demo环境，浏览HFish的能力：
-
-预览地址：https://demo.hfish.net:4433/web/
-用户：hfishguest
-密码：HFish2021
-
-（访问如果出现问题，可以尝试关闭“出门小代理”哦～）
-
-
-
 #### 联系我们
 
 ![HFish官方群的qr](http://img.threatbook.cn/hfish/20210728203437.png)

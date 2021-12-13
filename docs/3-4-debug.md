@@ -24,8 +24,8 @@
 
    ```shell
    # 节点端日志在安装目录的logs文件夹内，文件名为client.log
-   # Linux控制端日志在usr/share/hfish/log文件夹内，文件名为server.log
-   # Linux控制端日志在C:\\Users\\Public\\hfish\\log文件夹内，文件名为serve.log
+   # Linux管理端日志在usr/share/hfish/log文件夹内，文件名为server.log
+   # Linux管理端日志在C:\\Users\\Public\\hfish\\log文件夹内，文件名为serve.log
    ```
 
 
@@ -56,8 +56,8 @@
 
    ```shell
    # 节点端日志在安装目录的logs文件夹内，文件名为client.log
-   # Linux控制端日志在usr/share/hfish/log文件夹内，文件名为server.log
-   # Linux控制端日志在C:\\Users\\Public\\hfish\\log文件夹内，文件名为serve.log
+   # Linux管理端日志在usr/share/hfish/log文件夹内，文件名为server.log
+   # Linux管理端日志在C:\\Users\\Public\\hfish\\log文件夹内，文件名为serve.log
    ```
 
    
