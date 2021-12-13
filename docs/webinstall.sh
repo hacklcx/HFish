@@ -44,37 +44,40 @@ echoContent() {
 
 #首页菜单
 menu() {
-	echoContent red "\n==============================================================\n"
-	echoContent green "当前版本：v${version}"
-	echoContent green "HFish官网 https://hfish.io "
-	echoContent red "\n==============================================================\n"
-	echoContent skyBlue "-------------------------安装部署-----------------------------\n"
-	echoContent yellow "1.安装并运行HFish"
-#	echoContent yellow "2.安装并运行HFish集群版管理端"
-	echoContent yellow "2.退出安装"
-	# echoContent yellow "4.用Docker运行HFish管理端"
+    echoContent red " _   _   _____   _         _     " 
+    echoContent red "| | | | |  ___| (_)  ___  | |__  "
+    echoContent red "| |_| | | |_    | | / __| | '_ \ "
+    echoContent red "|  _  | |  _|   | | \__ \ | | | |"
+    echoContent red "|_| |_| |_|     |_| |___/ |_| |_|"
+    echoContent green "当前版本：v${version}"
+    echoContent green "https://hfish.io \n"
+    echoContent red "----------"
+    echoContent yellow "按 1 安装并运行HFish"
+    echoContent yellow "按 2 退出脚本"
 	# echoContent skyBlue "\n-------------------------配置管理-----------------------------\n"
-	# echoContent yellow "5.防火墙放通管理端端口（coming soon）"
+	# echoContent yellow "5.防火墙放通控制端端口（coming soon）"
 	# echoContent yellow "6.将HFish添加为系统服务（coming soon）"
-	# echoContent yellow "7.将管理端数据库替换为MariaDB（coming soon）"
     # echoContent skyBlue "\n-------------------------运维管理-----------------------------\n"
 	# echoContent yellow "8.将错误日志反馈给开发者（coming soon）"
 	# echoContent yellow "9.卸载HFish（coming soon）"
-	echoContent red "\n=============================================================="
+	echoContent red "----------"
 
-	read -r -p "请选择:" selectMenuType
-	case ${selectMenuType} in
-	1):
-		serverInstall
-		;;
-	2)
-		exitInstall
-		;;
-	*)
-		echoContent red ' ---> 选择错误，重新选择'
-		selectMenuType
-		;;
-	esac
+	while [ 1 ]; do
+		read -r -p "请选择:" selectMenuType
+
+		case ${selectMenuType} in
+		1):
+			serverInstall
+			;;
+		2)
+			exitInstall
+			;;
+		*)
+			continue
+			;;
+		esac
+		break
+	done
 }
 
 serverInstall() {

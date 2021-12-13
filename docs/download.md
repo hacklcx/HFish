@@ -3,7 +3,7 @@
 ```javascript
 2021年11月16日发布
 
-特别注意：当前版本并不支持顺滑升级，请前往https://hfish.io/#/update 查看升级文档。
+注意：当前版本并不支持顺滑升级，请前往https://hfish.io/#/update 查看升级文档。
 升级过程中，我们会自动帮您迁移所有数据。
 
 1. 新增 5个web类蜜罐，包括webmin、weblogic、jspspy、joomla和jenkins,
@@ -16,4 +16,8 @@
 8. 修复 部分使用交互问题
 ```
 
+
+#### 联系我们
+
+![HFish官方群的qr](http://img.threatbook.cn/hfish/20210728203437.png)
 
