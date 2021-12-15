@@ -1,8 +1,8 @@
 ### 联网环境，一键安装
 
-`当前HFish启动后会有两个进程，其中"hfish"进程为管理进程，负责监测、拉起和升级蜜罐主程序，"server"进程为蜜罐主程序进程，其执行蜜罐软件程序。`
+`当前HFish启动后会有两个进程，其中"hfish"进程为管理进程，负责监测、拉起和升级蜜罐主程序，"管理端"进程为蜜罐主程序进程，其执行蜜罐软件程序。`
 
-`安装时请务必按照要求执行hfish进程，如果直接执行server程序，可能会导致程序不稳定或升级失败等问题。`
+`安装时请务必按照要求执行hfish进程，如果直接执行管理端程序，可能会导致程序不稳定或升级失败等问题。`
 
 `Linux版本HFish管理端数据库及配置文件都存储在 /usr/share/hfish 目录下，重装时会自动读取目录下的配置和数据。`
 
@@ -12,7 +12,7 @@
 
 ```shell
 firewall-cmd --add-port=4433/tcp --permanent   #（用于web界面启动）
-firewall-cmd --add-port=4434/tcp --permanent   #（用于节点与server端通信）
+firewall-cmd --add-port=4434/tcp --permanent   #（用于节点与管理端通信）
 firewall-cmd --reload
 ```
 
@@ -64,7 +64,7 @@ tar zxvf hfish-2.7.0-linux-amd64.tgz -C hfish
 
 ```
 firewall-cmd --add-port=4433/tcp --permanent   （用于web界面启动）
-firewall-cmd --add-port=4434/tcp --permanent   （用于节点与server端通信）
+firewall-cmd --add-port=4434/tcp --permanent   （用于节点与管理端通信）
 firewall-cmd --reload
 ```
 

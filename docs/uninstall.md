@@ -1,6 +1,6 @@
 # 卸载HFish的流程
 
-### Server端
+### 管理端
 
 #### 1. linux卸载流程
 
@@ -24,7 +24,7 @@ root@HFish:~# kill -9 8435
 root@HFish:~# kill -9 8436
 ```
 
-3. 删除server文件夹
+3. 删除管理端文件夹
 
 ```shell
 # 使用install.sh安装的HFish会被部署到/opt/hfish目标，删除即可，其他的按照自己的路径来
@@ -69,9 +69,9 @@ cut -d: -f2 | tr ' ' '\n' | xargs -I {} firewall-cmd --permanent --remove-port={
 root@HFish~# systemctl restart firewalld
 ```
 
-#### 2.windows卸载流程
+#### 2.Windows卸载流程
 
-1. 删除计划任务进程 HFishServer
+1. 删除计划任务进程HFish管理端
 
 <img src="http://img.threatbook.cn/hfish/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
 
@@ -83,7 +83,7 @@ root@HFish~# systemctl restart firewalld
 在任务管理器，结束hfish和hfish-server的进程
 ```
 
-3. 删除server文件夹
+3. 删除管理端文件夹
 
 ### 节点端
 
@@ -94,7 +94,7 @@ root@HFish~# systemctl restart firewalld
 1. 删除计划任务进程
 
 ```shell
-# 不同的linux版本结束方式不同，需要自己确认
+# 不同的Linux版本结束方式不同，需要自己确认
 
 ```
 

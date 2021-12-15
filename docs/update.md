@@ -43,7 +43,7 @@ sudo ./install.sh
 
 <img src="http://img.threatbook.cn/hfish/image-20211117105331269.png" alt="image-20211117105331269" style="zoom:50%;" />
 
-##### 当执行./server -mode migrate时，server提供数据迁移功能，具体使用方法为：
+##### 当执行./server -mode migrate时，提供数据迁移功能，具体使用方法为：
 
 ```
 . /hfish-server -mode migrate -newlink -newtype(填写sqlite或者mysql) -2.7.0 -oldlink -oldtype(旧数据库类型，填写sqlite或者mysql) -oldversion(例如2.5.0/2.6.2等)

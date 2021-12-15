@@ -55,7 +55,7 @@ menu() {
     echoContent yellow "按 1 安装并运行HFish"
     echoContent yellow "按 2 退出脚本"
 	# echoContent skyBlue "\n-------------------------配置管理-----------------------------\n"
-	# echoContent yellow "5.防火墙放通控制端端口（coming soon）"
+	# echoContent yellow "5.防火墙放通管理端口（coming soon）"
 	# echoContent yellow "6.将HFish添加为系统服务（coming soon）"
     # echoContent skyBlue "\n-------------------------运维管理-----------------------------\n"
 	# echoContent yellow "8.将错误日志反馈给开发者（coming soon）"
