@@ -2,6 +2,7 @@
   - [什么是蜜罐](1-1-honeypot)
   - [HFish结构](1-2-spec)
   - [在线Demo](1-3-demo)
+  
 - [快速部署](2-deploy)
   - [版本说明](download)
   - [老版本升级](update)
@@ -11,13 +12,16 @@
   - [提高数据库性能](2-4-mariadb)
   - [联网和安全说明](2-5-env)
   - [Nginx反向代理](2-6-nginx)
+  
 - [快速上手](3-quickstart)
   - [添加/删除节点](3-1-nodemgmt)
   - [添加/删除蜜罐](3-2-potmgmt)
   - [查看攻击](3-3-checkattack)
   - [错误排查](3-4-debug)
+  
 - [场景建议](4-scene)
-- [进阶应用](5-apply)
+
+- [进阶应用]
   - [自定义Web蜜罐](5-1-selfdesign)
   - [企业信息监控](5-2-asset)
   - [蜜饵配置](5-3-decoy)
@@ -25,6 +29,7 @@
   - [测试样例](5-5-demo)
   - [忘记密码](5-6-passwd)
   - [卸载HFish](5-7-uninstall)
+  
 - 详细功能说明
   - 威胁态势
     - [首页](dashboard)
@@ -49,5 +54,6 @@
   - 平台管理
     - [登陆管理](7-1-login)
     - [系统信息](7-2-info)
+    
 - [已知问题](known)
 - [致谢](thanksforall)
