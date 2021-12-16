@@ -20,11 +20,11 @@
 - [进阶应用](5-apply)
   - [自定义Web蜜罐](5-1-selfdesign)
   - [企业信息监控](5-2-asset)
-  - [蜜饵配置](4-4-internetdecoy)
-  - [自定义蜜罐](5-5-custom)
-  - [测试样例](5-4-demo)
-  - [忘记密码](setting/passwd-1)
-  - [卸载HFish](uninstall)
+  - [蜜饵配置](5-3-decoy)
+  - [接入外部数据](5-4-custom)
+  - [测试样例](5-5-demo)
+  - [忘记密码](5-6-passwd)
+  - [卸载HFish](5-7-uninstall)
 - 详细功能说明
   - 威胁态势
     - [首页](dashboard)
