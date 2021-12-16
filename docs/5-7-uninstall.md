@@ -6,7 +6,7 @@
 
 1. 删除计划任务进程
 
-```shell
+```
 # 不同的linux版本结束方式不同，需要自己确认
 
 ```
@@ -26,21 +26,21 @@ root@HFish:~# kill -9 8436
 
 3. 删除管理端文件夹
 
-```shell
+```
 # 使用install.sh安装的HFish会被部署到/opt/hfish目标，删除即可，其他的按照自己的路径来
 root@HFish~# rm -rf /opt/hfish
 ```
 
 4. 清理所有配置（建议这里不要删除，否则下次使用需要完全重新配置）
 
-```shell
+```
 # 使用install.sh安装的HFish会在usr/share/hfish下建立全局变量。如果说之后仍希望使用，建议这里不要删除，否则下次使用需要完全重新配置
 root@HFish~# rm -rf /usr/share/hfish
 ```
 
 5. 删除mysql数据库配置（sqlite可忽略）
 
-```shell
+```
 # 删除HFish数据库
 root@HFish:~# mysql -h127.0.0.1 -uroot -p
 Enter password:*******（默认密码详见config.ini配置文件）
@@ -53,7 +53,7 @@ root@HFish:~# systemctl disable mysqld
 
 5. 可还原SSH和Firewall配置
 
-```shell
+```
 # 清除SSH config内对于访问来源的限制
 root@HFish~# vi /etc/ssh/sshd_config
 注释掉以 AllowUsers root@ 开头的行
@@ -93,7 +93,7 @@ root@HFish~# systemctl restart firewalld
 
 1. 删除计划任务进程
 
-```shell
+```
 # 不同的Linux版本结束方式不同，需要自己确认
 
 ```
@@ -113,7 +113,7 @@ root@HFish:~# kill -9 8436
 
 3. 删除client文件夹
 
-```shell
+```
 # 文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
 ```
 
@@ -133,7 +133,7 @@ root@HFish:~# kill -9 8436
 
 3. 删除client文件夹
 
-```shell
+```
 # 文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
 
 ```

@@ -397,7 +397,7 @@ echo $response;
 
 #### **Shell**
 
-```shell
+```
 wget --no-check-certificate --quiet \
   --method POST \
   --timeout=0 \
@@ -583,7 +583,7 @@ echo $response;
 
 #### **Shell**
 
-```shell
+```
 wget --no-check-certificate --quiet \
   --method POST \
   --timeout=0 \

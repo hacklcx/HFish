@@ -16,13 +16,13 @@ Docker是我们推荐的部署方式之一，在当前在版本种，我们增�
 
 > 步骤1：确认已安装并启动Docker
 
-```shell
+```
 docker version
 ```
 
 > 步骤2：运行版本HFish（框内全部复制，粘贴，执行即可）
 
-```shell
+```
 docker run -itd --name hfish \
 -v /usr/share/hfish:/usr/share/hfish \
 --network host \
@@ -36,7 +36,7 @@ threatbook/hfish-server:latest
 
 > 步骤3：配置后续自动升级（框内全部复制，粘贴，执行即可）
 
-```shell
+```
 docker run -d    \
  --name watchtower \
  --restart unless-stopped \
@@ -123,7 +123,7 @@ docker run -d --net=host --name hfish-client --restart=always threatbook/hfishno
 
 ### 查看Docker日志
 
-```shell
+```
 docker logs hfish
 ```
 

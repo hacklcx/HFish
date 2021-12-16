@@ -8,7 +8,7 @@
 
 2、确认管理端进程的运行情况和TCP/4433端口开放情况，如果不正常需要重启管理端进程
 
-   ```shell
+   ```
    # 检查./server的进程是否运行正常
    ps ax | grep ./server | grep -v grep
    
@@ -20,7 +20,7 @@
 
 4、如果以上都没有问题，请将server和client日志提供给我们
 
-   ```wiki
+   ```
    节点端日志在安装目录的logs文件夹内，文件名为client.log
    Linux管理端日志在/usr/share/hfish/log文件夹内，文件名为server.log
    Windows管理端日志在C:\Users\Public\hfish\log文件夹内，文件名为server.log
@@ -44,7 +44,7 @@
 
 2、如果确认网络访问正常，节点在管理端上始终离线，需要检查节点上的进程运行情况。如果进程运行异常，需要杀死全部关联进程后，重启进程，并记录错误日志。
 
-   ```shell
+   ```
    # 检查./client的进程是否运行正常
    ps ax | grep -E 'services|./client' | grep -v grep		
    ```
@@ -67,7 +67,7 @@
 
 1、确认蜜罐服务进程是否还在运行？
 
-   ```shell
+   ```
    # 检查service的进程是否运行正常，如果进程退出，建议查看service的日志
    ps ax | grep service | grep -v grep
    ```

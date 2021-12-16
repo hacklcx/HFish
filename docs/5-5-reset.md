@@ -5,7 +5,7 @@
   
   > 重置admin用户的密码
   
-  ```shell
+  ```
   root@HFish~# ./tools resetpwd admin
   reset admin password success.
   ```

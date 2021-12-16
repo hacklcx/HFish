@@ -53,13 +53,13 @@ sudo ./install.sh
 
 ##### 一个从老MySQL迁移数据到新MySQL的样例：
 
-```shell
+```
 ./hfish-server -mode migrate -newLink "root:1234567@tcp(127.0.0.1:3306)/hfish?charset=utf8mb4&parseTime=true&loc=Local" -newType mysql -newVersion 2.7.0 -oldLink "root:1234567@tcp(127.0.0.1:3306)/hfish?charset=utf8mb4&parseTime=true&loc=Local" -oldType mysql -oldVersion 2.6.2
 ```
 
 ##### 一个从老SQLite迁移数据到新SQLite的样例：
 
-```shell
+```
 ./hfish-server -mode migrate -newLink ""/Users/Shared/.hfish/database/hfish.db?cache=shared&mode=rwc" -newType sqlite -newVersion 2.7.0 -oldLink ""/Users/Shared/.hfish/database/hfish.db?cache=shared&mode=rwc" -oldType sqlite -oldVersion 2.6.2
 ```
 

@@ -6,7 +6,7 @@
   2. 使用date，确认系统时间的准确
   3. 确认防火墙已经启用，并配置了正确的端口放行，需要放行22、4433、4434端口
 
-  ```wiki
+  ```
   #centos7 检查防火墙状态
   systemctl status firewalld
   

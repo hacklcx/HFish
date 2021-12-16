@@ -10,7 +10,7 @@
 
 > 请防火墙开启4433、4434，确认返回success（如之后蜜罐服务需要占用其他端口，可使用相同命令打开。）
 
-```shell
+```
 firewall-cmd --add-port=4433/tcp --permanent   #（用于web界面启动）
 firewall-cmd --add-port=4434/tcp --permanent   #（用于节点与管理端通信）
 firewall-cmd --reload
@@ -18,7 +18,7 @@ firewall-cmd --reload
 
 > 使用root用户，运行下面的脚本。
 
-```shell
+```
 bash <(curl -sS -L https://hfish.io/webinstall.sh)
 ```
 
