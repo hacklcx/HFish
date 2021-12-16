@@ -1,4 +1,6 @@
-![image-20210903150833262](http://img.threatbook.cn/hfish/image-20210903150833262.png)
+企业微信配置流程
+
+<img src="http://img.threatbook.cn/hfish/image-20210903150833262.png" alt="image-20210903150833262" style="zoom:50%;" />
 
 
 
@@ -6,7 +8,7 @@
 
 
 
-![](/Users/maqian/Library/Application Support/typora-user-images/image-20210903150857177.png)
+<img src="http://img.threatbook.cn/hfish/image-20210903150857177.png" style="zoom:50%;" />
 
 
 
@@ -14,11 +16,11 @@
 
 
 
-![image-20210903150945171](/Users/maqian/Library/Application Support/typora-user-images/image-20210903150945171.png)
+<img src="http://img.threatbook.cn/hfish/image-20210903150945171.png" alt="image-20210903150945171" style="zoom:50%;" />
 
 
 
-![image-20210903152406368](/Users/maqian/Library/Application Support/typora-user-images/image-20210903152406368.png)
+<img src="http://img.threatbook.cn/hfish/image-20210903152406368.png" alt="image-20210903152406368" style="zoom:50%;" />
 
 
 
