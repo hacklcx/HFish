@@ -3,7 +3,7 @@
   - [HFish结构](1-2-spec)
   - [在线Demo](1-3-demo)
   
-- [快速部署](2-deploy)
+- [快速部署](2-0-deploy)
   - [版本说明](download)
   - [老版本升级](update)
   - [Docker下载部署](2-1-docker)
@@ -13,16 +13,16 @@
   - [联网和安全说明](2-5-env)
   - [Nginx反向代理](2-6-nginx)
   
-- [快速上手](3-quickstart)
+- [快速上手](3-0-quickstart)
   - [添加/删除节点](3-1-nodemgmt)
   - [添加/删除蜜罐](3-2-potmgmt)
   - [查看攻击](3-3-checkattack)
   - [错误排查](3-4-debug)
   
-- [场景建议](4-scene)
+- [场景建议](4-0-scene)
 
-- [进阶应用](5-apply)
-  - [自定义Web蜜罐](5-1-selfdesign)
+- [进阶应用](5-0-apply)
+  - [自定义Web蜜罐](5-1-diy)
   - [企业信息监控](5-2-asset)
   - [蜜饵配置](5-3-decoy)
   - [接入外部数据](5-4-custom)
