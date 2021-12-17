@@ -1,18 +1,17 @@
 #### Custom蜜罐
 
-Custom蜜罐是我们制作的，可用于接受其他蜜罐平台或者自建蜜罐的数据，实现蜜罐告警数据的统一管理。将HFish做成一个企业内蜜罐数据集合体的蜜罐
+一个经常容易误解的事实是，Custom蜜罐是用于**接受**其他蜜罐平台数据的接口，其目的是为了实现蜜罐告警数据的统一管理，便于用户通过HFish观测整个企业内部各种蜜罐告警数据。
 
 #### 使用方法
 
-> 1. 调用apikey：进入该蜜罐的后台，可以看到蜜罐的config文件，文件内有一个apikey。
+> 1、调用apikey：进入该蜜罐的后台，可以看到蜜罐的config文件，文件内有一个apikey。
 
-![image-20211027204924883](http://img.threatbook.cn/hfish/image-20211027204924883.png)
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211027204924883.png" alt="" height="400px" /></div>
 
-![image-20211027205006150](http://img.threatbook.cn/hfish/image-20211027205006150.png)
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211027205006150.png" alt="" height="400px" /></div>
 
 
-
-> 2.使用该apikey，将数据上传到HFish管理端
+> 2、使用该apikey，将数据上传到HFish管理端
 
 传输方式：post
 
@@ -22,6 +21,6 @@ body内使用form格式填写apikey和info，info为您希望打入hfish的其�
 
 **参考示例：**
 
-<img src="http://img.threatbook.cn/hfish/image-20211027205827645.png" alt="image-20211027205827645" style="zoom:50%;" />
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211027205827645.png" alt="" height="400px" /></div>
 
-<img src="http://img.threatbook.cn/hfish/image-20211027205939646.png" alt="image-20211027205939646" style="zoom:50%;" />
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211027205939646.png" alt="" style="zoom:50%;" /></div>

@@ -1,44 +1,40 @@
-# 卸载HFish的流程
+### 卸载管理端
 
-### 管理端
+#### 1. 卸载Linux管理端
 
-#### 1. linux卸载流程
+1、删除计划任务进程
 
-1. 删除计划任务进程
+`注意：不同的linux版本结束方式不同，需要自己确认`
 
-```
-# 不同的linux版本结束方式不同，需要自己确认
 
-```
-
-2. 删除hfish进程
+2、结束管理端进程
 
 ```
 # 结束hfish和hfish-server的进程
 root@HFish~# ps ax | grep ./hfish | grep -v grep
- 8435 ?        Sl    97:59 ./hfish
-  8436 ?        Sl    97:59 ./hfish-server
+8435 ?        Sl    97:59 ./hfish
+8436 ?        Sl    97:59 ./hfish-server
 
 
 root@HFish:~# kill -9 8435
 root@HFish:~# kill -9 8436
 ```
 
-3. 删除管理端文件夹
+3、删除文件夹
 
 ```
-# 使用install.sh安装的HFish会被部署到/opt/hfish目标，删除即可，其他的按照自己的路径来
+# 使用install.sh安装的HFish会被部署到/opt/hfish目标，将整个删除即可
 root@HFish~# rm -rf /opt/hfish
 ```
 
-4. 清理所有配置（建议这里不要删除，否则下次使用需要完全重新配置）
+4、清理所有配置（如果后续还要安装，建议不要删除，否则下次使用需要完全重新配置）
 
 ```
-# 使用install.sh安装的HFish会在usr/share/hfish下建立全局变量。如果说之后仍希望使用，建议这里不要删除，否则下次使用需要完全重新配置
+# 使用install.sh安装的HFish会在/usr/share/hfish下建立全局变量
 root@HFish~# rm -rf /usr/share/hfish
 ```
 
-5. 删除mysql数据库配置（sqlite可忽略）
+5、删除MySQL数据库配置（SQLite可忽略）
 
 ```
 # 删除HFish数据库
@@ -51,7 +47,7 @@ root@HFish:~# systemctl stop mysqld
 root@HFish:~# systemctl disable mysqld
 ```
 
-5. 可还原SSH和Firewall配置
+6、可还原SSH和Firewall配置
 
 ```
 # 清除SSH config内对于访问来源的限制
@@ -69,71 +65,65 @@ cut -d: -f2 | tr ' ' '\n' | xargs -I {} firewall-cmd --permanent --remove-port={
 root@HFish~# systemctl restart firewalld
 ```
 
-#### 2.Windows卸载流程
+#### 2、卸载Windows管理端
 
-1. 删除计划任务进程HFish管理端
+1、删除计划任务进程HFish管理端
 
 <img src="http://img.threatbook.cn/hfish/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
 
 <img src="http://img.threatbook.cn/hfish/image-20211206115035865.png" alt="image-20211206115035865" style="zoom:33%;" />
 
-2. 删除hfish进程
+2、结束hfish进程
 
-```
 在任务管理器，结束hfish和hfish-server的进程
-```
 
-3. 删除管理端文件夹
+
+3、删除管理端文件夹
 
 ### 节点端
 
-#### 1.linux节点
+#### 1、卸载Linux节点
 
 > 卸载节点
 
-1. 删除计划任务进程
+1、删除计划任务进程
 
 ```
-# 不同的Linux版本结束方式不同，需要自己确认
-
+# 打开计划任务，删除带有hfish字样的行
+root@HFish~# crontab -e
 ```
 
-2. 删除hfish进程
+2、结束hfish进程
 
 ```
 # 结束hfish和hfish-server的进程
 root@HFish~# ps ax | grep ./hfish | grep -v grep
- 8435 ?        Sl    97:59 ./hfish
-  8436 ?        Sl    97:59 ./hfish-server
+8435 ?        Sl    97:59 ./hfish
+8436 ?        Sl    97:59 ./hfish-server
 
 
 root@HFish:~# kill -9 8435
 root@HFish:~# kill -9 8436
 ```
 
-3. 删除client文件夹
+3、删除client文件夹
 
-```
-# 文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
-```
+文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
 
 
 
-#### 2.Windows节点
+#### 2、删除Windows节点
 
-1. 关闭计划任务 HFishClient
+1、关闭计划任务 HFishClient
 
 <img src="http://img.threatbook.cn/hfish/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
 
-2. 删除client进程
+2、结束client进程
 
-```
 在任务管理器，结束hfish和hfish-client的进程
-```
 
-3. 删除client文件夹
 
-```
-# 文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
+3、删除client文件夹
 
-```
+文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
+

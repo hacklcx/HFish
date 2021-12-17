@@ -24,9 +24,9 @@
 - [进阶应用](5-0-apply)
   - [自定义Web蜜罐](5-1-diy)
   - [账号失陷监控](5-2-asset)
-  - [蜜饵配置](5-3-decoy)
+  - [蜜饵配置](4-4-internetdecoy)
   - [接入外部数据](5-4-custom)
-  - [测试样例](5-5-demo)
+  - [测试样例](5-5-test)
   - [忘记密码](5-6-passwd)
   - [卸载HFish](5-7-uninstall)
   
