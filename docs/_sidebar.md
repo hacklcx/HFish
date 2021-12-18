@@ -30,30 +30,24 @@
   - [忘记密码](5-6-passwd)
   - [卸载HFish](5-7-uninstall)
   
-- 详细功能说明
-  - 威胁态势
-    - [首页](dashboard)
-  - 威胁感知
-    - [攻击列表](4-1-attack)
-    - [扫描感知](4-2-scan)
-  - 威胁实体
-    - [攻击来源](5-1-source)
-    - [账号资产](5-2-asset)
-    - [蜜饵配置](5-3-lures)
-  - 环境管理
-    - [节点管理](3-1-node)
-    - [模版管理](3-3-tmpl.md)
-    - [服务管理](3-2-services)
-  - 系统配置
-    - [告警策略](6-3-alarm)
-    - [情报对接](6-1-intel)
-    - [通知配置](6-2-message)
-      - [钉钉配置文档](6-2-1dingtalk)
-      - [企业微信配置文档](6-2-2wechat)
-    - [API配置](6-4-api)
-  - 平台管理
-    - [登陆管理](7-1-login)
-    - [系统信息](7-2-info)
+- [详细功能说明](6-0-detail)
+  - [首页](dashboard)
+  - [攻击列表](attack)
+  - [扫描感知](scan)
+  - [攻击来源](attack-source)
+  - [账号资产](attack-account)
+  - [蜜饵配置](4-4-internetdecoy)
+  - [节点管理](node-mgmt)
+  - [模版管理](template-mgmt)
+  - [服务管理](service-mgmt)
+  - [告警策略](alarm)
+  - [情报对接](intel)
+  - [通知配置](message)
+      - [钉钉配置文档](dingtalk)
+      - [企业微信配置文档](wechat)
+  - [API配置](api-conf)
+  - [登陆管理](sys-login)
+  - [系统信息](sys-info)
     
 - [已知问题](known)
 - [致谢](thanksforall)
