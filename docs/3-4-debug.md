@@ -16,9 +16,19 @@
    ss -ntpl
    ```
 
-3、检查管理端主机是否开启了防火墙，导致目前无法访问
+3、检查管理端主机是否开启了防火墙，导致目前无法访问，必要情况，考虑关闭防火墙
 
-4、如果以上都没有问题，请将server和client日志提供给我们
+ ```
+  #centos7 检查防火墙状态
+  systemctl status firewalld
+  
+  #centos7 检查防火墙开放端口
+  firewall-cmd --list-ports
+  ```
+
+4、Linux环境使用date命令确认系统时间的准确
+
+5、如果以上都没有问题，请将server和client日志提供给我们
 
    ```
    节点端日志在安装目录的logs文件夹内，文件名为client.log

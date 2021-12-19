@@ -35,7 +35,7 @@
   - [攻击列表](detail-attack)
   - [扫描感知](detail-scan)
   - [攻击来源](detail-attack-source)
-  - [账号资产](attack-account)
+  - [账号资产](detail-damaged-account)
   - [失陷感知](4-4-internetdecoy)
   - [节点管理](detail-node-mgmt)
   - [模版管理](detail-template-mgmt)
