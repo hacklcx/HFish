@@ -1,0 +1,79 @@
+
+### 什么是蜜饵
+
+蜜饵泛指任意伪造的高价值文件（例如运维手册、邮件、配置文件等），用于引诱和转移攻击者视线，最终达到牵引攻击者离开真实的高价值资产并进入陷阱的目的。
+
+### 使用场景
+
+HFish的蜜饵在 **牵引** 攻击者的功能上增加了 **精确定位失陷** 能力，即每个蜜饵都是 **唯一的**，攻击者入侵用户主机后，如果盗取蜜饵文件中的数据并从任意主机发起攻击，防守者仍能知道失陷源头在哪里。
+
+举个例子：
+
+```
+攻击者侵入企业内部某台服务器，在其目录中找到一个payment_config.ini文件，文件中包含数据库主机IP地址和账号密码，
+攻击者为隐藏自己真实入侵路径，通过第三台主机访问数据库主机……
+```
+
+在以上场景中，payment_config.ini为蜜饵，所谓的数据库主机是另外一台位于安全区域的蜜罐，而攻击者得到的所谓账号密码也是虚假且唯一的，防守者可以根据其得到攻击者真实的横向移动路径。
+
+由于蜜饵只是静态文件，所以蜜饵适合部署在任何主机和场景中，例如作为附件通过邮件发送（检测邮件是否被盗）、在攻防演练期间上传到百度网盘或github上混淆攻击者视线、压缩改名成backup.zip放置在Web目录下守株待兔等待攻击者扫描器上钩……
+
+
+### HFish的蜜饵
+
+HFish的蜜饵模块由 **蜜饵定制** 、**分发接口** 和 **告警信息** 三部分组成，
+
+#### 蜜饵定制
+
+HFish提供完整的蜜饵定制，您可以通过在「失陷感知」-「失陷感知」中定制新增您自己的业务蜜饵。
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116212624793.png" alt="image-20211116212624793" height="400px" /></div>
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116212911284.png" alt="image-20211116212911284" height="400px" /></div>
+
+在蜜饵内容中，$username$、$password$和$honeypot$分别代表账号、密码和蜜罐变量，以上为必填变量，必须进行引用，才能让蜜饵功能生效。
+三个变量，按照文件想呈现给攻击者的效果进行引用。
+$username$变量如果未填写账号字典，则默认用root作为所有蜜饵的账号名。
+$password$变量按照选取的位数，自动生成蜜饵的密码。
+$honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端口。
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/2801635164451_.pic.jpg" alt="2801635164451_.pic" height="400px" /></div>
+
+点击预览，可以查看当前的蜜饵内容，在实际被下拉时的显示内容
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/2811635164463_.pic_hd.jpg" alt="2811635164463_.pic_hd" height="400px" /></div>
+
+点击确定，即可新增一条文件蜜饵。
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/2821635164487_.pic_hd.jpg" alt="2821635164487_.pic_hd" style="zoom:50%;" /></div>
+
+
+
+#### 分发接口
+
+其中 **分发接口** 实际位于节点端，启用或禁用开关位于管理端的节点管理页面任意一个节点的详情页面中，默认监听TCP/7878端口，
+
+任何一台节点都可以作为节点分发服务器使用，如下图：
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116213058329.png" alt="image-20211116213058329" height="400px" /></div>
+
+启用后，用户可以从需要部署蜜饵的主机上访问如下地址，得到一个唯一的蜜饵文件：
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211025205700560.png" alt="image-20211025205700560" height="400px" /></div>
+
+复制该下发指令后，前往需进行布防的业务机器，执行即可。
+
+用户可以在【失陷感知】-【告警信息】页面查看到已经生成的蜜饵。
+
+
+
+#### 告警信息
+
+蜜饵部署完成后，已部署蜜饵的所有机器，以及攻击者被蜜饵迷惑访问蜜罐的网络地址和时间都可在该页面查看。
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116213445009.png" alt="image-20211116213445009" height="400px" /></div>
+
+
+如果攻击者根据已部署的蜜饵文件中的虚假信息尝试登陆，HFish将会记录并告警，并展示已失陷节点主机和失陷流程。
+
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116213801346.png" alt="image-20211116213801346" height="400px"/></div>

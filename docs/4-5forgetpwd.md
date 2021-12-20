@@ -1,9 +1,0 @@
-> 当前，蜜罐包含五大类、共36种服务，所有服务的详细描述，都可以在「服务管理」中看到
-
-<img src="http://img.threatbook.cn/hfish/image-20210914161340527.png" alt="image-20210914161340527" style="zoom:50%;" />
-
-
-
-> 此外，所有的web类蜜罐，我们都提供了预览选项。可以更好的了解和搭配服务
-
-<img src="http://img.threatbook.cn/hfish/image-20210914161437108.png" alt="image-20210914161437108" style="zoom:50%;" />
