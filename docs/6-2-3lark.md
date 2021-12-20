@@ -3,7 +3,7 @@
 
 1、在飞书中，进入群，点击设置按钮，选择【群机器人】
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211220221635593.png" alt="image-20211220221635593" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20211220221635593.png" alt="image-20211220221635593" style="zoom:50%;" />
 
 `注意：当前截图版本为飞书5.0，不同版本界面有区别，但都在群设置内找到群机器人入口`
 
