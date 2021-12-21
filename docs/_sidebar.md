@@ -33,7 +33,7 @@
 - [详细功能说明](6-0-detail)
   - [首页](detail-dashboard)
   - [攻击列表](detail-attack)
-  - [扫描感知](4-2-scan)
+  - [扫描感知](detail-scan)
   - [攻击来源](detail-attack-source)
   - [账号资产](detail-damaged-account)
   - [失陷感知](detail-decoy)
