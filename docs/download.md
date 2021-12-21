@@ -1,8 +1,8 @@
 #### 当前最新版本 HFish v<% version %>
 
-[Linux x32 x64](https://hfish.io/#/2-2-linux)
-[Windows x32 x64](https://hfish.io/#/2-3-windows)
-[Docker](https://hfish.io/#/2-1-docker)
+[Linux x32 x64](https://hfish.io/#/2-2-linux)  
+[Windows x32 x64](https://hfish.io/#/2-3-windows)  
+[Docker](https://hfish.io/#/2-1-docker)  
 
 ```
 2021年11月16日发布
