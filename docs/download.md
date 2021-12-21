@@ -19,5 +19,5 @@
 
 #### 联系我们
 
-![HFish官方群的qr](http://img.threatbook.cn/hfish/20210728203437.png)
+<img src="http://img.threatbook.cn/hfish/image-20211221132836482.png" style="zoom: 33%;" />
 
