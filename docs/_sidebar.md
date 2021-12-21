@@ -44,10 +44,11 @@
   - [告警配置](detail-alarm)
       - [钉钉配置](6-2-1dingtalk)
       - [企业微信配置](6-2-2wechat)
+      - [飞书配置](6-2-3lark)
   - [API配置](detail-api)
   - [数据库配置](detail-database)
   - [登陆管理](detail-user)
   - [系统信息](detail-sysinfo)
-    
+  
 - [已知问题](known)
 - [致谢](thanksforall)
