@@ -27,9 +27,9 @@ HFish的蜜饵模块由 **蜜饵定制** 、**分发接口** 和 **告警信息*
 
 HFish提供完整的蜜饵定制，您可以通过在「失陷感知」-「失陷感知」中定制新增您自己的业务蜜饵。
 
-<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116212624793.png" alt="image-20211116212624793" height="400px" /></div>
+<img src="http://img.threatbook.cn/hfish/image-20211222095127831.png" alt="image-20211222095127831" style="zoom:50%;" />
 
-<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116212911284.png" alt="image-20211116212911284" height="400px" /></div>
+
 
 在蜜饵内容中，$username$、$password$和$honeypot$分别代表账号、密码和蜜罐变量，以上为必填变量，必须进行引用，才能让蜜饵功能生效。
 三个变量，按照文件想呈现给攻击者的效果进行引用。
@@ -71,9 +71,10 @@ $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端�
 
 蜜饵部署完成后，已部署蜜饵的所有机器，以及攻击者被蜜饵迷惑访问蜜罐的网络地址和时间都可在该页面查看。
 
-<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116213445009.png" alt="image-20211116213445009" height="400px" /></div>
+<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20211222095756489.png" alt="image-20211222095756489" style="zoom:50%;" />
 
 
 如果攻击者根据已部署的蜜饵文件中的虚假信息尝试登陆，HFish将会记录并告警，并展示已失陷节点主机和失陷流程。
 
-<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211116213801346.png" alt="image-20211116213801346" height="400px"/></div>
+<div align="center"><img src="http://img.threatbook.cn/hfish/image-20211222095822939.png" alt="image-20211222095822939" height="300px"/></div>
+
