@@ -37,23 +37,21 @@ echoContent() {
 }
 
 
-#首页菜单
+#start
 menu() {
     echoContent red " _   _   _____   _         _     " 
     echoContent red "| | | | |  ___| (_)  ___  | |__  "
     echoContent red "| |_| | | |_    | | / __| | '_ \ "
     echoContent red "|  _  | |  _|   | | \__ \ | | | |"
-    echoContent red "|_| |_| |_|     |_| |___/ |_| |_|"
-    echoContent green "v${version}"
-    echoContent green "https://hfish.io \n"
-    echoContent red "----------"
-    echoContent yellow "Press 1 : Install and run HFish"
+	echoContent red "|_| |_| |_|     |_| |___/ |_| |_|  v${version}"
+	echoContent green "https://hfish.io\n\n"
+	echoContent white "Press 1 : Install and run HFish"
 	# echoContent yellow "Press 2 : Add mgmt ports to the firewall（coming soon）"
 	# echoContent yellow "Press 3 : Install as service（coming soon）"
 	# echoContent yellow "Press 4 : Post error logfile to HFish team（coming soon）"
 	# echoContent yellow "Press 9 : Uninstall HFish（coming soon）"
-    echoContent yellow "Press 0 : Exit"
-	echoContent red "----------"
+    echoContent white "Press 0 : Exit"
+	echoContent white "----------"
 
 	while [ 1 ]; do
 		read -r -p "Input: " selectMenuType
@@ -62,7 +60,7 @@ menu() {
 		1):
 			serverInstall
 			;;
-		2)
+		0)
 			exitInstall
 			;;
 		*)
