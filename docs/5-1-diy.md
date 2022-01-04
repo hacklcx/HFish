@@ -5,7 +5,7 @@
 
 从以下地址下载HFish官方提供的自定义Web蜜罐模板
   
-/images/svc/service-demo.zip  
+https://hfish.io/service-demo.zip  
 
 解压后获得index.html和portrait.js两个文件。  
 
