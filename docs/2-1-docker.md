@@ -30,7 +30,7 @@ docker run -itd --name hfish \
 threatbook/hfish-server:latest
 ```
 
-<img src="http://img.threatbook.cn/hfish/4351638188574_.pic_hd.jpg" alt="4351638188574_.pic_hd" style="zoom:50%;" />
+<img src="/images/4351638188574_.pic_hd.jpg" alt="4351638188574_.pic_hd" style="zoom:50%;" />
 
 
 
@@ -49,7 +49,7 @@ docker run -d    \
   --interval 3600
 ```
 
-![4381638189986_.pic_hd](http://img.threatbook.cn/hfish/4381638189986_.pic_hd.jpg)
+![4381638189986_.pic_hd](/images/4381638189986_.pic_hd.jpg)
 
 
 
@@ -67,7 +67,7 @@ docker run -d    \
 
 > 先在管理端中正常添加节点：
 
-<img src="http://img.threatbook.cn/hfish/202111071541552.png" alt="image-20211107152418598" style="zoom:50%;" />
+<img src="/images/202111071541552.png" alt="image-20211107152418598" style="zoom:50%;" />
 
 
 
@@ -111,7 +111,7 @@ docker run -d --net=host --name hfish-client --restart=always threatbook/hfishno
 
 在宿主机/usr/share/hfish目录下会生成data目录，用于存放当前的所有攻击数据。还会生成logs目录用于存放当前运营日志。
 
-![image-20211012223326542](http://img.threatbook.cn/hfish/image-20211012223326542.png)
+![image-20211012223326542](/images/image-20211012223326542.png)
 
 
 

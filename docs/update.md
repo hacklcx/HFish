@@ -41,7 +41,7 @@ sudo ./install.sh
 
 执行./hfish-server --help会发现，当前版本提供了resetpwd和migrate两种模式，其中resetpwd模式用于管理员密码重置，migrate模式用于数据迁移，具体如下图：
 
-<img src="http://img.threatbook.cn/hfish/image-20211117105331269.png" alt="image-20211117105331269" style="zoom:50%;" />
+<img src="/images/image-20211117105331269.png" alt="image-20211117105331269" style="zoom:50%;" />
 
 ##### 当执行./server -mode migrate时，提供数据迁移功能，具体使用方法为：
 

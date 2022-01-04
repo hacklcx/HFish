@@ -22,7 +22,7 @@ firewall-cmd --reload
 bash <(curl -sS -L https://hfish.io/webinstall.sh)
 ```
 
-<img src="http://img.threatbook.cn/hfish/image-20210917162839603.png" alt="image-20210917162839603" style="zoom:50%;" />
+<img src="/images/image-20210917162839603.png" alt="image-20210917162839603" style="zoom:50%;" />
 
 > 完成安装
 
@@ -36,7 +36,7 @@ bash <(curl -sS -L https://hfish.io/webinstall.sh)
 
 在安装完成后，HFish会自动在管理端上创建一个节点。可进行登录后，在「节点管理」列表中进行查看。
 
-<img src="http://img.threatbook.cn/hfish/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
+<img src="/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
 
 
 
@@ -87,4 +87,4 @@ sudo ./install.sh
 
 在安装完成后，HFish会自动在管理端上创建一个节点。可在节点管理进行查看。
 
-<img src="http://img.threatbook.cn/hfish/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
+<img src="/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />

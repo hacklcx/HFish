@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-![logo](http://img.threatbook.cn/hfish/logo.png ":size=200x202")
+![logo](/images/logo.png ":size=200x202")
 
 # HFish <sup class="version">2.7.0</sup>
 
@@ -14,4 +14,4 @@
 
 
 <!-- 背景图片 -->
-![](http://img.threatbook.cn/hfish/background.jpg)
+![](/images/background.jpg)

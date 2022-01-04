@@ -20,5 +20,5 @@
 
 其他场景和进阶使用需求，可以加入官方微信群讨论：
 
-<img src="http://img.threatbook.cn/hfish/image-20211221132836482.png" style="zoom:33%;" />
+<img src="/images/image-20211221132836482.png" style="zoom:33%;" />
 
