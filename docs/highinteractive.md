@@ -8,11 +8,11 @@
 
 HFish高交互蜜罐部署在云服务器，由HFish团队做统一运维，在云上，我们部署了多台服务器，通过nginx负载均衡，处理本地到云端的攻击流量转发。
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220105214958606.png" alt="image-20220105214958606" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220105214958606.png" alt="image-20220105214958606" style="zoom:33%;" />
 
 在高交互蜜罐中，**攻击者与用户本地发生的流量交互都会被转发到云端蜜网，所有的威胁行为都在云端蜜网发生**。
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220105220938586.png" alt="image-20220105220938586" style="zoom:40%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220105220938586.png" alt="image-20220105220938586" style="zoom:40%;" />
 
 
 
