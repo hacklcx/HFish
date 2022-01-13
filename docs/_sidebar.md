@@ -6,6 +6,8 @@
   - [版本说明](download)
   - [老版本升级](update)
   - [Linux下载部署](2-2-linux)
+  - [Windows下载部署](2-3-windows)
+  - [Docker下载部署](2-1-docker)
   - [提高数据库性能](2-4-mariadb)
   - [联网和安全说明](2-5-env)
   - [Nginx反向代理](2-6-nginx)
