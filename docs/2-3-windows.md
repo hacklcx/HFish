@@ -1,5 +1,9 @@
 ### Windows环境安装流程
 
+> **<u>特别注意：我们支持Windows环境安装，但鉴于权限和其他相关问题，我们高度推荐所有企业用户使用Linux，尤其是Centos进行安装，可以得到更好的稳定体验！</u>**
+
+
+
 > 第一步：下载安装包[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-windows-amd64.tgz) （Windows x86 架构 64 位系统），解压缩
 
 > 第二步：防火墙上进出站双向打开TCP/4433、4434端口放行（如需使用其他服务，也需要打开端口）
