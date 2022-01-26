@@ -17,7 +17,7 @@
 <span>|</span>
 <a href="https://gitee.com/lauix/HFish" target="_bank">Gitee</a>
 <span>|</span>
-<a href="https://hfish.io/docs/#/download" target="_bank">下载部署</a>
+<a href="https://hfish.io/#/download" target="_bank">下载部署</a>
 </p>
 
 ## 二维码
