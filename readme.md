@@ -24,9 +24,9 @@
 
 ## 特点
 
-+ 安全可靠：主打低中交互蜜罐，简单有效；
++ 安全可靠：主打低中交互蜜罐，简单有效；云端高交互蜜罐，方便安全。
 
-+ 功能丰富：支持基本网络 服务、OA系统、CRM系统、NAS存储系统、Web服务器、运维平台、无线AP、交换机/路由器、邮件系统、IoT设备等40多种蜜罐服务，支持用户制作自定义Web蜜罐，支持用户进行流量牵引到云蜜网、可开关的扫描感知能力、支持可自定义的蜜饵配置；
++ 功能丰富：含有43高低交互蜜罐，支持基本网络服务、OA系统、CRM系统、NAS存储系统、Web服务器、运维平台、无线AP、交换机/路由器、邮件系统、IoT设备等40多种蜜罐服务，支持用户制作自定义Web蜜罐，支持用户进行流量牵引到云蜜网、可开关的扫描感知能力、支持可自定义的蜜饵配置；
 
 + 开放透明：支持对接微步在线X社区API、五路syslog输出、支持邮件、钉钉、企业威胁、飞书、自定义WebHook告警输出；
 + 快捷管理：支持单个安装包批量部署，支持批量修改端口和服务；
@@ -80,40 +80,40 @@ HFish由管理端和节点端组成，管理端用来生成和管理节点端，
 可联网环境：如果用户的环境允许联网，建议使用以下快速部署步骤：
 
 + Linux 环境：
-  + 在shell中运行命令：**`sh | curl https://hfish.io/install.sh`**
-
+  + 在线安装：在shell中运行命令：**`sh | curl https://hfish.io/install.sh`**
+  + 离线安装：请访问页面 https://hfish.io/#/2-2-linux?id=%e6%97%a0%e6%b3%95%e8%81%94%e7%bd%91%ef%bc%8c%e6%89%8b%e5%8a%a8%e5%ae%89%e8%a3%85
 + Windows x64 环境：
-  + 下载管理端安装包：请访问下载页面下载相应版本 https://hfish.io/#/download
-  + 解压缩后双击 **`server.exe`**
+  + 安装：请访问下载页面 https://hfish.io/#/2-3-windows
 
 离线部署：如果用户为隔离网络环境，请使用以下部署方式
-
-+ Linux x64 环境：
-  + 下载管理端安装包：请访问下载页面下载相应版本 https://hfish.io/#/download
-  + 解压缩安装包：**`tar zxvf ./hfish-*-linux-*.tar.gz`**
-  + 进入安装目录：**`cd hfish`**
-  + 启动管理端：**`nohup ./server &`**
 
 
 
 ## 配置管理端
 
-新部署的管理端，没有自带任何蜜罐服务，必须新增服务和节点端。管理端和节点端可以部署在同一台机器上。
++ 浏览器中输入 **`https://server_ip:4433/web/`**，登录管理端
 
+  安装HFish管理端后，默认在管理端所在机器上建立节点感知攻击，该节点被命名为「内置节点」。
 
+  该节点将默认开启部分服务，包括FTP、SSH、Telnet、Zabbix监控系统、Nginx蜜罐、MySQL蜜罐、Redis蜜罐、HTTP代理蜜罐、ElasticSearch蜜罐和通用TCP端口监听。
 
-+ 新增服务
-  + 浏览器中输入 **`https://server_ip:4433/web/`**，登录管理端
-  + 进入 **`服务管理`** 页面
-  + 如果当前管理端可联网，点击服务表格右侧的下载按钮，并等待服务下载完成
-  + 如果当前管理端不可联网，点击右上角 **`新增服务`** 按钮，上传服务包，服务包下载地址： **`/images/services/services-2.4.0.tar.gz`**
+  ![image-20220127160600755](http://img.threatbook.cn/hfish/image-20220127160600755.png)
 
+  `注意：该节点不能被删除，但可以暂停。`
 
++ 新增节点：
 
-+ 新增节点
-  + 浏览器中输入 **`https://server_ip:4433/web/`**，登录管理端
-  + 进入 **`节点管理`** 页面，点击右上角新增节点按钮，根据节点操作系统和CPU架构动态创建安装包
-  + Linux可以选择命令安装或下载节点程序运行，Windows只能选择下载节点程序运行
+  - 进入【节点管理】页面，点击【增加节点】
+
+  ![image-20220127160623423](http://img.threatbook.cn/hfish/image-20220127160623423.png)
+
+  - 根据节点设备类型选择对应的安装包和回连地址
+
+    <img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220127160717724.png" alt="image-20220127160717724" style="zoom:50%;" />
+
+  <img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220127160641955.png" alt="image-20220127160641955" style="zoom:50%;" />
+
+  - 在节点机器执行命令语句或安装包，即可成功部署节点。
 
 
 
@@ -135,11 +135,11 @@ HFish由管理端和节点端组成，管理端用来生成和管理节点端，
 
 + 节点信息
 
-![image2021-6-7_18-0-36](images/20210611115118.png)
+![image-20220127160421053](http://img.threatbook.cn/hfish/image-20220127160421053.png)
 
 + 模板管理
 
-![image2021-6-7_18-56-55](images/20210611115140.png)
+<img src="http://img.threatbook.cn/hfish/image-20220127155314024.png" alt="image-20220127155314024" style="zoom:67%;" />
 
 
 
