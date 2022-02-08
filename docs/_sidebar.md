@@ -24,6 +24,7 @@
   - [蜜饵配置](4-4-internetdecoy)
   - [接入外部数据](5-4-custom)
   - [测试样例](5-5-test)
+  - [syslog告警字段说明](Syslog)
   - [忘记密码](5-6-passwd)
   - [卸载HFish](5-7-uninstall)
 - [详细功能说明](6-0-detail)
