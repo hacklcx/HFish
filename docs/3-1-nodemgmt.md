@@ -4,7 +4,7 @@
 
 该节点将默认开启部分服务，包括FTP、SSH、Telnet、Zabbix监控系统、Nginx蜜罐、MySQL蜜罐、Redis蜜罐、HTTP代理蜜罐、ElasticSearch蜜罐和通用TCP端口监听。
 
-<img src="/images/image-20210902210912371.png" alt="image-20210902210912371" style="zoom:50%;" />
+<img src="https://hfish.io/images/image-20210902210912371.png" alt="image-20210902210912371" style="zoom:50%;" />
 
 `注意：该节点不能被删除，但可以暂停。`
 
@@ -13,13 +13,13 @@
 
 > 进入【节点管理】页面，点击【增加节点】
 
-<img src="/images/image-20210902172749029.png" alt="image-20210902172749029" style="zoom:33%;" />
+<img src="https://hfish.io/images/image-20210902172749029.png" alt="image-20210902172749029" style="zoom:33%;" />
 
 > 根据节点设备类型选择对应的安装包和回连地址
 
-<img src="/images/image-20210902172832815.png" alt="image-20210902172832815" style="zoom:33%;" />
+<img src="https://hfish.io/images/image-20210902172832815.png" alt="image-20210902172832815" style="zoom:33%;" />
 
-<img src="/images/image-20210902172916191.png" alt="image-20210902172916191" style="zoom:33%;" />
+<img src="https://hfish.io/images/image-20210902172916191.png" alt="image-20210902172916191" style="zoom:33%;" />
 
 > 在节点机器执行命令语句或安装包，即可成功部署节点。
 

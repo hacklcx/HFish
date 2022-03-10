@@ -35,7 +35,7 @@ bash <(curl -sS -L https://hfish.io/webinstall.sh)
 
 在安装完成后，HFish会自动在管理端上创建一个节点。可进行登录后，在「节点管理」列表中进行查看。
 
-<img src="/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
+<img src="https://hfish.io/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
 
 
 
@@ -60,7 +60,7 @@ mkdir hfish
 > ##### 第三步：将安装文件包解压到hfish目录下
 
 ```
-tar zxvf hfish-2.7.0-linux-amd64.tgz -C hfish
+tar zxvf hfish-2.9.0-linux-amd64.tgz -C hfish
 ```
 
 > ##### 第四步：请防火墙开启4433、4434和7879，确认返回success（如果有其他服务需要打开端口，使用相同命令打开。
@@ -90,7 +90,7 @@ sudo ./install.sh
 
 在安装完成后，HFish会自动在管理端上创建一个节点。可在节点管理进行查看。
 
-<img src="/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
+<img src="https://hfish.io/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
 
 
 

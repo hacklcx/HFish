@@ -6,12 +6,12 @@ HFish由管理端（server）和节点端（client）组成，管理端用来生
 
 > HFish各模块关系图
 
-![image-20210611130621311](/images/20210616174908.png)
+![image-20210611130621311](https://hfish.io/images/20210616174908.png)
 
 
 > 融合在企业网络中
 
-![image-20210611130733084](/images/20210616174930.png)
+![image-20210611130733084](https://hfish.io/images/20210616174930.png)
 
 
 

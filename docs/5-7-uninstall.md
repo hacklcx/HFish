@@ -69,9 +69,9 @@ root@HFish~# systemctl restart firewalld
 
 1、删除计划任务进程HFish管理端
 
-<img src="/images/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
+<img src="https://hfish.io/images/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
 
-<img src="/images/image-20211206115035865.png" alt="image-20211206115035865" style="zoom:33%;" />
+<img src="https://hfish.io/images/image-20211206115035865.png" alt="image-20211206115035865" style="zoom:33%;" />
 
 2、结束hfish进程
 
@@ -116,7 +116,7 @@ root@HFish:~# kill -9 8436
 
 1、关闭计划任务 HFishClient
 
-<img src="/images/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
+<img src="https://hfish.io/images/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
 
 2、结束client进程
 

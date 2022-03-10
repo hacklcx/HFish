@@ -6,7 +6,7 @@ initVar() {
 	removeType='yum -y remove'
 	upgrade="yum -y update"
 	echoType='echo -e'
-	version='2.8.1'
+	version='2.9.0'
 }
 initVar
 export LANG=en_US.UTF-8
@@ -75,8 +75,6 @@ serverInstall() {
 	cd /opt
 	if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
 		curl -k http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-amd64.tgz -o hfish-${version}-linux-amd64.tgz
-	elif [ $(uname -m) = 'aarch64' ] && [ $(getconf LONG_BIT) = '64' ]; then
-		curl -k http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-arm64.tgz hfish-${version}-linux-arm64.tgz
 	else
 		echoContent red "No OS version is detected. Please refer to https://hfish.io for manual installation\n" && exit 1
 	fi
