@@ -6,10 +6,11 @@
   - [版本说明](download.md)
   - [Linux下载部署](2-2-linux.md)
   - [Windows下载部署](2-3-windows.md)
+  - [Docker下载部署](2-1-docker.md)
   - [老版本升级](update.md)
   - [提高数据库性能](2-4-mariadb.md)
   - [联网和安全说明](2-5-env.md)
-
+  
 - [快速上手](3-0-quickstart.md)
   - [添加/删除节点](3-1-nodemgmt.md)
   - [添加/删除蜜罐](3-2-potmgmt.md)

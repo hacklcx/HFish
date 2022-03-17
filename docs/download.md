@@ -5,7 +5,7 @@
 [Docker（Linux x86）](https://hfish.io/#/2-1-docker)  
 
 ```
-2022年1月5日发布
+2022年3月17日发布
 
 「HFish v2.9.1」支持2.7.0版本顺滑升级。提供脚本可以帮助v2.5.x和v2.6.x进行升级，升级中不会丢失任何数据，具体使用方法可参考：https://hfish.io#/update。
 
