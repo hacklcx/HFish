@@ -37,7 +37,7 @@
   - [攻击来源](detail-attack-source.md)
   - [账号资产](detail-damaged-account.md)
   - [失陷感知](detail-decoy.md)
-  - [样本检测](detail-sandbox.md)
+  - [样本检测](sandbox.md)
   - [节点管理](detail-node-mgmt.md)
   - [模版管理](detail-template-mgmt.md)
   - [服务管理](detail-service-mgmt.md)
