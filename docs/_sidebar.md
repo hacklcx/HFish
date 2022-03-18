@@ -10,14 +10,13 @@
   - [老版本升级](update.md)
   - [提高数据库性能](2-4-mariadb.md)
   - [联网和安全说明](2-5-env.md)
-  
 - [快速上手](3-0-quickstart.md)
   - [添加/删除节点](3-1-nodemgmt.md)
   - [添加/删除蜜罐](3-2-potmgmt.md)
   - [查看攻击](3-3-checkattack.md)
   - [错误排查](3-4-debug.md)
 - [场景建议](4-0-scene.md)
-
+- [内网应用建议](4-1-Intranet)
 - [进阶应用](5-0-apply.md)
   - [云端高交互蜜罐](highinteractive.md)
   - [自定义Web蜜罐](5-1-diy.md)
@@ -29,7 +28,6 @@
   - [忘记密码](5-6-passwd.md)
   - [Nginx反向代理](2-6-nginx.md)
   - [卸载HFish](5-7-uninstall.md)
-
 - [详细功能说明](6-0-detail.md)
 
   - [首页](detail-dashboard.md)
@@ -61,5 +59,4 @@
   - [登陆管理](detail-user.md)
 
   - [系统信息](detail-sysinfo.md)
-
 - [已知问题](known.md)
