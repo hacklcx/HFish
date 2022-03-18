@@ -97,13 +97,11 @@ root@HFish~# crontab -e
 
 ```
 # 结束hfish和hfish-server的进程
-root@HFish~# ps ax | grep ./hfish | grep -v grep
-8435 ?        Sl    97:59 ./hfish
-8436 ?        Sl    97:59 ./hfish-server
+root@HFish~# ps ax | grep ./client | grep -v grep
+8435 ?        Sl    97:59 ./client
 
 
 root@HFish:~# kill -9 8435
-root@HFish:~# kill -9 8436
 ```
 
 3、删除client文件夹
@@ -120,7 +118,7 @@ root@HFish:~# kill -9 8436
 
 2、结束client进程
 
-在任务管理器，结束hfish和hfish-client的进程
+在任务管理器，结束hfish和client的进程
 
 
 3、删除client文件夹
