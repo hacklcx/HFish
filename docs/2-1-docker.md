@@ -10,7 +10,7 @@ Docker是我们推荐的部署方式之一，在当前在版本种，我们增�
 
 
 
-### Docker安装说明
+### Docker默认安装说明
 
 #### 在Docker中安装管理端：
 
@@ -60,3 +60,37 @@ docker run -d    \
 初始用户名：admin
 
 初始密码：HFish2021
+
+
+
+
+
+### 未配置自动升级情况下，Docker单次手动升级说明
+
+> 步骤1：配置watchover（框内全部复制，粘贴，执行即可）
+
+```
+docker run -d    \
+ --name watchtower \
+ --restart unless-stopped \
+  -v /var/run/docker.sock:/var/run/docker.sock  \
+  --label=com.centurylinklabs.watchtower.enable=false \
+--privileged=true \
+  containrrr/watchtower  \
+  --cleanup  \
+  hfish \
+  --interval 10
+```
+
+> 步骤2: 取消watchover自动升级
+
+```
+docker stop watchtower
+```
+
+
+
+配置后，如果之后定期升级，就可以不断的通过 docker start watchtower 和 docker stop watchtower来完成对hfish镜像的手动升级
+
+
+
