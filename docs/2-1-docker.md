@@ -82,7 +82,9 @@ docker run -d    \
   --interval 10
 ```
 
-> 步骤2: 取消watchover自动升级
+> 步骤2: 等待升级成功后，登录页面，确认升级完成
+
+> 步骤3: 取消watchover自动升级
 
 ```
 docker stop watchtower
@@ -91,6 +93,20 @@ docker stop watchtower
 
 
 配置后，如果之后定期升级，就可以不断的通过 docker start watchtower 和 docker stop watchtower来完成对hfish镜像的手动升级
+
+
+
+### Docker修改持久化配置后重启说明
+
+> 步骤1：在usr/share/hfish/config.toml下面修改配置
+
+> 步骤2: 重启docker容器
+
+```
+docker restart hfish
+```
+
+
 
 
 
