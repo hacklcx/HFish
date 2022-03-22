@@ -93,10 +93,10 @@ root@HFish~# systemctl restart firewalld
 root@HFish~# crontab -e
 ```
 
-2、结束hfish进程
+2、结束client进程
 
 ```
-# 结束hfish和hfish-server的进程
+# 结束client的进程
 root@HFish~# ps ax | grep ./client | grep -v grep
 8435 ?        Sl    97:59 ./client
 
