@@ -6,7 +6,7 @@
 
 > 1、调用apikey：进入该蜜罐的后台，可以看到蜜罐的config文件，文件内有一个apikey。
 
-<div align="center"><img src="https://hfish.io/images/image-20211027204924883.png" alt="" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/image-20211027204924883.png" alt="" height="400px" /></div>
 
 <div align="center"><img src="/images/image-20211027205006150.png" alt="" height="400px" /></div>
 
@@ -23,4 +23,4 @@ body内使用form格式填写apikey和info，info为您希望打入hfish的其�
 
 <div align="center"><img src="/images/image-20211027205827645.png" alt="" height="400px" /></div>
 
-<div align="center"><img src="https://hfish.io/images/image-20211027205939646.png" alt="" style="zoom:50%;" /></div>
+<div align="center"><img src="https://hfish.net/images/image-20211027205939646.png" alt="" style="zoom:50%;" /></div>

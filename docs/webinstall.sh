@@ -44,7 +44,7 @@ menu() {
 	echoContent red "| |_| | | |_    | | / __| | '_ \ "
 	echoContent red "|  _  | |  _|   | | \__ \ | | | |"
 	echoContent red "|_| |_| |_|     |_| |___/ |_| |_|  v${version}"
-	echoContent green "https://hfish.io\n\n"
+	echoContent green "https://hfish.net\n\n"
 	echoContent white "Press 1 : Install and run HFish"
 	# echoContent yellow "Press 2 : Add mgmt ports to the firewall（coming soon）"
 	# echoContent yellow "Press 3 : Install as service（coming soon）"
@@ -76,7 +76,7 @@ serverInstall() {
 	if [ $(uname -s) = 'Linux' ] && [ $(uname -m) = 'x86_64' ] && [ $(getconf LONG_BIT) = '64' ]; then
 		curl -k http://hfish.cn-bj.ufileos.com/hfish-${version}-linux-amd64.tgz -o hfish-${version}-linux-amd64.tgz
 	else
-		echoContent red "No OS version is detected. Please refer to https://hfish.io for manual installation\n" && exit 1
+		echoContent red "No OS version is detected. Please refer to https://hfish.net for manual installation\n" && exit 1
 	fi
 
 	mkdir -p hfish

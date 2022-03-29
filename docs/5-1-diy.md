@@ -5,7 +5,7 @@
 
 从以下地址下载HFish官方提供的自定义Web蜜罐模板
 
-https://hfish.io/service-demo.zip  
+https://hfish.net/service-demo.zip  
 
 解压后获得index.html和portrait.js两个文件。  
 
@@ -35,7 +35,7 @@ HFish社区非常期待用户贡献漏洞利用代码。
 使用编辑器打开主页文件index.html，按照下面图片的提示修改表单元素。
 
 
-![蜜罐web页面表格元素](https://hfish.io/images/20210728213641.png)
+![蜜罐web页面表格元素](https://hfish.net/images/20210728213641.png)
 
 
 
@@ -47,19 +47,19 @@ HFish社区非常期待用户贡献漏洞利用代码。
 
 `注意：文件命名为规范格式前缀 **必须** 为“service-”虽然用户可以修改“xxx”为适当的名字，但不能使用“web”和“root”字样，且压缩包 **必须** 为.zip格式。`
 
-![image-20210508222121613](https://hfish.io/images/20210728213740.png)
+![image-20210508222121613](https://hfish.net/images/20210728213740.png)
 
 
 
 > 上传自定义蜜罐压缩包
 
-![image-20210508213915879](https://hfish.io/images/20210728213815.png)
+![image-20210508213915879](https://hfish.net/images/20210728213815.png)
 
 
 
 > 配置新增服务页面
 
-![image-20210508221316072](https://hfish.io/images/20210728213852.png)
+![image-20210508221316072](https://hfish.net/images/20210728213852.png)
 
 
 如果一切正常，用户已经可以在【节点管理】和【模板管理】页面中使用该自定义蜜罐了。
