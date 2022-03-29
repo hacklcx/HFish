@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-![logo](/images/logo.png ":size=200x202")
+![logo](https://hfish.net/images/logo.png ":size=200x202")
 
 # HFish <sup class="version">2.9.1</sup>
 
@@ -12,4 +12,4 @@
 [使用手册](https://hfish.net/#/README)
 
 <!-- 背景图片 -->
-![](/images/background.jpg)
+![background](https://hfish.net/images/background.jpg)

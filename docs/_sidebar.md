@@ -24,7 +24,7 @@
   - [失陷感知-蜜饵配置](4-4-internetdecoy.md)
   - [custom蜜罐-接入外部数据](5-4-custom.md)
   - [测试样例](5-5-test.md)
-  - [syslog告警字段说明](Syslog.md)
+  - [syslog告警字段说明](syslog.md)
   - [忘记密码](5-6-passwd.md)
   - [Nginx反向代理](2-6-nginx.md)
   - [卸载HFish](5-7-uninstall.md)

@@ -57,4 +57,4 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 最后，欢迎加入HFish社区。
 
-<img src="https://hfish.net/images/image-20211221132836482-20211221133339014.png" style="zoom:33%;" />
+<img src="https://hfish.net/images/image-20211221132836482.png" alt="image-20211221132836482" style="zoom:33%;" />

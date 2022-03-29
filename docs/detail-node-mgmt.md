@@ -16,29 +16,6 @@
 <img src="https://hfish.net/images/20210616172029.png" alt="image-20210616172027825" style="zoom:50%;" />
 
 
-
-### 节点开机自启动配置
-
-#### Linux：
-
-进入client的安装目录，执行：
-
-```
-sh <(curl -sSL https://hfish.net/autorun.sh)
-```
-
-
-
-#### Windows：
-
-- 下载压缩包https://hfish.net/autorun.zip 
-- 把autorun.bat和cron.xml解压，复制到client文件目录中
-- client-xxxx.exe 重新命名为 client.exe
-- 执行autorun.bat
-- 执行client.exe
-
-
-
 ### 为节点选择服务模板
 
 > 展开蜜罐节点，选择上面创建的蜜罐模板

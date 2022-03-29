@@ -35,4 +35,4 @@ HFish通过节点端构造“蜜罐服务”，因此，**部署节点的机器�
 
 如果您的扫描感知出现了其他问题，欢迎加入官方交流微信群反馈。
 
-<img src="https://hfish.net/images/20210728203437-20210824100822201.png" alt="20210728203437" style="zoom:50%;" />
+<img src="https://hfish.net/images/20210728203437.png" alt="20210728203437" style="zoom:50%;" />
