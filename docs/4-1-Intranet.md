@@ -11,7 +11,7 @@
 
 ### 推荐部署位置
 
-![image-20220318111430232](http://img.threatbook.cn/hfish/image-20220318111430232.png)
+![image-20220318111430232](https://hfish.net/images/image-20220318111430232.png)
 
 HFish的节点端和管理端只需要单向联通，节点端可以访问管理端的4434端口即可
 

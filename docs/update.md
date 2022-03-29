@@ -6,7 +6,7 @@ V2.7.0及其以上用户全部支持顺滑升级。
 
 非联网情况下，「点击右上角火箭」--->「上传安装包」--->「确认升级」。即可完成升级。
 
-<img src="http://img.threatbook.cn/hfish/image-20220118114818278.png" alt="image-20220118114818278" style="zoom:50%;" />
+<img src="https://hfish.net/images/image-20220118114818278.png" alt="image-20220118114818278" style="zoom:50%;" />
 
 ### V2.5和V2.6版本升级
 
