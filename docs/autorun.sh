@@ -8,7 +8,7 @@ if [ -n $(find /bin /usr/bin -name "systemctl") ]; then
     DESC=HFish-client
     RUN="./client"
     else
-    echo "Error! No Exist Program，请在HFish的程序目录下运行，或参阅 https://hfish.io 官网文档手动配置！\n" && exit 1
+    echo "Error! No Exist Program，请在HFish的程序目录下运行，或参阅 https://hfish.net 官网文档手动配置！\n" && exit 1
 	fi
 
     if [ $(ps -ef | grep ${RUN} | grep -v grep | wc -l) -gt 0 ]; then
@@ -36,5 +36,5 @@ if [ -n $(find /bin /usr/bin -name "systemctl") ]; then
     systemctl enable ${DESC}
 
 else
-echo "未发现systemctl程序，服务脚本无法工作，请参阅 https://hfish.io 官网文档手动配置！\n" && exit 1
+echo "未发现systemctl程序，服务脚本无法工作，请参阅 https://hfish.net 官网文档手动配置！\n" && exit 1
 fi

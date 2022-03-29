@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://hfish.io/" target="_blank">
+  <a href="https://hfish.net/" target="_blank">
     <img width="200" src="images/logo.png">
   </a>
 </p>
@@ -9,15 +9,15 @@
 <p align="center">HFish是一款安全、简单可信赖的跨平台蜜罐软件，允许商业和个人用户免费使用。</p>
 
 <p  align="center">
-<a href="https://hfish.io/" target="_bank">官网</a>
+<a href="https://hfish.net/" target="_bank">官网</a>
 <span>|</span>
-<a href="https://hfish.io/#/?id=hfish%e8%ae%be%e8%ae%a1%e7%90%86%e5%bf%b5" target="_bank">使用手册</a>
+<a href="https://hfish.net/#/?id=hfish%e8%ae%be%e8%ae%a1%e7%90%86%e5%bf%b5" target="_bank">使用手册</a>
 <span>|</span>
 <a href="https://github.com/hacklcx/HFish" target="_bank">Github</a>
 <span>|</span>
 <a href="https://gitee.com/lauix/HFish" target="_bank">Gitee</a>
 <span>|</span>
-<a href="https://hfish.io/#/download" target="_bank">下载部署</a>
+<a href="https://hfish.net/#/download" target="_bank">下载部署</a>
 </p>
 
 ## 二维码
@@ -37,9 +37,9 @@
 
 ## 快速开始
 
-[官方网站](https://hfish.io/)：更多使用蜜罐、使用场景和玩法详见官网
+[官方网站](https://hfish.net/)：更多使用蜜罐、使用场景和玩法详见官网
 
-[详细文档](https://hfish.io/docs/#/)：更详细的功能说明、故障排错指南
+[详细文档](https://hfish.net/docs/#/)：更详细的功能说明、故障排错指南
 
 
 
@@ -80,10 +80,10 @@ HFish由管理端和节点端组成，管理端用来生成和管理节点端，
 可联网环境：如果用户的环境允许联网，建议使用以下快速部署步骤：
 
 + Linux 环境：
-  + 在线安装：在shell中运行命令：**`sh | curl https://hfish.io/install.sh`**
-  + 离线安装：请访问页面 https://hfish.io/#/2-2-linux?id=%e6%97%a0%e6%b3%95%e8%81%94%e7%bd%91%ef%bc%8c%e6%89%8b%e5%8a%a8%e5%ae%89%e8%a3%85
+  + 在线安装：在shell中运行命令：**`sh | curl https://hfish.net/install.sh`**
+  + 离线安装：请访问页面 https://hfish.net/#/2-2-linux?id=%e6%97%a0%e6%b3%95%e8%81%94%e7%bd%91%ef%bc%8c%e6%89%8b%e5%8a%a8%e5%ae%89%e8%a3%85
 + Windows x64 环境：
-  + 安装：请访问下载页面 https://hfish.io/#/2-3-windows
+  + 安装：请访问下载页面 https://hfish.net/#/2-3-windows
 
 离线部署：如果用户为隔离网络环境，请使用以下部署方式
 

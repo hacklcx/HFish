@@ -31,9 +31,9 @@ HFish的蜜饵模块由 **蜜饵定制** 、**分发接口** 和 **告警信息*
 
 HFish提供完整的蜜饵定制，您可以通过在「失陷感知」-「失陷感知」中定制新增您自己的业务蜜饵。
 
-<div align="center"><img src="https://hfish.io/images/image-20211116212624793.png" alt="image-20211116212624793" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/image-20211116212624793.png" alt="image-20211116212624793" height="400px" /></div>
 
-<div align="center"><img src="https://hfish.io/images/image-20211116212911284.png" alt="image-20211116212911284" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/image-20211116212911284.png" alt="image-20211116212911284" height="400px" /></div>
 
 在蜜饵内容中，$username$、$password$和$honeypot$分别代表账号、密码和蜜罐变量，以上为必填变量，必须进行引用，才能让蜜饵功能生效。
 三个变量，按照文件想呈现给攻击者的效果进行引用。
@@ -41,15 +41,15 @@ $username$变量如果未填写账号字典，则默认用root作为所有蜜饵
 $password$变量按照选取的位数，自动生成蜜饵的密码。
 $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端口。
 
-<div align="center"><img src="https://hfish.io/images/2801635164451_.pic.jpg" alt="2801635164451_.pic" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/2801635164451_.pic.jpg" alt="2801635164451_.pic" height="400px" /></div>
 
 点击预览，可以查看当前的蜜饵内容，在实际被下拉时的显示内容
 
-<div align="center"><img src="https://hfish.io/images/2811635164463_.pic_hd.jpg" alt="2811635164463_.pic_hd" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/2811635164463_.pic_hd.jpg" alt="2811635164463_.pic_hd" height="400px" /></div>
 
 点击确定，即可新增一条文件蜜饵。
 
-<div align="center"><img src="https://hfish.io/images/2821635164487_.pic_hd.jpg" alt="2821635164487_.pic_hd" style="zoom:50%;" /></div>
+<div align="center"><img src="https://hfish.net/images/2821635164487_.pic_hd.jpg" alt="2821635164487_.pic_hd" style="zoom:50%;" /></div>
 
 
 
@@ -59,11 +59,11 @@ $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端�
 
 任何一台节点都可以作为节点分发服务器使用，如下图：
 
-<div align="center"><img src="https://hfish.io/images/image-20211116213058329.png" alt="image-20211116213058329" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/image-20211116213058329.png" alt="image-20211116213058329" height="400px" /></div>
 
 启用后，用户可以从需要部署蜜饵的主机上访问如下地址，得到一个唯一的蜜饵文件：
 
-<div align="center"><img src="https://hfish.io/images/image-20211025205700560.png" alt="image-20211025205700560" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/image-20211025205700560.png" alt="image-20211025205700560" height="400px" /></div>
 
 复制该下发指令后，前往需进行布防的业务机器，执行即可。
 
@@ -75,7 +75,7 @@ $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端�
 
 蜜饵部署完成后，已部署蜜饵的所有机器，以及攻击者被蜜饵迷惑访问蜜罐的网络地址和时间都可在该页面查看。
 
-<div align="center"><img src="https://hfish.io/images/image-20211116213445009.png" alt="image-20211116213445009" height="400px" /></div>
+<div align="center"><img src="https://hfish.net/images/image-20211116213445009.png" alt="image-20211116213445009" height="400px" /></div>
 
 
 如果攻击者根据已部署的蜜饵文件中的虚假信息尝试登陆，HFish将会记录并告警，并展示已失陷节点主机和失陷流程。
