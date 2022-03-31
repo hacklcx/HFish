@@ -80,4 +80,4 @@ $honeypot$变量按照蜜饵下拉节点的部署服务，自动生成IP和端�
 
 如果攻击者根据已部署的蜜饵文件中的虚假信息尝试登陆，HFish将会记录并告警，并展示已失陷节点主机和失陷流程。
 
-<div align="center"><img src="/images/image-20211116213801346.png" alt="image-20211116213801346" height="400px"/></div>
+<div align="center"><img src="https://hfish.net/images/image-20211116213801346.png" alt="image-20211116213801346" height="400px"/></div>
