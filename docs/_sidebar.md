@@ -42,22 +42,16 @@
   - [模版管理](detail-template-mgmt.md)
   - [服务管理](detail-service-mgmt.md)
   - [情报对接](detail-intel.md)
-
   - [告警策略](detail-alarm.md)
-
   - [QQ信箱配置](detail-qqmail.md)
-
   - [钉钉配置](6-2-1dingtalk.md)
-
   - [企业微信配置](6-2-2wechat.md)
-
   - [飞书配置](6-2-3lark.md)
-
   - [API配置](detail-api.md)
-
   - [数据库配置](detail-database.md)
-
   - [登陆管理](detail-user.md)
-
   - [系统信息](detail-sysinfo.md)
+
+- [致谢](thanksforall.md)
+
 - [已知问题](known.md)
