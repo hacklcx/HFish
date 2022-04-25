@@ -28,4 +28,15 @@ HFish具有超过40种蜜罐环境、提供免费的云蜜网、可高度自定�
 
 #### 联系我们
 
-<img src="https://hfish.io/images/image-20211221132836482.png" alt="image-20211221132836482" style="zoom: 33%;" />
+<img src="https://hfish.io/images/image-20211221132836482.png" alt="image-20211221132836482" style="zoom: 25%;" />
+
+
+$$
+HFish是北京微步在线科技有限公司旗下产品
+$$
+
+```
+联系地址：北京市海淀区苏州街49号盈智大厦3层
+联系电话：400-030-1051
+```
+
