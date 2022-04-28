@@ -5,7 +5,7 @@
 #### 高交互蜜罐测试登录账号
 
 ```
-root/password123
+root/123456
 ```
 
 `这里是其中一个可登录账号，用作自测。其他可用于登录的账号密码HFish当前不公开，并在云服务后台定期更新。`
@@ -14,11 +14,11 @@ root/password123
 
 HFish高交互蜜罐部署在云服务器，由HFish团队做统一运维，在云上，我们部署了多台服务器，通过nginx负载均衡，处理本地到云端的攻击流量转发。
 
-<img src="http://img.threatbook.cn/hfish/image-20220105214958606.png" alt="image-20220105214958606" style="zoom:33%;" />
+<img src="https://hfish.net/images/image-20220105214958606.png" alt="image-20220105214958606" style="zoom:33%;" />
 
 在高交互蜜罐中，**攻击者与用户本地发生的流量交互都会被转发到云端蜜网，所有的威胁行为都在云端蜜网发生**。
 
-<img src="http://img.threatbook.cn/hfish/image-20220105220938586.png" alt="image-20220105220938586" style="zoom:40%;" />
+<img src="https://hfish.net/images/image-20220105220938586.png" alt="image-20220105220938586" style="zoom:40%;" />
 
 
 
@@ -32,9 +32,9 @@ HFish高交互蜜罐部署在云服务器，由HFish团队做统一运维，在�
 
 确认网络联通后，直接在节点中添加高交互蜜罐服务即可。
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220105221149928.png" alt="image-20220105221149928" style="zoom:42%;" />
+<img src="https://hfish.net/images/image-20220105221149928.png" alt="image-20220105221149928" style="zoom:42%;" />
 
-<img src="http://img.threatbook.cn/hfish/image-20220105221346398.png" alt="image-20220105221346398" style="zoom: 28%;" />
+<img src="https://hfish.net/images/image-20220105221346398.png" alt="image-20220105221346398" style="zoom: 28%;" />
 
 
 
@@ -50,4 +50,4 @@ HFish管理端每五分钟向api.hfish.net发起高交互蜜罐请求。在这�
 
 如果在聚合的攻击中存在样本，样本将展示在关联信息下载中。
 
-<img src="http://img.threatbook.cn/hfish/image-20220105221536927.png" alt="image-20220105221536927" style="zoom:50%;" />
+<img src="https://hfish.net/images/image-20220105221536927.png" alt="image-20220105221536927" style="zoom:50%;" />

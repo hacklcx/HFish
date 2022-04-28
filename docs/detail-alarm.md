@@ -13,12 +13,12 @@
 
 > 添加一个新的策略
 
-![image-20210209202316155](https://hfish.io/images/20210812135455.png)
+![image-20210209202316155](https://hfish.net/images/20210812135455.png)
 
 
 > 设置名称、类型和通知方式
 
-![image-20210209202737224](https://hfish.io/images/20210812135501.png)
+![image-20210209202737224](https://hfish.net/images/20210812135501.png)
 
 
 #### 通知配置

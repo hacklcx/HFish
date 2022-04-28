@@ -4,7 +4,7 @@ HFish采用B/S架构，系统由管理端和节点端组成，管理端用来生
 
 在HFish中，**管理端**只用于**数据的分析和展示**，**节点端**进行**虚拟蜜罐**，最后由**蜜罐来承受攻击**。
 
-<img src="https://hfish.io/images/image-20210902163914134.png" alt="image-20210902163914134" style="zoom:50%;" />
+<img src="https://hfish.net/images/image-20210902163914134.png" alt="image-20210902163914134" style="zoom:50%;" />
 
 
 
@@ -26,6 +26,6 @@ HFish当前具备如下几个特点：
 
 ### HFish典型应用场景
 
-![image-20211102125302898](https://hfish.io/images/202111021253175.png)
+![image-20211102125302898](https://hfish.net/images/202111021253175.png)
 
-![image-20211102125324125](https://hfish.io/images/202111021253180.png)
+![image-20211102125324125](https://hfish.net/images/202111021253180.png)

@@ -19,7 +19,7 @@ firewall-cmd --reload
 > 使用root用户，运行下面的脚本。
 
 ```
-bash <(curl -sS -L https://hfish.io/webinstall.sh)
+bash <(curl -sS -L https://hfish.net/webinstall.sh)
 ```
 
 
@@ -35,7 +35,7 @@ bash <(curl -sS -L https://hfish.io/webinstall.sh)
 
 在安装完成后，HFish会自动在管理端上创建一个节点。可进行登录后，在「节点管理」列表中进行查看。
 
-<img src="https://hfish.io/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
+<img src="https://hfish.net/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
 
 
 
@@ -90,7 +90,7 @@ sudo ./install.sh
 
 在安装完成后，HFish会自动在管理端上创建一个节点。可在节点管理进行查看。
 
-<img src="https://hfish.io/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
+<img src="https://hfish.net/images/image-20210914113134975.png" alt="image-20210914113134975" style="zoom: 25%;" />
 
 
 

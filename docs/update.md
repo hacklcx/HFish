@@ -6,7 +6,7 @@ V2.7.0及其以上用户全部支持顺滑升级。
 
 非联网情况下，「点击右上角火箭」--->「上传安装包」--->「确认升级」。即可完成升级。
 
-<img src="http://img.threatbook.cn/hfish/image-20220118114818278.png" alt="image-20220118114818278" style="zoom:50%;" />
+<img src="https://hfish.net/images/image-20220118114818278.png" alt="image-20220118114818278" style="zoom:50%;" />
 
 ### V2.5和V2.6版本升级
 
@@ -51,7 +51,7 @@ sudo ./install.sh
 
 执行./hfish-server --help会发现，当前版本提供了resetpwd和migrate两种模式，其中resetpwd模式用于管理员密码重置，migrate模式用于数据迁移，具体如下图：
 
-<img src="/images/image-20211117105331269.png" alt="image-20211117105331269" style="zoom:50%;" />
+<img src="https://hfish.net/images/image-20211117105331269.png" alt="image-20211117105331269" style="zoom:50%;" />
 
 ##### 当执行./server -mode migrate时，提供数据迁移功能，具体使用方法为：
 

@@ -2,7 +2,7 @@
 
 选择相应版本的【节点安装包】
 
-<img src="https://hfish.io/images/20210616171500.png" alt="image-20210616171459269" style="zoom:50%;" />
+<img src="https://hfish.net/images/20210616171500.png" alt="image-20210616171459269" style="zoom:50%;" />
 
 ```
 - 如果您在上面的操作中，选择的是linux安装包，在【确定】后，会出现如下页面，您可以用两种方式让您的节点主机完成部署。
@@ -13,30 +13,7 @@
 1. 下载可执行文件，并把这个文件上传到节点主机上运行
 ```
 
-<img src="https://hfish.io/images/20210616172029.png" alt="image-20210616172027825" style="zoom:50%;" />
-
-
-
-### 节点开机自启动配置
-
-#### Linux：
-
-进入client的安装目录，执行：
-
-```
-sh <(curl -sSL https://hfish.io/autorun.sh)
-```
-
-
-
-#### Windows：
-
-- 下载压缩包https://hfish.io/autorun.zip 
-- 把autorun.bat和cron.xml解压，复制到client文件目录中
-- client-xxxx.exe 重新命名为 client.exe
-- 执行autorun.bat
-- 执行client.exe
-
+<img src="https://hfish.net/images/20210616172029.png" alt="image-20210616172027825" style="zoom:50%;" />
 
 
 ### 为节点选择服务模板
@@ -44,19 +21,19 @@ sh <(curl -sSL https://hfish.io/autorun.sh)
 > 展开蜜罐节点，选择上面创建的蜜罐模板
 > 在配置新节点的时候，建议当前Windows用户，在杀毒软件报警的情况下，暂时关闭
 
-<img src="https://hfish.io/images/20210616173018.png" alt="image-20210616173015062" style="zoom:50%;" />
+<img src="https://hfish.net/images/20210616173018.png" alt="image-20210616173015062" style="zoom:50%;" />
 
 
 
 > 刚变更模板后的蜜罐服务状态为【启用】
 
-<img src="https://hfish.io/images/20210616173055.png" alt="image-20210616173053947" style="zoom:50%;" />
+<img src="https://hfish.net/images/20210616173055.png" alt="image-20210616173053947" style="zoom:50%;" />
 
 
 
 > 节点正常完成模板加载后，服务状态应该为【在线】。如果是【离线】，说明蜜罐服务没有正常启动，请参考我们后面的【排错说明】，找到问题。
 
-<img src="https://hfish.io/images/20210616173129.png" alt="image-20210616173128526" style="zoom:50%;" />
+<img src="https://hfish.net/images/20210616173129.png" alt="image-20210616173128526" style="zoom:50%;" />
 
 
 
@@ -68,11 +45,11 @@ sh <(curl -sSL https://hfish.io/autorun.sh)
 
 命令在主机运行后，会在本地生成一份虚假的“账号密码备份文件”。 当该主机被攻陷时，攻击者将被诱导，使用文件中的账号信息进行登录。借此，安全人员发现主机失陷情况。
 
-<img src="https://hfish.io/images/20210812135104.png" alt="image-20210506162347469" style="zoom:50%;" />
+<img src="https://hfish.net/images/20210812135104.png" alt="image-20210506162347469" style="zoom:50%;" />
 
 
 
-![image-20210506162447618](https://hfish.io/images/20210812135114.png)
+![image-20210506162447618](https://hfish.net/images/20210812135114.png)
 
 
 

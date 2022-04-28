@@ -13,4 +13,4 @@
 
 #### 联系我们
 
-![HFish官方群的qr](https://hfish.io/images/20210728203437.png)
+![HFish官方群的qr](https://hfish.net/images/20210728203437.png)
