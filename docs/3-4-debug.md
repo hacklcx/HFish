@@ -9,8 +9,8 @@
 2、确认管理端进程的运行情况和TCP/4433端口开放情况，如果不正常需要重启管理端进程
 
    ```
-   # 检查./server的进程是否运行正常
-   ps ax | grep ./server | grep -v grep
+   # 检查 hfish-server的进程是否运行正常
+   ps ax | grep ./hfish | grep -v grep
    
    # 检查TCP/4433端口是否正常开放
    ss -ntpl
@@ -24,7 +24,7 @@
   
   #centos7 检查防火墙开放端口
   firewall-cmd --list-ports
-  ```
+ ```
 
 4、Linux环境使用date命令确认系统时间的准确
 
@@ -73,16 +73,13 @@
 
 > 节点在线，部分蜜罐服务在线，部分蜜罐服务离线
 
-解决办法：
+可通过触碰状态旁边的问号，确认离线原因。
 
-1、确认蜜罐服务进程是否还在运行？
+![image-20220406111355062](http://img.threatbook.cn/hfish/image-20220406111355062.png)
 
-   ```
-   # 检查service的进程是否运行正常，如果进程退出，建议查看service的日志
-   ps ax | grep service | grep -v grep
-   ```
+bind:address already in use解决办法：
 
-2、确认是否端口冲突？
+该报错情况往往是因为端口冲突
 
    ```
    这个问题常见默认22端口的SSH服务，刚启动client的时候服务在线，过了一会儿后服务离线。

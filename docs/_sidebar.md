@@ -1,23 +1,26 @@
-- [HFish介绍](README.md)
+- [快速了解HFish蜜罐](README.md)
   - [什么是蜜罐](1-1-honeypot.md)
   - [HFish结构](1-2-spec.md)
   - [在线Demo](1-3-demo.md)
+- [HFish场景建议](4-0-scene.md)
+  - [内网失陷感知应用建议](4-1-Intranet)
+  - [外网威胁感知应用建议](4-2-extranet)
 - [快速部署](2-0-deploy.md)
-  - [版本说明](down.md)
+  - [机器性能要求](2-0-deploy.md)
+  - [版本说明](download.md)
   - [Linux下载部署](2-2-linux.md)
   - [Windows下载部署](2-3-windows.md)
   - [Docker下载部署](2-1-docker.md)
   - [老版本升级](update.md)
-  - [提高数据库性能](2-4-mariadb.md)
+  - [数据库说明](2-4-mariadb.md)
   - [联网和安全说明](2-5-env.md)
-- [快速上手](3-0-quickstart.md)
+- [HFish使用说明](3-0-quickstart.md)
   - [添加/删除节点](3-1-nodemgmt.md)
   - [添加/删除蜜罐](3-2-potmgmt.md)
   - [查看攻击](3-3-checkattack.md)
-  - [错误排查](3-4-debug.md)
-- [场景建议](4-0-scene.md)
-- [内网应用建议](4-1-Intranet)
-- [进阶应用](5-0-apply.md)
+- [错误排查](3-4-debug.md)
+- [卸载HFish](5-7-uninstall.md)
+- [高级应用](5-0-apply.md)
   - [云端高交互蜜罐](highinteractive.md)
   - [自定义Web蜜罐](5-1-diy.md)
   - [账号失陷监控](5-2-asset.md)
@@ -27,9 +30,7 @@
   - [syslog告警字段说明](syslog.md)
   - [忘记密码](5-6-passwd.md)
   - [Nginx反向代理](2-6-nginx.md)
-  - [卸载HFish](5-7-uninstall.md)
 - [详细功能说明](6-0-detail.md)
-
   - [首页](detail-dashboard.md)
   - [攻击列表](detail-attack.md)
   - [扫描感知](4-2-scan.md)
@@ -41,22 +42,16 @@
   - [模版管理](detail-template-mgmt.md)
   - [服务管理](detail-service-mgmt.md)
   - [情报对接](detail-intel.md)
-
   - [告警策略](detail-alarm.md)
-
   - [QQ信箱配置](detail-qqmail.md)
-
   - [钉钉配置](6-2-1dingtalk.md)
-
   - [企业微信配置](6-2-2wechat.md)
-
   - [飞书配置](6-2-3lark.md)
-
   - [API配置](detail-api.md)
-
   - [数据库配置](detail-database.md)
-
   - [登陆管理](detail-user.md)
-
   - [系统信息](detail-sysinfo.md)
+
+- [致谢](thanksforall.md)
+
 - [已知问题](known.md)
