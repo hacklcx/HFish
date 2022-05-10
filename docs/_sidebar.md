@@ -18,6 +18,7 @@
   - [添加/删除节点](3-1-nodemgmt.md)
   - [添加/删除蜜罐](3-2-potmgmt.md)
   - [查看攻击](3-3-checkattack.md)
+- [更多蜜罐下载](contribute)
 - [错误排查](3-4-debug.md)
 - [卸载HFish](5-7-uninstall.md)
 - [高级应用](5-0-apply.md)
