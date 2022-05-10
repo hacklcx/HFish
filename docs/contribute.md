@@ -27,11 +27,15 @@ HFish作为一款免费产品，一直受到大家的关照，实在是太感谢
 
 #### 蜜罐贡献渠道
 
-1. 联系HFish工作人员提供安装包，我们将添加到此页文档中～
+**方式1:**
+
+联系HFish工作人员提供安装包，我们将添加到此页文档中～
 
 <img src="http://img.threatbook.cn/hfish/image-20220510150725062.png" alt="image-20220510150725062" style="zoom:33%;" />
 
-2. https://github.com/hacklcx/HFish中，直接编辑此页并提交commit
+**方式2:**
+
+https://github.com/hacklcx/HFish中，直接编辑此页并提交commit
 
 
 
