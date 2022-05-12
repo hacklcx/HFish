@@ -35,7 +35,9 @@ HFish作为一款免费产品，一直受到大家的关照，实在是太感谢
 
 **方式2:**
 
-https://github.com/hacklcx/HFish中，直接编辑此页并提交commit
+https://github.com/hacklcx/HFish
+
+编辑此页并提交commit
 
 
 
