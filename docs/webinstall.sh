@@ -6,7 +6,7 @@ initVar() {
 	removeType='yum -y remove'
 	upgrade="yum -y update"
 	echoType='echo -e'
-	version='2.9.1'
+	version='3.0.0'
 }
 initVar
 export LANG=en_US.UTF-8
