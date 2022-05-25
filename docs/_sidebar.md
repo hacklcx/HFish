@@ -22,6 +22,7 @@
 - [错误排查](3-4-debug.md)
 - [卸载HFish](5-7-uninstall.md)
 - [高级应用](5-0-apply.md)
+  - [威胁检测](4-3-detection)
   - [云端高交互蜜罐](highinteractive.md)
   - [自定义Web蜜罐](5-1-diy.md)
   - [账号失陷监控](5-2-asset.md)
@@ -39,6 +40,8 @@
   - [账号资产](detail-damaged-account.md)
   - [失陷感知](detail-decoy.md)
   - [样本检测](sandbox.md)
+  - [威胁检测](4-3-detection)
+    - [Yara规则语法](4-4-yara)
   - [节点管理](detail-node-mgmt.md)
   - [模版管理](detail-template-mgmt.md)
   - [服务管理](detail-service-mgmt.md)
@@ -52,7 +55,5 @@
   - [数据库配置](detail-database.md)
   - [登陆管理](detail-user.md)
   - [系统信息](detail-sysinfo.md)
-
 - [致谢](thanksforall.md)
-
 - [已知问题](known.md)
