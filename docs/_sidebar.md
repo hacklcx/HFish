@@ -23,6 +23,7 @@
 - [卸载HFish](5-7-uninstall.md)
 - [高级应用](5-0-apply.md)
   - [威胁检测](4-3-detection)
+  - [IP画像](detail-ip)
   - [云端高交互蜜罐](highinteractive.md)
   - [自定义Web蜜罐](5-1-diy.md)
   - [账号失陷监控](5-2-asset.md)
