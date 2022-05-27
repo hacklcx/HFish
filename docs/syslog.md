@@ -18,6 +18,8 @@ labels                //威胁情报标签
 dst_ip                //受害IP
 geo                   //攻击来源ip的地理位置
 time                  //攻击发生时间
+threat_name: aaa,bbb,ccc //威胁行为名称
+threat_level: high       //威胁行为等级
 info                  //攻击详情(为空填写N/A）
 ```
 
