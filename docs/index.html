@@ -53,6 +53,17 @@
 
 <body>
     <div id="app"></div>
+    
+    <!-- sensorsdata.min.js 改名防止被插件阻止 -->
+    <script src="./sc.min.js"></script> 
+
+    <script src="./js/docsify.min.js"></script>
+    <script src="./js/search.min.js"></script>
+    <script src="./js/prism-bash.min.js"></script>
+    <script src="./js/prism-markdown.min.js"></script>
+    <script src="./js/docsify-tabs.min.js"></script>
+    <!-- plugins -->
+    <script src="./js/docsify-sidebar-collapse.min.js"></script>
     <script>
         window.$docsify = {
             name: 'HFish',
@@ -88,16 +99,14 @@
             }
             // repo: 'https://github.com/hacklcx/HFish',
         }
+        var sensors = window['sensorsDataAnalytic201505'];
+        sensors.init({
+            server_url: 'https://trace.threatbook.cn/sa?project=freemium',
+            heatmap: { scroll_notice_map: 'not_collect' },
+            is_track_single_page: true
+        });
+        sensors.quick('autoTrack');
     </script>
-    <script src="./dv.min.js"></script>
-    <script src="./js/docsify.min.js"></script>
-    <script src="./js/search.min.js"></script>
-    <script src="./js/prism-bash.min.js"></script>
-    <script src="./js/prism-markdown.min.js"></script>
-    <script src="./js/docsify-tabs.min.js"></script>
-
-    <!-- plugins -->
-    <script src="./js/docsify-sidebar-collapse.min.js"></script>
 </body>
 
 </html>
