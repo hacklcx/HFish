@@ -1,4 +1,4 @@
-#### 当前最新版本 HFish v<% version %>
+#### 当前最新版本 HFish V3.0.0
 
 [Linux x64](https://hfish.net/#/2-2-linux)  
 [Windows x64](https://hfish.net/#/2-3-windows)  

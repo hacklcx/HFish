@@ -47,7 +47,7 @@ bash <(curl -sS -L https://hfish.net/webinstall.sh)
 
 如果您的环境无法联网，可以尝试手动安装。
 
-> ##### 第一步：下载安装包：[HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-<% version %>-linux-amd64.tgz) （ Linux x86 架构 64 位系统）
+> ##### 第一步：下载安装包：[HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.0.0-linux-amd64.tgz) （ Linux x86 架构 64 位系统）
 
 按如下步骤进行安装 （以Linux 64位系统为例）：
 
