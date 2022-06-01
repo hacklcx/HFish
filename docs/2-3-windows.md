@@ -1,8 +1,6 @@
-#### Windows环境安装流程
+#### Windows 3.0.1 环境安装流程
 
-`3.0版本的HFish Windows 将于6.1日上线，当前市面版本是2.9.1，可以正常下载安装，等待自动升级`
-
-> 第一步：下载安装包[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-2.9.1-windows-amd64.tgz) （Windows x86 架构 64 位系统），解压缩
+> 第一步：下载安装包[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.0.1-windows-amd64.tgz) （Windows x86 架构 64 位系统），解压缩
 
 > 第二步：防火墙上进出站双向打开TCP/4433、4434端口放行（如需使用其他服务，也需要打开端口）
 
