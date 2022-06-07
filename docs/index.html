@@ -103,7 +103,8 @@
         sensors.init({
             server_url: 'https://trace.threatbook.cn/sa?project=freemium',
             heatmap: { scroll_notice_map: 'not_collect' },
-            is_track_single_page: true
+            is_track_single_page: true,
+            preset_properties: {search_keyword_baidu: true}
         });
         sensors.quick('autoTrack');
         sensors.use('PageLeave', { heartbeat_interval_time: 5 })
