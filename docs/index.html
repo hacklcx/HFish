@@ -106,6 +106,7 @@
             is_track_single_page: true
         });
         sensors.quick('autoTrack');
+        sensors.use('PageLeave', { heartbeat_interval_time: 5 })
     </script>
 </body>
 
