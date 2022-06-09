@@ -11,6 +11,8 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="./vue.css">
     <link rel="shortcut icon" href="#" />
+    <!-- sensorsdata.min.js 改名防止被插件阻止 -->
+    <script src="./sc.min.js"></script>
     <style type="text/css">
         .cover-main {
             color: #ffffff;
@@ -53,17 +55,6 @@
 
 <body>
     <div id="app"></div>
-    
-    <!-- sensorsdata.min.js 改名防止被插件阻止 -->
-    <script src="./sc.min.js"></script> 
-
-    <script src="./js/docsify.min.js"></script>
-    <script src="./js/search.min.js"></script>
-    <script src="./js/prism-bash.min.js"></script>
-    <script src="./js/prism-markdown.min.js"></script>
-    <script src="./js/docsify-tabs.min.js"></script>
-    <!-- plugins -->
-    <script src="./js/docsify-sidebar-collapse.min.js"></script>
     <script>
         window.$docsify = {
             name: 'HFish',
@@ -96,6 +87,11 @@
                 theme: 'classic', // default
                 tabComments: true,      // default
                 tabHeadings: true       // default
+            },
+            copyCode: {
+                buttonText : '复制',
+                errorText  : '失败',
+                successText: '成功'
             }
             // repo: 'https://github.com/hacklcx/HFish',
         }
@@ -104,11 +100,20 @@
             server_url: 'https://trace.threatbook.cn/sa?project=freemium',
             heatmap: { scroll_notice_map: 'not_collect' },
             is_track_single_page: true,
-            preset_properties: {search_keyword_baidu: true}
+            preset_properties: { search_keyword_baidu: true }
         });
         sensors.quick('autoTrack');
         sensors.use('PageLeave', { heartbeat_interval_time: 5 })
     </script>
+
+    <script src="./js/docsify.min.js"></script>
+    <!-- plugins -->
+    <script src="./js/search.min.js"></script>
+    <script src="./js/prism-bash.min.js"></script>
+    <script src="./js/prism-markdown.min.js"></script>
+    <script src="./js/docsify-tabs.min.js"></script>
+    <script src="./js/docsify-copy-code.min.js"></script>
+    <script src="./js/docsify-sidebar-collapse.min.js"></script>
 </body>
 
 </html>

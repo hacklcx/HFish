@@ -855,3 +855,12 @@ code .token {
   position: relative;
   left: auto;
 }
+
+.docsify-copy-code-button {
+  background: grey !important;
+  font-size: 12px !important;
+}
+.docsify-copy-code-button:focus, pre:hover .docsify-copy-code-button {
+  background: grey;
+  font-size: 12px;
+}
