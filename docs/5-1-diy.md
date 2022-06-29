@@ -7,7 +7,7 @@
 
 https://hfish.net/service-demo.zip  
 
-解压后获得index.html和portrait.js两个文件。  
+解压后获得index.html文件。  
 
 
 > index.html文件中的代码功能
