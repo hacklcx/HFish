@@ -24,7 +24,7 @@ curl --location --request POST 'https://Server_IP/api/v1/attack/ip?api_key=YOUR_
 --data '{
   "start_time": 0,
   "end_time": 0,
-  "intranet": "0",
+  "intranet": 0,
   "threat_label": [
     "Scanner"
   ]
@@ -42,7 +42,7 @@ url = "https://Server_IP/api/v1/attack/ip?api_key=YOUR_API_KEY"
 payload = json.dumps({
   "start_time": 0,
   "end_time": 0,
-  "intranet": "0",
+  "intranet": 0,
   "threat_label": [
     "Scanner"
   ]
@@ -77,7 +77,7 @@ func main() {
   payload := strings.NewReader(`{
   "start_time": 0,
   "end_time": 0,
-  "intranet": "0",
+  "intranet": 0,
   "threat_label": [
     "Scanner"
   ]
@@ -116,7 +116,7 @@ func main() {
 OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
 MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\n  \"start_time\": 0,\n  \"end_time\": 0,\n  \"intranet\": \"0\",\n  \"threat_label\": [\n    \"Scanner\"\n  ]\n}");
+RequestBody body = RequestBody.create(mediaType, "{\n  \"start_time\": 0,\n  \"end_time\": 0,\n  \"intranet\": \0\,\n  \"threat_label\": [\n    \"Scanner\"\n  ]\n}");
 Request request = new Request.Builder()
   .url("https://Server_IP/api/v1/attack/ip?api_key=YOUR_API_KEY")
   .method("POST", body)
@@ -138,7 +138,7 @@ var settings = {
   "data": JSON.stringify({
     "start_time": 0,
     "end_time": 0,
-    "intranet": "0",
+    "intranet": 0,
     "threat_label": [
       "Scanner"
     ]
@@ -169,7 +169,7 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS =>'{
   "start_time": 0,
   "end_time": 0,
-  "intranet": "0",
+  "intranet": 0,
   "threat_label": [
     "Scanner"
   ]
@@ -196,7 +196,7 @@ wget --no-check-certificate --quiet \
   --body-data '{
   "start_time": 0,
   "end_time": 0,
-  "intranet": "0",
+  "intranet": 0,
   "threat_label": [
     "Scanner"
   ]
