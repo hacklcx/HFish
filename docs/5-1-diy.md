@@ -61,6 +61,14 @@ HFish社区非常期待用户贡献漏洞利用代码。
 
 ![image-20210508221316072](https://hfish.net/images/20210728213852.png)
 
-
 如果一切正常，用户已经可以在【节点管理】和【模板管理】页面中使用该自定义蜜罐了。
 
+
+
+#### 特别注意：如果上传服务包，遇到not found index.html的报错
+
+这种情况，往往是因为所有机器的默认压缩是二层嵌套。
+
+可直接到资源包文件夹，选择全部文件后，直接右键压缩。再将压缩包上传即可
+
+<img src="/var/folders/6b/pkkyf9hs46v78zfksx2fqrq80000gn/T/com.tencent.WeWorkMac/wecom-temp-792d7dfb718f7139962d778b428e7cd9.png" alt="wecom-temp-792d7dfb718f7139962d778b428e7cd9" style="zoom:50%;" />
