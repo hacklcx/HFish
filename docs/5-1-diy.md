@@ -16,13 +16,13 @@ https://hfish.net/service-demo.zip
 &lt;script&gt;中的代码明确了调用jsonp的方式
 
 
-> portrait.js 文件中的代码功能
+> portrait.min.js 文件中的代码功能
 
 该文件是jsonp溯源功能的利用代码，攻击者在已登录其他社交平台的情况下，成功利用会让蜜罐获得部分社交平台的账号信息。
 
 本代码因为利用了Chrome内核浏览器v80版本之前的漏洞，具有一定的时效性，随着攻击者更新自己的浏览器，利用代码可能失效，并有可能让攻击者在访问该页面时触发其杀毒软件报警。
 
-您可以选择删除index.html中引用portrait.js的部分代码，或者自行优化portrait.js代码，补全更多反制方法。
+您可以选择删除index.html中引用portrait.min.js的部分代码，或者自行优化portrait.min.js代码，补全更多反制方法。
 
 HFish社区非常期待用户贡献漏洞利用代码。
 
