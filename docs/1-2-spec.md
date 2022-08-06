@@ -23,9 +23,3 @@ HFish当前具备如下几个特点：
 - 跨平台：支持Linux x32/x64/ARM、Windows x32/x64平台、国产操作系统、龙芯、海光、飞腾、鲲鹏、腾云、兆芯硬件
 
 
-
-### HFish典型应用场景
-
-![image-20211102125302898](https://hfish.net/images/202111021253175.png)
-
-![image-20211102125324125](https://hfish.net/images/202111021253180.png)
