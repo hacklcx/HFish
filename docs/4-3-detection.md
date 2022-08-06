@@ -36,7 +36,7 @@ HFish的威胁检测引擎是基于攻击HFish的日志数据进行检测。日�
 
 2）也可在【威胁感知】-【攻击列表】进行搜索匹配到规则的告警，只有匹配过的告警记录，筛选条件【攻击行为类型】才有选项。
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220525221529700.png" alt="image-20220525221529700" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220525221529700.png" alt="image-20220525221529700" style="zoom:50%;" />
 
 
 

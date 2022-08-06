@@ -33,9 +33,9 @@ HFish的诱饵模块由 **定制** 、**分发接口** 和 **告警信息** 三�
 
 HFish提供完整的诱饵定制，您可以通过在「失陷感知」-「蜜饵管理」中定制新增您自己的诱饵
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220525224243205.png" alt="image-20220525224243205" style="zoom: 33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220525224243205.png" alt="image-20220525224243205" style="zoom: 33%;" />
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220525224216905.png" alt="image-20220525224216905" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220525224216905.png" alt="image-20220525224216905" style="zoom:33%;" />
 
 在蜜饵内容中，$username$、$password$和$honeypot$分别代表账号、密码和蜜罐变量，以上为必填变量，必须进行引用，才能让蜜饵功能生效。
 三个变量，按照文件想呈现给攻击者的效果进行引用。

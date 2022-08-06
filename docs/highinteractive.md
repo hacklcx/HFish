@@ -32,8 +32,6 @@ HFish高交互蜜罐部署在云服务器，由HFish团队做统一运维，在�
 
 确认网络联通后，直接在节点中添加高交互蜜罐服务即可。
 
-<img src="https://hfish.net/images/image-20220105221149928.png" alt="image-20220105221149928" style="zoom:42%;" />
-
 <img src="https://hfish.net/images/image-20220105221346398.png" alt="image-20220105221346398" style="zoom: 28%;" />
 
 

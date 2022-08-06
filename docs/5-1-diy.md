@@ -71,4 +71,4 @@ HFish社区非常期待用户贡献漏洞利用代码。
 
 可直接到资源包文件夹，选择全部文件后，直接右键压缩。再将压缩包上传即可
 
-<img src="/var/folders/6b/pkkyf9hs46v78zfksx2fqrq80000gn/T/com.tencent.WeWorkMac/wecom-temp-792d7dfb718f7139962d778b428e7cd9.png" alt="wecom-temp-792d7dfb718f7139962d778b428e7cd9" style="zoom:50%;" />
+![image-20220806141310886](http://img.threatbook.cn/hfish/image-20220806141310886.png)
