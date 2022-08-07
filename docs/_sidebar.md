@@ -3,6 +3,7 @@
   - [HFish结构](1-2-spec.md)
   - [在线Demo](1-3-demo.md)
 - [HFish场景建议](4-0-scene.md)
+  - [HFish文档下载区](docs.md)
   - [内网失陷感知应用建议](4-1-Intranet.md)
   - [外网威胁感知应用建议](4-2-extranet.md)
 - [快速部署](2-0-deploy.md)
