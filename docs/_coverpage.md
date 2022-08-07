@@ -9,7 +9,7 @@
 [Linux下载](https://hfish.net/#/2-2-linux)
 [Windows下载](https://hfish.net/#/2-3-windows)
 [Docker下载](https://hfish.net/#/2-1-docker)
-[使用手册](https://hfish.net/#/README)
+[快速了解](https://hfish.net/#/README)
 
 <!-- 背景图片 -->
 ![background](https://hfish.net/images/background.jpg)
