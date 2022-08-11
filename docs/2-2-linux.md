@@ -47,7 +47,7 @@ bash <(curl -sS -L https://hfish.net/webinstall.sh)
 
 如果您的环境无法联网，可以尝试手动安装。
 
-> ##### 第一步：下载安装包：[HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.0.1-linux-amd64.tgz) （ Linux x86 架构 64 位系统）
+> ##### 第一步：下载安装包：[HFish-Linux-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.1.4-linux-amd64.tgz) （ Linux x86 架构 64 位系统）
 
 按如下步骤进行安装 （以Linux 64位系统为例）：
 
@@ -60,7 +60,7 @@ mkdir hfish
 > ##### 第三步：将安装文件包解压到hfish目录下
 
 ```
-tar zxvf hfish-<% version %>-linux-amd64.tgz -C hfish
+tar zxvf hfish-3.1.4-linux-amd64.tgz -C hfish
 ```
 
 > ##### 第四步：请防火墙开启4433、4434和7879，确认返回success（如果有其他服务需要打开端口，使用相同命令打开。
