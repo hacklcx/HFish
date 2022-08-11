@@ -57,13 +57,11 @@ a. 直接在HFish中添加深信服vpn蜜罐。
 
 b.下载蜜罐页面中的exe并运行
 
-<img src="/var/folders/6b/pkkyf9hs46v78zfksx2fqrq80000gn/T/com.tencent.WeWorkMac/wecom-temp-c27ab2f3a541d0a7be62a1e9391c8db6.png" alt="wecom-temp-c27ab2f3a541d0a7be62a1e9391c8db6" style="zoom: 33%;" />
-
 c. 进入攻击来源，搜索IP或者直接点击溯源信息按钮。查看详情
 
 <img src="http://img.threatbook.cn/hfish/image-20220807123404778.png" alt="image-20220807123404778" style="zoom:50%;" />
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220807124218394.png" alt="image-20220807124218394" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220807124218394.png" alt="image-20220807124218394" style="zoom:50%;" />
 
 #### 
 
@@ -103,7 +101,7 @@ Java远程调用蜜罐是HFish内置的一种蜜罐服务。添加到节点上�
 
 <img src="http://img.threatbook.cn/hfish/image-20220807123404778.png" alt="image-20220807123404778" style="zoom:50%;" />
 
-<img src="/Users/maqian/Library/Application Support/typora-user-images/image-20220807124218394.png" alt="image-20220807124218394" style="zoom:50%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220807124218394.png" alt="image-20220807124218394" style="zoom:50%;" />
 
 #### 
 
