@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./vue.css">
     <link rel="shortcut icon" href="#" />
     <!-- sensorsdata.min.js 改名防止被插件阻止 -->
-    <script src="./sc.min.js"></script>
+    <!-- <script src="./sc.min.js"></script> -->
     <style type="text/css">
         .cover-main {
             color: #ffffff;
@@ -95,15 +95,15 @@
             }
             // repo: 'https://github.com/hacklcx/HFish',
         }
-        var sensors = window['sensorsDataAnalytic201505'];
-        sensors.init({
-            server_url: 'https://trace.threatbook.cn/sa?project=freemium',
-            heatmap: { scroll_notice_map: 'not_collect' },
-            is_track_single_page: true,
-            preset_properties: { search_keyword_baidu: true }
-        });
-        sensors.quick('autoTrack');
-        sensors.use('PageLeave', { heartbeat_interval_time: 5 })
+        // var sensors = window['sensorsDataAnalytic201505'];
+        // sensors.init({
+        //     server_url: 'https://trace.threatbook.cn/sa?project=freemium',
+        //     heatmap: { scroll_notice_map: 'not_collect' },
+        //     is_track_single_page: true,
+        //     preset_properties: { search_keyword_baidu: true }
+        // });
+        // sensors.quick('autoTrack');
+        // sensors.use('PageLeave', { heartbeat_interval_time: 5 })
     </script>
 
     <script src="./js/docsify.min.js"></script>
