@@ -1,6 +1,6 @@
 #### Windows 3.1.4 （不支持Syslog）
 
-> 第一步：下载安装包[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.1.4-windows-amd64.tgz) （Windows x86 架构 64 位系统），解压缩
+> 第一步：下载安装包[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.3.0-windows-amd64.tgz) （Windows x86 架构 64 位系统），解压缩
 
 > 第二步：防火墙上进出站双向打开TCP/4433、4434端口放行（如需使用其他服务，也需要打开端口）
 

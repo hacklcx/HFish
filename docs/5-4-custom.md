@@ -6,9 +6,7 @@
 
 > 1、调用apikey：进入该蜜罐的后台，可以看到蜜罐的config文件，文件内有一个apikey。
 
-<div align="center"><img src="https://hfish.net/images/image-20211027204924883.png" alt="" height="400px" /></div>
-
-<div align="center"><img src="https://hfish.net/images/image-20211027205006150.png" alt="" height="400px" /></div>
+![image-20221031222131166](http://img.threatbook.cn/hfish/image-20221031222131166.png)
 
 
 > 2、使用该apikey，将数据上传到HFish管理端
