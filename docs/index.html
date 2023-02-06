@@ -43,6 +43,9 @@
         nav {
             color: #ffffff;
         }
+        nav ul ul {
+            color: #34495e
+        }
 
         .sticky nav {
             color: #34495e;
@@ -67,15 +70,17 @@
     <script>
         window.$docsify = {
             name: 'HFish',
-            loadSidebar: true,
-            alias: {
-                '/.*/_sidebar.md': '/_sidebar.md',
+            nameLink: {
+                '/en/': '/#/en/',
+                '/': '/',
             },
+            loadSidebar: true,
             loadNavbar: true,
             mergeNavbar: true,
             auto2top: true,
             subMaxLevel: 3,
             coverpage: true,
+            relativePath: true,
             themeColor: '#e93636',
             sidebarDisplayLevel: 0, // set sidebar display level
             dv: {
@@ -86,8 +91,14 @@
             search: {
                 paths: 'auto',
                 maxAge: 26400000, // 过期时间，单位毫秒，默认一天
-                placeholder: '请输入搜索内容',
-                noData: '找不到结果!',
+                placeholder: {
+                    '/en/': 'Please enter your search',
+                    '/': '请输入搜索内容'
+                },
+                noData: {
+                    '/': '找不到结果',
+                    '/en/': 'No Results'
+                },
                 depth: 2
             },
             tabs: {

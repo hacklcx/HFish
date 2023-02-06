@@ -1,5 +1,5 @@
-- [首页](https://hfish.net/#/)
-- [下载](https://hfish.net/#/down)
+- [homepage](https://hfish.net/#/en)
+- [download](https://hfish.net/#/en/down)
 - [GitHub](https://github.com/hacklcx/HFish)
 - [Gitee](https://gitee.com/lauix/HFish)
 - Translations
