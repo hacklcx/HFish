@@ -39,14 +39,22 @@
             height: 100%;
             width: 100%;
         }
-
-        nav {
-            color: #ffffff;
+        .homepage_con nav {
+            color: #fff;
         }
-        nav ul ul {
+        
+        .homepage_con nav ul ul {
             color: #34495e
         }
-
+        
+        .app-nav li ul a {
+            width: 86px;
+        }
+        
+        nav {
+            color: #34495e;
+        }
+        
         .sticky nav {
             color: #34495e;
         }
@@ -68,6 +76,27 @@
 <body>
     <div id="app"></div>
     <script>
+        var homePageClass = ' homepage_con'
+        function homePageHandle () {
+            var isHomePage = window.location.hash === '#/' || window.location.hash === '#/en/'
+            var bodyEl = document.body
+            var className = bodyEl.className
+            if (isHomePage) {
+                if ((className.indexOf(homePageClass) === -1)) {
+                    bodyEl.className = '' + (bodyEl.className || '') + homePageClass
+                }
+            } else {
+                if ((className.indexOf(homePageClass) > -1)) {
+                    bodyEl.className = bodyEl.className.replace(homePageClass, '')
+                }
+            }
+        }
+        window.addEventListener('hashchange', function () {
+            homePageHandle()
+        })
+        homePageHandle()
+    </script>
+    <script>
         window.$docsify = {
             name: 'HFish',
             nameLink: {
@@ -79,7 +108,10 @@
             mergeNavbar: true,
             auto2top: true,
             subMaxLevel: 3,
-            coverpage: true,
+            coverpage: {
+                '/en/': '_coverpage.md',
+                '/': '_coverpage.md',
+            },
             relativePath: true,
             themeColor: '#e93636',
             sidebarDisplayLevel: 0, // set sidebar display level
@@ -109,9 +141,18 @@
                 tabHeadings: true       // default
             },
             copyCode: {
-                buttonText : '复制',
-                errorText  : '失败',
-                successText: '成功'
+                buttonText: {
+                    '/en/': 'Copy',
+                    '/': '复制',
+                },
+                errorText:  {
+                    '/en/': 'Error',
+                    '/': '失败',
+                },
+                successText: {
+                    '/en/': 'Success',
+                    '/': '成功',
+                }
             }
             // repo: 'https://github.com/hacklcx/HFish',
         }

@@ -1,4 +1,4 @@
-- [homepage](https://hfish.net/#/en)
+- [homepage](https://hfish.net/#/en/)
 - [download](https://hfish.net/#/en/down)
 - [GitHub](https://github.com/hacklcx/HFish)
 - [Gitee](https://gitee.com/lauix/HFish)
