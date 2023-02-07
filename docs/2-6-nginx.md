@@ -146,7 +146,7 @@ server {
     listen      [::]:80;
     server_name domain.com;
 
-    #方向代理 / 用于let's encrypto验证域名归属
+    #反向代理 / 用于let's encrypto验证域名归属
     location ^~ /.well-known/acme-challenge/{
         default_type "text/plain";
         root /;
@@ -297,7 +297,7 @@ server {
     listen      [::]:80;
     server_name domain.com;
 
-    #方向代理 / 用于let's encrypto验证域名归属
+    #反向代理 / 用于let's encrypto验证域名归属
     location ^~ /.well-known/acme-challenge/{
         default_type "text/plain";
         root /;
