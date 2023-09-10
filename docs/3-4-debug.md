@@ -64,7 +64,7 @@ ps ax | grep -E 'services|./client' | grep -v grep        
 ```
 节点端日志在安装目录的logs目录内，文件名为client.log
 Linux管理端日志在/usr/share/hfish/log文件夹内，文件名为server.log
-Linux管理端日志在C:\Users\Public\hfish\log文件夹内，文件名为server.log
+Windows管理端日志在C:\Users\Public\hfish\log文件夹内，文件名为server.log
 ​
 Linux节点端后台运行方案：
 nohup .~/client >>nohup.out 2>&1 &
