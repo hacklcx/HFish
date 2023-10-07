@@ -68,8 +68,8 @@ docker run -d    \
 如果您配置的了Docker镜像代理，那么有可能会导致watchower无法生效，在这里您可以手动执行：
 
 ```
-docker pull threatbook/hfish-server:3.3.1  
-docker tag threatbook/hfish-server:3.3.1  threatbook/hfish-server:latest  
+docker pull threatbook/hfish-server:3.3.4  
+docker tag threatbook/hfish-server:3.3.4  threatbook/hfish-server:latest  
 docker rm -f hfish  
 docker run -itd --name hfish \
 -v /usr/share/hfish:/usr/share/hfish \
