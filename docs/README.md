@@ -6,11 +6,11 @@ HFish具有超过90种蜜罐环境、提供免费的云蜜网、可高度自定�
 
 用户需要先部署管理端，再通过管理端内置蜜罐节点或部署新节点：
 
-[Linux下载](https://hfish.net/#/2-2-linux)
+[Linux管理端下载](https://hfish.net/#/2-2-linux)
 
-[Windows下载](https://hfish.net/#/2-3-windows)
+[Windows管理端下载](https://hfish.net/#/2-3-windows)
 
-[Docker下载](https://hfish.net/#/2-1-docker)
+[Docker镜像下载](https://hfish.net/#/2-1-docker)
 
 如果有企业下载需求，您也可以前往[HFish文档区域](https://hfish.net/#/docs)下载部署文档方案。
 
@@ -42,7 +42,7 @@ HFish采用B/S架构，系统由管理端和节点端组成，管理端用来生
 
 2019年的8月7日，我们发布了自己的第一款开源蜜罐HFish，在之后的16个月里，HFish在Github上获得2.6k个star，在Gitee上成为安全类目TOP5的GVP项目。 
 
-2021年2月9日，融合社区反馈和过去2年的思考，我们开启了全新概念的威胁捕捉和诱骗系统HFish V2版本，并宣布采用闭源共享方式向所有用户免费授权使用。
+2021年2月9日，融合社区反馈和过去2年的思考，我们开启了全新概念的威胁捕捉和诱骗系统HFish v2版本，并宣布采用闭源共享方式向所有用户免费授权使用。
 
 
 
