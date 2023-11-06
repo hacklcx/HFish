@@ -1,7 +1,8 @@
 
-#### 致谢
+#### 致谢爱好者
 
 HFish作为一款免费蜜罐产品，在此由衷且真挚的向所有贡献过有价值意见的用户致谢，是你们一直以来的支持，让我们始终怀有期待，
+
 在此，HFish真诚感激，愿与各位携手同行，对抗网络攻击这件事道阻且长，你我同行，或许就能为彼此遮蔽一片风雨。
 
 <img src="/images/image-20211208095138935.png" alt="image-20211208095138935" style="zoom:50%;" />
@@ -52,4 +53,5 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 最后，欢迎扫码加入HFish微信群：
 
-<img src="/images/image-20211221132836482-20211221133339014.png" style="zoom:33%;" />
+<img src="http://img.threatbook.cn/hfish/image-20220729162931543.png" style="zoom:33%;" />
+
