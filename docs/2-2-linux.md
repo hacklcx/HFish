@@ -29,9 +29,7 @@ bash <(curl -sS -L https://hfish.net/webinstall.sh)
 账号：admin
 密码：HFish2021
 ```
-如果管理端的IP是192.168.1.1，则登陆链接为：https://192.168.1.1:4433/web/
-
-URL中/web/这个URL路径不能少，
+如果管理端的IP是192.168.1.1，则登陆链接为：https://192.168.1.1:4433/web/，URL中/web/这个URL路径不能少，
 
 安装完成登录后，在「节点管理」页面中可看到管理端服务器上的默认节点，如下图：
 
@@ -43,7 +41,7 @@ URL中/web/这个URL路径不能少，
 
 > ##### 第一步：下载安装包：
 
-点击[Linux AMD x86-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.4-linux-amd64.tgz) 获取安装包，以Linux 64位系统为例
+点击 [Linux AMD x86-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.4-linux-amd64.tgz) 获取安装包，以Linux 64位系统为例
 
 > ##### 第二步： 创建一个目录用于后续存放解压缩文件
 
@@ -79,9 +77,7 @@ sudo ./install.sh
 账号：admin
 密码：HFish2021
 ```
-如果管理端的IP是192.168.1.1，则登陆链接为：https://192.168.1.1:4433/web/
-
-URL中/web/这个URL路径不能少，
+如果管理端的IP是192.168.1.1，则登陆链接为：https://192.168.1.1:4433/web/，URL中/web/这个URL路径不能少，
 
 安装完成登录后，在「节点管理」页面中可看到管理端服务器上的默认节点，如下图：
 
