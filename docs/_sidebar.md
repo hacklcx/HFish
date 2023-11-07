@@ -6,7 +6,7 @@
   - [内网失陷感知应用建议](4-1-Intranet.md)
   - [外网威胁感知应用建议](4-2-extranet.md)
 - [快速部署](2-0-deploy.md)
-  - [当前版本](down.md)
+  - [发版说明](down.md)
   - [Linux下载部署](2-2-linux.md)
   - [Windows下载部署](2-3-windows.md)
   - [Docker下载部署](2-1-docker.md)
