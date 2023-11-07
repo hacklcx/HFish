@@ -6,7 +6,6 @@
   - [内网失陷感知应用建议](4-1-Intranet.md)
   - [外网威胁感知应用建议](4-2-extranet.md)
 - [快速部署](2-0-deploy.md)
-  - [机器性能要求](2-0-deploy.md)
   - [版本说明](down.md)
   - [Linux下载部署](2-2-linux.md)
   - [Windows下载部署](2-3-windows.md)
