@@ -20,7 +20,7 @@
 > ##### 根据节点设备类型选择对应的安装包和回连地址
 
 <img src="https://hfish.net/images/image-20210902172832815.png" alt="image-20210902172832815" style="zoom:33%;" />
-
+<p>
 <img src="https://hfish.net/images/image-20210902172916191.png" alt="image-20210902172916191" style="zoom:33%;" />
 
 > ##### 在节点机器执行命令语句或安装包，即可成功部署节点。
