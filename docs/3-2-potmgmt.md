@@ -8,7 +8,7 @@
 
 > ##### 点击单个节点，可直接对节点上的服务进行添加和删除 ##### 
 
-<img src="https://hfish.net/images/image-20210914120052175.png" alt="image-20210914120052175" style="zoom:50%;" />
+<img src="https://hfish.net/images/image-20210914120052175.png" alt="image-20210914120052175" style="zoom:33%;" />
 
 
 
@@ -18,7 +18,7 @@
 
 > ##### 进入【模版管理】页面，点击【新建模板】，输入模板名称，选择蜜罐服务，填写描述信息，点击【确定】保存
 
-<img src="https://hfish.net/images/image-20210914115931102.png" alt="image-20210914115931102" style="zoom:25%;" />
+<img src="https://hfish.net/images/image-20210914115931102.png" alt="image-20210914115931102" style="zoom:33%;" />
 
 > ##### 进入【节点管理】页面，展开具体节点，选择上面创建的蜜罐模板
 
@@ -31,7 +31,5 @@
 
 > #####  如果状态显示为【离线】，说明蜜罐服务没有正常启动，可将鼠标移动到问号上查看提示或请参考我们后面的【排错说明】
 
-<img src="https://hfish.net/images/20210616173129.png" alt="image-20210616173128526" width="2606" height="1482" ;" />
-
-
+<img src="https://hfish.net/images/20210616173129.png" alt="image-20210616173128526" style="zoom: 33%;" />
 
