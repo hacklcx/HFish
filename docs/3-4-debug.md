@@ -35,7 +35,6 @@ Windows管理端日志在C:\Users\Public\hfish\log文件夹内，文件名为ser
 > ##### 节点状态为红色离线 #####
 
 1. 检查节点到管理端的网络连通情况，以下是几种常见情况
-
 ```
 节点每60秒连接管理端的TCP/4434端口一次，180秒内连接不上即显示为离线。
 刚完成部署或网络不稳定的时候会出现显示为离线。
@@ -43,19 +42,17 @@ Windows管理端日志在C:\Users\Public\hfish\log文件夹内，文件名为ser
 ```
 
 2. 检查节点上的进程运行情况，如果进程运行异常，杀死全部关联进程后重启进程，并查看错误日志
-
 ```
 # 检查./client的进程是否运行正常
 ps ax | grep -E 'services|./client' | grep -v grep        
 ```
 
 3. 如果以上都没有问题，请将server和client日志提供给我们
-
 ```
 节点端日志在安装目录的logs目录内，文件名为client.log
 Linux管理端日志在/usr/share/hfish/log文件夹内，文件名为server.log
 Linux管理端日志在C:\Users\Public\hfish\log文件夹内，文件名为server.log
-​```
+```
 
 
 > ##### 节点在线，部分蜜罐服务在线，部分蜜罐服务离线 #####
