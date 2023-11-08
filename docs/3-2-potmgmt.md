@@ -31,7 +31,7 @@
 
 > #####  如果状态显示为【离线】，说明蜜罐服务没有正常启动，可将鼠标移动到问号上查看提示或请参考我们后面的【排错说明】
 
-<img src="https://hfish.net/images/20210616173129.png" alt="image-20210616173128526" style="zoom: 33%;" />
+<img src="https://hfish.net/images/20210616173129.png" alt="image-20210616173128526" width="2606" height="1482" ;" />
 
 
 
