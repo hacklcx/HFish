@@ -1,4 +1,4 @@
-### 卸载HFish
+#### 卸载HFish
 
 #### 卸载Linux管理端
 
@@ -105,24 +105,20 @@ root@HFish:~# kill -9 8435
 
 > ##### 删除管理端文件夹
 
-### 节点端
 
 
+#### 卸载Windows节点
 
-
-
-#### 2、删除Windows节点
-
-1、关闭计划任务 HFishClient
+> ##### 关闭计划任务 HFishClient
 
 <img src="https://hfish.net/images/image-20211206115017049.png" alt="image-20211206115017049" style="zoom: 33%;" />
 
-2、结束client进程
+> ##### 结束client进程
 
-在任务管理器，结束hfish和client的进程
+打开任务管理器，结束hfish和client的进程
 
 
-3、删除client文件夹
+> ##### 删除client文件夹
 
 文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
 
