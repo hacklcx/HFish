@@ -26,7 +26,7 @@ docker run -itd --name hfish \
 --privileged=true \
 threatbook/hfish-server:latest
 ```
-
+正常情况下返回如下内容：
 <img src="https://hfish.net/images/4351638188574_.pic_hd.jpg" alt="4351638188574_.pic_hd" style="zoom:50%;" />
 
 
