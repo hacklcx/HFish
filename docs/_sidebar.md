@@ -19,7 +19,7 @@
   - [版本升级](update.md)
   - [数据库选择](2-4-mariadb.md)
   - [联网和安全说明](2-5-env.md)
-- [快速使用](3-0-quickstart.md)
+- [快速使用]
   - [添加/删除节点](3-1-nodemgmt.md)
   - [添加/删除蜜罐](3-2-potmgmt.md)
   - [查看攻击](3-3-checkattack.md)

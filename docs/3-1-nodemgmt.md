@@ -6,9 +6,9 @@
 
 该节点将默认开启部分服务，包括FTP、SSH、Telnet、Zabbix监控系统、Nginx蜜罐、MySQL蜜罐、Redis蜜罐、HTTP代理蜜罐、ElasticSearch蜜罐和通用TCP端口监听。
 
-<img src="https://hfish.net/images/image-20210902210912371.png" alt="image-20210902210912371" style="zoom:50%;" />
-
 `注意：该节点不能被删除，但可以暂停。`
+
+<img src="https://hfish.net/images/image-20210902210912371.png" alt="image-20210902210912371" style="zoom:50%;" />
 
 
 #### 新增节点
