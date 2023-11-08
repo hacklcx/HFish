@@ -1,6 +1,6 @@
 #### 卸载HFish
 
-#### 卸载Linux管理端
+### 卸载Linux管理端
 
 > ##### 删除计划任务进程 ##### 
 
@@ -67,7 +67,7 @@ cut -d: -f2 | tr ' ' '\n' | xargs -I {} firewall-cmd --permanent --remove-port={
 root@HFish~# systemctl restart firewalld
 ```
 
-#### 卸载Linux节点
+### 卸载Linux节点
 
 > ##### 删除计划任务
 
@@ -90,7 +90,7 @@ root@HFish:~# kill -9 8435
 文件夹路径为按照自己的安装路径，client端没有全局配置，删除安装文件夹即可
 
 
-#### 卸载Windows管理端
+### 卸载Windows管理端
 
 > ##### 删除计划任务进程HFish管理端
 
@@ -107,7 +107,7 @@ root@HFish:~# kill -9 8435
 
 
 
-#### 卸载Windows节点
+### 卸载Windows节点
 
 > ##### 关闭计划任务 HFishClient
 
