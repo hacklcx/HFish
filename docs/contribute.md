@@ -28,7 +28,7 @@ HFish作为一款免费产品，一直受到大家的关照，实在是太感谢
 
 联系HFish工作人员提供安装包，我们将添加到此页文档中～
 
-<img src="http://img.threatbook.cn/hfish/image-20220510150725062.png" alt="image-20220510150725062" style="zoom:33%;" />
+![joinus](/images/joinus.png)
 
 
 `如有任何版权问题，请邮件honeypot@threatbook.cn，我们会在工作日24小时内回复相关问题。`

@@ -51,5 +51,5 @@ Github项目地址：https://github.com/hacklcx/HFish
 
 欢迎扫码加入HFish微信群：
 
-<img src="http://img.threatbook.cn/hfish/image-20220729162931543.png" style="zoom:33%;" />
+![joinus](/images/joinus.png)
 

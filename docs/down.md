@@ -22,5 +22,5 @@
 
 #### 联系我们
 
-<img src="https://hfish.net/images/image-20211221132836482.png" alt="image-20211221132836482" style="zoom:33%;" />
+![joinus](/images/joinus.png)
 

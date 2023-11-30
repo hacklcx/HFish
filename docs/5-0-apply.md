@@ -20,5 +20,5 @@
 
 其他场景和进阶使用需求，可以加入官方微信群讨论：
 
-![image-20220729162931543](http://img.threatbook.cn/hfish/image-20220729162931543.png)
+![joinus](/images/joinus.png)
 
