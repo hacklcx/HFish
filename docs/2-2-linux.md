@@ -43,7 +43,7 @@ URL中/web/路径不能少，
 
 > ##### 下载安装包：
 
-点击 [Linux AMD x86-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.4-linux-amd64.tgz) 获取安装包，以Linux 64位系统为例
+点击 [Linux AMD x86-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.5-linux-amd64.tgz) 获取安装包，以Linux 64位系统为例
 
 > ##### 创建一个目录用于后续存放解压缩文件
 
@@ -54,7 +54,7 @@ mkdir /home/user/hfish
 > ##### 将HFish安装文件解压到刚才创建的目录中
 
 ```
-tar zxvf hfish-3.3.4-linux-amd64.tgz -C /home/user/hfish
+tar zxvf hfish-3.3.5-linux-amd64.tgz -C /home/user/hfish
 ```
 
 > ##### 以root权限运行以下命令，确保配置防火墙开启TCP/4433、TCP/4434

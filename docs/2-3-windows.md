@@ -2,7 +2,7 @@
 
 Windows环境不支持一键部署管理端，用户需要手动部署。
 
-> ##### 下载安装包[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.3.4-windows-amd64.tgz) ##### 
+> ##### 下载安装包[HFish-Windows-amd64](https://hfish.cn-bj.ufileos.com/hfish-3.3.5-windows-amd64.tgz) ##### 
 
 > ##### 在防火墙上放行TCP/4433、TCP/4434端口出入双向流量 ##### 
 
