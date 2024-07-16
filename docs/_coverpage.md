@@ -2,7 +2,7 @@
 
 ![logo](https://hfish.net/images/logo.png ":size=200x202")
 
-# HFish <sup class="version">3.3.4</sup>
+# HFish <sup class="version">3.3.5</sup>
 
 # 安全、简单、有效的蜜罐平台 <sup class="version">永久免费</sup>
 
