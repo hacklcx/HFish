@@ -11,15 +11,6 @@
 对接威胁情报后，当HFish蜜罐捕获到了来自外网的攻击行为，HFish会把在云端查询到的情报在本地缓存3天，保持攻击情报时效性的同时，节省查询次数。
 
 
-> 对接微步在线云API（IP信誉接口）
-
-关于该接口完整的说明，可以参考[微步在线云API文档](https://x.threatbook.cn/nodev4/vb4/API)
-
-本接口在注册后可以获得每日50条云端情报的查询额度，给微步发送扩容邮件后，可以提升到每日200条的额度。详情访问[微步在线X社区](https://x.threatbook.cn/nodev4/vb4/article?threatInfoID=3101)。
-
-<img src="https://hfish.net/images/image-20210806093830870.png" alt="image-20210806093830870" style="zoom:50%;" />
-
-
 > 对接微步在线本地威胁情报管理平台（TIP）
 
 该接口对接微步商业产品本地威胁情报管理平台（TIP）
