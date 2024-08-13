@@ -53,4 +53,4 @@ HFish是北京微步在线科技有限公司旗下社区型免费蜜罐产品
 联系电话：400-030-1051
 ```
 
-![image-20220729162931543](http://img.threatbook.cn/hfish/image-20220729162931543.png)
+![image-joinus](https://github.com/hacklcx/HFish/blob/master/docs/images/joinus.png)
