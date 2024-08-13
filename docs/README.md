@@ -48,9 +48,5 @@ HFish各模块关系图
 #### 联系我们
 
 HFish是北京微步在线科技有限公司旗下社区型免费蜜罐产品
-```
-联系地址：北京市海淀区苏州街49号盈智大厦4层
-联系电话：400-030-1051
-```
 
 ![image-joinus](https://github.com/hacklcx/HFish/blob/master/docs/images/joinus.png)
