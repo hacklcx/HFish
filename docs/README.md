@@ -8,7 +8,9 @@ HFish支持基本网络 服务、OA系统、CRM系统、NAS存储系统、Web服
 
 用户需要先部署管理端，再通过管理端内置蜜罐节点或部署新节点：
 
-[Linux管理端下载](https://hfish.net/#/2-2-linux)
+[Linux AMD64 管理端下载](https://hfish.net/#/2-2-linux)
+
+[Linux ARM64 管理端下载](https://hfish.net/#/2-2-linux)
 
 [Windows管理端下载](https://hfish.net/#/2-3-windows)
 
