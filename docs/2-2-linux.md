@@ -43,8 +43,11 @@ URL中/web/路径不能少，
 
 > ##### 下载安装包：
 
-点击 [Linux AMD x86-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.5-linux-amd64.tgz) 获取安装包，以Linux 64位系统为例
-点击 [Linux ARM-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.5-linux-arm64.tgz) 获取安装包，以Linux 64位系统为例
+点击 [Linux AMD x86-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.5-linux-amd64.tgz) 获取安装包，
+
+点击 [Linux ARM-64安装包](https://hfish.cn-bj.ufileos.com/hfish-3.3.5-linux-arm64.tgz) 获取安装包，
+
+以下命令以Linux 64位系统为例。
 
 > ##### 创建一个目录用于后续存放解压缩文件
 
