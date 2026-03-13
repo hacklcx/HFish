@@ -7,20 +7,9 @@ HFish是一款社区型免费蜜罐，侧重企业安全场景，从内网失陷
 
 HFish是北京微步在线科技有限公司旗下社区型免费蜜罐产品
 
-![joinus](/images/joinus.png)
-
-
 HFish支持基本网络 服务、OA系统、CRM系统、NAS存储系统、Web服务器、运维平台、安全产品、无线AP、交换机/路由器、邮件系统、IoT设备等90多种蜜罐服务、支持用户制作自定义Web蜜罐、支持流量牵引到免费云蜜网、支持可开关的全端口扫描感知能力、支持可自定义的蜜饵配置、一键部署、跨平台多架构，支持Linux x32/x64/ARM、Windows x32/x64平台和多种国产操作系统、支持龙芯、海光、飞腾、鲲鹏、腾云、兆芯等国产CPU、极低的性能要求、邮件/syslog/webhook/企业微信/钉钉/飞书告警等多项特性，帮助用户降低运维成本，提升运营效率。
 
-用户需要先部署管理端，再通过管理端内置蜜罐节点或部署新节点：
-
-[Linux AMD64 管理端下载](https://hfish.net/#/2-2-linux)
-
-[Linux ARM64 管理端下载](https://hfish.net/#/2-2-linux)
-
-[Windows管理端下载](https://hfish.net/#/2-3-windows)
-
-[Docker镜像下载](https://hfish.net/#/2-1-docker)
+用户需要先部署管理端，再通过管理端内置蜜罐节点或部署新节点，访问官网：https://hfish.net
 
 如果有企业下载需求，您也可以前往[HFish文档区域](https://hfish.net/#/docs)下载部署文档方案。
 
